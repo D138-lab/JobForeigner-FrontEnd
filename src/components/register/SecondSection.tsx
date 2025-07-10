@@ -3,14 +3,22 @@ import { Dispatch } from 'react';
 import styles from './secondSection.module.scss';
 import InputField from '../common/field/InputField';
 import { useFormContext } from 'react-hook-form';
-import SelectField from '../common/field/SelectField';
-import {
-  nationalityValues,
-  sexValues,
-} from '@/lib/constants/registerSelectForm';
 import Button from '../common/button/Button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import RadioField from '../common/field/RadioField';
+
+export const genderValues = [
+  [
+    {
+      label: '남성',
+      value: 'male',
+    },
+    {
+      label: '여성',
+      value: 'female',
+    },
+  ],
+];
 
 interface Props {
   setProgress: Dispatch<SetStateAction<number>>;
@@ -20,9 +28,9 @@ export default function SecondSection({ setProgress }: Props) {
   const { control, trigger, watch } = useFormContext();
 
   const name = watch('name');
-  const sex = watch('sex');
+  const username = watch('username');
+  const gender = watch('gender');
   const phoneNumber = watch('phoneNumber');
-  const nationality = watch('nationality');
 
   const onClickPrevious = () => {
     setProgress(1);
@@ -31,12 +39,12 @@ export default function SecondSection({ setProgress }: Props) {
   const onClickNext = async () => {
     const isValid = await trigger([
       'name',
-      'sex',
+      'username',
+      'gender',
       'phoneNumber',
-      'nationality',
     ]);
 
-    if (isValid && name && sex && phoneNumber && nationality) {
+    if (isValid && name && username && gender && phoneNumber) {
       setProgress(3);
     }
   };
@@ -51,12 +59,19 @@ export default function SecondSection({ setProgress }: Props) {
         placeholder='이름을 입력해주세요.'
         required={true}
       />
+      <InputField
+        control={control}
+        name='username'
+        label='닉네임'
+        placeholder='닉네임을 입력해주세요.'
+        required={true}
+      />
       <RadioField
         control={control}
-        name='sex'
+        name='gender'
         label='성별'
         required={true}
-        options={sexValues}
+        options={genderValues}
       />
       <InputField
         control={control}
@@ -65,13 +80,6 @@ export default function SecondSection({ setProgress }: Props) {
         type='phone'
         placeholder='전화번호를 입력해주세요.'
         required={true}
-      />
-      <SelectField
-        control={control}
-        name='nationality'
-        label='국적'
-        required={true}
-        options={nationalityValues}
       />
       <div className={styles.actions}>
         <Button type='button' variant='outline' onClick={onClickPrevious}>

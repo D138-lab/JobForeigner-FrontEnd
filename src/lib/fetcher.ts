@@ -4,11 +4,17 @@ import axios, {
   AxiosResponse,
   AxiosError,
   HttpStatusCode,
+  InternalAxiosRequestConfig,
 } from 'axios';
 import { Mutex } from 'async-mutex';
 import { API_URL, LOCAL_STORAGE } from './constants';
 import { refreshAccessToken } from './refreshAccessToken';
 import camelcaseKeys from 'camelcase-keys';
+
+// 커스텀 설정 타입 정의
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+  skipAuth?: boolean;
+}
 
 // 기본 설정
 const defaultConfig: AxiosRequestConfig = {
@@ -26,9 +32,14 @@ const tokenRefreshMutex = new Mutex();
 // Axios 인스턴스 생성
 export const instance: AxiosInstance = axios.create(defaultConfig);
 
-// 요청 인터셉터: Authorization 헤더 자동 설정
+// 요청 인터셉터: Authorization 헤더 선택적 설정
 instance.interceptors.request.use(
-  config => {
+  (config: InternalAxiosRequestConfig) => {
+    // skipAuth가 true이면 Authorization 헤더를 설정하지 않음
+    if ((config as CustomAxiosRequestConfig).skipAuth) {
+      return config;
+    }
+
     const accessToken = window.localStorage.getItem(LOCAL_STORAGE.ACCESS_TOKEN);
     if (accessToken && config.headers) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -102,16 +113,16 @@ async function resultify<T>(promise: Promise<AxiosResponse<T>>): Promise<T> {
   return data;
 }
 
-// 편리한 호출기
+// 편리한 호출기 - skipAuth 옵션 추가
 export const fetcher = {
-  get: <T>(url: string, config?: AxiosRequestConfig) =>
+  get: <T>(url: string, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.get<T>(url, config)),
-  post: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
+  post: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.post<T>(url, data, config)),
-  put: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
+  put: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.put<T>(url, data, config)),
-  patch: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
+  patch: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.patch<T>(url, data, config)),
-  delete: <T>(url: string, config?: AxiosRequestConfig) =>
+  delete: <T>(url: string, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.delete<T>(url, config)),
 };

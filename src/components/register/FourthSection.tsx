@@ -6,9 +6,10 @@ import { ChevronLeft } from 'lucide-react';
 
 interface Props {
   setProgress: Dispatch<SetStateAction<number>>;
+  isPending: boolean;
 }
 
-export default function FourthSection({ setProgress }: Props) {
+export default function FourthSection({ setProgress, isPending }: Props) {
   const onClickPrevious = () => {
     setProgress(3);
   };
@@ -21,7 +22,9 @@ export default function FourthSection({ setProgress }: Props) {
           <ChevronLeft />
           이전
         </Button>
-        <Button type='submit'>가입하기</Button>
+        <Button type='submit' disabled={isPending}>
+          가입하기
+        </Button>
       </div>
     </div>
   );

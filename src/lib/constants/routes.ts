@@ -34,3 +34,12 @@ export const PATH = {
 
   NOT_FOUND: '*',
 } as const;
+
+export const END_POINTS = {
+  FOREIGNER_SIGN_UP: '/api/v1/members/sign-up/foreigner',
+  COMPANY_SIGN_UP: '/api/v1/members/sign-up/company',
+  COMPANY_SIGN_UP_VALIDATE: '/api/v1/members/sign-up/company/validate',
+  SIGN_IN: '/api/v1/members/sign-in',
+  SIGN_OUT: '/api/v1/members/sign-out',
+  REFRESH: '/token/refresh',
+};
