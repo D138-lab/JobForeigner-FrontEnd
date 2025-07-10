@@ -1,15 +1,16 @@
+import { API_URL, LOCAL_STORAGE } from './constants';
 import axios, {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-  AxiosError,
   HttpStatusCode,
   InternalAxiosRequestConfig,
 } from 'axios';
+
 import { Mutex } from 'async-mutex';
-import { API_URL, LOCAL_STORAGE } from './constants';
-import { refreshAccessToken } from './refreshAccessToken';
 import camelcaseKeys from 'camelcase-keys';
+import { refreshAccessToken } from './refreshAccessToken';
 
 // 커스텀 설정 타입 정의
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
@@ -19,7 +20,16 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 // 기본 설정
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,
-  transformResponse: [(data: any) => camelcaseKeys(data, { deep: true })],
+  transformResponse: [
+    (data: any) => {
+      try {
+        const parsed = JSON.parse(data);
+        return camelcaseKeys(parsed, { deep: true });
+      } catch {
+        return data;
+      }
+    },
+  ],
   timeout: 30_000,
   headers: {
     'Content-Type': 'application/json',
