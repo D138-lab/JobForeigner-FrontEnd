@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_URL, LOCAL_STORAGE } from './constants';
+import { END_POINTS } from './constants/routes';
 
 interface PostRefreshTokenResponse {
   accessToken: string;
@@ -13,7 +14,7 @@ const postRefreshToken = async (): Promise<
 
   if (refreshToken) {
     const response = await axios.post<{ data: PostRefreshTokenResponse }>(
-      `${API_URL}/리프레시토큰 API URL`,
+      `${API_URL}${END_POINTS.REFRESH}`,
       {
         refreshToken,
       },

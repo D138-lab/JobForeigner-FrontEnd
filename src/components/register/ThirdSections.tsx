@@ -2,15 +2,9 @@ import { SetStateAction } from 'react';
 import { Dispatch } from 'react';
 import styles from './thirdSection.module.scss';
 import { useFormContext } from 'react-hook-form';
-import SelectField from '../common/field/SelectField';
-import {
-  languageAbilityValues,
-  visaStatusValues,
-  interestValues,
-} from '@/lib/constants/registerSelectForm';
 import Button from '../common/button/Button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import CheckboxField from '../common/field/CheckboxField';
+import InputField from '../common/field/InputField';
 
 interface Props {
   setProgress: Dispatch<SetStateAction<number>>;
@@ -19,17 +13,24 @@ interface Props {
 export default function ThirdSection({ setProgress }: Props) {
   const { control, trigger, watch } = useFormContext();
 
-  const visaStatus = watch('visaStatus');
-  const languageAbility = watch('languageAbility');
+  const birthDate = watch('birthDate');
+  const address = watch('address');
+  const detailAddress = watch('detailAddress');
+  const zipcode = watch('zipcode');
 
   const onClickPrevious = () => {
     setProgress(2);
   };
 
   const onClickNext = async () => {
-    const isValid = await trigger(['visaStatus', 'languageAbility']);
+    const isValid = await trigger([
+      'birthDate',
+      'address',
+      'detailAddress',
+      'zipcode',
+    ]);
 
-    if (isValid && visaStatus && languageAbility) {
+    if (isValid && birthDate && address && detailAddress && zipcode) {
       setProgress(4);
     }
   };
@@ -37,23 +38,33 @@ export default function ThirdSection({ setProgress }: Props) {
   return (
     <div className={styles.container}>
       <h2>추가 정보</h2>
-      <SelectField
+      <InputField
         control={control}
-        name='visaStatus'
-        label='비자 상태'
-        options={visaStatusValues}
+        name='birthDate'
+        label='생년월일'
+        type='date'
+        required={true}
       />
-      <CheckboxField
+      <InputField
         control={control}
-        name='languageAbility'
-        label='언어능력'
-        options={languageAbilityValues}
+        name='address'
+        label='주소'
+        placeholder='주소를 입력하세요.'
+        required={true}
       />
-      <CheckboxField
+      <InputField
         control={control}
-        name='interests'
-        label='관심분야'
-        options={interestValues}
+        name='detailAddress'
+        label='상세주소'
+        placeholder='상세 주소를 입력하세요.'
+        required={true}
+      />
+      <InputField
+        control={control}
+        name='zipcode'
+        label='우편 번호'
+        placeholder='우편 번호를 입력하세요.'
+        required={true}
       />
       <div className={styles.actions}>
         <Button type='button' variant='outline' onClick={onClickPrevious}>

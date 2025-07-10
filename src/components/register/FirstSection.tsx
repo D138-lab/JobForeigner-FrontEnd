@@ -20,13 +20,7 @@ export default function FirstSection({ setProgress }: Props) {
   const onClickNext = async () => {
     const isValid = await trigger(['email', 'password', 'passwordConfirm']);
 
-    if (
-      isValid &&
-      email &&
-      password &&
-      passwordConfirm &&
-      password === passwordConfirm
-    ) {
+    if (isValid && email && password && passwordConfirm) {
       setProgress(2);
     }
   };
@@ -54,7 +48,7 @@ export default function FirstSection({ setProgress }: Props) {
         name='passwordConfirm'
         label='비밀번호 확인'
         type='password'
-        placeholder='비밀번호를 입력해주세요.'
+        placeholder='비밀번호를 다시 입력해주세요.'
         required={true}
       />
       <div className={styles.actions}>

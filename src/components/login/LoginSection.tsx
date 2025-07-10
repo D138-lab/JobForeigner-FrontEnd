@@ -6,7 +6,11 @@ import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 
-export default function LoginSection() {
+interface Props {
+  isPending: boolean;
+}
+
+export default function LoginSection({ isPending }: Props) {
   const { control } = useFormContext();
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -56,7 +60,7 @@ export default function LoginSection() {
         />
       )}
       <div className={styles.buttonContainer}>
-        <Button type='submit' size='medium'>
+        <Button type='submit' size='medium' disabled={isPending}>
           로그인
         </Button>
       </div>
