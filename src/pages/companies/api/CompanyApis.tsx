@@ -29,7 +29,13 @@ interface CompanyInfoDto {
   description: string;
 }
 
-interface JobPostDto {}
+interface JobPostDto {
+  jobPostId: number;
+  title: string;
+  location: string;
+  employmentType: string;
+  career: string;
+}
 
 interface SalaryInfoDto {
   averageSalary: string;
@@ -47,7 +53,20 @@ interface CompanyRatingDto {
   totalReviews: number;
 }
 
-interface ReviewDto {}
+interface ReviewDto {
+  ratingId: number;
+  salarySatisfaction: number;
+  salaryComment: string;
+  workLifeBalance: number;
+  workLifeComment: string;
+  organizationalCulture: number;
+  cultureComment: string;
+  welfare: number;
+  welfareComment: string;
+  jobStability: number;
+  stabilityComment: string;
+  reviewerName: string;
+}
 
 interface GetCompanyDetailInfoResponse {
   companyInfoDto: CompanyInfoDto;
@@ -107,7 +126,7 @@ export const useGetCompanyDetailInfo = (companyId: number) => {
       queryFn: async () => {
         const res = await fetcher.get<{
           success: boolean;
-          data: GetAllCompanyInfoResponse;
+          data: GetCompanyDetailInfoResponse;
         }>(`api/v1/companies/${companyId}`, { skipAuth: true });
         return res;
       },
