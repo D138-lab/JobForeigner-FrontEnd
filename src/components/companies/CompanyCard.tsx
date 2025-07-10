@@ -1,19 +1,20 @@
-import styles from './companyCard.module.scss';
-import { CompanyType } from './CompanyLists';
 import { Building2, MapPin, Users } from 'lucide-react';
+
+import { CompanyType } from './CompanyLists';
+import styles from './companyCard.module.scss';
 
 const CompanyCard = ({
   companyImg,
   companyName,
-  description,
   companyType,
+  description,
   address,
-  numOfEmployee,
+  employeeCount,
 }: CompanyType) => {
   return (
     <div className={styles.container}>
       <div className={styles.companyInfo}>
-        <img src={companyImg} alt={companyName} />
+        <img src={companyImg} alt='이미지없음' />
         <div className={styles.description}>
           <div className={styles.companyName}>{companyName}</div>
           <div className={styles.description}>{description}</div>
@@ -30,7 +31,7 @@ const CompanyCard = ({
         </div>
         <div className={styles.employeeNum}>
           <Users width='1.4rem' />
-          <span>{numOfEmployee}</span>
+          <span>{employeeCount}</span>
         </div>
       </div>
     </div>
