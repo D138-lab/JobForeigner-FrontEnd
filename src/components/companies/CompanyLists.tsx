@@ -37,7 +37,7 @@ const CompanyLists = () => {
           <Link
             to={`/companies/${ele.companyId}`}
             key={ele.companyId}
-            state={ele}
+            state={ele.companyId}
           >
             <CompanyCard
               key={ele.companyId}
