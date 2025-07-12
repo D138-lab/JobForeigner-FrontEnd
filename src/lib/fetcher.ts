@@ -17,6 +17,10 @@ export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   skipAuth?: boolean;
 }
 
+interface RetryableAxiosRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean;
+}
+
 // 기본 설정
 const defaultConfig: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -63,14 +67,16 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalConfig = error.config;
+    const originalConfig = error.config as RetryableAxiosRequestConfig;
     const response = error.response;
 
     if (
       response &&
       response.status === HttpStatusCode.Unauthorized &&
-      originalConfig
+      originalConfig &&
+      !originalConfig._retry
     ) {
+      originalConfig._retry = true;
       try {
         let accessToken: string | undefined;
 
