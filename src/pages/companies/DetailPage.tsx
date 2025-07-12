@@ -73,7 +73,7 @@ const DetailPage = () => {
             monthlySalary={+salaryInfo.monthlySalary}
           />
         )}
-        {selectedTab === '기업평점' && <RatingInfo />}
+        {selectedTab === '기업평점' && <RatingInfo {...companyRating} />}
         {selectedTab === '후기' && <ReviewInfo />}
       </div>
     </div>

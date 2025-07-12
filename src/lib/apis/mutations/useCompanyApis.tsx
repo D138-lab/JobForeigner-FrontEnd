@@ -43,7 +43,7 @@ interface SalaryInfoDto {
   monthlySalary: string;
 }
 
-interface CompanyRatingDto {
+export interface CompanyRatingDto {
   companyId: number;
   averageSalarySatisfaction: number;
   averageWorkLifeBalance: number;
