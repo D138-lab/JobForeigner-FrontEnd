@@ -42,4 +42,5 @@ export const END_POINTS = {
   SIGN_IN: '/api/v1/members/sign-in',
   SIGN_OUT: '/api/v1/members/sign-out',
   REFRESH: '/token/refresh',
+  MY_INFO: '/api/v1/members/me',
 };
