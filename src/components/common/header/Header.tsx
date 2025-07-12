@@ -1,14 +1,19 @@
 import { Link, NavLink } from 'react-router-dom';
-import styles from './header.module.scss';
-import { headerNavItems } from '@/lib/constants/navItems';
-import SearchForm from './SearchForm';
-import LanguageButton from './LanguageButton';
+
 import Button from '../button/Button';
+import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
+import SearchForm from './SearchForm';
+import { headerNavItems } from '@/lib/constants/navItems';
+import styles from './header.module.scss';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useTranslation } from 'react-i18next';
 
 export default function Header() {
   const { t } = useTranslation('common');
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
+  const logout = useAuthStore(state => state.logout);
+  const userImgUrl = useAuthStore(state => state.profileImageUrl);
 
   return (
     <div className={styles.header}>
@@ -32,12 +37,25 @@ export default function Header() {
       <div className={styles.right}>
         <SearchForm />
         <LanguageButton />
-        <Link to='/login'>
-          <Button variant='outline'>{t('login')}</Button>
-        </Link>
-        <Link to='/register'>
-          <Button>{t('signUp')}</Button>
-        </Link>
+        {!isLoggedIn ? (
+          <>
+            <Link to='/login'>
+              <Button variant='outline'>{t('login')}</Button>
+            </Link>
+            <Link to='/register'>
+              <Button>{t('signUp')}</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to='/profile' className={styles.profileBox}>
+              <img src={userImgUrl} alt='프로필' />
+            </Link>
+            <Button variant='outline' onClick={() => logout()}>
+              {t('로그아웃')}
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
