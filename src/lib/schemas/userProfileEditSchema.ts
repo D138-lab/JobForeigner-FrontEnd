@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { ERROR_MSG } from './error';
+import { z } from 'zod';
 
 export const userProfileEditSchema = z.object({
   phoneNumber: z
@@ -15,10 +15,18 @@ export const userProfileEditSchema = z.object({
   zipcode: z.string().min(1, { message: ERROR_MSG.required }),
 });
 
-export type LoginValues = z.infer<typeof userProfileEditSchema>;
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: ERROR_MSG.required })
+    .email({ message: ERROR_MSG.email }),
+  password: z.string().min(1, { message: ERROR_MSG.required }),
+});
+
+export type LoginValues = z.infer<typeof loginSchema>;
 
 export const validateLogin = (formData: FormData) => {
   const formValues = Object.fromEntries(formData.entries());
 
-  return userProfileEditSchema.safeParse(formValues);
+  return loginSchema.safeParse(formValues);
 };
