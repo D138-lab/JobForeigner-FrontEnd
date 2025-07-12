@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CompanyCard from './CompanyCard';
 import { Link } from 'react-router-dom';
 import styles from './companyList.module.scss';
-import { useGetAllCompanyInfo } from '@/pages/companies/api/CompanyApis';
+import { useGetAllCompanyInfo } from '@/lib/apis/mutations/useCompanyApis';
 
 export type CompanyType = {
   address: string;

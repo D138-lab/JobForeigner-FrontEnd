@@ -105,9 +105,7 @@ export const useGetAllCompanyInfo = (params?: GetCompanyQueryParams) => {
         const res = await fetcher.get<{
           success: boolean;
           data: GetAllCompanyInfoResponse;
-        }>(`/api/v1/companies${queryString ? `?${queryString}` : ''}`, {
-          skipAuth: true,
-        });
+        }>(`/api/v1/companies${queryString ? `?${queryString}` : ''}`);
 
         if (!res) {
           throw new Error('No data returned from API');
@@ -127,7 +125,7 @@ export const useGetCompanyDetailInfo = (companyId: number) => {
         const res = await fetcher.get<{
           success: boolean;
           data: GetCompanyDetailInfoResponse;
-        }>(`api/v1/companies/${companyId}`, { skipAuth: true });
+        }>(`api/v1/companies/${companyId}`);
         return res;
       },
     }),

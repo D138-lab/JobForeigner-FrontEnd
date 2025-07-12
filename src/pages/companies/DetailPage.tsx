@@ -1,11 +1,10 @@
 import CompanyInfoPage from './subPage/CompanyInfoPage';
-import { CompanyType } from '@/components/companies/CompanyLists';
 import RatingInfo from './subPage/RatingInfo';
 import RecruitInfo from './subPage/RecruitInfo';
 import ReviewInfo from './subPage/ReviewInfo';
 import SalaryInfo from './subPage/SalaryInfo';
 import styles from './detailPage.module.scss';
-import { useGetCompanyDetailInfo } from './api/CompanyApis';
+import { useGetCompanyDetailInfo } from '@/lib/apis/mutations/useCompanyApis';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
