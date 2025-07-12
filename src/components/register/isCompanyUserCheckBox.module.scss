@@ -1,0 +1,23 @@
+.container {
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  user-select: none;
+  gap: 1rem;
+  div {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+}
+
+.checked {
+  border-color: var(--color-green-300);
+  color: #0f5132;
+}
+
+.unchecked {
+  border-color: #ccc;
+  color: var(--color-gray-200);
+}

@@ -1,0 +1,37 @@
+import { LoginValues } from '@/lib/schemas/loginSchema';
+import { getMyInfo } from '@/lib/apis/mutations/useGetMyInfo';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import usePostSignin from '@/lib/apis/mutations/usePostSignin';
+
+export const useAuth = () => {
+  const {
+    login,
+    setName,
+    setType,
+    setPhoneNumber,
+    setEmail,
+    setProfileImageUrl,
+  } = useAuthStore();
+
+  const signinMutation = usePostSignin();
+
+  const loginAndFetchUser = async (values: LoginValues) => {
+    await signinMutation.mutateAsync(values);
+    login();
+
+    const response = await getMyInfo();
+    const user = response;
+    console.log('[useAuth] User Info:', user);
+
+    setName(user.name);
+    setType(user.type);
+    setPhoneNumber(user.phoneNumber);
+    setEmail(user.email);
+    setProfileImageUrl(user.profile_image_url);
+  };
+
+  return {
+    loginAndFetchUser,
+    ...signinMutation,
+  };
+};

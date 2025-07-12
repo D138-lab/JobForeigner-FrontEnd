@@ -13,7 +13,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { refreshAccessToken } from './refreshAccessToken';
 
 // 커스텀 설정 타입 정의
-interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   skipAuth?: boolean;
 }
 
@@ -127,8 +127,11 @@ async function resultify<T>(promise: Promise<AxiosResponse<T>>): Promise<T> {
 export const fetcher = {
   get: <T>(url: string, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.get<T>(url, config)),
-  post: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
-    resultify<T>(instance.post<T>(url, data, config)),
+  post: <T>(
+    url: string,
+    data?: unknown,
+    config?: CustomAxiosRequestConfig & { extractAccessToken?: boolean },
+  ) => resultify<T>(instance.post<T>(url, data, config)),
   put: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.put<T>(url, data, config)),
   patch: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
