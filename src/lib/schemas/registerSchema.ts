@@ -1,6 +1,6 @@
-import { z } from 'zod';
 import { ERROR_MSG } from './error';
 import { REGEX } from './regex';
+import { z } from 'zod';
 
 export const registerSchema = z
   .object({
@@ -15,7 +15,8 @@ export const registerSchema = z
       .string()
       .min(1, ERROR_MSG.required)
       .max(30, ERROR_MSG.exceed.thirty),
-    gender: z.string().min(1, ERROR_MSG.required),
+    gender: z.string().min(1, ERROR_MSG.required).toUpperCase(),
+    profileImageUrl: z.string().default('default'),
     phoneNumber: z
       .string()
       .min(1, ERROR_MSG.required)
