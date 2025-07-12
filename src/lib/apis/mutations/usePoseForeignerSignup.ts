@@ -1,6 +1,6 @@
 import { END_POINTS } from '@/lib/constants/routes';
-import { fetcher } from '@/lib/fetcher';
 import { RegisterValues } from '@/lib/schemas/registerSchema';
+import { fetcher } from '@/lib/fetcher';
 import { useMutation } from '@tanstack/react-query';
 
 interface PostForeignerSignupRequest
@@ -10,6 +10,7 @@ const postForeignerSignup = async (body: PostForeignerSignupRequest) => {
   return fetcher.post<PostForeignerSignupRequest>(
     END_POINTS.FOREIGNER_SIGN_UP,
     body,
+    { skipAuth: true },
   );
 };
 

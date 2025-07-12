@@ -1,16 +1,18 @@
-import Card from '@/components/common/card/Card';
-import styles from './page.module.scss';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import Progress from '@/components/common/progress/Progress';
+import { RegisterValues, registerSchema } from '@/lib/schemas/registerSchema';
+
+import Card from '@/components/common/card/Card';
 import FirstSection from '@/components/register/FirstSection';
+import FourthSection from '@/components/register/FourthSection';
+import Progress from '@/components/common/progress/Progress';
 import SecondSection from '@/components/register/SecondSection';
 import ThirdSection from '@/components/register/ThirdSections';
-import FourthSection from '@/components/register/FourthSection';
-import { FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, RegisterValues } from '@/lib/schemas/registerSchema';
+import { profile } from 'console';
+import styles from './page.module.scss';
 import usePostForeignerSignup from '@/lib/apis/mutations/usePoseForeignerSignup';
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const defaultValues = {
   email: '',
@@ -24,6 +26,7 @@ const defaultValues = {
   address: '',
   detailAddress: '',
   zipcode: '',
+  profileImageUrl: 'default',
 };
 
 export default function RegisterPage() {
