@@ -2,14 +2,16 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegisterValues, registerSchema } from '@/lib/schemas/registerSchema';
 
+import Button from '@/components/common/button/Button';
 import Card from '@/components/common/card/Card';
 import FirstSection from '@/components/register/FirstSection';
 import FourthSection from '@/components/register/FourthSection';
+import IsCompanyUserCheckBox from '@/components/register/IsCompanyUser.CheckBox';
 import Progress from '@/components/common/progress/Progress';
 import SecondSection from '@/components/register/SecondSection';
 import ThirdSection from '@/components/register/ThirdSections';
-import { profile } from 'console';
 import styles from './page.module.scss';
+import usePostCompanyUserSignup from '@/lib/apis/mutations/usePostCompanyUserSignup';
 import usePostForeignerSignup from '@/lib/apis/mutations/usePoseForeignerSignup';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,22 +34,34 @@ const defaultValues = {
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(1);
+  const [isCompanyUser, setIsCompanyUser] = useState(false);
   const formState = useForm({
     defaultValues,
     resolver: zodResolver(registerSchema),
   });
-  const { mutate, error, isPending, isError } = usePostForeignerSignup();
+  const foreignerSignup = usePostForeignerSignup();
+  const companyUserSignup = usePostCompanyUserSignup();
+  const isPending = isCompanyUser
+    ? companyUserSignup.isPending
+    : foreignerSignup.isPending;
 
   const onSubmit = (data: RegisterValues) => {
     const { passwordConfirm, ...registerInfo } = data;
-    mutate(registerInfo);
-    console.log(
-      `회원 가입 시도: ${registerInfo.email}, 에러: ${error} ${isError}`,
-    );
-
-    if (!isError) {
-      navigate('/');
+    if (isCompanyUser) {
+      companyUserSignup.mutate(registerInfo, {
+        onSuccess: () => navigate('/'),
+        onError: err => console.error('기업 회원가입 실패:', err),
+      });
+    } else {
+      foreignerSignup.mutate(registerInfo, {
+        onSuccess: () => navigate('/'),
+        onError: err => console.error('외국인 회원가입 실패:', err),
+      });
     }
+
+    console.log(
+      `회원 가입 시도: ${registerInfo.email}, 기업 사용자: ${isCompanyUser}`,
+    );
   };
 
   const onError = (error: unknown) => {
@@ -66,6 +80,10 @@ export default function RegisterPage() {
           <span>{progress} / 4 단계</span>
           <Progress value={progress * 25} />
         </div>
+        <IsCompanyUserCheckBox
+          checked={isCompanyUser}
+          onChange={setIsCompanyUser}
+        />
         <Card>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
