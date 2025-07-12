@@ -13,9 +13,11 @@ const postSignin = async (body: LoginValues) => {
 
   const response = await instance.post(END_POINTS.SIGN_IN, body, config);
 
-  const accessToken = response.headers['authorization'];
-  if (accessToken) {
-    localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, accessToken);
+  const rawAuthorization = response.headers['authorization'];
+
+  if (rawAuthorization && rawAuthorization.startsWith('Bearer ')) {
+    const token = rawAuthorization.replace('Bearer ', '');
+    localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, token);
   }
 
   return response.data;
