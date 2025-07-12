@@ -27,6 +27,7 @@ interface CompanyInfoDto {
   url: string;
   ceoName: string;
   description: string;
+  welfare: string;
 }
 
 interface JobPostDto {

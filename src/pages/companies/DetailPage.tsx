@@ -22,6 +22,12 @@ const DetailPage = () => {
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
+  if (isError) {
+    console.error('에러 발생:', error);
+    return <div>기업 정보를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  console.log('기업 상세 정보:', data);
 
   const companyInfo = data.data.companyInfoDto;
   const jobPost = data.data.jobPostDto;
@@ -57,7 +63,7 @@ const DetailPage = () => {
             description={companyInfo.description}
             homepageUrl={companyInfo.url}
             numOfEmployee={companyInfo.employeeCount}
-            benefits={'복지'}
+            benefits={companyInfo.welfare}
           />
         )}
         {selectedTab === '채용' && <RecruitInfo />}
