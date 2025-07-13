@@ -19,12 +19,9 @@ const getLevel = (score: number) => {
 const RatingInfo = ({
   averageJobStability,
   averageOrganizationalCulture,
-  averageRating,
   averageSalarySatisfaction,
   averageWelfare,
   averageWorkLifeBalance,
-  companyId,
-  totalReviews,
 }: CompanyRatingDto) => {
   const data: RatingInfoType[] = [
     {
