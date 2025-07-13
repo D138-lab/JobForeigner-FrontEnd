@@ -13,7 +13,7 @@ const useGetUserProfileInfo = () => {
   return {
     ...useQuery({
       queryKey: ['userProfileInfo'],
-      queryFn: async () =>
+      queryFn: () =>
         fetcher.get<GetUserProfileInfoResponse>('/api/v1/members/me'),
     }),
   };

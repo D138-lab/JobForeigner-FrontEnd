@@ -15,7 +15,7 @@ const useGetRecruits = () => {
   return {
     ...useQuery({
       queryKey: ['getRecruits'],
-      queryFn: async () =>
+      queryFn: () =>
         fetcher.get<{ success: boolean; data: GetRecruitsResponse }>(
           '/api/v1/job-posts',
         ),
