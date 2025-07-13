@@ -1,31 +1,32 @@
 .container {
-	height: 10rem;
-	margin: 1rem;
-	padding: 1.4rem;
-	border: 1px solid var(--color-gray-200);
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: start;
-	gap: 1rem;
+  // height: 10rem;
+  margin: 1rem;
+  padding: 1.4rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
 }
 
 .topLine {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
 }
 
 .title {
-	font-size: 1.5em;
-	font-weight: bold;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .value {
-	font-size: 1.8em;
-	font-weight: bold;
-	color: var(--color-blue-700);
+  font-size: 3em;
+  font-weight: bold;
+  color: var(--color-blue-700);
 }
