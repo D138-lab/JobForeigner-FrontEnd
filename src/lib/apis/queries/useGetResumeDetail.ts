@@ -15,7 +15,7 @@ const useGetResumeDetail = (resumeId: number) => {
   return {
     ...useQuery({
       queryKey: ['resumes', resumeId],
-      queryFn: () =>
+      queryFn: async () =>
         fetcher.get<GetResumeDetailResponse>(`/api/v1/resumes/${resumeId}`),
       enabled: !!resumeId,
     }),
