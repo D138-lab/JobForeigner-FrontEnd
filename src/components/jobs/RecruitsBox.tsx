@@ -1,89 +1,83 @@
-import RecruitBar from './RecruitBar';
+import RecruitBox, { RecruitInfoType } from './RecruitBox';
+
 import styles from './recruitsBox.module.scss';
 
-const recruitDummyData = [
-  {
-    id: 1,
-    title: 'Frontend Developer',
-    company: 'Google',
-    location: 'Mountain View, CA',
-    salary: '$120,000 - $150,000',
-    date: '1 day ago',
-    rate: 4.5,
-    recruitType: '정규직',
-  },
+const recruitDummyData: RecruitInfoType[] = [
   {
     id: 2,
-    title: 'Backend Developer',
-    company: 'Amazon',
-    location: 'Seattle, WA',
-    salary: '$110,000 - $140,000',
-    date: '2 days ago',
-    rate: 4.2,
-    recruitType: '정규직',
+    title: 'Frontend 개발자 (React)',
+    description:
+      '네이버 쇼핑 프론트엔드 개발을 담당합니다. React.js 및 TypeScript 경험이 필수입니다.',
+    location: '서울특별시 강남구',
+    employment_type: '정규직',
+    salary: '연봉 4500만원 ~ 8000만원',
+    career: '경력 1년 이상',
+    published: 'SUBMITTED',
+    expiryAt: '2025-08-25T23:59:59',
+    grade: '사원~대리',
   },
   {
     id: 3,
-    title: 'Full Stack Engineer',
-    company: 'Facebook',
-    location: 'Menlo Park, CA',
-    salary: '$130,000 - $160,000',
-    date: '3 days ago',
-    rate: 4.7,
-    recruitType: '인턴',
+    title: '백엔드 개발자 (Node.js/NestJS)',
+    description:
+      '사내 ERP 시스템 백엔드 유지보수 및 신규 개발을 담당합니다. Node.js와 NestJS 프레임워크에 대한 이해가 필요합니다.',
+    location: '부산광역시 해운대구',
+    employment_type: '정규직',
+    salary: '연봉 4000만원 ~ 7000만원',
+    career: '경력 3년 이상',
+    published: 'SUBMITTED',
+    expiryAt: '2025-08-30T23:59:59',
+    grade: '대리~과장',
   },
   {
     id: 4,
-    title: 'UI/UX Designer',
-    company: 'Apple',
-    location: 'Cupertino, CA',
-    salary: '$100,000 - $130,000',
-    date: '5 days ago',
-    rate: 4.3,
-    recruitType: '인턴',
+    title: '데이터 엔지니어 (Python/Spark)',
+    description:
+      '대용량 로그 데이터를 수집하고 처리하는 데이터 파이프라인 구축 및 운영을 담당합니다.',
+    location: '대전광역시 유성구',
+    employment_type: '정규직',
+    salary: '연봉 5500만원 ~ 9500만원',
+    career: '경력 2년 이상',
+    published: 'SUBMITTED',
+    expiryAt: '2025-09-05T23:59:59',
+    grade: '사원~선임',
   },
   {
     id: 5,
-    title: 'Data Scientist',
-    company: 'Microsoft',
-    location: 'Redmond, WA',
-    salary: '$125,000 - $155,000',
-    date: '1 week ago',
-    rate: 4.6,
-    recruitType: '정규직',
+    title: '백엔드 개발자 (Go/Kubernetes)',
+    description:
+      '마이크로서비스 아키텍처 기반 백엔드 시스템 개발 및 클라우드 인프라 운영을 담당합니다.',
+    location: '서울특별시 구로구',
+    employment_type: '정규직',
+    salary: '연봉 6000만원 ~ 10000만원',
+    career: '경력 4년 이상',
+    published: 'SUBMITTED',
+    expiryAt: '2025-08-28T23:59:59',
+    grade: '대리~책임',
   },
   {
     id: 6,
-    title: 'DevOps Engineer',
-    company: 'Netflix',
-    location: 'Los Gatos, CA',
-    salary: '$115,000 - $145,000',
-    date: '2 weeks ago',
-    rate: 4.4,
-    recruitType: '정규직',
+    title: 'AI 백엔드 개발자 (Python/FastAPI)',
+    description:
+      'AI 모델 서빙을 위한 REST API 백엔드 개발을 담당합니다. FastAPI, Python, Docker 경험이 요구됩니다.',
+    location: '경기도 수원시 영통구',
+    employment_type: '정규직',
+    salary: '연봉 5000만원 ~ 8500만원',
+    career: '경력 2년 이상',
+    published: 'SUBMITTED',
+    expiryAt: '2025-09-10T23:59:59',
+    grade: '사원~선임',
   },
 ];
 
-const RecruitBox = () => {
+const RecruitsBox = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.tableHead}>
-        <div></div>
-        <div>제목</div>
-        <div>회사</div>
-        <div>근무지</div>
-        <div>급여</div>
-        <div>등록일</div>
-        <div>평점</div>
-        <div>고용형태</div>
-      </div>
-      <div className={styles.recruitsBox}>
-        {recruitDummyData.map(recruit => (
-          <RecruitBar key={recruit.id} {...recruit} />
-        ))}
-      </div>
+      {recruitDummyData.map(recruit => (
+        <RecruitBox key={recruit.id} {...recruit} />
+      ))}
     </div>
   );
 };
 
-export default RecruitBox;
+export default RecruitsBox;

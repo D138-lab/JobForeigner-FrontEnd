@@ -1,14 +1,15 @@
-import Button from '../common/button/Button';
-import styles from './detailInfoBox.module.scss';
-import { RecruitInfoType } from './RecruitBar';
 import {
-  MapPin,
-  UsersRound,
   Briefcase,
   Building2,
   Clock,
+  MapPin,
   Star,
+  UsersRound,
 } from 'lucide-react';
+
+import Button from '../common/button/Button';
+import { RecruitInfoType } from './RecruitBox';
+import styles from './detailInfoBox.module.scss';
 
 const DetailInfoBox = ({
   title,

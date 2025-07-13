@@ -1,11 +1,11 @@
-import DetailInfoBox from '@/components/jobs/DetailInfoBox';
-import styles from './detailPage.module.scss';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { RecruitInfoType } from '@/components/jobs/RecruitBar';
 import AdvertiseRecruitBox from '@/components/jobs/AdvertiseRecruitBox';
-import RecruitContent from '@/components/jobs/RecruitContent';
 import ApplyTab from '@/components/jobs/ApplyTab';
+import DetailInfoBox from '@/components/jobs/DetailInfoBox';
+import RecruitContent from '@/components/jobs/RecruitContent';
+import { RecruitInfoType } from '@/components/jobs/RecruitBox';
+import styles from './detailPage.module.scss';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const DetailPage = () => {
   const location = useLocation();
