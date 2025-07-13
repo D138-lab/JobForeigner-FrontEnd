@@ -1,4 +1,4 @@
-import { DollarSign, MapPin, Star, StarOff, Timer, User } from 'lucide-react';
+import { DollarSign, MapPin, Star, Timer, User } from 'lucide-react';
 
 import Button from '../common/button/Button';
 import { Link } from 'react-router-dom';
@@ -10,12 +10,13 @@ export interface RecruitInfoType {
   title: string;
   description: string;
   location: string;
-  employment_type: string;
+  employmentType: string;
   salary: string;
   career: string;
   published: string;
   expiryAt: string;
   grade: string;
+  companyName: string;
 }
 
 const RecruitBox = ({
@@ -23,12 +24,13 @@ const RecruitBox = ({
   title,
   description,
   location,
-  employment_type,
+  employmentType,
   salary,
   career,
   published,
   expiryAt,
   grade,
+  companyName,
 }: RecruitInfoType) => {
   const [isScraped, setIsScraped] = useState(false);
   const handleScrap = () => {
@@ -40,6 +42,7 @@ const RecruitBox = ({
       <div className={styles.topBar}>
         <div className={styles.title}>{title}</div>
         <Star
+          style={{ width: 20, height: 20, flexShrink: 0 }}
           className={isScraped ? styles.scraped : styles.noscraped}
           onClick={handleScrap}
         />
@@ -52,8 +55,8 @@ const RecruitBox = ({
         }}
       >
         <div className={styles.subRow}>
-          <div>기업명</div>
-          <div className={styles.employmentType}>{employment_type}</div>
+          <div>{companyName}</div>
+          <div className={styles.employmentType}>{employmentType}</div>
         </div>
         <div className={styles.description}>{description}</div>
         <div className={styles.datailInfo}>
