@@ -78,6 +78,7 @@ const RecruitBox = ({
         </div>
       </Link>
       <div className={styles.btnBox}>
+        <div className={styles.published}>{published}</div>
         <Button>지원하기</Button>
       </div>
     </div>
