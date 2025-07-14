@@ -12,10 +12,12 @@ import {
 import Button from '../common/button/Button';
 import ScrapButton from '../recruitment/ScrapButton';
 import styles from './detailInfoBox.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface DetailRecruitResponse {
   id: number;
   title: string;
+  companyId: number;
   companyName: string;
   description: string;
   location: string;
@@ -31,6 +33,7 @@ interface DetailRecruitResponse {
 const DetailInfoBox = ({
   id,
   title,
+  companyId,
   companyName,
   location,
   employmentType,
@@ -40,6 +43,7 @@ const DetailInfoBox = ({
   isScrapped,
   expiryAt,
 }: DetailRecruitResponse) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.topBox}>
@@ -90,7 +94,9 @@ const DetailInfoBox = ({
       <div className={styles.buttons}>
         <ScrapButton id={id} initial={isScrapped} />
 
-        <Button>기업 정보 보러가기</Button>
+        <Button onClick={() => navigate(`/companies/${companyId}`)}>
+          기업 정보 보러가기
+        </Button>
       </div>
     </div>
   );
