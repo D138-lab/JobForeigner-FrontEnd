@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 interface GetDetailRecruitResponse {
   id: number;
   title: string;
+  companyId: number;
   companyName: string;
   description: string;
   location: string;
