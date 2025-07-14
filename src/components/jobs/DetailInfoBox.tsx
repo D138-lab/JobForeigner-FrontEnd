@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 
 import Button from '../common/button/Button';
+import ScrapButton from '../recruitment/ScrapButton';
 import styles from './detailInfoBox.module.scss';
 
 interface DetailRecruitResponse {
@@ -28,6 +29,7 @@ interface DetailRecruitResponse {
 }
 
 const DetailInfoBox = ({
+  id,
   title,
   companyName,
   location,
@@ -86,7 +88,8 @@ const DetailInfoBox = ({
       </div>
 
       <div className={styles.buttons}>
-        <Button>{isScrapped ? '스크랩 취소' : '스크랩하기'}</Button>
+        <ScrapButton id={id} initial={isScrapped} />
+
         <Button>기업 정보 보러가기</Button>
       </div>
     </div>

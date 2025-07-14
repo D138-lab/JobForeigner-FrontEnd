@@ -86,16 +86,11 @@
     border-radius: 10px;
     text-align: center;
   }
-  & > :first-child {
-    width: 100%;
-    background-color: var(--color-purple-700);
-    color: white;
-  }
-  & > :nth-child(2),
-  & > :nth-child(3) {
+  & > button {
     width: 100%;
     background-color: white;
     color: black;
     border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
   }
 }
