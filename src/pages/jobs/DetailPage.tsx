@@ -1,22 +1,36 @@
 import AdvertiseRecruitBox from '@/components/jobs/AdvertiseRecruitBox';
 import ApplyTab from '@/components/jobs/ApplyTab';
+import DOMPurify from 'dompurify';
 import DetailInfoBox from '@/components/jobs/DetailInfoBox';
-import RecruitContent from '@/components/jobs/RecruitContent';
-import { RecruitInfoType } from '@/components/jobs/RecruitBox';
 import styles from './detailPage.module.scss';
+import useGetDetailRecruitInfo from '@/lib/apis/queries/useGetDetailRecruitInfo';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
 
 const DetailPage = () => {
   const location = useLocation();
-  const [data] = useState<RecruitInfoType>(location.state);
+  const id = location.state.id;
+  const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
+
+  if (isLoading) {
+    return <div>로딩 중</div>;
+  }
+  if (isError) {
+    return <div>에러 발생</div>;
+  }
 
   return (
     <div className={styles.container}>
-      <DetailInfoBox {...data} />
+      <DetailInfoBox
+        {...data!.data}
+        expiryAt={data!.data.expiryAt.toLocaleString()}
+      />
       <AdvertiseRecruitBox />
-      <RecruitContent />
-      <ApplyTab key={data.id} recruitId={data.id} />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(data!.data.description),
+        }}
+      ></div>
+      <ApplyTab key={data?.data.id} recruitId={data?.data.id!} />
     </div>
   );
 };
