@@ -1,64 +1,102 @@
-import Button from '../common/button/Button';
-import styles from './detailInfoBox.module.scss';
-import { RecruitInfoType } from './RecruitBar';
 import {
-  MapPin,
-  UsersRound,
   Briefcase,
   Building2,
   Clock,
-  Star,
+  Contact,
+  DollarSign,
+  GraduationCap,
+  MapPin,
+  UsersRound,
 } from 'lucide-react';
 
+import Button from '../common/button/Button';
+import ScrapButton from '../recruitment/ScrapButton';
+import styles from './detailInfoBox.module.scss';
+import { useNavigate } from 'react-router-dom';
+
+interface DetailRecruitResponse {
+  id: number;
+  title: string;
+  companyId: number;
+  companyName: string;
+  description: string;
+  location: string;
+  employmentType: string;
+  salary: string;
+  career: string;
+  published: string;
+  grade: string;
+  isScrapped: boolean;
+  expiryAt: string;
+}
+
 const DetailInfoBox = ({
+  id,
   title,
-  company,
+  companyId,
+  companyName,
   location,
-  date,
-  rate,
-  recruitType,
-}: RecruitInfoType) => {
+  employmentType,
+  salary,
+  career,
+  grade,
+  isScrapped,
+  expiryAt,
+}: DetailRecruitResponse) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.topBox}>
         <div className={styles.recruitInfoBox}>
           <div className={styles.title}>{title}</div>
           <div className={styles.recruitInfo}>
-            <div>
-              <MapPin width={15} />
-              {location}
+            <div className={styles.firstFloor}>
+              <div>
+                <MapPin width={15} />
+                {location}
+              </div>
+              <div>
+                <UsersRound width={15} />
+                1000+
+              </div>
+              <div>
+                <Briefcase width={15} />
+                {employmentType}
+              </div>
+              <div>
+                <Building2 width={15} />
+                {companyName}
+              </div>
             </div>
-            <div>
-              <UsersRound width={15} />
-              1000+
-            </div>
-            <div>
-              <Briefcase width={15} />
-              {recruitType}
-            </div>
-            <div>
-              <Building2 width={15} />
-              {company}
-            </div>
-            <div>
-              <Clock width={15} />
-              {date}
+            <div className={styles.secondFloor}>
+              <div>
+                <Contact width={15} />
+                {career}
+              </div>
+              <div>
+                <GraduationCap width={15} />
+                {grade}
+              </div>
+              <div>
+                <DollarSign width={15} />
+                {salary}
+              </div>
+              <div>
+                <Clock width={15} />
+                {expiryAt}
+              </div>
             </div>
           </div>
         </div>
-        <div className={styles.scores}>
-          <div className={styles.rate}>
-            <Star className={styles.starIcon} />
-            {rate}
-          </div>
-          <div className={styles.review}>리뷰 11</div>
-        </div>
+        <img src='/' alt='채용공고 이미지' />
       </div>
 
       <div className={styles.buttons}>
-        <Button>관심기업 등록</Button>
-        <Button>리뷰 보기</Button>
-        <Button>스크랩하기</Button>
+        <ScrapButton id={id} initial={isScrapped} />
+
+        <Button onClick={() => navigate(`/companies/${companyId}`)}>
+          기업 정보 보러가기
+        </Button>
       </div>
     </div>
   );
