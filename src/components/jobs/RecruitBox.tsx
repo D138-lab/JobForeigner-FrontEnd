@@ -58,7 +58,6 @@ const RecruitBox = ({
           <div>{companyName}</div>
           <div className={styles.employmentType}>{employmentType}</div>
         </div>
-        <div className={styles.description}>{description}</div>
         <div className={styles.datailInfo}>
           <div className={styles.locationBox}>
             <MapPin size={15} className={styles.icon} />
