@@ -1,26 +1,29 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import ResumeBox from '@/components/jobs/ResumeBox';
 import styles from './selectResume.module.scss';
 import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
+import usePostApplyRecruit from '@/lib/apis/mutations/usePostApplyRecruit';
 import { useState } from 'react';
-
-type IdType = number | null;
 
 const SelectResume = () => {
   const { data, isPending, isError, error } = useGetResumeList();
-  const [selected, setSelected] = useState<IdType>(null);
+  const { mutate } = usePostApplyRecruit();
+  const locate = useLocation();
+  const [selected, setSelected] = useState<number>(0);
   const navigator = useNavigate();
+  const jobPostId = locate.state.recruitId;
 
   if (isPending) return <div>요청 중</div>;
   if (isError) return <div>{error.message}</div>;
   console.log('이력서 : ', data);
 
-  const handleSelected = (id: IdType) => {
+  const handleSelected = (id: number) => {
     setSelected(id);
   };
 
-  const handleApply = (id: IdType) => {
+  const handleApply = (id: number) => {
+    mutate({ jobPostId: jobPostId, resumeId: id });
     navigator('/apply-success', { state: { id: id } });
   };
 
