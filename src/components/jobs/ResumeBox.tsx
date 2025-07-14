@@ -16,12 +16,9 @@ import { ResumeListItem } from '@/lib/apis/queries/useGetResumeList';
 import dayjs from 'dayjs';
 import styles from './resumeBox.module.scss';
 
-export interface ResumeProps {
-  id: number;
-  title: string;
-  editedAt: string;
-  status: ResumeStatus;
+export interface ResumeProps extends ResumeListItem {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  selected: boolean;
 }
 
 export type ResumeStatus = '작성 완료' | '작성 중';
@@ -39,9 +36,16 @@ const ResumeBox = ({
   portfolios,
   skills,
   updatedAt,
-}: ResumeListItem) => {
+  onClick,
+  selected,
+}: ResumeProps) => {
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        selected ? styles.selected : styles.unselected
+      }`}
+      onClick={onClick}
+    >
       <div className={styles.topBar}>
         <div className={styles.leftTab}>
           <div className={styles.userIconBox}>

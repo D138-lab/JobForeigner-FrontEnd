@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface ResumeListItem {
+export interface ResumeListItem {
   resumeId: number;
   createdAt: string;
   updatedAt: string;

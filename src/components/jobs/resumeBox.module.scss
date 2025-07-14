@@ -106,3 +106,7 @@
     color: var(--color-gray-700);
   }
 }
+
+.selected {
+  border: 2px solid var(--color-purple-400);
+}
