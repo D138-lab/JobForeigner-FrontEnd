@@ -10,6 +10,7 @@ const DetailPage = () => {
   const location = useLocation();
   const id = location.state.id;
   const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
+  console.log(data);
 
   if (isLoading) {
     return <div>로딩 중</div>;
@@ -30,7 +31,11 @@ const DetailPage = () => {
           __html: DOMPurify.sanitize(data!.data.description),
         }}
       ></div>
-      <ApplyTab key={data?.data.id} recruitId={data?.data.id!} />
+      <ApplyTab
+        key={data?.data.id}
+        recruitId={data?.data.id!}
+        expiryAt={data?.data.expiryAt!}
+      />
     </div>
   );
 };
