@@ -7,83 +7,35 @@ import Input from '@/components/common/input/Input';
 import Select from '@/components/common/select/Select';
 import ResumeCard from '@/components/profile/resume/ResumeCard';
 import { Resume } from '@/lib/type/profile/resume';
+import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
 
 export default function ResumeListPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // 이력서 가짜 데이터
-  const resumes: Resume[] = [
-    {
-      id: 1,
-      title: '프론트엔드 개발자 이력서',
-      createdAt: '2024-03-10',
-      updatedAt: '2024-03-15',
-      status: 'completed',
-    },
-    {
-      id: 2,
-      title: '백엔드 개발자 이력서',
-      createdAt: '2024-02-05',
-      updatedAt: '2024-02-12',
-      status: 'progressing',
-    },
-    {
-      id: 3,
-      title: 'React 개발자 (경력) 이력서',
-      createdAt: '2024-01-20',
-      updatedAt: '2024-02-01',
-      status: 'completed',
-    },
-    {
-      id: 4,
-      title: '신입 개발자 이력서',
-      createdAt: '2024-02-28',
-      updatedAt: '2024-03-02',
-      status: 'completed',
-    },
-    {
-      id: 5,
-      title: '풀스택 개발자 이력서',
-      createdAt: '2024-03-01',
-      updatedAt: '2024-03-07',
-      status: 'progressing',
-    },
-    {
-      id: 6,
-      title: '외국계 기업 지원용 이력서(영문)',
-      createdAt: '2024-01-10',
-      updatedAt: '2024-01-15',
-      status: 'completed',
-    },
-    {
-      id: 7,
-      title: '디자인 직무 이력서',
-      createdAt: '2023-12-25',
-      updatedAt: '2024-01-01',
-      status: 'progressing',
-    },
-    {
-      id: 8,
-      title: 'PM/기획 직무 이력서',
-      createdAt: '2024-02-14',
-      updatedAt: '2024-02-18',
-      status: 'completed',
-    },
-    {
-      id: 9,
-      title: 'QA/테스터 직무 이력서',
-      createdAt: '2023-12-10',
-      updatedAt: '2023-12-12',
-      status: 'progressing',
-    },
-    {
-      id: 10,
-      title: 'AI 연구원 이력서',
-      createdAt: '2024-03-15',
-      updatedAt: '2024-03-15',
-      status: 'completed',
-    },
-  ];
+  // API에서 이력서 목록 가져오기
+  const { data: resumeListData, isLoading, error } = useGetResumeList();
+
+  // API 응답 로그 출력
+  console.log('이력서 목록 API 응답:', resumeListData);
+  console.log('로딩 상태:', isLoading);
+  console.log('에러 상태:', error);
+
+  // 실제 API 데이터 → 리스트 아이템 데이터 형식으로 매핑
+  const resumeList: Resume[] =
+    resumeListData?.data?.content?.map(
+      (item: any): Resume => ({
+        id: item.resumeId,
+        title: item.jobPreference?.desiredJob || '이력서',
+        createdAt: item.createdAt?.slice(0, 10) || '',
+        updatedAt: item.updatedAt?.slice(0, 10) || '',
+        status: 'completed', // TODO: 필요시 조건 분기
+      }),
+    ) ?? [];
+
+  // 검색어 필터 적용
+  const filteredResumes = resumeList.filter(r =>
+    r.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <div className={styles.pageContainer}>
@@ -138,8 +90,10 @@ export default function ResumeListPage() {
 
       {/* 이력서 목록 */}
       <div className={styles.resumeList}>
-        {resumes.length > 0 ? (
-          resumes.map(resume => <ResumeCard key={resume.id} resume={resume} />)
+        {filteredResumes.length > 0 ? (
+          filteredResumes.map(resume => (
+            <ResumeCard key={resume.id} resume={resume} />
+          ))
         ) : (
           <div className={styles.emptyList}>
             <FileText className={styles.emptyListIcon} />
