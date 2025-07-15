@@ -38,7 +38,7 @@ const DetailPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.infoTitle}>
-        <img src={companyInfo.url} alt={companyInfo.companyName} />
+        <img src={data.data.imageUrl} alt={companyInfo.companyName} />
         <div className={styles.companyName}>{companyInfo.companyName}</div>
       </div>
       <div className={styles.optionTab}>
@@ -74,7 +74,7 @@ const DetailPage = () => {
           />
         )}
         {selectedTab === '기업평점' && <RatingInfo {...companyRating} />}
-        {selectedTab === '후기' && <ReviewInfo />}
+        {selectedTab === '후기' && <ReviewInfo data={review} />}
       </div>
     </div>
   );

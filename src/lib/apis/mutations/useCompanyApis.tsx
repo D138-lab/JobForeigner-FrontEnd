@@ -54,7 +54,7 @@ export interface CompanyRatingDto {
   totalReviews: number;
 }
 
-interface ReviewDto {
+export interface ReviewDto {
   ratingId: number;
   salarySatisfaction: number;
   salaryComment: string;
@@ -71,10 +71,11 @@ interface ReviewDto {
 
 interface GetCompanyDetailInfoResponse {
   companyInfoDto: CompanyInfoDto;
-  jobPostDto: JobPostDto;
+  jobPostDto: JobPostDto[];
   salaryInfoDto: SalaryInfoDto;
   companyRatingDto: CompanyRatingDto;
-  reviewDto: ReviewDto;
+  reviewDto: ReviewDto[];
+  imageUrl: string;
 }
 
 interface GetCompanyQueryParams {
