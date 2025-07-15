@@ -30,12 +30,13 @@ interface CompanyInfoDto {
   welfare: string;
 }
 
-interface JobPostDto {
+export interface JobPostDto {
   jobPostId: number;
   title: string;
   location: string;
   employmentType: string;
   career: string;
+  expiryAt: Date;
 }
 
 interface SalaryInfoDto {

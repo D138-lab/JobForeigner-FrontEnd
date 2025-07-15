@@ -1,23 +1,16 @@
 import { Briefcase, Calendar } from 'lucide-react';
 
+import { JobPostDto } from '@/lib/apis/mutations/useCompanyApis';
 import styles from './recruitList.module.scss';
-
-export type RecruitListProps = {
-  jobPostId: number;
-  title: string;
-  location: string;
-  employmentType: string;
-  career: string;
-  deadline: Date;
-};
 
 export const RecruitList = ({
   employmentType,
   location,
   title,
   career,
-  deadline,
-}: RecruitListProps) => {
+  expiryAt,
+}: JobPostDto) => {
+  const deadline = new Date(expiryAt);
   return (
     <div className={styles.container}>
       <div className={styles.topInfo}>
@@ -32,7 +25,7 @@ export const RecruitList = ({
         </div>
         <div className={styles.deadline}>
           <Calendar width='1.4rem' />
-          <span>{deadline.toLocaleDateString()}</span>
+          <span>{`${deadline.getFullYear()}.${deadline.getMonth()}.${deadline.getDate()}`}</span>
         </div>
       </div>
     </div>

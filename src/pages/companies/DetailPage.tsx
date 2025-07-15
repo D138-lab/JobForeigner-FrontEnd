@@ -66,7 +66,7 @@ const DetailPage = () => {
             benefits={companyInfo.welfare}
           />
         )}
-        {selectedTab === '채용' && <RecruitInfo />}
+        {selectedTab === '채용' && <RecruitInfo data={jobPost} />}
         {selectedTab === '연봉' && (
           <SalaryInfo
             averageSalary={+salaryInfo.averageSalary}
