@@ -1,19 +1,12 @@
+import {
+  CompanyType,
+  useGetAllCompanyInfo,
+} from '@/lib/apis/mutations/useCompanyApis';
 import { useEffect, useState } from 'react';
 
 import CompanyCard from './CompanyCard';
 import { Link } from 'react-router-dom';
 import styles from './companyList.module.scss';
-import { useGetAllCompanyInfo } from '@/lib/apis/mutations/useCompanyApis';
-
-export type CompanyType = {
-  address: string;
-  companyId: number;
-  companyImg?: string;
-  companyType?: string;
-  companyName: string;
-  description: string;
-  employeeCount: number;
-};
 
 const CompanyLists = () => {
   const { data, isLoading, isError, error } = useGetAllCompanyInfo();
@@ -42,7 +35,7 @@ const CompanyLists = () => {
             <CompanyCard
               key={ele.companyId}
               {...ele}
-              companyImg=''
+              companyId={ele.companyId}
               companyType='기본타입'
             />
           </Link>

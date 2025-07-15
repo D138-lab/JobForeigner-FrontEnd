@@ -10,9 +10,11 @@ const RecruitInfo = ({ data }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.recruitInfo}>
-        {data.map((recruit, index) => (
-          <RecruitList key={index} {...recruit} />
-        ))}
+        {data.length === 0 ? (
+          <div>데이터가 없습니다.</div>
+        ) : (
+          data.map((recruit, index) => <RecruitList key={index} {...recruit} />)
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface CompanyType {
+export interface CompanyType {
   companyId: number;
   companyName: string;
   description: string;
   address: string;
   employeeCount: number;
+  imageUrl: string;
 }
 
 export interface GetAllCompanyInfoResponse {

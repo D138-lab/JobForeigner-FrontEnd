@@ -1,20 +1,24 @@
 import { Building2, MapPin, Users } from 'lucide-react';
 
-import { CompanyType } from './CompanyLists';
+import { CompanyType } from '@/lib/apis/mutations/useCompanyApis';
 import styles from './companyCard.module.scss';
 
+interface Props extends CompanyType {
+  companyType: string;
+}
+
 const CompanyCard = ({
-  companyImg,
+  imageUrl,
   companyName,
-  companyType,
   description,
   address,
   employeeCount,
-}: CompanyType) => {
+  companyType,
+}: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.companyInfo}>
-        <img src={companyImg} alt='이미지없음' />
+        <img src={imageUrl} alt='이미지없음' />
         <div className={styles.description}>
           <div className={styles.companyName}>{companyName}</div>
           <div className={styles.description}>{description}</div>
