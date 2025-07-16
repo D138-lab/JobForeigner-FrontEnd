@@ -3,16 +3,21 @@ import { Briefcase, Calendar } from 'lucide-react';
 import { JobPostDto } from '@/lib/apis/mutations/useCompanyApis';
 import styles from './recruitList.module.scss';
 
+interface RecruitListProps extends JobPostDto {
+  onClick: () => void;
+}
+
 export const RecruitList = ({
   employmentType,
   location,
   title,
   career,
   expiryAt,
-}: JobPostDto) => {
+  onClick,
+}: RecruitListProps) => {
   const deadline = new Date(expiryAt);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles.topInfo}>
         <div className={styles.empolyeeType}>{employmentType}</div>
         <div className={styles.region}>{location}</div>
