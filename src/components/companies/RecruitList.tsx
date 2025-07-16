@@ -1,38 +1,38 @@
-import styles from "./recruitList.module.scss";
-import { Briefcase, Calendar } from "lucide-react";
+import { Briefcase, Calendar } from 'lucide-react';
 
-export type RecruitListProps = {
-	empolyeeType: string;
-	region: string;
-	title: string;
-	teamName: string;
-	deadline: string;
-};
+import { JobPostDto } from '@/lib/apis/mutations/useCompanyApis';
+import styles from './recruitList.module.scss';
+
+interface RecruitListProps extends JobPostDto {
+  onClick: () => void;
+}
 
 export const RecruitList = ({
-	empolyeeType,
-	region,
-	title,
-	teamName,
-	deadline,
+  employmentType,
+  location,
+  title,
+  career,
+  expiryAt,
+  onClick,
 }: RecruitListProps) => {
-	return (
-		<div className={styles.container}>
-			<div className={styles.topInfo}>
-				<div className={styles.empolyeeType}>{empolyeeType}</div>
-				<div className={styles.region}>{region}</div>
-			</div>
-			<div className={styles.title}>{title}</div>
-			<div className={styles.bottomInfo}>
-				<div className={styles.teamName}>
-					<Briefcase width="1.4rem" />
-					<span>{teamName}</span>
-				</div>
-				<div className={styles.deadline}>
-					<Calendar width="1.4rem" />
-					<span>{deadline}</span>
-				</div>
-			</div>
-		</div>
-	);
+  const deadline = new Date(expiryAt);
+  return (
+    <div className={styles.container} onClick={onClick}>
+      <div className={styles.topInfo}>
+        <div className={styles.empolyeeType}>{employmentType}</div>
+        <div className={styles.region}>{location}</div>
+      </div>
+      <div className={styles.title}>{title}</div>
+      <div className={styles.bottomInfo}>
+        <div className={styles.teamName}>
+          <Briefcase width='1.4rem' />
+          <span>{career}</span>
+        </div>
+        <div className={styles.deadline}>
+          <Calendar width='1.4rem' />
+          <span>{`${deadline.getFullYear()}.${deadline.getMonth()}.${deadline.getDate()}`}</span>
+        </div>
+      </div>
+    </div>
+  );
 };
