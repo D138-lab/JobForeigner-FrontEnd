@@ -50,7 +50,7 @@ export default function ResumePreviewPage() {
   const resumeData = serverData
     ? {
         id: serverData.resumeId,
-        title: (serverData.jobPreference?.desiredJob || '새로운') + ' 이력서',
+        title: serverData.resumeTitle || '새로운 이력서',
         createdAt: serverData.createdAt?.slice(0, 10) || '',
         updatedAt: serverData.updatedAt?.slice(0, 10) || '',
         status: 'completed',
@@ -62,7 +62,7 @@ export default function ResumePreviewPage() {
           photo:
             serverData.memberProfile?.profile_image_url || serverData.imageUrl,
         },
-        jobs: serverData.jobPreference?.desiredJob?.split(',') || [],
+        jobs: serverData.desiredJobs?.map(j => j.desiredJob) || [],
         skills: serverData.skills?.map(s => s.skillName) || [],
         experience:
           serverData.employments?.map(e => ({
@@ -97,7 +97,7 @@ export default function ResumePreviewPage() {
         attachments: [] as any[],
         links:
           serverData.portfolios?.map(p => ({
-            title: '포트폴리오',
+            title: p.portfolioTitle || '포트폴리오',
             url: p.portfolioUrl,
           })) || [],
       }

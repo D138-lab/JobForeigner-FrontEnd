@@ -3,8 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 
 interface ResumeListItem {
   resumeId: number;
+  resumeTitle: string;
   createdAt: string;
   updatedAt: string;
+  desiredJobs: Array<{ desiredJob: string }>;
   educations: Array<{
     educationName: string;
     major: string;
@@ -40,10 +42,10 @@ interface ResumeListItem {
     proficiency: string;
   }>;
   portfolios: Array<{
+    portfolioTitle: string;
     portfolioUrl: string;
   }>;
   jobPreference: {
-    desiredJob: string;
     desiredEmploymentType: string;
     desiredSalary: number;
     desiredLocation: string;
@@ -65,7 +67,7 @@ interface GetResumeListResponse {
     totalElements: number;
     totalPages: number;
     pageSort: string;
-    content: ResumeListItem[];
+    pageContents: ResumeListItem[];
   };
   code?: string;
   message?: string;

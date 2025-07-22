@@ -16,9 +16,11 @@ export interface MemberProfile {
 
 export interface ResumePreviewItem {
   resumeId: number;
+  resumeTitle: string;
   memberProfile: MemberProfile;
   createdAt: string;
   updatedAt: string;
+  desiredJobs: Array<{ desiredJob: string }>;
   educations: Array<{
     educationName: string;
     major: string;
@@ -54,10 +56,10 @@ export interface ResumePreviewItem {
     proficiency: string;
   }>;
   portfolios: Array<{
+    portfolioTitle: string;
     portfolioUrl: string;
   }>;
   jobPreference: {
-    desiredJob: string;
     desiredEmploymentType: string;
     desiredSalary: number;
     desiredLocation: string;

@@ -12,20 +12,21 @@ import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
 export default function ResumeListPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // API에서 이력서 목록 가져오기
   const { data: resumeListData, isLoading, error } = useGetResumeList();
 
-  // API 응답 로그 출력
   console.log('이력서 목록 API 응답:', resumeListData);
   console.log('로딩 상태:', isLoading);
   console.log('에러 상태:', error);
 
   // 실제 API 데이터 → 리스트 아이템 데이터 형식으로 매핑
   const resumeList: Resume[] =
-    resumeListData?.data?.content?.map(
+    resumeListData?.data?.pageContents?.map(
       (item: any): Resume => ({
         id: item.resumeId,
-        title: item.jobPreference?.desiredJob || '이력서',
+        title:
+          item.resumeTitle ||
+          (item.desiredJobs && item.desiredJobs[0]?.desiredJob) ||
+          '이력서',
         createdAt: item.createdAt?.slice(0, 10) || '',
         updatedAt: item.updatedAt?.slice(0, 10) || '',
         status: 'completed', // TODO: 필요시 조건 분기
