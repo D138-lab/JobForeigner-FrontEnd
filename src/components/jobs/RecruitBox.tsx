@@ -1,7 +1,7 @@
 import { DollarSign, MapPin, Star, Timer, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
-import { Link } from 'react-router-dom';
 import styles from './recruitBox.module.scss';
 import { useState } from 'react';
 
@@ -33,8 +33,12 @@ const RecruitBox = ({
   companyName,
 }: RecruitInfoType) => {
   const [isScraped, setIsScraped] = useState(false);
+  const navigate = useNavigate();
   const handleScrap = () => {
     setIsScraped(!isScraped);
+  };
+  const handleApply = () => {
+    navigate('/select-resume', { state: { recruitId: id } });
   };
 
   return (
@@ -81,7 +85,7 @@ const RecruitBox = ({
       </Link>
       <div className={styles.btnBox}>
         <div className={styles.published}>{published}</div>
-        <Button>지원하기</Button>
+        <Button onClick={handleApply}>지원하기</Button>
       </div>
     </div>
   );
