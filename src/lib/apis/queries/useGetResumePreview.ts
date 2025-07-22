@@ -1,9 +1,22 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-// Resume 상세 타입 (ResumeListItem과 거의 동일, resumeId 단일 객체)
+export interface MemberProfile {
+  name: string;
+  type: string;
+  phoneNumber: string;
+  email: string;
+  profile_image_url: string;
+  address: {
+    address: string;
+    detailAddress: string;
+    zipcode: string;
+  };
+}
+
 export interface ResumePreviewItem {
   resumeId: number;
+  memberProfile: MemberProfile;
   createdAt: string;
   updatedAt: string;
   educations: Array<{
