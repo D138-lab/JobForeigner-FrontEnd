@@ -60,7 +60,6 @@ export default function ResumePreviewPage() {
           address: serverData.memberProfile?.address?.address || '',
           photo:
             serverData.memberProfile?.profile_image_url || serverData.imageUrl,
-          job: serverData.jobPreference?.desiredJob || '',
         },
         skills: serverData.skills?.map(s => s.skillName) || [],
         experience:
@@ -180,12 +179,6 @@ export default function ResumePreviewPage() {
                       {resumeData.basicInfo.email}
                     </span>
                   </div>
-                  <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>전화번호</span>
-                    <span className={styles.value}>
-                      {resumeData.basicInfo.phone}
-                    </span>
-                  </div>
                 </div>
 
                 <div className={styles.basicInfoColumn}>
@@ -196,9 +189,9 @@ export default function ResumePreviewPage() {
                     </span>
                   </div>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>직종</span>
+                    <span className={styles.name}>전화번호</span>
                     <span className={styles.value}>
-                      {resumeData.basicInfo.job}
+                      {resumeData.basicInfo.phone}
                     </span>
                   </div>
                 </div>
