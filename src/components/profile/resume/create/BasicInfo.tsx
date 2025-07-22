@@ -4,11 +4,30 @@ import Button from '@/components/common/button/Button';
 import { Camera } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import useImageUpload from '@/lib/hooks/useImageUpload';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useEffect } from 'react';
 
 export default function BasicInfo() {
   const { control, setValue } = useFormContext();
-  const { image, fileInputRef, handleImageUpload, handleUploadClick } =
-    useImageUpload(setValue);
+  const {
+    image: uploadedImage,
+    fileInputRef,
+    handleImageUpload,
+    handleUploadClick,
+  } = useImageUpload(setValue);
+
+  const name = useAuthStore(state => state.name);
+  const email = useAuthStore(state => state.email);
+  const phoneNumber = useAuthStore(state => state.phoneNumber);
+  const profileImageUrl = useAuthStore(state => state.profileImageUrl);
+
+  const image = uploadedImage || profileImageUrl;
+
+  useEffect(() => {
+    if (name) setValue('name', name);
+    if (email) setValue('email', email);
+    if (phoneNumber) setValue('phoneNumber', phoneNumber);
+  }, [name, email, phoneNumber, setValue]);
 
   return (
     <div className={styles.container}>
@@ -16,24 +35,23 @@ export default function BasicInfo() {
       <InputField control={control} name='title' label='제목' required={true} />
       <div className={styles.content}>
         <div className={styles.textRow}>
+          <div className={styles.readonlyField}>
+            <label className={styles.label}>이름</label>
+            <div className={styles.readonlyInput}>{name}</div>
+          </div>
+          <div className={styles.readonlyField}>
+            <label className={styles.label}>이메일</label>
+            <div className={styles.readonlyInput}>{email}</div>
+          </div>
+          <div className={styles.readonlyField}>
+            <label className={styles.label}>전화번호</label>
+            <div className={styles.readonlyInput}>{phoneNumber}</div>
+          </div>
           <InputField
             control={control}
-            name='name'
-            label='이름'
-            required={true}
-          />
-          <InputField
-            control={control}
-            name='email'
-            label='이메일'
-            required={true}
-          />
-          <InputField
-            control={control}
-            name='phoneNumber'
-            label='전화번호'
-            required={true}
-            type='phone'
+            name='address'
+            label='주소'
+            required={false}
           />
         </div>
         <div className={styles.imageRow}>

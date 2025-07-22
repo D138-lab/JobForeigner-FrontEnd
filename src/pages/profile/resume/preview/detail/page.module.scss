@@ -172,11 +172,13 @@
   }
 }
 
+.jobsList,
 .skillsList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 
+  .jobItem,
   .skillItem {
     background-color: var(--color-slate-200);
     padding: 0.5rem 1rem;
@@ -451,7 +453,6 @@
 }
 
 .preferenceSection {
-  margin-bottom: 2rem;
   .preferenceList {
     display: flex;
     flex-direction: column;

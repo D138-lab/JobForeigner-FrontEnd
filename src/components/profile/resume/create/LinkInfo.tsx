@@ -20,7 +20,7 @@ export default function LinkInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>링크</h2>
+        <h2 className={styles.title}>첨부 파일 및 링크</h2>
         <Button
           type='button'
           variant='outline'

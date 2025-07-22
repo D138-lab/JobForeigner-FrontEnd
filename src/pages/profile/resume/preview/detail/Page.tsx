@@ -12,6 +12,7 @@ import {
   User,
   Building2,
   Bookmark,
+  Briefcase,
   BadgeIcon as Certificate,
   Paperclip,
   Plane,
@@ -49,7 +50,7 @@ export default function ResumePreviewPage() {
   const resumeData = serverData
     ? {
         id: serverData.resumeId,
-        title: serverData.jobPreference?.desiredJob + ' 이력서',
+        title: (serverData.jobPreference?.desiredJob || '새로운') + ' 이력서',
         createdAt: serverData.createdAt?.slice(0, 10) || '',
         updatedAt: serverData.updatedAt?.slice(0, 10) || '',
         status: 'completed',
@@ -61,6 +62,7 @@ export default function ResumePreviewPage() {
           photo:
             serverData.memberProfile?.profile_image_url || serverData.imageUrl,
         },
+        jobs: serverData.jobPreference?.desiredJob?.split(',') || [],
         skills: serverData.skills?.map(s => s.skillName) || [],
         experience:
           serverData.employments?.map(e => ({
@@ -102,7 +104,6 @@ export default function ResumePreviewPage() {
     : null;
 
   if (!isResumeLoading && !serverData) {
-    // 데이터가 없고, 로딩 중도 아니면 아무것도 렌더링하지 않음
     return null;
   }
   if (!resumeData) return null;
@@ -199,6 +200,24 @@ export default function ResumePreviewPage() {
             </div>
           </div>
 
+          {/* 희망 업종 */}
+          <div>
+            <div className={styles.sectionTitle}>
+              <Briefcase className={styles.titleIcon} /> <h2>희망 업종</h2>
+            </div>
+            {resumeData.jobs.length > 0 && resumeData.jobs[0] ? (
+              <ul className={styles.jobsList}>
+                {resumeData.jobs.map((job, index) => (
+                  <li key={index} className={styles.jobItem}>
+                    <span className={styles.jobName}>{job}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noSkills}>등록된 희망 업종이 없습니다.</p>
+            )}
+          </div>
+
           {/* 업무 및 스킬 */}
           <div>
             <div className={styles.sectionTitle}>
@@ -217,33 +236,39 @@ export default function ResumePreviewPage() {
             )}
           </div>
 
-          {/* 경력 */}
-          <div>
+          {/* 희망 근무 조건 */}
+          <div className={styles.preferenceSection}>
             <div className={styles.sectionTitle}>
-              <Building2 className={styles.titleIcon} /> <h2>경력</h2>
+              <Wallet className={styles.titleIcon} /> <h2>희망 근무 조건</h2>
             </div>
-            {resumeData.experience.length > 0 ? (
-              <ul className={styles.experienceList}>
-                {resumeData.experience.map((item, index) => (
-                  <li key={index} className={styles.experienceItem}>
-                    <div className={styles.experienceHeader}>
-                      <h3 className={styles.experienceCompany}>
-                        {item.company}
-                      </h3>
-                      <span className={styles.experiencePeriod}>
-                        <Calendar />
-                        {item.period}
-                      </span>
-                    </div>
-                    <p className={styles.experiencePosition}>{item.position}</p>
-                    <p className={styles.experienceDescription}>
-                      {item.description}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+            {serverData?.jobPreference ? (
+              <div className={styles.preferenceList}>
+                <div className={styles.preferenceItem}>
+                  <Bookmark className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>고용 형태</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredEmploymentType}
+                  </span>
+                </div>
+                <div className={styles.preferenceItem}>
+                  <Wallet className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>희망 연봉</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredSalary?.toLocaleString()}원
+                  </span>
+                </div>
+                <div className={styles.preferenceItem}>
+                  <MapPin className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>희망 근무지역</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredLocation}
+                  </span>
+                </div>
+              </div>
             ) : (
-              <p className={styles.noExperience}>등록된 경력이 없습니다.</p>
+              <p className={styles.noSkills}>
+                등록된 희망 근무 조건이 없습니다.
+              </p>
             )}
           </div>
 
@@ -275,35 +300,33 @@ export default function ResumePreviewPage() {
             )}
           </div>
 
-          {/* 활동 및 수상 */}
+          {/* 경력 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Award className={styles.titleIcon} /> <h2>활동 및 수상</h2>
+              <Building2 className={styles.titleIcon} /> <h2>경력</h2>
             </div>
-            {resumeData.awards.length > 0 ? (
-              <ul className={styles.awardsList}>
-                {resumeData.awards.map((item, index) => (
-                  <li key={index} className={styles.awardItem}>
-                    <div className={styles.awardHeader}>
-                      <div className={styles.awardDetail}>
-                        <h3 className={styles.awardTitle}>{item.title}</h3>
-                        <p className={styles.awardOrganization}>
-                          {item.organization}
-                        </p>
-                      </div>
-                      <span className={styles.awardDate}>
+            {resumeData.experience.length > 0 ? (
+              <ul className={styles.experienceList}>
+                {resumeData.experience.map((item, index) => (
+                  <li key={index} className={styles.experienceItem}>
+                    <div className={styles.experienceHeader}>
+                      <h3 className={styles.experienceCompany}>
+                        {item.company}
+                      </h3>
+                      <span className={styles.experiencePeriod}>
                         <Calendar />
-                        {item.date}
+                        {item.period}
                       </span>
                     </div>
-                    <p className={styles.awardDescription}>
+                    <p className={styles.experiencePosition}>{item.position}</p>
+                    <p className={styles.experienceDescription}>
                       {item.description}
                     </p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className={styles.noAwards}>등록된 수상 내역이 없습니다.</p>
+              <p className={styles.noExperience}>등록된 경력이 없습니다.</p>
             )}
           </div>
 
@@ -339,60 +362,35 @@ export default function ResumePreviewPage() {
             </div>
           </div>
 
-          {/* 첨부 파일 */}
+          {/* 활동 및 수상 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Paperclip className={styles.titleIcon} />{' '}
-              <h2>첨부 파일 및 링크</h2>
+              <Award className={styles.titleIcon} /> <h2>활동 및 수상</h2>
             </div>
-            {resumeData.attachments.length > 0 && (
-              <ul className={styles.attachmentsList}>
-                <h3 className={styles.attachmentsTitle}>첨부파일</h3>
-                {resumeData.attachments.map((item, index) => (
-                  <li key={index} className={styles.attachmentItem}>
-                    <a href={item.url} className={styles.attachmentLink}>
-                      <FileText />
-                      {item.name} ({item.size})
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {resumeData.links.length > 0 && (
-              <ul className={styles.linksList}>
-                <h3 className={styles.linksTitle}>링크</h3>
-                {resumeData.links.map((item, index) => (
-                  <li key={index} className={styles.linkItem}>
-                    <a href={item.url} className={styles.linkLink}>
-                      <Globe />
-                      {item.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {/* 언어 */}
-          <div className={styles.languagesSection}>
-            <div className={styles.sectionTitle}>
-              <Globe className={styles.titleIcon} /> <h2>언어</h2>
-            </div>
-            {serverData?.languages && serverData.languages.length > 0 ? (
-              <ul className={styles.languagesList}>
-                {serverData.languages.map((lang, idx) => (
-                  <li key={idx} className={styles.languageItem}>
-                    <span className={styles.languageName}>
-                      {lang.languages}
-                    </span>
-                    <span className={styles.languageProficiency}>
-                      ({lang.proficiency})
-                    </span>
+            {resumeData.awards.length > 0 ? (
+              <ul className={styles.awardsList}>
+                {resumeData.awards.map((item, index) => (
+                  <li key={index} className={styles.awardItem}>
+                    <div className={styles.awardHeader}>
+                      <div className={styles.awardDetail}>
+                        <h3 className={styles.awardTitle}>{item.title}</h3>
+                        <p className={styles.awardOrganization}>
+                          {item.organization}
+                        </p>
+                      </div>
+                      <span className={styles.awardDate}>
+                        <Calendar />
+                        {item.date}
+                      </span>
+                    </div>
+                    <p className={styles.awardDescription}>
+                      {item.description}
+                    </p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className={styles.noSkills}>등록된 언어 정보가 없습니다.</p>
+              <p className={styles.noAwards}>등록된 수상 내역이 없습니다.</p>
             )}
           </div>
 
@@ -428,46 +426,60 @@ export default function ResumePreviewPage() {
             )}
           </div>
 
-          {/* 희망 근무 조건 */}
-          <div className={styles.preferenceSection}>
+          {/* 언어 */}
+          <div className={styles.languagesSection}>
             <div className={styles.sectionTitle}>
-              <Wallet className={styles.titleIcon} /> <h2>희망 근무 조건</h2>
+              <Globe className={styles.titleIcon} /> <h2>언어</h2>
             </div>
-            {serverData?.jobPreference ? (
-              <div className={styles.preferenceList}>
-                <div className={styles.preferenceItem}>
-                  <Bookmark className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>희망 직무</span>
-                  <span className={styles.preferenceValue}>
-                    {serverData.jobPreference.desiredJob}
-                  </span>
-                </div>
-                <div className={styles.preferenceItem}>
-                  <Wallet className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>희망 연봉</span>
-                  <span className={styles.preferenceValue}>
-                    {serverData.jobPreference.desiredSalary?.toLocaleString()}원
-                  </span>
-                </div>
-                <div className={styles.preferenceItem}>
-                  <MapPin className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>희망 근무지역</span>
-                  <span className={styles.preferenceValue}>
-                    {serverData.jobPreference.desiredLocation}
-                  </span>
-                </div>
-                <div className={styles.preferenceItem}>
-                  <Bookmark className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>고용 형태</span>
-                  <span className={styles.preferenceValue}>
-                    {serverData.jobPreference.desiredEmploymentType}
-                  </span>
-                </div>
-              </div>
+            {serverData?.languages && serverData.languages.length > 0 ? (
+              <ul className={styles.languagesList}>
+                {serverData.languages.map((lang, idx) => (
+                  <li key={idx} className={styles.languageItem}>
+                    <span className={styles.languageName}>
+                      {lang.languages}
+                    </span>
+                    <span className={styles.languageProficiency}>
+                      ({lang.proficiency})
+                    </span>
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <p className={styles.noSkills}>
-                등록된 희망 근무 조건이 없습니다.
-              </p>
+              <p className={styles.noSkills}>등록된 언어 정보가 없습니다.</p>
+            )}
+          </div>
+
+          {/* 첨부 파일 */}
+          <div>
+            <div className={styles.sectionTitle}>
+              <Paperclip className={styles.titleIcon} />{' '}
+              <h2>첨부 파일 및 링크</h2>
+            </div>
+            {resumeData.attachments.length > 0 && (
+              <ul className={styles.attachmentsList}>
+                <h3 className={styles.attachmentsTitle}>첨부파일</h3>
+                {resumeData.attachments.map((item, index) => (
+                  <li key={index} className={styles.attachmentItem}>
+                    <a href={item.url} className={styles.attachmentLink}>
+                      <FileText />
+                      {item.name} ({item.size})
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {resumeData.links.length > 0 && (
+              <ul className={styles.linksList}>
+                <h3 className={styles.linksTitle}>링크</h3>
+                {resumeData.links.map((item, index) => (
+                  <li key={index} className={styles.linkItem}>
+                    <a href={item.url} className={styles.linkLink}>
+                      <Globe />
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </section>

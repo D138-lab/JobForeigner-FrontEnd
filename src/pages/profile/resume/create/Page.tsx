@@ -14,6 +14,9 @@ import CertificatesInfo from '@/components/profile/resume/create/CertificatesInf
 import LinkInfo from '@/components/profile/resume/create/LinkInfo';
 import IntroductionInfo from '@/components/profile/resume/create/IntroductionInfo';
 import FilesInfo from '@/components/profile/resume/create/FilesInfo';
+import JobPreferenceInfo from '@/components/profile/resume/create/JobPreferenceInfo';
+import ExpatInfo from '@/components/profile/resume/create/ExpatInfo';
+import LanguageInfo from '@/components/profile/resume/create/LanguageInfo';
 
 const defaultValues = {
   title: '',
@@ -24,11 +27,16 @@ const defaultValues = {
   sido: '',
   sigungu: '',
   job: '',
+  employmentType: 'ANY',
+  desiredSalary: '',
+  workLocation: '',
   skills: [],
   experiences: [],
   educations: [],
   awards: [],
   certificates: [],
+  expats: [],
+  languages: [],
   files: [],
   links: [],
   introduction: '',
@@ -60,16 +68,20 @@ export default function CreateResumePage() {
           className={styles.contentSection}
         >
           <BasicInfo />
-          <AddressInfo />
+          {/* 주소 정보 <AddressInfo />*/}
           <JobInfo />
           <SkillsInfo />
-          <ExperienceInfo />
+          <JobPreferenceInfo />
           <EducationInfo />
-          <AwardsInfo />
+          <ExperienceInfo />
           <CertificatesInfo />
-          <FilesInfo />
+          <AwardsInfo />
+          <ExpatInfo />
+          <LanguageInfo />
+          {/* 파일 첨부 <FilesInfo /> */}
+
           <LinkInfo />
-          <IntroductionInfo />
+          {/* 자기 소개 <IntroductionInfo /> */}
           <BottomActions />
         </form>
       </FormProvider>
