@@ -20,27 +20,27 @@ export default function JobPreferenceInfo() {
         <div className={styles.row}>
           <SelectField
             control={control}
-            name='employmentType'
+            name='jobPreference.desiredEmploymentType'
             label='고용 형태'
             options={employmentTypeOptions}
-            required={false}
+            required={true}
           />
           <InputField
             control={control}
-            name='desiredSalary'
+            name='jobPreference.desiredSalary'
             label='희망 연봉 (만원 단위)'
             placeholder='희망 연봉 (만원 단위)'
-            required={false}
+            required={true}
             type='number'
             min={0}
           />
         </div>
         <InputField
           control={control}
-          name='workLocation'
+          name='jobPreference.desiredLocation'
           label='희망 근무지역'
           placeholder='예: 서울시 강남구'
-          required={false}
+          required={true}
         />
       </div>
     </div>

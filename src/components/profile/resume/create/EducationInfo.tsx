@@ -4,14 +4,27 @@ import { Trash } from 'lucide-react';
 import Button from '@/components/common/button/Button';
 import { Plus } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
-import TextareaField from '@/components/common/field/TextareaField';
+import SelectField from '@/components/common/field/SelectField';
 
-const education = {
-  school: '',
+const degreeOptions = [
+  { value: 'BACHELOR', label: '학사' },
+  { value: 'MASTER', label: '석사' },
+  { value: 'DOCTOR', label: '박사' },
+];
+
+const graduationStatusOptions = [
+  { value: 'GRADUATED', label: '졸업' },
+  { value: 'COMPLETED', label: '수료' },
+  { value: 'STUDYING', label: '재학 중' },
+];
+
+const defaultEducation = {
+  educationName: '',
   major: '',
+  yearOfGraduation: '',
   degree: '',
-  period: '',
-  description: '',
+  graduationStatus: '',
+  etc: '',
 };
 
 export default function EducationInfo() {
@@ -29,25 +42,27 @@ export default function EducationInfo() {
           type='button'
           variant='outline'
           size='medium'
-          onClick={() => append(education)}
+          onClick={() => append(defaultEducation)}
         >
           <Plus className={styles.plusIcon} />
-          경력 추가
+          학력 추가
         </Button>
       </div>
-      {!fields.length ? (
+
+      {!fields.length && (
         <p className={styles.appendText}>학력 정보를 추가해주세요</p>
-      ) : null}
+      )}
+
       {fields.map((field, index) => (
         <div key={field.id} className={styles.educationWrapper}>
           <div className={styles.educationHeader}>
             <Trash className={styles.trashIcon} onClick={() => remove(index)} />
           </div>
           <div className={styles.educationContent}>
-            <div className={styles.schoolAndMajor}>
+            <div className={styles.educationAndMajor}>
               <InputField
                 control={control}
-                name={`educations.${index}.school`}
+                name={`educations.${index}.educationName`}
                 label='학교명'
                 placeholder='학교명을 입력하세요'
                 required={true}
@@ -61,30 +76,37 @@ export default function EducationInfo() {
                 required={true}
                 maxLength={30}
               />
-            </div>
-            <div className={styles.degreeAndPeriod}>
               <InputField
+                control={control}
+                name={`educations.${index}.yearOfGraduation`}
+                label='졸업 연도'
+                placeholder='예: 2025-02-28'
+                required={true}
+              />
+            </div>
+            <div className={styles.educationAndMajor}>
+              <SelectField
                 control={control}
                 name={`educations.${index}.degree`}
                 label='학위'
-                placeholder='예: 학사, 석사, 박사'
                 required={true}
-                maxLength={10}
+                options={degreeOptions}
               />
-              <InputField
+              <SelectField
                 control={control}
-                name={`educations.${index}.period`}
-                label='재학 기간'
-                placeholder='예: 2020.03 - 2022.02'
+                name={`educations.${index}.graduationStatus`}
+                label='졸업 상태'
                 required={true}
-                maxLength={30}
+                options={graduationStatusOptions}
               />
             </div>
-            <TextareaField
+
+            <InputField
               control={control}
-              name={`educations.${index}.description`}
-              label='추가 정보'
-              placeholder='학점, 주요 활동 등 추가 정보를 입력하세요'
+              name={`educations.${index}.etc`}
+              label='기타'
+              placeholder='학점, 활동 등 추가 정보'
+              required={false}
               maxLength={2000}
             />
           </div>

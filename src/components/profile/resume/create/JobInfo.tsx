@@ -9,7 +9,7 @@ export default function JobInfo() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { watch, setValue } = useFormContext();
   const [inputValue, setInputValue] = useState('');
-  const jobs = watch('jobs') || [];
+  const desiredJobs = watch('desiredJobs') || [];
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -17,19 +17,22 @@ export default function JobInfo() {
 
   const handleAddJob = () => {
     if (!inputValue.trim()) return;
-    if (jobs.includes(inputValue.trim())) {
+    if (desiredJobs.some((j: any) => j.desiredJob === inputValue.trim())) {
       setInputValue('');
       return;
     }
-    setValue('jobs', [...jobs, inputValue.trim()]);
+    setValue('desiredJobs', [
+      ...desiredJobs,
+      { desiredJob: inputValue.trim() },
+    ]);
     setInputValue('');
     inputRef.current?.focus();
   };
 
   const handleRemoveJob = (index: number) => {
-    const newJobs = [...jobs];
+    const newJobs = [...desiredJobs];
     newJobs.splice(index, 1);
-    setValue('jobs', newJobs);
+    setValue('desiredJobs', newJobs);
   };
 
   return (
@@ -48,9 +51,12 @@ export default function JobInfo() {
         </Button>
       </div>
       <div className={styles.jobsList}>
-        {jobs.map((job: string, index: number) => (
-          <JobTag key={job} handleRemoveJob={() => handleRemoveJob(index)}>
-            {job}
+        {desiredJobs.map((job: { desiredJob: string }, index: number) => (
+          <JobTag
+            key={job.desiredJob}
+            handleRemoveJob={() => handleRemoveJob(index)}
+          >
+            {job.desiredJob}
           </JobTag>
         ))}
       </div>

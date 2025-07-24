@@ -32,7 +32,12 @@ export default function BasicInfo() {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>기본정보 입력</h2>
-      <InputField control={control} name='title' label='제목' required={true} />
+      <InputField
+        control={control}
+        name='resumeTitle'
+        label='제목'
+        required={true}
+      />
       <div className={styles.content}>
         <div className={styles.textRow}>
           <div className={styles.readonlyField}>
@@ -51,7 +56,7 @@ export default function BasicInfo() {
             control={control}
             name='address'
             label='주소'
-            required={false}
+            required={true}
           />
         </div>
         <div className={styles.imageRow}>

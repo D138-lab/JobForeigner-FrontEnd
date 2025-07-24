@@ -18,9 +18,8 @@ export default function ResumeListPage() {
   console.log('로딩 상태:', isLoading);
   console.log('에러 상태:', error);
 
-  // 실제 API 데이터 → 리스트 아이템 데이터 형식으로 매핑
   const resumeList: Resume[] =
-    resumeListData?.data?.pageContents?.map(
+    resumeListData?.data?.content?.map(
       (item: any): Resume => ({
         id: item.resumeId,
         title:

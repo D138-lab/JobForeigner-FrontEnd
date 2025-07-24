@@ -7,7 +7,7 @@ import SkillsInfo from '@/components/profile/resume/create/SkillsInfo';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { resumeSchema } from '@/lib/schemas/resumeSchema';
-import ExperienceInfo from '@/components/profile/resume/create/ExperienceInfo';
+import ExperienceInfo from '@/components/profile/resume/create/EmploymentInfo';
 import EducationInfo from '@/components/profile/resume/create/EducationInfo';
 import AwardsInfo from '@/components/profile/resume/create/AwardsInfo';
 import CertificatesInfo from '@/components/profile/resume/create/CertificatesInfo';
@@ -17,29 +17,33 @@ import FilesInfo from '@/components/profile/resume/create/FilesInfo';
 import JobPreferenceInfo from '@/components/profile/resume/create/JobPreferenceInfo';
 import ExpatInfo from '@/components/profile/resume/create/ExpatInfo';
 import LanguageInfo from '@/components/profile/resume/create/LanguageInfo';
+import { useNavigate } from 'react-router-dom';
+
+import usePostResume, {
+  PostResumeRequest,
+} from '@/lib/apis/mutations/usePostResume';
+
+import { z } from 'zod';
+
+type ResumeFormType = z.infer<typeof resumeSchema>;
 
 const defaultValues = {
-  title: '',
-  name: '',
-  email: '',
-  phoneNumber: '',
-  photo: null,
-  sido: '',
-  sigungu: '',
-  job: '',
-  employmentType: 'ANY',
-  desiredSalary: '',
-  workLocation: '',
-  skills: [],
-  experiences: [],
+  resumeTitle: '',
+  desiredJobs: [],
+  employments: [],
   educations: [],
-  awards: [],
   certificates: [],
-  expats: [],
+  awards: [],
+  skills: [],
   languages: [],
-  files: [],
-  links: [],
-  introduction: '',
+  portfolios: [],
+  jobPreference: {
+    desiredEmploymentType: '',
+    desiredSalary: 0,
+    desiredLocation: '',
+  },
+  expat: [],
+  resumeImageUrl: '',
 };
 
 export default function CreateResumePage() {
@@ -47,9 +51,16 @@ export default function CreateResumePage() {
     defaultValues,
     resolver: zodResolver(resumeSchema),
   });
+  const navigate = useNavigate();
+  const { mutate: postResume } = usePostResume();
 
-  const onSubmit = async (data: unknown) => {
-    console.log(data);
+  const onSubmit = async (data: ResumeFormType) => {
+    console.log(JSON.stringify(data, null, 2));
+    postResume(data as PostResumeRequest, {
+      onSuccess: () => {
+        navigate('/profile/resume');
+      },
+    });
   };
 
   const onError = (error: unknown) => {
@@ -68,7 +79,6 @@ export default function CreateResumePage() {
           className={styles.contentSection}
         >
           <BasicInfo />
-          {/* 주소 정보 <AddressInfo />*/}
           <JobInfo />
           <SkillsInfo />
           <JobPreferenceInfo />

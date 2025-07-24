@@ -11,12 +11,14 @@ import {
 } from 'lucide-react';
 import Button from '@/components/common/button/Button';
 import { Link } from 'react-router-dom';
+import useDeleteResume from '@/lib/apis/mutations/useDeleteResume';
 
 interface Props {
   resume: Resume;
 }
 
 export default function ResumeCard({ resume }: Props) {
+  const { mutate: deleteResume } = useDeleteResume();
   const getStatusBadge = (status: Resume['status']) => {
     switch (status) {
       case 'completed':
@@ -69,14 +71,22 @@ export default function ResumeCard({ resume }: Props) {
             미리보기
           </Button>
         </Link>
-        <Button variant='outline' size='medium'>
-          <PenSquare className={styles.buttonIcon} />
-          수정하기
-        </Button>
+        <Link to={`/profile/resume/${resume.id}/edit`}>
+          <Button variant='outline' size='medium'>
+            <PenSquare className={styles.buttonIcon} />
+            수정하기
+          </Button>
+        </Link>
+
         <Button
           variant='outline'
           size='medium'
           style={{ color: 'var(--color-red-500)' }}
+          onClick={() => {
+            if (confirm('정말 삭제하시겠습니까?')) {
+              deleteResume(resume.id);
+            }
+          }}
         >
           <Trash2 className={styles.buttonIcon} />
           삭제하기

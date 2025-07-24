@@ -7,6 +7,7 @@ export const PATH = {
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
   PROFILE_RESUME: '/profile/resume',
+  PROFILE_RESUME_EDIT: '/profile/resume/:id/edit',
   PROFILE_RESUME_CREATE: '/profile/resume/create',
   PROFILE_RESUME_DETAIL: '/profile/resume/:resumeId',
   PROFILE_APPLICATIONS: '/profile/applications',

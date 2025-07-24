@@ -62,12 +62,32 @@ interface ResumeListItem {
 interface GetResumeListResponse {
   success: boolean;
   data: {
-    pageNumber: number;
-    pageSize: number;
+    content: ResumeListItem[];
+    pageable: {
+      pageNumber: number;
+      pageSize: number;
+      sort: {
+        sorted: boolean;
+        empty: boolean;
+        unsorted: boolean;
+      };
+      offset: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
     totalElements: number;
     totalPages: number;
-    pageSort: string;
-    pageContents: ResumeListItem[];
+    last: boolean;
+    size: number;
+    number: number;
+    sort: {
+      sorted: boolean;
+      empty: boolean;
+      unsorted: boolean;
+    };
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
   };
   code?: string;
   message?: string;

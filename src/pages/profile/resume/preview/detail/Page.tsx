@@ -106,6 +106,9 @@ export default function ResumePreviewPage() {
   if (!isResumeLoading && !serverData) {
     return null;
   }
+  if (!isResumeLoading && serverData) {
+    console.log('서버에서 받은 이력서 데이터:', serverData);
+  }
   if (!resumeData) return null;
 
   const handlePrint = () => window.print();
@@ -254,7 +257,8 @@ export default function ResumePreviewPage() {
                   <Wallet className={styles.titleIcon} />
                   <span className={styles.preferenceLabel}>희망 연봉</span>
                   <span className={styles.preferenceValue}>
-                    {serverData.jobPreference.desiredSalary?.toLocaleString()}원
+                    {serverData.jobPreference.desiredSalary?.toLocaleString()}
+                    만원
                   </span>
                 </div>
                 <div className={styles.preferenceItem}>
@@ -348,9 +352,6 @@ export default function ResumePreviewPage() {
                         <Calendar />
                         {item.date}
                       </span>
-                      <p className={styles.certificateNumber}>
-                        자격증 번호: {item.number}
-                      </p>
                     </div>
                   ))}
                 </>

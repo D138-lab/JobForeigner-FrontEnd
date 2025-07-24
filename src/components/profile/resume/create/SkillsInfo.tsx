@@ -18,12 +18,16 @@ export default function SkillsInfo() {
   const handleAddSkill = () => {
     if (!inputValue.trim()) return;
 
-    if (skills.includes(inputValue.trim())) {
+    if (
+      skills.some(
+        (s: { skillName: string }) => s.skillName === inputValue.trim(),
+      )
+    ) {
       setInputValue('');
       return;
     }
 
-    setValue('skills', [...skills, inputValue.trim()]);
+    setValue('skills', [...skills, { skillName: inputValue.trim() }]);
     setInputValue('');
     inputRef.current?.focus();
   };
@@ -50,12 +54,12 @@ export default function SkillsInfo() {
         </Button>
       </div>
       <div className={styles.skillsList}>
-        {skills.map((skill: string, index: number) => (
+        {skills.map((skill: { skillName: string }, index: number) => (
           <SkillTag
-            key={skill}
+            key={skill.skillName}
             handleRemoveSkill={() => handleRemoveSkill(index)}
           >
-            {skill}
+            {skill.skillName}
           </SkillTag>
         ))}
       </div>

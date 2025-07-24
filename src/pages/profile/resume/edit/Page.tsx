@@ -1,99 +1,113 @@
-import { useParams } from 'react-router-dom';
-import styles from './page.module.scss';
+import BasicInfo from '@/components/profile/resume/create/BasicInfo';
+import styles from '../create/page.module.scss';
+import BottomActions from '@/components/profile/resume/create/BottomActions';
+import AddressInfo from '@/components/profile/resume/create/AddressInfo';
+import JobInfo from '@/components/profile/resume/create/JobInfo';
+import SkillsInfo from '@/components/profile/resume/create/SkillsInfo';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { resumeSchema } from '@/lib/schemas/resumeSchema';
-import useGetResumePreview, {
-  ResumePreviewItem,
-} from '@/lib/apis/queries/useGetResumePreview';
-
-import BasicInfo from '@/components/profile/resume/create/BasicInfo';
-import JobInfo from '@/components/profile/resume/create/JobInfo';
-import SkillsInfo from '@/components/profile/resume/create/SkillsInfo';
-import JobPreferenceInfo from '@/components/profile/resume/create/JobPreferenceInfo';
+import ExperienceInfo from '@/components/profile/resume/create/EmploymentInfo';
 import EducationInfo from '@/components/profile/resume/create/EducationInfo';
-import ExperienceInfo from '@/components/profile/resume/create/ExperienceInfo';
-import CertificatesInfo from '@/components/profile/resume/create/CertificatesInfo';
 import AwardsInfo from '@/components/profile/resume/create/AwardsInfo';
-import ExpatInfo from '@/components/profile/resume/create/ExpatInfo';
-import LanguageInfo from '@/components/profile/resume/create/LanguageInfo';
+import CertificatesInfo from '@/components/profile/resume/create/CertificatesInfo';
 import LinkInfo from '@/components/profile/resume/create/LinkInfo';
 import IntroductionInfo from '@/components/profile/resume/create/IntroductionInfo';
-import BottomActions from '@/components/profile/resume/create/BottomActions';
-import { ResumeValues } from '@/lib/schemas/resumeSchema';
+import FilesInfo from '@/components/profile/resume/create/FilesInfo';
+import JobPreferenceInfo from '@/components/profile/resume/create/JobPreferenceInfo';
+import ExpatInfo from '@/components/profile/resume/create/ExpatInfo';
+import LanguageInfo from '@/components/profile/resume/create/LanguageInfo';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function convertPreviewToFormValues(data: ResumePreviewItem) {
-  return {
-    title: data.resumeTitle || '',
-    name: data.memberProfile?.name || '',
-    email: data.memberProfile?.email || '',
-    phoneNumber: data.memberProfile?.phoneNumber || '',
-    photo: null,
-    sido: data.memberProfile?.address?.address || '',
-    sigungu: data.memberProfile?.address?.detailAddress || '',
-    job:
-      data.desiredJobs && data.desiredJobs.length > 0
-        ? data.desiredJobs[0].desiredJob
-        : '',
-    employmentType: data.jobPreference?.desiredEmploymentType || 'ANY',
-    desiredSalary: data.jobPreference?.desiredSalary || '',
-    workLocation: data.jobPreference?.desiredLocation || '',
-    skills: (data.skills || []).map(s => s.skillName),
-    experiences: (data.employments || []).map(e => ({
-      name: e.companyName || '',
-      spot: e.departmentName || '',
-      period: `${e.startDate || ''} ~ ${e.endDate || ''}`,
-      mainTask: e.achievement || '',
-    })),
-    educations: (data.educations || []).map(e => ({
-      educationName: e.educationName || '',
-      major: e.major || '',
-      degree: e.degree || '',
-      period: `${e.yearOfGraduation || ''} (${e.graduationStatus || ''})`,
-      description: e.etc || '',
-    })),
-    awards: (data.awards || []).map(a => ({
-      name: a.awardName || '',
-      organization: a.organization || '',
-      date: a.awardYear || '',
-      description: a.details || '',
-    })),
-    certificates: (data.certificates || []).map(c => ({
-      name: c.certificateName || '',
-      organization: c.organization || '',
-      date: c.date || '',
-      //number: '',
-    })),
-    files: [],
-    links: (data.portfolios || []).map(p => ({
-      title: p.portfolioTitle || '',
-      url: p.portfolioUrl || '',
-    })),
-    //introduction: '',
-    expats: data.expats || [],
-    languages: (data.languages || []).map(l => ({
-      language: l.languages,
-      proficiency: l.proficiency,
-    })),
-  };
-}
+import { z } from 'zod';
+import usePatchResume from '@/lib/apis/mutations/usePatchResume';
+import useGetResumePreview from '@/lib/apis/queries/useGetResumePreview';
+import { useEffect } from 'react';
+
+type ResumeFormType = z.infer<typeof resumeSchema>;
+
+const defaultValues = {
+  resumeTitle: '',
+  desiredJobs: [],
+  employments: [],
+  educations: [],
+  certificates: [],
+  awards: [],
+  skills: [],
+  languages: [],
+  portfolios: [],
+  jobPreference: {
+    desiredEmploymentType: '',
+    desiredSalary: 0,
+    desiredLocation: '',
+  },
+  expat: [],
+  resumeImageUrl: '',
+};
 
 export default function EditResumePage() {
-  const { resumeId } = useParams();
-  const { data, isLoading, isError } = useGetResumePreview(resumeId || '');
-
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !data?.data)
-    return <div>이력서 정보를 불러올 수 없습니다.</div>;
-
-  const formState = useForm<ResumeValues>({
-    defaultValues: convertPreviewToFormValues(data.data),
+  const { id } = useParams();
+  const { data, isLoading } = useGetResumePreview(id ?? '');
+  const { mutate: patchResume } = usePatchResume();
+  // TODO: id로 이력서 상세 데이터 fetch 후 defaultValues에 반영
+  const formState = useForm<ResumeFormType>({
+    defaultValues,
     resolver: zodResolver(resumeSchema),
   });
 
-  const onSubmit = async (formData: unknown) => {
-    // 수정 API 호출
-    console.log('수정 데이터:', formData);
+  useEffect(() => {
+    if (data?.data) {
+      const {
+        resumeTitle,
+        desiredJobs,
+        employments,
+        educations,
+        certificates,
+        awards,
+        skills,
+        languages,
+        portfolios,
+        jobPreference,
+        expats,
+        imageUrl,
+      } = data.data;
+
+      formState.reset({
+        resumeTitle,
+        desiredJobs,
+        employments,
+        educations,
+        certificates,
+        awards,
+        skills,
+        languages,
+        portfolios,
+        jobPreference,
+        expat: expats,
+        resumeImageUrl: imageUrl ?? '',
+      });
+    }
+  }, [data?.data]);
+
+  const navigate = useNavigate();
+  // TODO: usePatchResume 등 실제 수정 API 연결 필요
+  const onSubmit = async (data: ResumeFormType) => {
+    if (!id) return;
+
+    patchResume(
+      {
+        resumeId: Number(id),
+        body: data,
+      },
+      {
+        onSuccess: () => {
+          navigate('/profile/resume');
+        },
+        onError: error => {
+          console.error('이력서 수정 실패:', error);
+        },
+      },
+    );
   };
 
   const onError = (error: unknown) => {
@@ -121,7 +135,10 @@ export default function EditResumePage() {
           <AwardsInfo />
           <ExpatInfo />
           <LanguageInfo />
+          {/* 파일 첨부 <FilesInfo /> */}
+
           <LinkInfo />
+          {/* 자기 소개 <IntroductionInfo /> */}
           <BottomActions />
         </form>
       </FormProvider>
