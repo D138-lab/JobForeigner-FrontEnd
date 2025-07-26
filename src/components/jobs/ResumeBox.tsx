@@ -70,13 +70,21 @@ const ResumeBox = ({
         <div>작성완료</div>
       </div>
       <div className={styles.middleTab}>
-        <div>
-          최근 경력 : {employments[0].companyName} - {employments[0].jobTitle}
-        </div>
-        <div>
-          최종 학력 : {(educations[0].educationName, educations[0].major)} -
-          {educations[0].degree}
-        </div>
+        {employments?.length > 0 ? (
+          <div>
+            최근 경력 : {employments[0].companyName} - {employments[0].jobTitle}
+          </div>
+        ) : (
+          <div>최근 경력 없음</div>
+        )}
+        {educations?.length > 0 ? (
+          <div>
+            최종 학력 : {(educations[0].educationName, educations[0].major)} -
+            {educations[0].degree}
+          </div>
+        ) : (
+          <div>최종 학력 없음</div>
+        )}
       </div>
       <div className={styles.careers}>
         <div>
