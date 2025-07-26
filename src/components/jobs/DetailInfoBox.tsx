@@ -44,6 +44,11 @@ const DetailInfoBox = ({
   expiryAt,
 }: DetailRecruitResponse) => {
   const navigate = useNavigate();
+  const dueDate = new Date(expiryAt);
+  const now = new Date();
+  const diffTime = dueDate.getTime() - now.getTime();
+  const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
   return (
     <div className={styles.container}>
       <div className={styles.topBox}>
@@ -83,7 +88,7 @@ const DetailInfoBox = ({
               </div>
               <div>
                 <Clock width={15} />
-                {expiryAt}
+                {`D-${dDay}`}
               </div>
             </div>
           </div>

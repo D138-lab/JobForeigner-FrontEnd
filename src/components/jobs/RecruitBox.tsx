@@ -1,8 +1,9 @@
 import { DollarSign, MapPin, Star, Timer, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
-import { Link } from 'react-router-dom';
 import styles from './recruitBox.module.scss';
+import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
 
 export interface RecruitInfoType {
@@ -22,7 +23,6 @@ export interface RecruitInfoType {
 const RecruitBox = ({
   id,
   title,
-  description,
   location,
   employmentType,
   salary,
@@ -32,9 +32,22 @@ const RecruitBox = ({
   grade,
   companyName,
 }: RecruitInfoType) => {
-  const [isScraped, setIsScraped] = useState(false);
+  const [isScrapped, setIsScrapped] = useState(false);
+  const navigate = useNavigate();
+  const expiryDate = new Date(expiryAt);
+  const today = new Date();
+  const diffTime = expiryDate.getTime() - today.getTime();
+  const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const { mutate, isPending } = usePostToggleScarp();
+
   const handleScrap = () => {
-    setIsScraped(!isScraped);
+    mutate(id, {
+      onSuccess: () => setIsScrapped(prev => !prev),
+    });
+  };
+
+  const handleApply = () => {
+    navigate('/select-resume', { state: { recruitId: id } });
   };
 
   return (
@@ -43,7 +56,7 @@ const RecruitBox = ({
         <div className={styles.title}>{title}</div>
         <Star
           style={{ width: 20, height: 20, flexShrink: 0 }}
-          className={isScraped ? styles.scraped : styles.noscraped}
+          className={isScrapped ? styles.scraped : styles.noscraped}
           onClick={handleScrap}
         />
       </div>
@@ -52,10 +65,12 @@ const RecruitBox = ({
         className={styles.recruitBar}
         state={{
           id,
+          isScrapped,
         }}
       >
         <div className={styles.subRow}>
           <div>{companyName}</div>
+          <div>{grade}</div>
           <div className={styles.employmentType}>{employmentType}</div>
         </div>
         <div className={styles.datailInfo}>
@@ -74,14 +89,17 @@ const RecruitBox = ({
           <div>
             <Timer size={15} className={styles.icon} />
             <span>
-              {expiryAt} , {grade}
+              {`${expiryDate.getFullYear()}.${
+                expiryDate.getMonth() + 1
+              }.${expiryDate.getDate()}`}{' '}
+              , {`D-${dDay}`}
             </span>
           </div>
         </div>
       </Link>
       <div className={styles.btnBox}>
         <div className={styles.published}>{published}</div>
-        <Button>지원하기</Button>
+        <Button onClick={handleApply}>지원하기</Button>
       </div>
     </div>
   );
