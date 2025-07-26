@@ -38,7 +38,11 @@ const SearchResultForm = ({ content }: Props) => {
         <div
           key={ele.companyId}
           className={styles.companyCard}
-          onClick={() => navigate(`/companies/${ele.companyId}`)}
+          onClick={() =>
+            navigate(`/companies/${ele.companyId}`, {
+              state: ele.companyId,
+            })
+          }
         >
           <p>{ele.companyName}</p>
         </div>
