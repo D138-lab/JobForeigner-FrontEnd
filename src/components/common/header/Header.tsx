@@ -15,6 +15,11 @@ export default function Header() {
   const logout = useAuthStore(state => state.logout);
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
 
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem('accessToken');
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.left}>
@@ -51,7 +56,7 @@ export default function Header() {
             <Link to='/profile' className={styles.profileBox}>
               <img src={userImgUrl} alt='프로필' />
             </Link>
-            <Button variant='outline' onClick={() => logout()}>
+            <Button variant='outline' onClick={() => handleLogout()}>
               {t('로그아웃')}
             </Button>
           </>
