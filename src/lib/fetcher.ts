@@ -74,7 +74,8 @@ instance.interceptors.response.use(
       response &&
       response.status === HttpStatusCode.Unauthorized &&
       originalConfig &&
-      !originalConfig._retry
+      !originalConfig._retry &&
+      (response.data as any)?.code === 'S003'
     ) {
       originalConfig._retry = true;
       try {

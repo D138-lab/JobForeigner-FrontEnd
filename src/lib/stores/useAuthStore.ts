@@ -10,6 +10,11 @@ interface AuthStateValues {
   phoneNumber: string;
   email: string;
   profileImageUrl: string;
+  address: {
+    address: string;
+    detailAddress: string;
+    zipcode: string;
+  };
 }
 
 interface AuthStateActions {
@@ -20,6 +25,11 @@ interface AuthStateActions {
   setPhoneNumber: (phoneNumber: string) => void;
   setEmail: (email: string) => void;
   setProfileImageUrl: (url: string) => void;
+  setAddress: (addressObj: {
+    address: string;
+    detailAddress: string;
+    zipcode: string;
+  }) => void;
 }
 
 export const useAuthStore = create<AuthStateValues & AuthStateActions>()(
@@ -31,6 +41,11 @@ export const useAuthStore = create<AuthStateValues & AuthStateActions>()(
       phoneNumber: '',
       email: '',
       profileImageUrl: '',
+      address: {
+        address: '',
+        detailAddress: '',
+        zipcode: '',
+      },
 
       login: () => set({ isLoggedIn: true }),
       logout: () =>
@@ -41,6 +56,11 @@ export const useAuthStore = create<AuthStateValues & AuthStateActions>()(
           phoneNumber: '',
           email: '',
           profileImageUrl: '',
+          address: {
+            address: '',
+            detailAddress: '',
+            zipcode: '',
+          },
         }),
 
       setName: name => {
@@ -51,9 +71,10 @@ export const useAuthStore = create<AuthStateValues & AuthStateActions>()(
       setPhoneNumber: phoneNumber => set({ phoneNumber }),
       setEmail: email => set({ email }),
       setProfileImageUrl: url => set({ profileImageUrl: url }),
+      setAddress: addressObj => set({ address: addressObj }),
     }),
     {
-      name: 'auth-storage',
+      name: 'my-info',
       partialize: state => ({
         isLoggedIn: state.isLoggedIn,
         name: state.name,
@@ -61,6 +82,7 @@ export const useAuthStore = create<AuthStateValues & AuthStateActions>()(
         phoneNumber: state.phoneNumber,
         email: state.email,
         profileImageUrl: state.profileImageUrl,
+        address: state.address,
       }),
     },
   ),
