@@ -35,7 +35,7 @@
   padding: 2rem 0;
 }
 
-.educationWrapper {
+.itemWrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,7 +44,7 @@
   padding: 1.5rem 1.75rem;
 }
 
-.educationHeader {
+.itemHeader {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -57,15 +57,14 @@
   cursor: pointer;
 }
 
-.educationContent {
+.itemContent {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
 }
 
-.educationAndMajor,
-.degreeAndPeriod {
+.row {
   display: flex;
   justify-content: space-between;
   gap: 1rem;

@@ -1,5 +1,5 @@
 import BasicInfo from '@/components/profile/resume/create/BasicInfo';
-import styles from './page.module.scss';
+import styles from '../create/page.module.scss';
 import BottomActions from '@/components/profile/resume/create/BottomActions';
 import AddressInfo from '@/components/profile/resume/create/AddressInfo';
 import JobInfo from '@/components/profile/resume/create/JobInfo';
@@ -17,13 +17,12 @@ import FilesInfo from '@/components/profile/resume/create/FilesInfo';
 import JobPreferenceInfo from '@/components/profile/resume/create/JobPreferenceInfo';
 import ExpatInfo from '@/components/profile/resume/create/ExpatInfo';
 import LanguageInfo from '@/components/profile/resume/create/LanguageInfo';
-import { useNavigate } from 'react-router-dom';
-
-import usePostResume, {
-  PostResumeRequest,
-} from '@/lib/apis/mutations/usePostResume';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { z } from 'zod';
+import usePatchResume from '@/lib/apis/mutations/usePatchResume';
+import useGetResumePreview from '@/lib/apis/queries/useGetResumePreview';
+import { useEffect } from 'react';
 
 type ResumeFormType = z.infer<typeof resumeSchema>;
 
@@ -46,21 +45,69 @@ const defaultValues = {
   resumeImageUrl: '',
 };
 
-export default function CreateResumePage() {
-  const formState = useForm({
+export default function EditResumePage() {
+  const { id } = useParams();
+  const { data, isLoading } = useGetResumePreview(id ?? '');
+  const { mutate: patchResume } = usePatchResume();
+  // TODO: id로 이력서 상세 데이터 fetch 후 defaultValues에 반영
+  const formState = useForm<ResumeFormType>({
     defaultValues,
     resolver: zodResolver(resumeSchema),
   });
-  const navigate = useNavigate();
-  const { mutate: postResume } = usePostResume();
 
+  useEffect(() => {
+    if (data?.data) {
+      const {
+        resumeTitle,
+        desiredJobs,
+        employments,
+        educations,
+        certificates,
+        awards,
+        skills,
+        languages,
+        portfolios,
+        jobPreference,
+        expats,
+        imageUrl,
+      } = data.data;
+
+      formState.reset({
+        resumeTitle,
+        desiredJobs,
+        employments,
+        educations,
+        certificates,
+        awards,
+        skills,
+        languages,
+        portfolios,
+        jobPreference,
+        expat: expats,
+        resumeImageUrl: imageUrl ?? '',
+      });
+    }
+  }, [data?.data]);
+
+  const navigate = useNavigate();
+  // TODO: usePatchResume 등 실제 수정 API 연결 필요
   const onSubmit = async (data: ResumeFormType) => {
-    console.log(JSON.stringify(data, null, 2));
-    postResume(data as PostResumeRequest, {
-      onSuccess: () => {
-        navigate('/profile/resume');
+    if (!id) return;
+
+    patchResume(
+      {
+        resumeId: Number(id),
+        body: data,
       },
-    });
+      {
+        onSuccess: () => {
+          navigate('/profile/resume');
+        },
+        onError: error => {
+          console.error('이력서 수정 실패:', error);
+        },
+      },
+    );
   };
 
   const onError = (error: unknown) => {
@@ -70,7 +117,7 @@ export default function CreateResumePage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1>새 이력서 작성</h1>
+        <h1>이력서 수정</h1>
         <p>* 표시는 필수 입력 항목입니다</p>
       </div>
       <FormProvider {...formState}>

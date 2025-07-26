@@ -1,9 +1,23 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-export interface ResumeListItem {
+export interface MemberProfile {
+  name: string;
+  type: string;
+  phoneNumber: string;
+  email: string;
+  profile_image_url: string;
+  address: {
+    address: string;
+    detailAddress: string;
+    zipcode: string;
+  };
+}
+
+export interface ResumePreviewItem {
   resumeId: number;
   resumeTitle: string;
+  memberProfile: MemberProfile;
   createdAt: string;
   updatedAt: string;
   desiredJobs: Array<{ desiredJob: string }>;
@@ -56,64 +70,23 @@ export interface ResumeListItem {
     endDate: string;
     experience: string;
   }>;
-  imageUrl: string;
+  imageUrl: string | null;
 }
 
-interface GetResumeListResponse {
-  success: boolean;
-  data: {
-    content: ResumeListItem[];
-    pageable: {
-      pageNumber: number;
-      pageSize: number;
-      sort: {
-        sorted: boolean;
-        empty: boolean;
-        unsorted: boolean;
-      };
-      offset: number;
-      paged: boolean;
-      unpaged: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-    last: boolean;
-    size: number;
-    number: number;
-    sort: {
-      sorted: boolean;
-      empty: boolean;
-      unsorted: boolean;
-    };
-    numberOfElements: number;
-    first: boolean;
-    empty: boolean;
-  };
+export interface GetResumePreviewResponse {
+  success: boolean | string;
+  data: ResumePreviewItem;
   code?: string;
   message?: string;
 }
 
-interface UseGetResumeListParams {
-  page?: number;
-  size?: number;
-  sort?: string[];
-}
-
-const useGetResumeList = ({
-  page = 0,
-  size = 10,
-  sort = ['updatedAt,DESC'],
-}: UseGetResumeListParams = {}) => {
-  const sortQuery = sort.map(s => `sort=${encodeURIComponent(s)}`).join('&');
-  const queryString = `page=${page}&size=${size}${
-    sortQuery ? `&${sortQuery}` : ''
-  }`;
-
+const useGetResumePreview = (resumeId: number | string) => {
   return useQuery({
-    queryKey: ['resumes', page, size, sort],
+    queryKey: ['resumePreview', resumeId],
     queryFn: () =>
-      fetcher.get<GetResumeListResponse>(`/api/v1/resumes?${queryString}`),
+      fetcher.get<GetResumePreviewResponse>(`/api/v1/resumes/${resumeId}`),
+    enabled: !!resumeId,
   });
 };
 
-export default useGetResumeList;
+export default useGetResumePreview;

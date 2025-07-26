@@ -91,7 +91,18 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               {...field}
               placeholder={placeholder}
               onChange={e => handleInput(e, field)}
-              onKeyDown={e => e.key === 'Enter' && e.preventDefault()}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+
+                if (
+                  type === 'number' &&
+                  (e.key === '-' || e.key === 'e' || e.key === '+')
+                ) {
+                  e.preventDefault();
+                }
+              }}
               type={type}
               icon={icon}
               ref={ref}

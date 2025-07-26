@@ -12,11 +12,17 @@ import {
   User,
   Building2,
   Bookmark,
+  Briefcase,
   BadgeIcon as Certificate,
   Paperclip,
+  Plane,
+  Wallet,
+  MapPin,
 } from 'lucide-react';
 import styles from './page.module.scss';
 import Button from '@/components/common/button/Button';
+import useGetResumePreview from '@/lib/apis/queries/useGetResumePreview';
+import { PATH } from '@/lib/constants/routes';
 
 export default function ResumePreviewPage() {
   const { resumeId } = useParams();
@@ -24,142 +30,86 @@ export default function ResumePreviewPage() {
   const resumeRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 실제 구현에서는 API에서 이력서 정보를 가져옵니다
-  const resumeData = {
-    id: resumeId,
-    title: '프론트엔드 개발자 이력서',
-    createdAt: '2024-03-15',
-    updatedAt: '2024-03-20',
-    status: 'completed',
+  const {
+    data: resumePreviewData,
+    isLoading: isResumeLoading,
+    error,
+    isError,
+  } = useGetResumePreview(resumeId!);
+  const serverData = resumePreviewData?.data;
 
-    // 기본 정보
-    basicInfo: {
-      name: '홍길동',
-      email: 'example@email.com',
-      phone: '010-1234-5678',
-      address: '서울특별시 강남구',
-      photo: null,
-      job: 'IT/개발',
-    },
+  if (isError) {
+    const anyError = error as any;
+    const status = anyError?.response?.status || anyError?.status;
+    if (status === 404) {
+      navigate(PATH.NOT_FOUND, { replace: true });
+      return null;
+    }
+  }
 
-    // 업무 스킬
-    skills: [
-      'React',
-      'Next.js',
-      'TypeScript',
-      'JavaScript',
-      'HTML',
-      'CSS',
-      'Redux',
-      'Git',
-      'Responsive Design',
-      'RESTful API',
-    ],
+  const resumeData = serverData
+    ? {
+        id: serverData.resumeId,
+        title: serverData.resumeTitle || '새로운 이력서',
+        createdAt: serverData.createdAt?.slice(0, 10) || '',
+        updatedAt: serverData.updatedAt?.slice(0, 10) || '',
+        status: 'completed',
+        basicInfo: {
+          name: serverData.memberProfile?.name || '',
+          email: serverData.memberProfile?.email || '',
+          phone: serverData.memberProfile?.phoneNumber || '',
+          address: serverData.memberProfile?.address?.address || '',
+          photo:
+            serverData.memberProfile?.profile_image_url || serverData.imageUrl,
+        },
+        jobs: serverData.desiredJobs?.map(j => j.desiredJob) || [],
+        skills: serverData.skills?.map(s => s.skillName) || [],
+        experience:
+          serverData.employments?.map(e => ({
+            company: e.companyName,
+            position: e.jobTitle,
+            period: `${e.startDate?.slice(0, 10) || ''} - ${
+              e.endDate?.slice(0, 10) || ''
+            }`,
+            description: e.achievement,
+          })) || [],
+        education:
+          serverData.educations?.map(ed => ({
+            school: ed.educationName,
+            degree: ed.degree,
+            period: ed.yearOfGraduation,
+            description: ed.etc,
+          })) || [],
+        awards:
+          serverData.awards?.map(a => ({
+            title: a.awardName,
+            organization: a.organization,
+            date: a.awardYear,
+            description: a.details,
+          })) || [],
+        certificates:
+          serverData.certificates?.map(c => ({
+            name: c.certificateName,
+            organization: c.organization,
+            date: c.date,
+            number: '',
+          })) || [],
+        attachments: [] as any[],
+        links:
+          serverData.portfolios?.map(p => ({
+            title: p.portfolioTitle || '포트폴리오',
+            url: p.portfolioUrl,
+          })) || [],
+      }
+    : null;
 
-    // 경력
-    experience: [
-      {
-        company: '테크 솔루션즈',
-        position: '프론트엔드 개발자',
-        period: '2021.03 - 현재',
-        description:
-          'React와 Next.js를 활용한 웹 애플리케이션 개발, 사용자 인터페이스 개선 및 성능 최적화, 백엔드 개발자와 협업하여 RESTful API 연동 등의 업무를 수행했습니다.',
-      },
-      {
-        company: '스타트업 허브',
-        position: '웹 개발자',
-        period: '2019.03 - 2021.02',
-        description:
-          'HTML, CSS, JavaScript를 활용한 웹사이트 개발, 반응형 웹 디자인 구현, jQuery 및 Bootstrap 프레임워크 활용 등의 업무를 담당했습니다.',
-      },
-    ],
-
-    // 학력
-    education: [
-      {
-        school: '서울대학교',
-        degree: '컴퓨터공학 학사',
-        period: '2015.03 - 2019.02',
-        description:
-          '컴퓨터 알고리즘, 데이터베이스, 웹 개발 등을 학습했으며, 졸업 프로젝트로 SNS 웹 애플리케이션을 개발했습니다.',
-      },
-      {
-        school: '한국디지털고등학교',
-        degree: '소프트웨어개발과',
-        period: '2012.03 - 2015.02',
-        description:
-          '프로그래밍 기초와 웹 개발 기술을 배웠으며, 교내 프로그래밍 경진대회에서 우수상을 수상했습니다.',
-      },
-    ],
-
-    // 활동 및 수상
-    awards: [
-      {
-        title: '웹 개발 경진대회 우수상',
-        organization: '한국소프트웨어협회',
-        date: '2020.10',
-        description: '사용자 경험을 개선한 웹 애플리케이션 개발로 우수상 수상',
-      },
-      {
-        title: '오픈소스 컨트리뷰션 페스티벌 참가',
-        organization: '한국정보기술연구원',
-        date: '2019.08',
-        description:
-          '오픈소스 프로젝트에 기여하는 활동에 참여하여 React 기반 라이브러리 개발에 기여',
-      },
-    ],
-
-    // 자격증
-    certificates: [
-      {
-        name: '정보처리기사',
-        organization: '한국산업인력공단',
-        date: '2018.08',
-        number: '18-12-123456',
-      },
-      {
-        name: 'SQLD (SQL 개발자)',
-        organization: '한국데이터산업진흥원',
-        date: '2019.05',
-        number: '19-05-654321',
-      },
-      {
-        name: '리눅스마스터 2급',
-        organization: '한국정보통신진흥협회',
-        date: '2017.11',
-        number: '17-11-789012',
-      },
-    ],
-
-    // 첨부 파일
-    attachments: [
-      {
-        name: '포트폴리오.pdf',
-        size: '2.3MB',
-        url: '#',
-      },
-    ],
-
-    // 링크
-    links: [
-      {
-        title: '개인 블로그',
-        url: 'https://blog.example.com',
-      },
-      {
-        title: '포트폴리오 웹사이트',
-        url: 'https://portfolio.example.com',
-      },
-      {
-        title: 'GitHub',
-        url: 'https://github.com/username',
-      },
-      {
-        title: 'LinkedIn',
-        url: 'https://linkedin.com/in/username',
-      },
-    ],
-  };
+  if (!isResumeLoading && !serverData) {
+    return null;
+  }
+  if (!isResumeLoading && serverData) {
+    console.log('서버에서 받은 이력서 데이터:', serverData);
+  }
+  if (!resumeData) return null;
 
   const handlePrint = () => window.print();
   const handleDownloadPDF = () => {
@@ -233,12 +183,6 @@ export default function ResumePreviewPage() {
                       {resumeData.basicInfo.email}
                     </span>
                   </div>
-                  <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>전화번호</span>
-                    <span className={styles.value}>
-                      {resumeData.basicInfo.phone}
-                    </span>
-                  </div>
                 </div>
 
                 <div className={styles.basicInfoColumn}>
@@ -249,14 +193,32 @@ export default function ResumePreviewPage() {
                     </span>
                   </div>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>직종</span>
+                    <span className={styles.name}>전화번호</span>
                     <span className={styles.value}>
-                      {resumeData.basicInfo.job}
+                      {resumeData.basicInfo.phone}
                     </span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* 희망 업종 */}
+          <div>
+            <div className={styles.sectionTitle}>
+              <Briefcase className={styles.titleIcon} /> <h2>희망 업종</h2>
+            </div>
+            {resumeData.jobs.length > 0 && resumeData.jobs[0] ? (
+              <ul className={styles.jobsList}>
+                {resumeData.jobs.map((job, index) => (
+                  <li key={index} className={styles.jobItem}>
+                    <span className={styles.jobName}>{job}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noSkills}>등록된 희망 업종이 없습니다.</p>
+            )}
           </div>
 
           {/* 업무 및 스킬 */}
@@ -274,6 +236,71 @@ export default function ResumePreviewPage() {
               </ul>
             ) : (
               <p className={styles.noSkills}>등록된 업무 및 스킬이 없습니다.</p>
+            )}
+          </div>
+
+          {/* 희망 근무 조건 */}
+          <div className={styles.preferenceSection}>
+            <div className={styles.sectionTitle}>
+              <Wallet className={styles.titleIcon} /> <h2>희망 근무 조건</h2>
+            </div>
+            {serverData?.jobPreference ? (
+              <div className={styles.preferenceList}>
+                <div className={styles.preferenceItem}>
+                  <Bookmark className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>고용 형태</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredEmploymentType}
+                  </span>
+                </div>
+                <div className={styles.preferenceItem}>
+                  <Wallet className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>희망 연봉</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredSalary?.toLocaleString()}
+                    만원
+                  </span>
+                </div>
+                <div className={styles.preferenceItem}>
+                  <MapPin className={styles.titleIcon} />
+                  <span className={styles.preferenceLabel}>희망 근무지역</span>
+                  <span className={styles.preferenceValue}>
+                    {serverData.jobPreference.desiredLocation}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <p className={styles.noSkills}>
+                등록된 희망 근무 조건이 없습니다.
+              </p>
+            )}
+          </div>
+
+          {/* 학력 */}
+          <div>
+            <div className={styles.sectionTitle}>
+              <GraduationCap className={styles.titleIcon} /> <h2>학력</h2>
+            </div>
+            {resumeData.education.length > 0 ? (
+              <ul className={styles.educationList}>
+                {resumeData.education.map((item, index) => (
+                  <li key={index} className={styles.educationItem}>
+                    <div className={styles.educationHeader}>
+                      <h3 className={styles.educationCompany}>{item.school}</h3>
+                      <span className={styles.educationPeriod}>
+                        <Calendar />
+                        {item.period}
+                      </span>
+                    </div>
+                    <p className={styles.educationPosition}>{item.degree}</p>
+                    <p className={styles.educationDescription}>
+                      {item.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noEducation}>등록된 경력이 없습니다.</p>
             )}
           </div>
 
@@ -307,32 +334,33 @@ export default function ResumePreviewPage() {
             )}
           </div>
 
-          {/* 학력 */}
+          {/* 자격증 */}
           <div>
             <div className={styles.sectionTitle}>
-              <GraduationCap className={styles.titleIcon} /> <h2>학력</h2>
+              <Certificate className={styles.titleIcon} /> <h2>자격증</h2>
             </div>
-            {resumeData.experience.length > 0 ? (
-              <ul className={styles.educationList}>
-                {resumeData.education.map((item, index) => (
-                  <li key={index} className={styles.educationItem}>
-                    <div className={styles.educationHeader}>
-                      <h3 className={styles.educationCompany}>{item.school}</h3>
-                      <span className={styles.educationPeriod}>
+            <div className={styles.certificationList}>
+              {resumeData.certificates.length > 0 ? (
+                <>
+                  {resumeData.certificates.map((item, index) => (
+                    <div key={index} className={styles.certificateItem}>
+                      <h3 className={styles.certificateName}>{item.name}</h3>
+                      <p className={styles.certificateOrganization}>
+                        {item.organization}
+                      </p>
+                      <span className={styles.certificateDate}>
                         <Calendar />
-                        {item.period}
+                        {item.date}
                       </span>
                     </div>
-                    <p className={styles.educationPosition}>{item.degree}</p>
-                    <p className={styles.educationDescription}>
-                      {item.description}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className={styles.noEducation}>등록된 경력이 없습니다.</p>
-            )}
+                  ))}
+                </>
+              ) : (
+                <p className={styles.noCertificates}>
+                  등록된 자격증이 없습니다.
+                </p>
+              )}
+            </div>
           </div>
 
           {/* 활동 및 수상 */}
@@ -367,36 +395,59 @@ export default function ResumePreviewPage() {
             )}
           </div>
 
-          {/* 자격증 */}
-          <div>
+          {/* 해외경험 */}
+          <div className={styles.expatsSection}>
             <div className={styles.sectionTitle}>
-              <Certificate className={styles.titleIcon} /> <h2>자격증</h2>
+              <Plane className={styles.titleIcon} /> <h2>해외 경험</h2>
             </div>
-            <div className={styles.certificationList}>
-              {resumeData.certificates.length > 0 ? (
-                <>
-                  {resumeData.certificates.map((item, index) => (
-                    <div key={index} className={styles.certificateItem}>
-                      <h3 className={styles.certificateName}>{item.name}</h3>
-                      <p className={styles.certificateOrganization}>
-                        {item.organization}
-                      </p>
-                      <span className={styles.certificateDate}>
-                        <Calendar />
-                        {item.date}
+            {serverData?.expats && serverData.expats.length > 0 ? (
+              <ul className={styles.expatsList}>
+                {serverData.expats.map((expat, idx) => (
+                  <li key={idx} className={styles.expatItem}>
+                    <div className={styles.expatHeader}>
+                      <span className={styles.expatCountry}>
+                        {expat.country}
                       </span>
-                      <p className={styles.certificateNumber}>
-                        자격증 번호: {item.number}
-                      </p>
+                      <span className={styles.expatPeriod}>
+                        <Calendar />
+                        {expat.startDate?.slice(0, 10) || ''} -{' '}
+                        {expat.endDate?.slice(0, 10) || ''}
+                      </span>
                     </div>
-                  ))}
-                </>
-              ) : (
-                <p className={styles.noCertificates}>
-                  등록된 자격증이 없습니다.
-                </p>
-              )}
+                    <p className={styles.expatDescription}>
+                      {expat.experience}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noExperience}>
+                등록된 해외 경험이 없습니다.
+              </p>
+            )}
+          </div>
+
+          {/* 언어 */}
+          <div className={styles.languagesSection}>
+            <div className={styles.sectionTitle}>
+              <Globe className={styles.titleIcon} /> <h2>언어</h2>
             </div>
+            {serverData?.languages && serverData.languages.length > 0 ? (
+              <ul className={styles.languagesList}>
+                {serverData.languages.map((lang, idx) => (
+                  <li key={idx} className={styles.languageItem}>
+                    <span className={styles.languageName}>
+                      {lang.languages}
+                    </span>
+                    <span className={styles.languageProficiency}>
+                      ({lang.proficiency})
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noSkills}>등록된 언어 정보가 없습니다.</p>
+            )}
           </div>
 
           {/* 첨부 파일 */}

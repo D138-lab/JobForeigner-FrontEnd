@@ -9,21 +9,37 @@ export default function BottomActions() {
   const { watch } = useFormContext();
   const formValues = watch();
 
+  // 중첩 필드 접근 함수 추가
+  function getNestedValue(obj: any, path: string) {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  }
+
+  const handleTempSave = () => {
+    // 현재 폼 데이터를 JSON 형태로 출력
+    console.log('임시 저장 데이터 ↓');
+    console.log(JSON.stringify(formValues, null, 2));
+  };
+
   const progress = useMemo(() => {
     const requiredFields = [
-      'title',
-      'name',
-      'email',
-      'phoneNumber',
-      'sido',
-      'sigungu',
-      'job',
+      'resumeTitle',
+      'address',
+      'desiredJobs',
+      'skills',
+      'jobPreference.desiredEmploymentType',
+      'jobPreference.desiredSalary',
+      'jobPreference.desiredLocation',
     ];
 
     const totalFields = requiredFields.length;
-    const filledFields = requiredFields.filter(
-      field => formValues[field] && formValues[field].toString().trim() !== '',
-    ).length;
+    const filledFields = requiredFields.filter(field => {
+      const value = getNestedValue(formValues, field);
+      if (typeof value === 'number') return value > 0;
+      if (Array.isArray(value)) return value.length > 0;
+      return (
+        value !== undefined && value !== null && value.toString().trim() !== ''
+      );
+    }).length;
 
     return Math.round((filledFields / totalFields) * 100);
   }, [formValues]);
@@ -39,7 +55,7 @@ export default function BottomActions() {
             <Progress value={progress} />
           </div>
           <div className={styles.buttonGroup}>
-            <Button variant='outline' size='medium'>
+            <Button variant='outline' size='medium' onClick={handleTempSave}>
               <FileDown className={styles.buttonIcon} />
               <span className={styles.buttonText}>임시 저장</span>
             </Button>

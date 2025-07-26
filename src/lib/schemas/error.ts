@@ -16,4 +16,5 @@ export const ERROR_MSG = {
   },
   email: '올바른 이메일 형식을 입력해주세요.',
   phoneNumber: '올바른 전화번호를 입력해주세요.',
+  url: '올바른 url 형식을 입력해주세요',
 };

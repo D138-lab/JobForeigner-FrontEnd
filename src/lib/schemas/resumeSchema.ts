@@ -5,118 +5,94 @@ import { REGEX } from './regex';
 const maxPhotoSize = 50 * 1024 * 1024;
 
 export const resumeSchema = z.object({
-  title: z.string().min(1, ERROR_MSG.required).max(50, ERROR_MSG.exceed.fifty),
-  name: z.string().min(1, ERROR_MSG.required).max(30, ERROR_MSG.exceed.thirty),
-  email: z.string().email(ERROR_MSG.required).max(50, ERROR_MSG.exceed.fifty),
-  phoneNumber: z
+  resumeTitle: z
     .string()
     .min(1, ERROR_MSG.required)
-    .regex(REGEX.phoneNumber, ERROR_MSG.phoneNumber),
-  photo: z
-    .instanceof(File)
-    .optional()
-    .nullable()
-    .refine(file => {
-      if (!file) {
-        return true;
-      }
-      return file.size <= maxPhotoSize;
-    }),
-  sido: z.string().min(1, ERROR_MSG.required),
-  sigungu: z.string().min(1, ERROR_MSG.required),
-  job: z.string().min(1, ERROR_MSG.required),
-  skills: z.array(
-    z.string().min(1, ERROR_MSG.required).max(30, ERROR_MSG.exceed.thirty),
-  ),
-  experiences: z.array(
+    .max(50, ERROR_MSG.exceed.fifty),
+
+  desiredJobs: z.array(
     z.object({
-      name: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      spot: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      period: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      mainTask: z.string().max(2000, ERROR_MSG.exceed.twoThousand),
+      desiredJob: z.string().min(1, ERROR_MSG.required),
     }),
+    // sido: z.string().min(1, ERROR_MSG.required),
+    // sigungu: z.string().min(1, ERROR_MSG.required),
   ),
+
   educations: z.array(
     z.object({
-      school: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      major: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      degree: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(10, ERROR_MSG.exceed.ten),
-      period: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      description: z.string().max(2000, ERROR_MSG.exceed.twoThousand),
+      educationName: z.string().min(1, ERROR_MSG.required),
+      major: z.string().min(1, ERROR_MSG.required),
+      yearOfGraduation: z.string().min(1, ERROR_MSG.required), // YYYY-MM-DD
+      degree: z.string().min(1, ERROR_MSG.required),
+      graduationStatus: z.string().min(1, ERROR_MSG.required),
+      etc: z.string().optional(),
     }),
   ),
-  awards: z.array(
+
+  employments: z.array(
     z.object({
-      name: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(50, ERROR_MSG.exceed.fifty),
-      organization: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      date: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      description: z.string().max(2000, ERROR_MSG.exceed.twoThousand),
+      companyName: z.string().min(1, ERROR_MSG.required),
+      departmentName: z.string().min(1, ERROR_MSG.required),
+      jobTitle: z.string().min(1, ERROR_MSG.required),
+      startDate: z.string().min(1, ERROR_MSG.required), // YYYY-MM-DD
+      endDate: z.string().min(1, ERROR_MSG.required),
+      achievement: z.string().optional(),
     }),
   ),
+
   certificates: z.array(
     z.object({
-      name: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      organization: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      date: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      number: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
+      certificateName: z.string().min(1, ERROR_MSG.required),
+      organization: z.string().min(1, ERROR_MSG.required),
+      date: z.string().min(1, ERROR_MSG.required), // YYYY-MM-DD
     }),
   ),
-  files: z.array(z.instanceof(File)),
-  links: z.array(
+
+  awards: z.array(
     z.object({
-      title: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(30, ERROR_MSG.exceed.thirty),
-      url: z
-        .string()
-        .min(1, ERROR_MSG.required)
-        .max(1000, ERROR_MSG.exceed.thousand),
+      awardName: z.string().min(1, ERROR_MSG.required),
+      organization: z.string().min(1, ERROR_MSG.required),
+      awardYear: z.string().min(1, ERROR_MSG.required), // YYYY-MM-DD
+      details: z.string().optional(),
     }),
   ),
-  introduction: z.string().max(5000, ERROR_MSG.exceed.fiveThousand),
+
+  skills: z.array(
+    z.object({
+      skillName: z.string().min(1, ERROR_MSG.required),
+    }),
+  ),
+
+  languages: z.array(
+    z.object({
+      languages: z.string().min(1, ERROR_MSG.required),
+      proficiency: z.string().min(1, ERROR_MSG.required),
+    }),
+  ),
+
+  portfolios: z.array(
+    z.object({
+      portfolioTitle: z.string().min(1, ERROR_MSG.required),
+      portfolioUrl: z.string().url(ERROR_MSG.url),
+    }),
+  ),
+
+  jobPreference: z.object({
+    desiredEmploymentType: z.string().min(1, ERROR_MSG.required),
+    desiredSalary: z.coerce.number().nonnegative(),
+    desiredLocation: z.string().min(1, ERROR_MSG.required),
+  }),
+
+  expat: z.array(
+    z.object({
+      country: z.string().min(1, ERROR_MSG.required),
+      startDate: z.string().min(1, ERROR_MSG.required), // YYYY-MM-DD
+      endDate: z.string().min(1, ERROR_MSG.required),
+      experience: z.string().optional(),
+    }),
+  ),
+
+  resumeImageUrl: z.string().optional(), // 서버에서 string으로 받는다면
 });
 
 export type ResumeValues = z.infer<typeof resumeSchema>;

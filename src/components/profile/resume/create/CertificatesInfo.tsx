@@ -68,14 +68,14 @@ export default function CertificatesInfo() {
                 required={true}
                 maxLength={30}
               />
-              <InputField
+              {/* <InputField
                 control={control}
                 name={`certificates.${index}.number`}
                 label='자격증 번호'
                 placeholder='자격증 번호를 입력하세요'
                 required={true}
                 maxLength={30}
-              />
+              /> */}
             </div>
           </div>
         </div>

@@ -172,11 +172,13 @@
   }
 }
 
+.jobsList,
 .skillsList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 
+  .jobItem,
   .skillItem {
     background-color: var(--color-slate-200);
     padding: 0.5rem 1rem;
@@ -380,5 +382,97 @@
         color: var(--color-gray-500);
       }
     }
+  }
+}
+
+.languagesSection {
+  margin-bottom: 2rem;
+
+  .languagesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .languageItem {
+    background-color: var(--color-gray-100);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .languageName {
+    font-weight: 700;
+  }
+  .languageProficiency {
+    color: var(--color-gray-500);
+    font-size: 0.95em;
+  }
+}
+
+.expatsSection {
+  margin-bottom: 2rem;
+
+  .expatsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .expatItem {
+    background-color: var(--color-gray-50);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .expatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .expatCountry {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+    }
+    .expatPeriod {
+      font-size: 1rem;
+      color: var(--color-gray-500);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+  .expatDescription {
+    font-size: 1.05rem;
+    color: var(--color-gray-700);
+  }
+}
+
+.preferenceSection {
+  .preferenceList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .preferenceItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .preferenceLabel {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-right: 0.5rem;
+  }
+  .preferenceValue {
+    font-size: 1.05rem;
+    color: var(--color-violet-700);
+    font-weight: 500;
   }
 }
