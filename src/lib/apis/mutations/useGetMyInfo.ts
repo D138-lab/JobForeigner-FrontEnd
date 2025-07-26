@@ -9,6 +9,11 @@ export interface MyInfoResponse {
   phoneNumber: string;
   email: string;
   profile_image_url: string;
+  address: {
+    address: string;
+    detailAddress: string;
+    zipcode: string;
+  };
 }
 
 export const getMyInfo = async (): Promise<MyInfoResponse> => {

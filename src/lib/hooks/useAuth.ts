@@ -11,6 +11,7 @@ export const useAuth = () => {
     setPhoneNumber,
     setEmail,
     setProfileImageUrl,
+    setAddress,
   } = useAuthStore();
 
   const signinMutation = usePostSignin();
@@ -28,6 +29,7 @@ export const useAuth = () => {
     setPhoneNumber(user.phoneNumber);
     setEmail(user.email);
     setProfileImageUrl(user.profile_image_url);
+    setAddress(user.address);
   };
 
   return {
