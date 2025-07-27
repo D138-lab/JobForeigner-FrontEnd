@@ -1,0 +1,76 @@
+.container {
+  position: absolute;
+  padding: 0.4rem;
+  height: 15rem;
+  width: 25rem;
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  top: 3rem;
+  right: 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .labelBox {
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem;
+    border-bottom: 1px solid var(--color-gray-200);
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  .alarmList {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .alarmBox {
+    width: 100%;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+
+    .textArea {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      gap: 0.2rem;
+
+      .title {
+        font-weight: 700;
+      }
+
+      .content {
+        font-size: 0.8em;
+        color: var(--color-gray-600);
+      }
+    }
+
+    .isRead {
+      width: 15%;
+      height: 100%;
+      margin: auto 0;
+      font-size: 0.8em;
+      color: var(--color-gray-600);
+    }
+  }
+}

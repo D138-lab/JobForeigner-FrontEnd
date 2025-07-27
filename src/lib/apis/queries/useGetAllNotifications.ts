@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface GetAllNotificationsResponse {
+export interface GetAllNotificationsResponse {
   id: number;
   title: string;
   content: string;
