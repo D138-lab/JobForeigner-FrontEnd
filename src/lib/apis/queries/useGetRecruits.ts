@@ -11,14 +11,34 @@ export interface GetRecruitsResponse {
   pageContents: RecruitInfoType[];
 }
 
-const useGetRecruits = () => {
+const getRecruits = async ({
+  queryKey,
+}: {
+  queryKey: [string, string?, string?];
+}) => {
+  const [, region, employmentType] = queryKey;
+
+  const regionParam = region ? `region=${region}` : '';
+  const employmentParam = employmentType
+    ? `employmentType=${employmentType}`
+    : '';
+
+  const params = [regionParam, employmentParam].filter(Boolean).join('&');
+
+  const response = await fetcher.get<{
+    success: boolean;
+    data: GetRecruitsResponse;
+  }>(`/api/v1/job-posts${params ? `?${params}` : ''}`);
+
+  return response;
+};
+
+const useGetRecruits = (region?: string, employmentType?: string) => {
   return {
     ...useQuery({
-      queryKey: ['getRecruits'],
-      queryFn: () =>
-        fetcher.get<{ success: boolean; data: GetRecruitsResponse }>(
-          '/api/v1/job-posts',
-        ),
+      queryKey: ['getRecruits', region, employmentType],
+      queryFn: getRecruits,
+      enabled: true,
     }),
   };
 };
