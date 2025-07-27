@@ -23,7 +23,7 @@ export default function ProfileBottom({ resumes, applications }: Props) {
         <p className={styles.statsItemValue}>{applications.length}</p>
       </div>
       <div>
-        <p className={styles.statsItemLabel}>이력서</p>
+        <p className={styles.statsItemLabel}>관심 기업</p>
         <p className={styles.statsItemValue}>{resumes.length}</p>
       </div>
     </div>

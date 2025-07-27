@@ -6,24 +6,59 @@ import { FormProvider, useForm } from 'react-hook-form';
 import UserProfileEditForm from '@/components/profile/edit/UserProfileEditForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userProfileEditSchema } from '@/lib/schemas/userProfileEditSchema';
-
-const defaultValues = {
-  phoneNumber: '010-1111-2222',
-  email: 'new@example.com',
-  address: '서울특별시 성동구 성수이로 123',
-  detailAddress: '456호',
-  zipcode: '04790',
-};
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useEffect } from 'react';
+import usePatchUserProfileInfo from '@/lib/apis/mutations/usePatchUserProfileInfo';
 
 export default function ProfileEditPage() {
   const navigation = useNavigate();
+
+  const phoneNumber = useAuthStore(state => state.phoneNumber);
+  const email = useAuthStore(state => state.email);
+  const address = useAuthStore(state => state.address);
+  const setPhoneNumber = useAuthStore(state => state.setPhoneNumber);
+  const setEmail = useAuthStore(state => state.setEmail);
+  const setAddress = useAuthStore(state => state.setAddress);
+
   const formState = useForm({
-    defaultValues,
+    defaultValues: {
+      phoneNumber: '',
+      email: '',
+      address: '',
+      detailAddress: '',
+      zipcode: '',
+    },
     resolver: zodResolver(userProfileEditSchema),
   });
 
-  const onSubmit = async (data: unknown) => {
-    console.log(data);
+  const { mutate: patchUserProfileInfo } = usePatchUserProfileInfo();
+
+  useEffect(() => {
+    if (phoneNumber && email && address) {
+      formState.reset({
+        phoneNumber,
+        email,
+        address: address.address,
+        detailAddress: address.detailAddress,
+        zipcode: address.zipcode,
+      });
+    }
+  }, [phoneNumber, email, address]);
+
+  const onSubmit = async (data: any) => {
+    patchUserProfileInfo(data, {
+      onSuccess: () => {
+        setPhoneNumber(data.phoneNumber);
+        setEmail(data.email);
+        setAddress({
+          address: data.address,
+          detailAddress: data.detailAddress,
+          zipcode: data.zipcode,
+        });
+        alert('프로필 정보가 수정되었습니다');
+        navigation('/profile');
+      },
+    });
   };
 
   const onError = (error: unknown) => {
