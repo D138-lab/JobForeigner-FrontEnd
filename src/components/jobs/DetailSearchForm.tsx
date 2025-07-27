@@ -39,14 +39,18 @@ const selectJobOptions = [
   { value: 'it', label: 'IT' },
 ];
 
-export default function DetailSearchForm() {
+type Props = {
+  onClick: () => void;
+};
+
+export default function DetailSearchForm({ onClick }: Props) {
   return (
     <form className={styles.searchBox}>
       <div className={styles.searchBoxRow}>
         <Input icon='search' placeholder='검색어를 입력하세요.' />
         <Select name='region' icon='map-pin' options={selectRegionOptions} />
         <Select name='job' icon='brief-case' options={selectJobOptions} />
-        <button type='submit' className={styles.searchButton}>
+        <button type='submit' className={styles.searchButton} onClick={onClick}>
           검색
         </button>
       </div>
