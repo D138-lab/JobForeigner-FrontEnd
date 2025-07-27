@@ -19,6 +19,7 @@ export default function BasicInfo() {
   const name = useAuthStore(state => state.name);
   const email = useAuthStore(state => state.email);
   const phoneNumber = useAuthStore(state => state.phoneNumber);
+  const address = useAuthStore(state => state.address);
   const profileImageUrl = useAuthStore(state => state.profileImageUrl);
 
   const image = uploadedImage || profileImageUrl;
@@ -52,12 +53,14 @@ export default function BasicInfo() {
             <label className={styles.label}>전화번호</label>
             <div className={styles.readonlyInput}>{phoneNumber}</div>
           </div>
-          <InputField
-            control={control}
-            name='address'
-            label='주소'
-            required={true}
-          />
+          <div className={styles.readonlyField}>
+            <label className={styles.label}>주소</label>
+            <div className={styles.readonlyInput}>
+              {address.address}
+              {address.detailAddress && ` ${address.detailAddress}`}
+              {address.zipcode && ` (${address.zipcode})`}
+            </div>
+          </div>
         </div>
         <div className={styles.imageRow}>
           <div className={styles.imageWrapper}>

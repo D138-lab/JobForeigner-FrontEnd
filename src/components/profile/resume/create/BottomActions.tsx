@@ -23,7 +23,6 @@ export default function BottomActions() {
   const progress = useMemo(() => {
     const requiredFields = [
       'resumeTitle',
-      'address',
       'desiredJobs',
       'skills',
       'jobPreference.desiredEmploymentType',
