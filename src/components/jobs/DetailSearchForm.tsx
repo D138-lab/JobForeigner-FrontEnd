@@ -25,22 +25,14 @@ const selectRegionOptions = [
 
 const selectJobOptions = [
   { value: 'all', label: '전체' },
-  { value: 'developer', label: '개발' },
-  { value: 'designer', label: '디자인' },
-  { value: 'manager', label: '관리자' },
-  { value: 'analyst', label: '분석가' },
-  { value: 'consultant', label: '컨설턴트' },
-  { value: 'engineer', label: '엔지니어' },
-  { value: 'sales', label: '영업' },
-  { value: 'marketing', label: '마케팅' },
-  { value: 'hr', label: '인사' },
-  { value: 'finance', label: '재무' },
-  { value: 'legal', label: '법무' },
-  { value: 'it', label: 'IT' },
+  { value: 'FULL_TIME', label: '정규직' },
+  { value: 'CONTRACT', label: '계약직' },
+  { value: 'INTERN', label: '인턴' },
+  { value: 'ETC', label: '기타' },
 ];
 
 type Props = {
-  onClick: () => void;
+  onClick: (region: string, job: string) => void;
 };
 
 export default function DetailSearchForm({ onClick }: Props) {
@@ -50,7 +42,11 @@ export default function DetailSearchForm({ onClick }: Props) {
         <Input icon='search' placeholder='검색어를 입력하세요.' />
         <Select name='region' icon='map-pin' options={selectRegionOptions} />
         <Select name='job' icon='brief-case' options={selectJobOptions} />
-        <button type='submit' className={styles.searchButton} onClick={onClick}>
+        <button
+          type='submit'
+          className={styles.searchButton}
+          onClick={onClick(selectRegionOptions, selectJobOptions)}
+        >
           검색
         </button>
       </div>
