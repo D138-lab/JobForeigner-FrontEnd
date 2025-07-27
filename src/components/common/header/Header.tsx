@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 
+import AlarmButton from './AlarmButton';
 import Button from '../button/Button';
 import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
@@ -53,6 +54,7 @@ export default function Header() {
           </>
         ) : (
           <>
+            <AlarmButton />
             <Link to='/profile' className={styles.profileBox}>
               <img src={userImgUrl} alt='프로필' />
             </Link>
