@@ -27,11 +27,12 @@ interface SelectProps {
   options: Option[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  value: string;
   name?: string;
 }
 
 const Select = forwardRef<HTMLDivElement, SelectProps>(
-  ({ icon, options, defaultValue, onChange, name, ...props }, ref) => {
+  ({ icon, options, defaultValue, onChange, name, value, ...props }, ref) => {
     const [selectedValue, setSelectedValue] = useState(
       defaultValue || options[0]?.value,
     );
