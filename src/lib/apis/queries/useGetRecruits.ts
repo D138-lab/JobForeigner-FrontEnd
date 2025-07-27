@@ -11,17 +11,26 @@ export interface GetRecruitsResponse {
   pageContents: RecruitInfoType[];
 }
 
-const getRecruits = async ({
+export const getRecruits = async ({
   queryKey,
 }: {
-  queryKey: [string, string?, string?];
+  queryKey: [string, string?, string?, string?];
 }) => {
-  const [, region, employmentType] = queryKey;
+  const [, companyName = '', region = 'ALL', employmentType = 'ALL'] = queryKey;
 
   const params = new URLSearchParams();
-  if (region && region !== 'all') params.append('region', region);
-  if (employmentType && employmentType !== 'all')
+
+  if (companyName.trim() !== '') {
+    params.append('companyName', companyName);
+  }
+
+  if (region.toUpperCase() !== 'ALL') {
+    params.append('region', region);
+  }
+
+  if (employmentType.toUpperCase() !== 'ALL') {
     params.append('employmentType', employmentType);
+  }
 
   const queryString = params.toString();
   const url = `/api/v1/job-posts${queryString ? `?${queryString}` : ''}`;
@@ -35,13 +44,15 @@ const getRecruits = async ({
 };
 
 const useGetRecruits = (
-  region: string = 'all',
-  employmentType: string = 'all',
+  companyName: string = '',
+  region: string = 'ALL',
+  employmentType: string = 'ALL',
 ) => {
   return useQuery({
-    queryKey: ['getRecruits', region, employmentType],
+    queryKey: ['getRecruits', companyName, region, employmentType],
     queryFn: getRecruits,
     staleTime: 1000 * 60,
+    enabled: false,
   });
 };
 
