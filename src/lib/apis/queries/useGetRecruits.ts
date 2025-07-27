@@ -18,29 +18,31 @@ const getRecruits = async ({
 }) => {
   const [, region, employmentType] = queryKey;
 
-  const regionParam = region ? `region=${region}` : '';
-  const employmentParam = employmentType
-    ? `employmentType=${employmentType}`
-    : '';
+  const params = new URLSearchParams();
+  if (region && region !== 'all') params.append('region', region);
+  if (employmentType && employmentType !== 'all')
+    params.append('employmentType', employmentType);
 
-  const params = [regionParam, employmentParam].filter(Boolean).join('&');
+  const queryString = params.toString();
+  const url = `/api/v1/job-posts${queryString ? `?${queryString}` : ''}`;
 
   const response = await fetcher.get<{
     success: boolean;
     data: GetRecruitsResponse;
-  }>(`/api/v1/job-posts${params ? `?${params}` : ''}`);
+  }>(url);
 
   return response;
 };
 
-const useGetRecruits = (region?: string, employmentType?: string) => {
-  return {
-    ...useQuery({
-      queryKey: ['getRecruits', region, employmentType],
-      queryFn: getRecruits,
-      enabled: true,
-    }),
-  };
+const useGetRecruits = (
+  region: string = 'all',
+  employmentType: string = 'all',
+) => {
+  return useQuery({
+    queryKey: ['getRecruits', region, employmentType],
+    queryFn: getRecruits,
+    staleTime: 1000 * 60,
+  });
 };
 
 export default useGetRecruits;

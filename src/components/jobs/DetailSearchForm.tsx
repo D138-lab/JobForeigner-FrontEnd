@@ -32,9 +32,8 @@ const selectJobOptions = [
 ];
 
 type Props = {
-  onClick: (region: string, job: string) => void;
+  onClick: (region: string, employmentType: string) => void;
 };
-
 export default function DetailSearchForm({ onClick }: Props) {
   return (
     <form className={styles.searchBox}>
@@ -45,7 +44,7 @@ export default function DetailSearchForm({ onClick }: Props) {
         <button
           type='submit'
           className={styles.searchButton}
-          onClick={onClick(selectRegionOptions, selectJobOptions)}
+          onClick={() => onClick('', '')}
         >
           검색
         </button>
