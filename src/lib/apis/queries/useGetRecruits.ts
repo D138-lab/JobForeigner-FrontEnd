@@ -2,7 +2,7 @@ import { RecruitInfoType } from '@/components/jobs/RecruitBox';
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface GetRecruitsResponse {
+export interface GetRecruitsResponse {
   pageNumber: number;
   pageSize: number;
   totalElements: number;
