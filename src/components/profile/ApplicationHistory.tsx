@@ -8,11 +8,13 @@ interface ApplicationHistoryProps {
 }
 
 export function ApplicationHistory({ applications }: ApplicationHistoryProps) {
+  const recentApplications = [...applications].slice(0, 3);
+
   return (
     <div className={styles.container}>
       <ApplicationHistory.Header count={applications.length} />
       <ApplicationHistory.List>
-        {applications.map(application => (
+        {recentApplications.map(application => (
           <ApplicationHistory.Item
             key={application.id}
             application={application}

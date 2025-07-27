@@ -1,40 +1,29 @@
 import { UserProfile, ResumeList } from '@/components/profile';
-
-import styles from './page.module.scss';
 import { ApplicationHistory } from '@/components/profile/ApplicationHistory';
+import styles from './page.module.scss';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
 
-const userInfo = {
-  profileImageUrl: 'https://randomuser.me/api',
-  name: '홍길동',
-  email: 'dswvgw1234@gmail.com',
-  phoneNumber: '010-1234-5678',
-  region: '서울특별시 강남구',
-  resumes: [
-    {
-      id: 1,
-      title: '이력서1',
-      status: '작성완료',
-      createdAt: '2021-08-01',
-      updatedAt: '2021-08-01',
-    },
-    {
-      id: 2,
-      title: '이력서2',
-      status: '작성중',
-      createdAt: '2021-08-01',
-      updatedAt: '2021-08-01',
-    },
-    {
-      id: 3,
-      title: '이력서3',
-      status: '작성완료',
-      createdAt: '2021-08-01',
-      updatedAt: '2021-08-01',
-    },
-  ],
-  applications: [
+export default function ProfilePage() {
+  const name = useAuthStore(state => state.name);
+  const email = useAuthStore(state => state.email);
+  const phoneNumber = useAuthStore(state => state.phoneNumber);
+  const profileImageUrl = useAuthStore(state => state.profileImageUrl);
+  const address = useAuthStore(state => state.address);
+
+  const { data, isLoading } = useGetResumeList();
+
+  const resumes = (data?.data.content || []).map(item => ({
+    id: item.resumeId,
+    title: item.resumeTitle,
+    status: '작성완료',
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+  }));
+
+  const applications = [
     {
       id: 1,
       company: '토스',
@@ -56,15 +45,24 @@ const userInfo = {
       appliedAt: '2021-08-01',
       status: '탈락',
     },
-  ],
-};
+  ];
 
-export default function ProfilePage() {
+  const userInfo = {
+    name,
+    email,
+    phoneNumber,
+    profileImageUrl,
+    region: address.address,
+    resumes,
+    applications,
+  };
+
   return (
     <div className={styles.container}>
       <main className={styles.page}>
         <h1>프로필</h1>
         <UserProfile userInfo={userInfo} />
+
         <section>
           <div className={styles.sectionHeader}>
             <h2>내 이력서</h2>
@@ -73,10 +71,16 @@ export default function ProfilePage() {
               <ChevronRight />
             </Link>
           </div>
-          <ResumeList resumes={userInfo.resumes}>
-            <ResumeList.items resumes={userInfo.resumes} />
-          </ResumeList>
+
+          {isLoading ? (
+            <p>불러오는 중...</p>
+          ) : (
+            <ResumeList resumes={resumes}>
+              <ResumeList.items resumes={resumes} />
+            </ResumeList>
+          )}
         </section>
+
         <section>
           <div className={styles.sectionHeader}>
             <h2>지원 내역</h2>
@@ -88,7 +92,7 @@ export default function ProfilePage() {
               <ChevronRight />
             </Link>
           </div>
-          <ApplicationHistory applications={userInfo.applications} />
+          <ApplicationHistory applications={applications} />
         </section>
       </main>
     </div>
