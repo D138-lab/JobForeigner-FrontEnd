@@ -1,6 +1,6 @@
 import { Building2, MapPin, Users } from 'lucide-react';
 
-import { CompanyType } from '@/lib/apis/mutations/useCompanyApis';
+import { CompanyType } from '@/lib/apis/queries/useGetCompanyApis';
 import styles from './companyCard.module.scss';
 
 interface Props extends CompanyType {

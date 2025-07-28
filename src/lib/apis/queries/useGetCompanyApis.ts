@@ -80,45 +80,49 @@ interface GetCompanyDetailInfoResponse {
   imageUrl: string;
 }
 
-interface GetCompanyQueryParams {
-  companyName?: string;
-  region?: string;
-  jobType?: string;
-  page?: number;
-  size?: number;
-  sort?: string;
-}
+export const getAllCompanyInfo = async ({
+  queryKey,
+}: {
+  queryKey: [string, string?, string?, string?];
+}) => {
+  const [, companyName = '', region = 'ALL', industryType = 'ALL'] = queryKey;
 
-export const useGetAllCompanyInfo = (params?: GetCompanyQueryParams) => {
-  return {
-    ...useQuery({
-      queryKey: ['useAllCompanyInfo', params],
-      queryFn: async () => {
-        const searchParams = new URLSearchParams();
+  const params = new URLSearchParams();
 
-        if (params) {
-          Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined && value !== null) {
-              searchParams.append(key, String(value));
-            }
-          });
-        }
+  if (companyName.trim() !== '') {
+    params.append('companyName', companyName);
+  }
 
-        const queryString = searchParams.toString();
+  if (region.toUpperCase() !== 'ALL') {
+    params.append('region', region);
+  }
 
-        const res = await fetcher.get<{
-          success: boolean;
-          data: GetAllCompanyInfoResponse;
-        }>(`/api/v1/companies${queryString ? `?${queryString}` : ''}`);
+  if (industryType.toUpperCase() !== 'ALL' && industryType.trim() !== '') {
+    params.append('industryType', industryType);
+  }
 
-        if (!res) {
-          throw new Error('No data returned from API');
-        }
+  const queryString = params.toString();
+  const url = `/api/v1/companies${queryString ? `?${queryString}` : ''}`;
 
-        return res;
-      },
-    }),
-  };
+  const response = await fetcher.get<{
+    success: boolean;
+    data: GetAllCompanyInfoResponse;
+  }>(url);
+
+  return response;
+};
+
+export const useGetAllCompanyInfo = (
+  companyName: string = '',
+  region: string = 'ALL',
+  industryType: string = 'ALL',
+) => {
+  return useQuery({
+    queryKey: ['useAllCompanyInfo', companyName, region, industryType],
+    queryFn: getAllCompanyInfo,
+    staleTime: 1000 * 60,
+    enabled: false,
+  });
 };
 
 export const useGetCompanyDetailInfo = (companyId: number) => {

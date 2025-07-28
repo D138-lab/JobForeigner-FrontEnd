@@ -1,51 +1,124 @@
 import Input from '../common/input/Input';
 import Select from '../common/select/Select';
 import styles from './detailSearchForm.module.scss';
+import { useState } from 'react';
 
 const selectRegionOptions = [
-  { value: 'all', label: '전체' },
-  { value: 'seoul', label: '서울' },
-  { value: 'busan', label: '부산' },
-  { value: 'daegu', label: '대구' },
-  { value: 'incheon', label: '인천' },
-  { value: 'gwangju', label: '광주' },
-  { value: 'daejeon', label: '대전' },
-  { value: 'ulsan', label: '울산' },
-  { value: 'sejong', label: '세종' },
-  { value: 'gyeonggi', label: '경기' },
-  { value: 'gangwon', label: '강원' },
-  { value: 'chungbuk', label: '충북' },
-  { value: 'chungnam', label: '충남' },
-  { value: 'jeonbuk', label: '전북' },
-  { value: 'jeonnam', label: '전남' },
-  { value: 'gyeongbuk', label: '경북' },
-  { value: 'gyeongnam', label: '경남' },
-  { value: 'jeju', label: '제주' },
+  { value: 'ALL', label: '전체' },
+  { value: 'SEOUL', label: '서울' },
+  { value: 'BUSAN', label: '부산' },
+  { value: 'DAEGU', label: '대구' },
+  { value: 'INCHEON', label: '인천' },
+  { value: 'GWANGJU', label: '광주' },
+  { value: 'DAEJEON', label: '대전' },
+  { value: 'ULSAN', label: '울산' },
+  { value: 'SEJONG', label: '세종' },
+  { value: 'GYEONGGI', label: '경기' },
+  { value: 'GANGWON', label: '강원' },
+  { value: 'CHUNGBUK', label: '충북' },
+  { value: 'CHUNGNAM', label: '충남' },
+  { value: 'JEONBUK', label: '전북' },
+  { value: 'JEONNAM', label: '전남' },
+  { value: 'GYEONGBUK', label: '경북' },
+  { value: 'GYEONGNAM', label: '경남' },
+  { value: 'JEJU', label: '제주' },
 ];
 
 const selectJobOptions = [
-  { value: 'all', label: '전체' },
-  { value: 'developer', label: '개발' },
-  { value: 'designer', label: '디자인' },
-  { value: 'manager', label: '관리자' },
-  { value: 'analyst', label: '분석가' },
-  { value: 'consultant', label: '컨설턴트' },
-  { value: 'engineer', label: '엔지니어' },
-  { value: 'sales', label: '영업' },
-  { value: 'marketing', label: '마케팅' },
-  { value: 'hr', label: '인사' },
-  { value: 'finance', label: '재무' },
-  { value: 'legal', label: '법무' },
-  { value: 'it', label: 'IT' },
+  { value: 'ALL', label: '전체' },
+  { value: 'FULL_TIME', label: '정규직' },
+  { value: 'CONTRACT', label: '계약직' },
+  { value: 'INTERN', label: '인턴' },
+  { value: 'ETC', label: '기타' },
 ];
 
-export default function DetailSearchForm() {
+export const selectIndustryOptions = [
+  { value: 'ALL', label: '전체' },
+  { value: 'MANUFACTURING', label: '제조업' },
+  { value: 'IT', label: 'IT' },
+  { value: 'BIOTECH', label: '바이오·헬스' },
+  { value: 'FINANCE_INSURANCE', label: '금융·보험' },
+  { value: 'CONSTRUCTION_REAL_ESTATE', label: '건설·부동산' },
+  { value: 'RETAIL_TRADE', label: '유통·무역' },
+  { value: 'EDUCATION_RESEARCH', label: '교육·연구' },
+  { value: 'HEALTHCARE_MEDICAL', label: '의료·보건' },
+  { value: 'MEDIA_ENTERTAINMENT', label: '미디어·엔터테인먼트' },
+  { value: 'SERVICE_INDUSTRY', label: '서비스업' },
+  { value: 'ENERGY_ENVIRONMENT', label: '에너지·환경' },
+  { value: 'TRANSPORTATION_LOGISTICS', label: '운송·물류' },
+  { value: 'AGRICULTURE_FOOD', label: '농업·식품' },
+  { value: 'FASHION_BEAUTY', label: '패션·뷰티' },
+  { value: 'TELECOM_NETWORK', label: '통신·네트워크' },
+  { value: 'AUTOMOTIVE_MOBILITY', label: '자동차·모빌리티' },
+  { value: 'GAMING_SOFTWARE', label: '게임·소프트웨어' },
+  { value: 'STARTUP', label: '스타트업' },
+  { value: 'PUBLIC_SECTOR', label: '공공기관' },
+  { value: 'OTHER', label: '기타' },
+];
+
+type Props = {
+  onClick: (
+    searchValue: string,
+    region: string,
+    employmentType: string,
+  ) => void;
+  region: string;
+  employmentType: string;
+  value: string;
+  isForCompany: boolean;
+};
+
+export default function DetailSearchForm({
+  onClick,
+  region,
+  value,
+  employmentType,
+  isForCompany,
+}: Props) {
+  const [innerValue, setInnerValue] = useState<string>(value);
+  const [innerRegion, setInnerRegion] = useState<string>(region);
+  const [innerEmploymentType, setInnerEmploymentType] =
+    useState<string>(employmentType);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onClick(innerValue, innerRegion, innerEmploymentType);
+  };
+
   return (
-    <form className={styles.searchBox}>
+    <form className={styles.searchBox} onSubmit={handleSubmit}>
       <div className={styles.searchBoxRow}>
-        <Input icon='search' placeholder='검색어를 입력하세요.' />
-        <Select name='region' icon='map-pin' options={selectRegionOptions} />
-        <Select name='job' icon='brief-case' options={selectJobOptions} />
+        <Input
+          value={innerValue}
+          icon='search'
+          placeholder='기업명을 입력하세요.'
+          onChange={e => setInnerValue(e.currentTarget.value)}
+        />
+        <Select
+          name='region'
+          icon='map-pin'
+          options={selectRegionOptions}
+          value={innerRegion}
+          onChange={setInnerRegion}
+        />
+        {!isForCompany ? (
+          <Select
+            name='job'
+            icon='brief-case'
+            options={selectJobOptions}
+            value={innerEmploymentType}
+            onChange={setInnerEmploymentType}
+          />
+        ) : (
+          <Select
+            name='job'
+            icon='brief-case'
+            options={selectIndustryOptions}
+            value={innerEmploymentType}
+            onChange={setInnerEmploymentType}
+          />
+        )}
+
         <button type='submit' className={styles.searchButton}>
           검색
         </button>

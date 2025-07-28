@@ -54,7 +54,7 @@ const AlarmModal = ({ data }: Props) => {
       <div className={styles.alarmList}>
         {data &&
           data.map(ele => (
-            <div className={styles.alarmBox}>
+            <div className={styles.alarmBox} key={ele.id}>
               <div
                 className={styles.textArea}
                 onClick={() => readNotification(ele.id)}

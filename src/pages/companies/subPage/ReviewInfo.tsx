@@ -1,4 +1,4 @@
-import { ReviewDto } from '@/lib/apis/mutations/useCompanyApis';
+import { ReviewDto } from '@/lib/apis/queries/useGetCompanyApis';
 import TotalReviewBar from '@/components/companies/TotalReviewBar';
 import styles from './reviewInfo.module.scss';
 
