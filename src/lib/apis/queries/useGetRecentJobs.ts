@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface GetRecentJobsResponse {
+export interface GetRecentJobsResponse {
   jobPostId: number;
   title: string;
   companyName: string;
@@ -14,7 +14,7 @@ const useGetRecentJobs = () => {
     ...useQuery({
       queryKey: ['useGetRecentJobs'],
       queryFn: () =>
-        fetcher.get<{ success: boolean; data: GetRecentJobsResponse }>(
+        fetcher.get<{ success: boolean; data: GetRecentJobsResponse[] }>(
           '/api/v1/job-posts/recent',
         ),
     }),
