@@ -33,6 +33,7 @@ const selectJobOptions = [
 ];
 
 export const selectIndustryOptions = [
+  { value: 'ALL', label: '전체' },
   { value: 'MANUFACTURING', label: '제조업' },
   { value: 'IT', label: 'IT' },
   { value: 'BIOTECH', label: '바이오·헬스' },

@@ -80,15 +80,6 @@ interface GetCompanyDetailInfoResponse {
   imageUrl: string;
 }
 
-interface GetCompanyQueryParams {
-  companyName?: string;
-  region?: string;
-  jobType?: string;
-  page?: number;
-  size?: number;
-  sort?: string;
-}
-
 export const getAllCompanyInfo = async ({
   queryKey,
 }: {
@@ -106,7 +97,7 @@ export const getAllCompanyInfo = async ({
     params.append('region', region);
   }
 
-  if (industryType.toUpperCase() !== 'ALL') {
+  if (industryType.toUpperCase() !== 'ALL' && industryType.trim() !== '') {
     params.append('industryType', industryType);
   }
 
@@ -126,12 +117,12 @@ export const useGetAllCompanyInfo = (
   region: string = 'ALL',
   industryType: string = 'ALL',
 ) => {
-  return {
-    ...useQuery({
-      queryKey: ['useAllCompanyInfo', companyName, region, industryType],
-      queryFn: getAllCompanyInfo,
-    }),
-  };
+  return useQuery({
+    queryKey: ['useAllCompanyInfo', companyName, region, industryType],
+    queryFn: getAllCompanyInfo,
+    staleTime: 1000 * 60,
+    enabled: false,
+  });
 };
 
 export const useGetCompanyDetailInfo = (companyId: number) => {

@@ -16,17 +16,21 @@ export default function CompaniesPage() {
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError, error } = useGetAllCompanyInfo();
+  const { data, isLoading, isError, error } = useGetAllCompanyInfo(
+    searchValue,
+    region,
+    industryType,
+  );
 
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
       queryFn: () =>
         getAllCompanyInfo({
-          queryKey: ['getAllCompanyInfo', searchValue, region, industryType],
+          queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
         }),
     });
-  });
+  }, []);
 
   const refetch = async (
     newSearchValue: string,
@@ -38,16 +42,24 @@ export default function CompaniesPage() {
     setIndustryType(newIndustryType);
 
     await queryClient.fetchQuery({
-      queryKey: ['getRecruits', newSearchValue, newRegion, newIndustryType],
+      queryKey: [
+        'useAllCompanyInfo',
+        newSearchValue,
+        newRegion,
+        newIndustryType,
+      ],
       queryFn: () =>
         getAllCompanyInfo({
-          queryKey: ['getRecruits', newSearchValue, newRegion, newIndustryType],
+          queryKey: [
+            'useAllCompanyInfo',
+            newSearchValue,
+            newRegion,
+            newIndustryType,
+          ],
         }),
     });
   };
 
-  if (isLoading) console.log('로딩 중');
-  if (isError) console.log('에러 발생', error);
   return (
     <div className={styles.container}>
       <DetailSearchForm
@@ -57,7 +69,13 @@ export default function CompaniesPage() {
         value={searchValue}
         isForCompany={true}
       />
-      <CompanyLists data={data?.data} />
+      {isLoading && <div>로딩 중..</div>}
+      {isError && <div>에러 발생 : {error.message}</div>}
+      {data?.data.pageContents?.length ? (
+        <CompanyLists data={data?.data} />
+      ) : (
+        <div>공고가 없습니다.</div>
+      )}
     </div>
   );
 }
