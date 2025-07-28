@@ -4,7 +4,7 @@ import RecruitInfo from './subPage/RecruitInfo';
 import ReviewInfo from './subPage/ReviewInfo';
 import SalaryInfo from './subPage/SalaryInfo';
 import styles from './detailPage.module.scss';
-import { useGetCompanyDetailInfo } from '@/lib/apis/mutations/useCompanyApis';
+import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 

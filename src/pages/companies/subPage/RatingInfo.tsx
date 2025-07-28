@@ -1,4 +1,4 @@
-import { CompanyRatingDto } from '@/lib/apis/mutations/useCompanyApis';
+import { CompanyRatingDto } from '@/lib/apis/queries/useGetCompanyApis';
 import RadarChartComponent from '@/components/companies/RadarChartComponent';
 import RatingInfoBox from '@/components/companies/RatingInfoBox';
 import styles from './ratingInfo.module.scss';

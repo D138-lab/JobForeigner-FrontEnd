@@ -89,34 +89,47 @@ interface GetCompanyQueryParams {
   sort?: string;
 }
 
-export const useGetAllCompanyInfo = (params?: GetCompanyQueryParams) => {
+export const getAllCompanyInfo = async ({
+  queryKey,
+}: {
+  queryKey: [string, string?, string?, string?];
+}) => {
+  const [, companyName = '', region = 'ALL', industryType = 'ALL'] = queryKey;
+
+  const params = new URLSearchParams();
+
+  if (companyName.trim() !== '') {
+    params.append('companyName', companyName);
+  }
+
+  if (region.toUpperCase() !== 'ALL') {
+    params.append('region', region);
+  }
+
+  if (industryType.toUpperCase() !== 'ALL') {
+    params.append('industryType', industryType);
+  }
+
+  const queryString = params.toString();
+  const url = `/api/v1/companies${queryString ? `?${queryString}` : ''}`;
+
+  const response = await fetcher.get<{
+    success: boolean;
+    data: GetAllCompanyInfoResponse;
+  }>(url);
+
+  return response;
+};
+
+export const useGetAllCompanyInfo = (
+  companyName: string = '',
+  region: string = 'ALL',
+  industryType: string = 'ALL',
+) => {
   return {
     ...useQuery({
-      queryKey: ['useAllCompanyInfo', params],
-      queryFn: async () => {
-        const searchParams = new URLSearchParams();
-
-        if (params) {
-          Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined && value !== null) {
-              searchParams.append(key, String(value));
-            }
-          });
-        }
-
-        const queryString = searchParams.toString();
-
-        const res = await fetcher.get<{
-          success: boolean;
-          data: GetAllCompanyInfoResponse;
-        }>(`/api/v1/companies${queryString ? `?${queryString}` : ''}`);
-
-        if (!res) {
-          throw new Error('No data returned from API');
-        }
-
-        return res;
-      },
+      queryKey: ['useAllCompanyInfo', companyName, region, industryType],
+      queryFn: getAllCompanyInfo,
     }),
   };
 };

@@ -1,24 +1,25 @@
 import {
   CompanyType,
-  useGetAllCompanyInfo,
-} from '@/lib/apis/mutations/useCompanyApis';
+  GetAllCompanyInfoResponse,
+} from '@/lib/apis/queries/useGetCompanyApis';
 import { useEffect, useState } from 'react';
 
 import CompanyCard from './CompanyCard';
 import { Link } from 'react-router-dom';
 import styles from './companyList.module.scss';
 
-const CompanyLists = () => {
-  const { data, isLoading, isError, error } = useGetAllCompanyInfo();
+type Props = {
+  data: GetAllCompanyInfoResponse | undefined;
+};
 
-  if (isLoading) console.log('로딩 중');
-  if (isError) console.log('에러 발생', error);
+const CompanyLists = ({ data }: Props) => {
   const [companies, setCompanies] = useState<CompanyType[]>();
+  if (!data) return <div>데이터 없음</div>;
 
   useEffect(() => {
     if (data) {
-      console.log(data.data.pageContents);
-      setCompanies(data.data.pageContents);
+      console.log(data.pageContents);
+      setCompanies(data.pageContents);
     }
   }, [data]);
 

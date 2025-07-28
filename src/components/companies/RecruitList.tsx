@@ -1,6 +1,6 @@
 import { Briefcase, Calendar } from 'lucide-react';
 
-import { JobPostDto } from '@/lib/apis/mutations/useCompanyApis';
+import { JobPostDto } from '@/lib/apis/queries/useGetCompanyApis';
 import styles from './recruitList.module.scss';
 
 interface RecruitListProps extends JobPostDto {

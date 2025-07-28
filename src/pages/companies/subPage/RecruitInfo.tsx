@@ -1,4 +1,4 @@
-import { JobPostDto } from '@/lib/apis/mutations/useCompanyApis';
+import { JobPostDto } from '@/lib/apis/queries/useGetCompanyApis';
 import { RecruitList } from '@/components/companies/RecruitList';
 import styles from './recruitInfo.module.scss';
 import { useNavigate } from 'react-router-dom';

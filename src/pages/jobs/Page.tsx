@@ -60,6 +60,7 @@ const Page = () => {
         region={region}
         employmentType={employmentType}
         value={searchValue}
+        isForCompany={false}
       />
       {isLoading && <div>로딩 중...</div>}
       {isError && <div>에러 발생: {error.message}</div>}

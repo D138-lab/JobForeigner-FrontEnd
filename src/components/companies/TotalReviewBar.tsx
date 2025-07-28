@@ -1,6 +1,6 @@
 import { Clock, DollarSign, Gift, Shield, Star, Users } from 'lucide-react';
 
-import { ReviewDto } from '@/lib/apis/mutations/useCompanyApis';
+import { ReviewDto } from '@/lib/apis/queries/useGetCompanyApis';
 import styles from './totalReviewBar.module.scss';
 
 type Props = {
