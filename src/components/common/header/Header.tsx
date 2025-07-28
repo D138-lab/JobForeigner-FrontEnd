@@ -4,6 +4,7 @@ import AlarmButton from './AlarmButton';
 import Button from '../button/Button';
 import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
+import RecentJobs from './RecentJobs';
 import SearchForm from './SearchForm';
 import { headerNavItems } from '@/lib/constants/navItems';
 import styles from './header.module.scss';
@@ -54,6 +55,7 @@ export default function Header() {
           </>
         ) : (
           <>
+            <RecentJobs />
             <AlarmButton />
             <Link to='/profile' className={styles.profileBox}>
               <img src={userImgUrl} alt='프로필' />
