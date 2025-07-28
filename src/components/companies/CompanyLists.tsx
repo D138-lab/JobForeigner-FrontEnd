@@ -25,23 +25,20 @@ const CompanyLists = ({ data }: Props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>검색된 기업</div>
-      <div className={styles.companyList}>
-        {companies?.map(ele => (
-          <Link
-            to={`/companies/${ele.companyId}`}
+      {companies?.map(ele => (
+        <Link
+          to={`/companies/${ele.companyId}`}
+          key={ele.companyId}
+          state={ele.companyId}
+        >
+          <CompanyCard
             key={ele.companyId}
-            state={ele.companyId}
-          >
-            <CompanyCard
-              key={ele.companyId}
-              {...ele}
-              companyId={ele.companyId}
-              companyType='기본타입'
-            />
-          </Link>
-        ))}
-      </div>
+            {...ele}
+            companyId={ele.companyId}
+            companyType='기본타입'
+          />
+        </Link>
+      ))}
     </div>
   );
 };
