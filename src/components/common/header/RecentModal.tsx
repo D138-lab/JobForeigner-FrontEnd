@@ -1,12 +1,14 @@
 import { GetRecentJobsResponse } from '@/lib/apis/queries/useGetRecentJobs';
 import { History } from 'lucide-react';
 import styles from './recentModal.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   data: GetRecentJobsResponse[];
 };
 
 const RecentModal = ({ data }: Props) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.labelBox}>
@@ -16,7 +18,15 @@ const RecentModal = ({ data }: Props) => {
       <div className={styles.recentList}>
         {data &&
           data.map(ele => (
-            <div className={styles.recentBox} key={ele.jobPostId}>
+            <div
+              className={styles.recentBox}
+              key={ele.jobPostId}
+              onClick={() =>
+                navigate(`/jobs/${ele.jobPostId}`, {
+                  state: { id: ele.jobPostId },
+                })
+              }
+            >
               <div className={styles.title}>{ele.title}</div>
               <div className={styles.subInfos}>
                 <div>{ele.companyName}</div>
