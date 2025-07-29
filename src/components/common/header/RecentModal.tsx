@@ -16,7 +16,7 @@ const RecentModal = ({ data }: Props) => {
       <div className={styles.recentList}>
         {data &&
           data.map(ele => (
-            <div className={styles.recentBox}>
+            <div className={styles.recentBox} key={ele.jobPostId}>
               <div className={styles.title}>{ele.title}</div>
               <div className={styles.subInfos}>
                 <div>{ele.companyName}</div>
