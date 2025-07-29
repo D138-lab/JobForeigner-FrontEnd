@@ -17,7 +17,6 @@ export default function Header() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const logout = useAuthStore(state => state.logout);
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
-  const [isModalOn, setIsModalOn] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<'recent' | 'alarm' | null>(
     null,
   );
@@ -33,10 +32,6 @@ export default function Header() {
 
   const toggleAlarmModal = () => {
     setActiveModal(prev => (prev === 'alarm' ? null : 'alarm'));
-  };
-
-  const handleModals = () => {
-    if (isModalOn) setIsModalOn(false);
   };
 
   return (
