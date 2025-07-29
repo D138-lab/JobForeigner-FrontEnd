@@ -1,7 +1,7 @@
 .container {
   position: absolute;
   padding: 0.4rem;
-  height: auto;
+  height: 15rem;
   max-height: 25rem;
   width: 25rem;
   background-color: white;
@@ -27,6 +27,16 @@
     }
   }
   .recentList {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     width: 100%;
     display: flex;
     flex-direction: column;
