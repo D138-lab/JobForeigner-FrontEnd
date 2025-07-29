@@ -7,7 +7,7 @@ interface PostCompanyUserSignupRequest
   extends Omit<RegisterValues, 'passwordConfirm'> {}
 
 const postCompanyUserSignup = async (body: PostCompanyUserSignupRequest) => {
-  return fetcher.post<PostCompanyUserSignupRequest>(
+  return fetcher.post<{ success: boolean; data: { id: number } }>(
     END_POINTS.COMPANY_SIGN_UP,
     body,
     { skipAuth: true },

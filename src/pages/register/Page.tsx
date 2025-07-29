@@ -4,6 +4,8 @@ import { RegisterValues, registerSchema } from '@/lib/schemas/registerSchema';
 
 import Button from '@/components/common/button/Button';
 import Card from '@/components/common/card/Card';
+import CompanyFourthSection from '@/components/register/CompanyFourthSection';
+import CompletedCompanyRegister from '@/components/register/CompletedCompanyRegister';
 import FirstSection from '@/components/register/FirstSection';
 import FourthSection from '@/components/register/FourthSection';
 import IsCompanyUserCheckBox from '@/components/register/IsCompanyUser.CheckBox';
@@ -77,8 +79,10 @@ export default function RegisterPage() {
           이미 계정이 있으신가요? <Link to='/login'>로그인</Link>
         </p>
         <div className={styles.progressBar}>
-          <span>{progress} / 4 단계</span>
-          <Progress value={progress * 25} />
+          <span>
+            {progress} / {isCompanyUser ? 5 : 4} 단계
+          </span>
+          <Progress value={isCompanyUser ? progress * 20 : progress * 25} />
         </div>
         <IsCompanyUserCheckBox
           checked={isCompanyUser}
@@ -90,12 +94,16 @@ export default function RegisterPage() {
               {progress === 1 && <FirstSection setProgress={setProgress} />}
               {progress === 2 && <SecondSection setProgress={setProgress} />}
               {progress === 3 && <ThirdSection setProgress={setProgress} />}
-              {progress === 4 && (
+              {progress === 4 && !isCompanyUser && (
                 <FourthSection
                   setProgress={setProgress}
                   isPending={isPending}
                 />
               )}
+              {isCompanyUser && progress === 4 && (
+                <CompanyFourthSection setProgress={setProgress} />
+              )}
+              {isCompanyUser && progress === 5 && <CompletedCompanyRegister />}
             </form>
           </FormProvider>
         </Card>
