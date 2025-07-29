@@ -4,12 +4,21 @@ import styles from './recentJobs.module.scss';
 import useGetRecentJobs from '@/lib/apis/queries/useGetRecentJobs';
 import { useState } from 'react';
 
-const RecentJobs = () => {
-  const [isModalOn, setIsModalOn] = useState<boolean>(false);
+type Props = {
+  isModalOn: boolean;
+  setIsModalOn: (arg: boolean) => void;
+};
+
+const RecentJobs = ({ isModalOn, setIsModalOn }: Props) => {
   const { data } = useGetRecentJobs();
   return (
     <div className={styles.container}>
-      <History onClick={() => setIsModalOn(!isModalOn)} />
+      <History
+        onClick={() => {
+          // onClick();
+          setIsModalOn(!isModalOn);
+        }}
+      />
       {isModalOn && <RecentModal data={data?.data ?? []} />}
     </div>
   );
