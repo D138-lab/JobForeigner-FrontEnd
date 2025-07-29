@@ -5,10 +5,14 @@ import useGetAllNotifications from '@/lib/apis/queries/useGetAllNotifications';
 import useGetNotifications from '@/lib/apis/queries/useGetNotifications';
 import { useState } from 'react';
 
-const AlarmButton = () => {
+type Props = {
+  isModalOn: boolean;
+  setIsModalOn: (arg: boolean) => void;
+};
+
+const AlarmButton = ({ isModalOn, setIsModalOn }: Props) => {
   const { data: numOfNotificatinos, isError, error } = useGetNotifications();
   const { data: notifications } = useGetAllNotifications();
-  const [isModalOn, setIsModalOn] = useState<boolean>(false);
   if (isError) console.log(error);
   return (
     <div className={styles.container}>

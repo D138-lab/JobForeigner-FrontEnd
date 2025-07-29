@@ -4,10 +4,12 @@ import AlarmButton from './AlarmButton';
 import Button from '../button/Button';
 import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
+import RecentJobs from './RecentJobs';
 import SearchForm from './SearchForm';
 import { headerNavItems } from '@/lib/constants/navItems';
 import styles from './header.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Header() {
@@ -15,10 +17,21 @@ export default function Header() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const logout = useAuthStore(state => state.logout);
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
+  const [activeModal, setActiveModal] = useState<'recent' | 'alarm' | null>(
+    null,
+  );
 
   const handleLogout = () => {
     logout();
     localStorage.removeItem('accessToken');
+  };
+
+  const toggleRecentModal = () => {
+    setActiveModal(prev => (prev === 'recent' ? null : 'recent'));
+  };
+
+  const toggleAlarmModal = () => {
+    setActiveModal(prev => (prev === 'alarm' ? null : 'alarm'));
   };
 
   return (
@@ -54,7 +67,14 @@ export default function Header() {
           </>
         ) : (
           <>
-            <AlarmButton />
+            <RecentJobs
+              isModalOn={activeModal === 'recent'}
+              setIsModalOn={() => toggleRecentModal()}
+            />
+            <AlarmButton
+              isModalOn={activeModal === 'alarm'}
+              setIsModalOn={() => toggleAlarmModal()}
+            />
             <Link to='/profile' className={styles.profileBox}>
               <img src={userImgUrl} alt='프로필' />
             </Link>

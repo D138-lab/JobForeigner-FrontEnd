@@ -3,14 +3,21 @@ import ApplyTab from '@/components/jobs/ApplyTab';
 import DOMPurify from 'dompurify';
 import DetailInfoBox from '@/components/jobs/DetailInfoBox';
 import styles from './detailPage.module.scss';
+import { useEffect } from 'react';
 import useGetDetailRecruitInfo from '@/lib/apis/queries/useGetDetailRecruitInfo';
 import { useLocation } from 'react-router-dom';
+import usePostRecentJobs from '@/lib/apis/mutations/usePostRecentJobs';
 
 const DetailPage = () => {
   const location = useLocation();
   const id = location.state.id;
   const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
+  const { mutate } = usePostRecentJobs();
   console.log(data);
+
+  useEffect(() => {
+    mutate(id);
+  }, []);
 
   if (isLoading) {
     return <div>로딩 중</div>;

@@ -10,7 +10,7 @@ export interface RecruitInfoType {
   id: number;
   title: string;
   description: string;
-  location: string;
+  regionType: string;
   employmentType: string;
   salary: string;
   career: string;
@@ -18,12 +18,14 @@ export interface RecruitInfoType {
   expiryAt: string;
   grade: string;
   companyName: string;
+  imageList: string[];
+  isScrapped: boolean;
 }
 
 const RecruitBox = ({
   id,
   title,
-  location,
+  regionType,
   employmentType,
   salary,
   career,
@@ -31,8 +33,9 @@ const RecruitBox = ({
   expiryAt,
   grade,
   companyName,
+  isScrapped,
 }: RecruitInfoType) => {
-  const [isScrapped, setIsScrapped] = useState(false);
+  const [innerIsScrapped, setInnerIsScrapped] = useState(isScrapped);
   const navigate = useNavigate();
   const expiryDate = new Date(expiryAt);
   const today = new Date();
@@ -42,12 +45,43 @@ const RecruitBox = ({
 
   const handleScrap = () => {
     mutate(id, {
-      onSuccess: () => setIsScrapped(prev => !prev),
+      onSuccess: () => setInnerIsScrapped(prev => !prev),
     });
   };
 
   const handleApply = () => {
     navigate('/select-resume', { state: { recruitId: id } });
+  };
+
+  const mappingEmploymentType = (empType: string) => {
+    if (empType === 'FULL_TIME') return '정규직';
+    if (empType === 'INTERN') return '인턴';
+    if (empType === 'CONTRACT') return '계약직';
+  };
+
+  const mappingRegion = (region: string): string => {
+    const regionMap: Record<string, string> = {
+      ALL: '전체',
+      SEOUL: '서울',
+      BUSAN: '부산',
+      DAEGU: '대구',
+      INCHEON: '인천',
+      GWANGJU: '광주',
+      DAEJEON: '대전',
+      ULSAN: '울산',
+      SEJONG: '세종',
+      GYEONGGI: '경기',
+      GANGWON: '강원',
+      CHUNGBUK: '충북',
+      CHUNGNAM: '충남',
+      JEONBUK: '전북',
+      JEONNAM: '전남',
+      GYEONGBUK: '경북',
+      GYEONGNAM: '경남',
+      JEJU: '제주',
+    };
+
+    return regionMap[region.toUpperCase()] ?? region;
   };
 
   return (
@@ -56,7 +90,7 @@ const RecruitBox = ({
         <div className={styles.title}>{title}</div>
         <Star
           style={{ width: 20, height: 20, flexShrink: 0 }}
-          className={isScrapped ? styles.scraped : styles.noscraped}
+          className={innerIsScrapped ? styles.scraped : styles.noscraped}
           onClick={handleScrap}
         />
       </div>
@@ -65,18 +99,20 @@ const RecruitBox = ({
         className={styles.recruitBar}
         state={{
           id,
-          isScrapped,
+          innerIsScrapped,
         }}
       >
         <div className={styles.subRow}>
           <div>{companyName}</div>
           <div>{grade}</div>
-          <div className={styles.employmentType}>{employmentType}</div>
+          <div className={styles.employmentType}>
+            {mappingEmploymentType(employmentType)}
+          </div>
         </div>
         <div className={styles.datailInfo}>
           <div className={styles.locationBox}>
             <MapPin size={15} className={styles.icon} />
-            <span>{location}</span>
+            <span>{mappingRegion(regionType)}</span>
           </div>
           <div className={styles.salaryBox}>
             <DollarSign size={15} className={styles.icon} />
