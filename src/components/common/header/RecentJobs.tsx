@@ -9,11 +9,12 @@ type Props = {
 };
 
 const RecentJobs = ({ isModalOn, setIsModalOn }: Props) => {
-  const { data } = useGetRecentJobs();
+  const { data, refetch } = useGetRecentJobs();
   return (
     <div className={styles.container}>
       <History
         onClick={() => {
+          if (!isModalOn) refetch();
           setIsModalOn(!isModalOn);
         }}
       />
