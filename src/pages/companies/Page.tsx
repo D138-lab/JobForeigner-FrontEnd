@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import CompanyLists from '@/components/companies/CompanyLists';
 import DetailSearchForm from '@/components/jobs/DetailSearchForm';
+import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 import styles from './page.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -70,8 +71,11 @@ export default function CompaniesPage() {
         isForCompany={true}
       />
       {isLoading && <div>로딩 중..</div>}
-      {isError && <div>에러 발생 : {error.message}</div>}
-      {data?.data.pageContents?.length ? (
+      {isError && error.message === 'Request failed with status code 401' ? (
+        <div className={styles.unAuthorizedModal}>
+          <UnAuthorizedModal />
+        </div>
+      ) : data?.data.pageContents?.length ? (
         <CompanyLists data={data?.data} />
       ) : (
         <div>공고가 없습니다.</div>
