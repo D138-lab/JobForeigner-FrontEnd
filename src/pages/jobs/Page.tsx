@@ -2,6 +2,7 @@ import useGetRecruits, { getRecruits } from '@/lib/apis/queries/useGetRecruits';
 
 import DetailSearchForm from '@/components/jobs/DetailSearchForm';
 import RecruitBox from '@/components/jobs/RecruitsBox';
+import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 import styles from './page.module.scss';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -63,11 +64,18 @@ const Page = () => {
         isForCompany={false}
       />
       {isLoading && <div>로딩 중...</div>}
-      {isError && <div>에러 발생: {error.message}</div>}
-      {data?.data.pageContents?.length ? (
-        <RecruitBox data={data?.data} />
+      {isError && error.message === 'Request failed with status code 401' ? (
+        <div className={styles.unAuthorizedModal}>
+          <UnAuthorizedModal />
+        </div>
       ) : (
-        <div>공고가 없습니다.</div>
+        <>
+          {data?.data.pageContents?.length ? (
+            <RecruitBox data={data?.data} />
+          ) : (
+            <div>공고가 없습니다.</div>
+          )}
+        </>
       )}
     </div>
   );

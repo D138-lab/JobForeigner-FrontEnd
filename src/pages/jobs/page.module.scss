@@ -5,4 +5,11 @@
   align-items: center;
   justify-content: center;
   gap: 2rem;
+
+  .unAuthorizedModal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
