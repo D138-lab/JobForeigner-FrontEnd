@@ -1,9 +1,12 @@
 .searchForm {
+  width: 50rem;
+  height: 3rem;
   display: flex;
   align-items: center;
-  border: 2px solid #e5e7eb;
-  border-radius: 5px;
+  border: 2px solid var(--color-purple-700);
+  border-radius: 15px;
   padding: 0 0.5rem;
+  margin: 0.5rem;
   position: relative;
 
   input {
@@ -33,7 +36,7 @@
 
   .searched {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 2px);
     left: 0;
     width: 100%;
     z-index: 10;

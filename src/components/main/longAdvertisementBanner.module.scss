@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+  padding: 3rem 0;
+  overflow: hidden;
+  background-color: var(--color-purple-50);
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adBox {
+  width: 80%;
+  height: 20rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}

@@ -36,10 +36,32 @@ export default function Header() {
 
   return (
     <div className={styles.header}>
-      <div className={styles.left}>
-        <div className={styles.logo}>
-          <Link to='/'>{Logo}</Link>
-        </div>
+      <div className={styles.up}>
+        <Link className={styles.link} to='/'>
+          {Logo}
+        </Link>
+        <SearchForm />
+        {!isLoggedIn ? (
+          <div className={styles.userBox}>
+            <Link to='/login'>
+              <Button variant='outline'>{t('login')}</Button>
+            </Link>
+            <Link to='/register'>
+              <Button>{t('signUp')}</Button>
+            </Link>
+          </div>
+        ) : (
+          <div className={styles.topRight}>
+            <Link to='/profile' className={styles.profileBox}>
+              <img src={userImgUrl} alt='프로필' />
+            </Link>
+            <Button variant='outline' onClick={() => handleLogout()}>
+              {t('로그아웃')}
+            </Button>
+          </div>
+        )}
+      </div>
+      <div className={styles.down}>
         <ul className={styles.nav}>
           {headerNavItems.map(({ id, name, link }) => (
             <li key={id}>
@@ -52,37 +74,21 @@ export default function Header() {
             </li>
           ))}
         </ul>
-      </div>
-      <div className={styles.right}>
-        <SearchForm />
-        <LanguageButton />
-        {!isLoggedIn ? (
-          <>
-            <Link to='/login'>
-              <Button variant='outline'>{t('login')}</Button>
-            </Link>
-            <Link to='/register'>
-              <Button>{t('signUp')}</Button>
-            </Link>
-          </>
-        ) : (
-          <>
-            <RecentJobs
-              isModalOn={activeModal === 'recent'}
-              setIsModalOn={() => toggleRecentModal()}
-            />
-            <AlarmButton
-              isModalOn={activeModal === 'alarm'}
-              setIsModalOn={() => toggleAlarmModal()}
-            />
-            <Link to='/profile' className={styles.profileBox}>
-              <img src={userImgUrl} alt='프로필' />
-            </Link>
-            <Button variant='outline' onClick={() => handleLogout()}>
-              {t('로그아웃')}
-            </Button>
-          </>
-        )}
+        <div className={styles.etcBtns}>
+          {isLoggedIn && (
+            <>
+              <RecentJobs
+                isModalOn={activeModal === 'recent'}
+                setIsModalOn={() => toggleRecentModal()}
+              />
+              <AlarmButton
+                isModalOn={activeModal === 'alarm'}
+                setIsModalOn={() => toggleAlarmModal()}
+              />
+            </>
+          )}
+          <LanguageButton />
+        </div>
       </div>
     </div>
   );
