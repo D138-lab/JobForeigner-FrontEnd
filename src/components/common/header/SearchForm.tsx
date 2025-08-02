@@ -4,7 +4,6 @@ import { Search } from 'lucide-react';
 import SearchResultForm from './SearchResultForm';
 import styles from './searchForm.module.scss';
 import useGetSearch from '@/lib/apis/queries/useGetSearch';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function SearchForm() {
@@ -13,7 +12,6 @@ export default function SearchForm() {
   const [value, setValue] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
   const [isModalOn, setIsModalOn] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const { data, refetch } = useGetSearch(keyword, false);
 
