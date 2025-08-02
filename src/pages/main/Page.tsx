@@ -1,8 +1,12 @@
-import styles from './page.module.scss';
+import LongAdvertisementBanner, {
+  Advertisement,
+} from '@/components/main/LongAdvertiseBanner';
+
 import Banner from '@/components/main/Banner';
-import SearchSection from '@/components/main/SearchSection';
-import PopularRecruitmentSection from '@/components/main/PopularRecruitmentSection';
 import FeaturedJobs from '@/components/main/FeaturedJobs';
+import PopularRecruitmentSection from '@/components/main/PopularRecruitmentSection';
+import SearchSection from '@/components/main/SearchSection';
+import styles from './page.module.scss';
 
 export const categories = [
   {
@@ -118,6 +122,25 @@ const featuredJobs = [
   },
 ];
 
+const dummyAds: Advertisement[] = [
+  {
+    adName: '글로벌 취업 박람회',
+    imgUrl: '/dummy_ad1.png',
+  },
+  {
+    adName: '한국어 무료 강의',
+    imgUrl: '/dummy_ad2.png',
+  },
+  {
+    adName: '외국인 전용 건강 검진',
+    imgUrl: '/dummy_ad3.png',
+  },
+  {
+    adName: '문화 체험 행사 모집',
+    imgUrl: '/dummy_ad4.png',
+  },
+];
+
 export default function MainPage() {
   // const {
   //   data: getData,
@@ -156,10 +179,11 @@ export default function MainPage() {
       >
         테스트 Post 버튼
       </button> */}
-      <Banner />
+      {/* <Banner />
       <SearchSection />
       <PopularRecruitmentSection categories={categories} />
-      <FeaturedJobs featuredJobs={featuredJobs} />
+      <FeaturedJobs featuredJobs={featuredJobs} /> */}
+      <LongAdvertisementBanner data={dummyAds} />
     </main>
   );
 }
