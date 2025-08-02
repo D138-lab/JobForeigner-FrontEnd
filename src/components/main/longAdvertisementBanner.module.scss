@@ -1,38 +1,31 @@
 .container {
   width: 100%;
-  height: 24rem;
+  padding: 3rem 0;
   overflow: hidden;
+  background-color: white;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.slider {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
+}
 
-  .slider {
-    display: flex;
-    width: 100%;
-    background-color: white;
-    max-width: 1200px;
-    gap: 1rem;
-    transition: transform 0.5s ease-in-out;
-  }
+.adBox {
+  width: 80%;
+  height: 20rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .adBox {
+  img {
     width: 100%;
-    height: 20rem;
-    flex: 1;
-    min-width: 0;
-    border: 1px solid var(--color-gray-200);
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
   }
 }
