@@ -68,13 +68,12 @@ instance.interceptors.response.use(
     const originalConfig = error.config as CustomAxiosRequestConfig;
     const response = error.response;
 
-    if (
-      response &&
-      response.status === HttpStatusCode.Unauthorized &&
-      originalConfig &&
-      !originalConfig.retry &&
-      (response.data as any)?.code === 'S003'
-    ) {
+    const isUnauthorized =
+      response && response.status === HttpStatusCode.Unauthorized;
+    const isNotFirstRetry = originalConfig && !originalConfig.retry;
+    const isExistError = (response?.data as any)?.code === 'S003';
+
+    if (isUnauthorized && isNotFirstRetry && isExistError) {
       originalConfig.retry = true;
       try {
         let accessToken: string | undefined;
