@@ -71,9 +71,9 @@ instance.interceptors.response.use(
     const isUnauthorized =
       response && response.status === HttpStatusCode.Unauthorized;
     const isNotFirstRetry = originalConfig && !originalConfig.retry;
-    const isExistError = (response?.data as any)?.code === 'S003';
+    const isAccessTokenExpired = (response?.data as any)?.code === 'S003';
 
-    if (isUnauthorized && isNotFirstRetry && isExistError) {
+    if (isUnauthorized && isNotFirstRetry && isAccessTokenExpired) {
       originalConfig.retry = true;
       try {
         let accessToken: string | undefined;
