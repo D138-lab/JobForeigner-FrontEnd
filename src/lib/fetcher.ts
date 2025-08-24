@@ -13,12 +13,10 @@ import camelcaseKeys from 'camelcase-keys';
 import { refreshAccessToken } from './refreshAccessToken';
 
 // 커스텀 설정 타입 정의
-export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   skipAuth?: boolean;
-}
-
-interface RetryableAxiosRequestConfig extends AxiosRequestConfig {
-  _retry?: boolean;
+  retry?: boolean;
+  extractAccessToken?: boolean; // post 요청 시 사용
 }
 
 // 기본 설정
@@ -67,17 +65,17 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalConfig = error.config as RetryableAxiosRequestConfig;
+    const originalConfig = error.config as CustomAxiosRequestConfig;
     const response = error.response;
 
     if (
       response &&
       response.status === HttpStatusCode.Unauthorized &&
       originalConfig &&
-      !originalConfig._retry &&
+      !originalConfig.retry &&
       (response.data as any)?.code === 'S003'
     ) {
-      originalConfig._retry = true;
+      originalConfig.retry = true;
       try {
         let accessToken: string | undefined;
 
@@ -134,11 +132,8 @@ async function resultify<T>(promise: Promise<AxiosResponse<T>>): Promise<T> {
 export const fetcher = {
   get: <T>(url: string, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.get<T>(url, config)),
-  post: <T>(
-    url: string,
-    data?: unknown,
-    config?: CustomAxiosRequestConfig & { extractAccessToken?: boolean },
-  ) => resultify<T>(instance.post<T>(url, data, config)),
+  post: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
+    resultify<T>(instance.post<T>(url, data, config)),
   put: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.put<T>(url, data, config)),
   patch: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
