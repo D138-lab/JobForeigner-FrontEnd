@@ -1,0 +1,17 @@
+.container {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+
+  .title {
+    font-size: 2.2em;
+    font-weight: 700;
+  }
+
+  .content {
+    font-size: 1.2em;
+  }
+}
