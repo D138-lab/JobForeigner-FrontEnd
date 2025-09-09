@@ -3,6 +3,7 @@ export const PATH = {
 
   LOGIN: '/login',
   REGISTER: '/register',
+  VERIFY_EMAIL: '/verify-email',
 
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
