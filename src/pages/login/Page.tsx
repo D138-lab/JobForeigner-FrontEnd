@@ -7,6 +7,7 @@ import LoginSection from '@/components/login/LoginSection';
 import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ParseErrorMsg } from '@/lib/utils/parse';
 
 const defaultValues = {
   email: '',
@@ -27,12 +28,14 @@ export default function LoginPage() {
       await loginAndFetchUser(data);
       navigate('/');
     } catch (err) {
-      console.error('로그인 실패:', err);
+      const error = ParseErrorMsg(err);
+      console.error('로그인 실패:', error);
     }
   };
 
   const onError = (error: unknown) => {
-    console.error(error);
+    const parsedError = ParseErrorMsg(error);
+    console.error(parsedError);
   };
 
   return (
