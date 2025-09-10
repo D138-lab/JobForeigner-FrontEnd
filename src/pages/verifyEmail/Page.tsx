@@ -7,9 +7,15 @@ import styles from './page.module.scss';
 import { useForm } from 'react-hook-form';
 import { Mail, RefreshCw } from 'lucide-react';
 import Button from '@/components/common/button/Button';
+import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField';
 
 const defaultValues = {
-  verifyCode: '',
+  1: '',
+  2: '',
+  3: '',
+  4: '',
+  5: '',
+  6: '',
 };
 
 export default function VerifyEmailPage() {
@@ -45,25 +51,33 @@ export default function VerifyEmailPage() {
                 <div className={styles.mailIconContainer}>
                   <Mail className={styles.mailIcon} />
                 </div>
-                <h2>인증 코드를 입력하세요</h2>
-                <div>
-                  <span>{email}</span>
-                  <br />위 이메일로 전송된 6자리 인증코드를 입력해주세요.
+                <h2 className={styles.formHeaderTitle}>
+                  인증 코드를 입력하세요
+                </h2>
+                <div className={styles.formHeaderDescription}>
+                  <span className={styles.email}>이메일: {email}</span>
+                  <span className={styles.description}>
+                    위 이메일로 전송된 6자리 인증코드를 입력해주세요.
+                  </span>
                 </div>
               </div>
               <div className={styles.formContent}>
                 {/* 에러 메시지를 보여주는 곳 */}
                 <div className={styles.inputContainer}>
-                  {/* 6자리 인증 코드 입력하는 입력창 */}
+                  <VerifyCodeInputField />
                 </div>
                 <div className={styles.resendMail}>
                   <p>인증 코드를 받지 못하셨나요?</p>
                   <Button variant='ghost'>
-                    <RefreshCw />
-                    인증 코드 재전송
+                    <span className={styles.resendMailText}>
+                      <RefreshCw />
+                      인증 코드 재전송
+                    </span>
                   </Button>
                 </div>
-                <Button>인증하기</Button>
+                <Button size='medium'>
+                  <span className={styles.submitButton}>인증하기</span>
+                </Button>
               </div>
               <div className={styles.cardFooter}>
                 <p>이메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.</p>
