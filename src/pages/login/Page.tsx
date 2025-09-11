@@ -1,12 +1,11 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginValues, loginSchema } from '@/lib/schemas/loginSchema';
+import { LoginValues } from '@/lib/schemas/loginSchema';
 
 import Card from '@/components/common/card/Card';
 import LoginSection from '@/components/login/LoginSection';
 import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/auth/useAuth';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { ParseErrorMsg } from '@/lib/utils/parse';
 
 const defaultValues = {
@@ -18,7 +17,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const formState = useForm({
     defaultValues,
-    resolver: zodResolver(loginSchema),
   });
 
   const { loginAndFetchUser } = useAuth();
