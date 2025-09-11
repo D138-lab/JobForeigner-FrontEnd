@@ -22,18 +22,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * - children: 버튼 내용
  * - 나머지 props: (onClick, children 등) ButtonHTMLAttributes(button 태그의 속성)
  */
-export default function Button({
-  variant = 'default',
-  size = 'small',
-  children,
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      className={clsx(styles.button, styles[variant], styles[size])}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'default', size = 'small', children, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={clsx(styles.button, styles[variant], styles[size])}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+
+export default Button;
