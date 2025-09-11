@@ -34,7 +34,6 @@ export default function VerifyEmailPage() {
 
   const onSubmit = (data: Record<string, string>) => {
     const code = Object.values(data).join('');
-    console.log(code);
     verifyMutate(
       { email, code },
       {
