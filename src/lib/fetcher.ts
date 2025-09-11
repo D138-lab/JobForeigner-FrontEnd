@@ -11,6 +11,7 @@ import axios, {
 import { Mutex } from 'async-mutex';
 import camelcaseKeys from 'camelcase-keys';
 import { refreshAccessToken } from './refreshAccessToken';
+import { END_POINTS } from './constants/routes';
 
 // 커스텀 설정 타입 정의
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
@@ -107,7 +108,7 @@ instance.interceptors.response.use(
         // 리프레시 토큰 만료 시 로컬 스토리지 정리
         if (
           err instanceof AxiosError &&
-          err.response?.config.url?.includes(`리프레시 토큰 API URL`)
+          err.response?.config.url?.includes(END_POINTS.REFRESH)
         ) {
           window.localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
           window.localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
