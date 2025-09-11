@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '@/lib/constants';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Card from '@/components/common/card/Card';
 import { FormProvider } from 'react-hook-form';
 import styles from './page.module.scss';
@@ -10,6 +10,8 @@ import Button from '@/components/common/button/Button';
 import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField';
 import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVerifyCode';
 import usePostVerifyEmail from '@/lib/apis/mutations/usePostVerifyEmail';
+import { AxiosError } from 'axios';
+import { ParseErrorMsg } from '@/lib/utils/parse';
 
 const defaultValues = {
   1: '',
@@ -28,6 +30,7 @@ export default function VerifyEmailPage() {
   const formState = useForm({ defaultValues });
   const { mutate: reSendMutate } = usePostSendEmailVerifyCode();
   const { isPending, mutate: verifyMutate } = usePostVerifyEmail();
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit = (data: Record<string, string>) => {
     const code = Object.values(data).join('');
@@ -39,13 +42,15 @@ export default function VerifyEmailPage() {
           console.log('이메일 인증 성공');
           navigate(PATH.LOGIN, { replace: true });
         },
-        onError: error => console.error(`이메일 인증 실패: ${error}`),
+        onError: (error: Error) => {
+          setError(ParseErrorMsg(error));
+        },
       },
     );
   };
 
   const onError = (error: unknown) => {
-    console.error(error);
+    console.error(ParseErrorMsg(error));
   };
 
   const handleResend = () => {
@@ -90,7 +95,7 @@ export default function VerifyEmailPage() {
                 </div>
               </div>
               <div className={styles.formContent}>
-                {/* 에러 메시지를 보여주는 곳 */}
+                <div className={styles.errorContainer}>{error}</div>
                 <div className={styles.inputContainer}>
                   <VerifyCodeInputField submitButtonRef={submitButtonRef} />
                 </div>
