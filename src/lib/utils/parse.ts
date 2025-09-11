@@ -1,3 +1,7 @@
 export function ParseErrorMsg(err: unknown) {
-  return (err as { response: { data: { msg: string } } }).response.data.msg;
+  return (
+    err as {
+      response: { data: { code: string; msg: string; success: string } };
+    }
+  ).response.data;
 }
