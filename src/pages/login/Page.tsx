@@ -8,6 +8,7 @@ import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/auth/useAuth';
 import { ParseErrorMsg } from '@/lib/utils/parse';
 import { useState } from 'react';
+import { PATH } from '@/lib/constants';
 
 const defaultValues = {
   email: '',
@@ -28,8 +29,13 @@ export default function LoginPage() {
       await loginAndFetchUser(data);
       navigate('/');
     } catch (err) {
-      const error = ParseErrorMsg(err);
-      setError(error);
+      const { code, msg } = ParseErrorMsg(err);
+
+      if (code === 'U006') {
+        navigate(PATH.VERIFY_EMAIL, { state: { email: data.email } });
+      }
+
+      setError(msg);
     }
   };
 
