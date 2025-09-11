@@ -42,14 +42,16 @@ export default function VerifyEmailPage() {
           navigate(PATH.LOGIN, { replace: true });
         },
         onError: (error: Error) => {
-          setError(ParseErrorMsg(error));
+          const { msg } = ParseErrorMsg(error);
+          setError(msg);
         },
       },
     );
   };
 
   const onError = (error: unknown) => {
-    console.error(ParseErrorMsg(error));
+    const { msg } = ParseErrorMsg(error);
+    console.error(msg);
   };
 
   const handleResend = () => {
