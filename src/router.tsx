@@ -130,10 +130,6 @@ export const router = createBrowserRouter(
         <Route path={PATH.APPLY_FAIL} element={<SuspensedApplyFailPage />} />
         <Route path={PATH.REGISTER} element={<SuspensedRegisterPage />} />
         <Route path={PATH.LOGIN} element={<SuspensedLoginPage />} />
-        <Route
-          path={PATH.VERIFY_EMAIL}
-          element={<SuspensedVerifyEmailPage />}
-        />
       </Route>
 
       {/* 유저 프로필 관련 라우트 */}
@@ -200,6 +196,7 @@ export const router = createBrowserRouter(
       </Route>
 
       {/* Layout이 적용되지 않는 라우트 */}
+      <Route path={PATH.VERIFY_EMAIL} element={<SuspensedVerifyEmailPage />} />
       <Route path={PATH.NOT_FOUND} element={<SuspensedNotFoundPage />} />
     </>,
   ),
