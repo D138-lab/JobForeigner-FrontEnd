@@ -10,7 +10,6 @@ import Button from '@/components/common/button/Button';
 import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField';
 import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVerifyCode';
 import usePostVerifyEmail from '@/lib/apis/mutations/usePostVerifyEmail';
-import { AxiosError } from 'axios';
 import { ParseErrorMsg } from '@/lib/utils/parse';
 
 const defaultValues = {
@@ -65,11 +64,11 @@ export default function VerifyEmailPage() {
     );
   };
 
-  // useEffect(() => {
-  //   if (!email) {
-  //     navigate(PATH.INDEX, { replace: true });
-  //   }
-  // }, [email]);
+  useEffect(() => {
+    if (!email) {
+      navigate(PATH.INDEX, { replace: true });
+    }
+  }, [email]);
 
   return (
     <div className={styles.page}>
