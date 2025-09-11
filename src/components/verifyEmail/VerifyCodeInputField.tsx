@@ -40,7 +40,6 @@ export default function VerifyCodeInputField({
     setValue(names[idx], char);
 
     const isFilled = names.every(name => getValues(name));
-    console.log(submitButtonRef?.current);
 
     if (isFilled) {
       submitButtonRef?.current?.click();
@@ -103,7 +102,6 @@ export default function VerifyCodeInputField({
       .getData('text')
       .replace(/\D/g, '')
       .slice(0, names.length);
-    console.log(text);
 
     if (!text) {
       return;
