@@ -95,7 +95,7 @@ export default function VerifyEmailPage() {
                 </div>
               </div>
               <div className={styles.formContent}>
-                <div className={styles.errorContainer}>{error}</div>
+                {error && <div className={styles.errorContainer}>{error}</div>}
                 <div className={styles.inputContainer}>
                   <VerifyCodeInputField submitButtonRef={submitButtonRef} />
                 </div>
