@@ -9,6 +9,7 @@ import { Mail, RefreshCw } from 'lucide-react';
 import Button from '@/components/common/button/Button';
 import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField';
 import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVerifyCode';
+import usePostVerifyEmail from '@/lib/apis/mutations/usePostVerifyEmail';
 
 const defaultValues = {
   1: '',
@@ -26,8 +27,23 @@ export default function VerifyEmailPage() {
   const formState = useForm({ defaultValues });
   const { isPending: isResendPending, mutate: reSendMutate } =
     usePostSendEmailVerifyCode();
+  const { isPending: isVerifyPending, mutate: verifyMutate } =
+    usePostVerifyEmail();
 
-  const onSubmit = (data: Record<string, string>) => {};
+  const onSubmit = (data: Record<string, string>) => {
+    const code = Object.values(data).join('');
+    console.log(code);
+    verifyMutate(
+      { email, code },
+      {
+        onSuccess: () => {
+          console.log('이메일 인증 성공');
+          navigate(PATH.LOGIN, { replace: true });
+        },
+        onError: error => console.error(`이메일 인증 실패: ${error}`),
+      },
+    );
+  };
 
   const onError = (error: unknown) => {
     console.error(error);
@@ -92,9 +108,9 @@ export default function VerifyEmailPage() {
                     </span>
                   </Button>
                 </div>
-                <Button size='medium' disabled={isResendPending} type='submit'>
+                <Button size='medium' disabled={isVerifyPending} type='submit'>
                   <span className={styles.submitButton}>
-                    {isResendPending ? '인증 중...' : '인증하기'}
+                    {isVerifyPending ? '인증 중...' : '인증하기'}
                   </span>
                 </Button>
               </div>
