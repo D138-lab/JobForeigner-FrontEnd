@@ -43,6 +43,7 @@ export const END_POINTS = {
   COMPANY_SIGN_UP_VALIDATE: '/api/v1/members/sign-up/company/validate',
   SIGN_IN: '/api/v1/members/sign-in',
   SIGN_OUT: '/api/v1/members/sign-out',
+  SEND_EMAIL_VERIFY_CODE: '/api/v1/email/auth/send',
   REFRESH: '/token/refresh',
   MY_INFO: '/api/v1/members/me',
 };
