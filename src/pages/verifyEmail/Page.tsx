@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { Mail, RefreshCw } from 'lucide-react';
 import Button from '@/components/common/button/Button';
 import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField';
+import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVerifyCode';
 
 const defaultValues = {
   1: '',
@@ -23,13 +24,25 @@ export default function VerifyEmailPage() {
   const navigate = useNavigate();
   const email = location.state?.email;
   const formState = useForm({ defaultValues });
+  const { isPending: isResendPending, mutate: reSendMutate } =
+    usePostSendEmailVerifyCode();
 
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-  };
+  const onSubmit = (data: Record<string, string>) => {};
 
   const onError = (error: unknown) => {
     console.error(error);
+  };
+
+  const handleResend = () => {
+    reSendMutate(
+      { email },
+      {
+        onSuccess: () => {
+          console.log('이메일 인증 성공');
+        },
+        onError: error => console.error(`인증 코드 전송 실패: ${error}`),
+      },
+    );
   };
 
   // useEffect(() => {
@@ -68,15 +81,21 @@ export default function VerifyEmailPage() {
                 </div>
                 <div className={styles.resendMail}>
                   <p>인증 코드를 받지 못하셨나요?</p>
-                  <Button variant='ghost'>
+                  <Button
+                    variant='ghost'
+                    disabled={isResendPending}
+                    onClick={handleResend}
+                  >
                     <span className={styles.resendMailText}>
                       <RefreshCw />
                       인증 코드 재전송
                     </span>
                   </Button>
                 </div>
-                <Button size='medium'>
-                  <span className={styles.submitButton}>인증하기</span>
+                <Button size='medium' disabled={isResendPending} type='submit'>
+                  <span className={styles.submitButton}>
+                    {isResendPending ? '인증 중...' : '인증하기'}
+                  </span>
                 </Button>
               </div>
               <div className={styles.cardFooter}>
