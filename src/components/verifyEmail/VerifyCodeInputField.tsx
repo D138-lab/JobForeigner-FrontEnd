@@ -1,6 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { RefObject, useEffect, useMemo, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import styles from './VerifyCodeInputField.module.scss';
+
+interface VerifyCodeInputFieldProps {
+  submitButtonRef: RefObject<HTMLButtonElement>;
+}
 
 /**
  * 6자리 이메일 인증 코드 입력 컴포넌트
@@ -9,7 +13,9 @@ import styles from './VerifyCodeInputField.module.scss';
  * - Backspace 시 이전 칸으로 이동
  * - 붙여넣기 시 6자리 분배 입력
  */
-export default function VerifyCodeInputField() {
+export default function VerifyCodeInputField({
+  submitButtonRef,
+}: VerifyCodeInputFieldProps) {
   const { setValue, getValues, watch } = useFormContext();
 
   const names = useMemo(() => ['1', '2', '3', '4', '5', '6'] as const, []);
@@ -21,15 +27,24 @@ export default function VerifyCodeInputField() {
   }, []);
 
   const focusIndex = (idx: number) => {
-    if (idx < 0 || idx >= names.length) return;
+    if (idx < 0 || idx >= names.length) {
+      return;
+    }
+
     inputsRef.current[idx]?.focus();
-    inputsRef.current[idx]?.select();
   };
 
   const handleChange = (idx: number, value: string) => {
     const onlyDigit = value.replace(/\D/g, '');
     const char = onlyDigit.slice(0, 1);
     setValue(names[idx], char);
+
+    const isFilled = names.every(name => getValues(name));
+    console.log(submitButtonRef?.current);
+
+    if (isFilled) {
+      submitButtonRef?.current?.click();
+    }
 
     if (char && idx < names.length - 1) {
       focusIndex(idx + 1);
