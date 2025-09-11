@@ -11,6 +11,7 @@ import VerifyCodeInputField from '@/components/verifyEmail/VerifyCodeInputField'
 import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVerifyCode';
 import usePostVerifyEmail from '@/lib/apis/mutations/usePostVerifyEmail';
 import { ParseErrorMsg } from '@/lib/utils/parse';
+import FormErrorContainer from '@/components/common/form/FormErrorContainer';
 
 const defaultValues = {
   1: '',
@@ -94,7 +95,7 @@ export default function VerifyEmailPage() {
                 </div>
               </div>
               <div className={styles.formContent}>
-                {error && <div className={styles.errorContainer}>{error}</div>}
+                <FormErrorContainer error={error} />
                 <div className={styles.inputContainer}>
                   <VerifyCodeInputField submitButtonRef={submitButtonRef} />
                 </div>
