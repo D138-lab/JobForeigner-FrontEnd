@@ -7,6 +7,7 @@ import LoginSection from '@/components/login/LoginSection';
 import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/auth/useAuth';
 import { ParseErrorMsg } from '@/lib/utils/parse';
+import { useState } from 'react';
 
 const defaultValues = {
   email: '',
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const formState = useForm({
     defaultValues,
   });
+  const [error, setError] = useState<string | null>(null);
 
   const { loginAndFetchUser } = useAuth();
 
@@ -27,7 +29,7 @@ export default function LoginPage() {
       navigate('/');
     } catch (err) {
       const error = ParseErrorMsg(err);
-      console.error('로그인 실패:', error);
+      setError(error);
     }
   };
 
@@ -47,7 +49,10 @@ export default function LoginPage() {
         <Card>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
-              <LoginSection isPending={formState.formState.isSubmitting} />
+              <LoginSection
+                error={error}
+                isPending={formState.formState.isSubmitting}
+              />
             </form>
           </FormProvider>
         </Card>
