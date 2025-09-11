@@ -44,6 +44,7 @@ export const END_POINTS = {
   SIGN_IN: '/api/v1/members/sign-in',
   SIGN_OUT: '/api/v1/members/sign-out',
   SEND_EMAIL_VERIFY_CODE: '/api/v1/email/auth/send',
+  VERIFY_EMAIL: '/api/v1/email/auth/verify',
   REFRESH: '/token/refresh',
   MY_INFO: '/api/v1/members/me',
 };
