@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '@/lib/constants';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Card from '@/components/common/card/Card';
 import { FormProvider } from 'react-hook-form';
 import styles from './page.module.scss';
@@ -23,12 +23,11 @@ const defaultValues = {
 export default function VerifyEmailPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
   const email = location.state?.email;
   const formState = useForm({ defaultValues });
-  const { isPending: isResendPending, mutate: reSendMutate } =
-    usePostSendEmailVerifyCode();
-  const { isPending: isVerifyPending, mutate: verifyMutate } =
-    usePostVerifyEmail();
+  const { mutate: reSendMutate } = usePostSendEmailVerifyCode();
+  const { isPending, mutate: verifyMutate } = usePostVerifyEmail();
 
   const onSubmit = (data: Record<string, string>) => {
     const code = Object.values(data).join('');
@@ -93,24 +92,25 @@ export default function VerifyEmailPage() {
               <div className={styles.formContent}>
                 {/* 에러 메시지를 보여주는 곳 */}
                 <div className={styles.inputContainer}>
-                  <VerifyCodeInputField />
+                  <VerifyCodeInputField submitButtonRef={submitButtonRef} />
                 </div>
                 <div className={styles.resendMail}>
                   <p>인증 코드를 받지 못하셨나요?</p>
-                  <Button
-                    variant='ghost'
-                    disabled={isResendPending}
-                    onClick={handleResend}
-                  >
+                  <Button variant='ghost' onClick={handleResend}>
                     <span className={styles.resendMailText}>
                       <RefreshCw />
                       인증 코드 재전송
                     </span>
                   </Button>
                 </div>
-                <Button size='medium' disabled={isVerifyPending} type='submit'>
+                <Button
+                  ref={submitButtonRef}
+                  size='medium'
+                  disabled={isPending}
+                  type='submit'
+                >
                   <span className={styles.submitButton}>
-                    {isVerifyPending ? '인증 중...' : '인증하기'}
+                    {isPending ? '인증 중...' : '인증하기'}
                   </span>
                 </Button>
               </div>
