@@ -62,6 +62,7 @@ const ApplyFailedPage = lazy(() => import('./pages/jobs/ApplyFailed'));
 const NotFoundPage = lazy(() => import('./pages/notFound/Page'));
 const RegisterPage = lazy(() => import('./pages/register/Page'));
 const LoginPage = lazy(() => import('./pages/login/Page'));
+const VerifyEmailPage = lazy(() => import('./pages/verifyEmail/Page'));
 
 // 각 페이지를 Suspense가 적용된 HOC로 감싸기
 // 메인 페이지랑 관련된 페이지들
@@ -99,6 +100,7 @@ const SuspensedApplyFailPage = withSuspense(ApplyFailedPage);
 const SuspensedNotFoundPage = withSuspense(NotFoundPage);
 const SuspensedRegisterPage = withSuspense(RegisterPage);
 const SuspensedLoginPage = withSuspense(LoginPage);
+const SuspensedVerifyEmailPage = withSuspense(VerifyEmailPage);
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -194,6 +196,7 @@ export const router = createBrowserRouter(
       </Route>
 
       {/* Layout이 적용되지 않는 라우트 */}
+      <Route path={PATH.VERIFY_EMAIL} element={<SuspensedVerifyEmailPage />} />
       <Route path={PATH.NOT_FOUND} element={<SuspensedNotFoundPage />} />
     </>,
   ),

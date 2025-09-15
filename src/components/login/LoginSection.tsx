@@ -5,12 +5,14 @@ import Button from '../common/button/Button';
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import FormErrorContainer from '../common/form/FormErrorContainer';
 
 interface Props {
+  error: string | null;
   isPending: boolean;
 }
 
-export default function LoginSection({ isPending }: Props) {
+export default function LoginSection({ error, isPending }: Props) {
   const { control } = useFormContext();
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -59,6 +61,7 @@ export default function LoginSection({ isPending }: Props) {
           onClick={togglePasswordVisibility}
         />
       )}
+      <FormErrorContainer error={error} />
       <div className={styles.buttonContainer}>
         <Button type='submit' size='medium' disabled={isPending}>
           로그인
