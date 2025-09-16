@@ -1,6 +1,12 @@
 import { RefObject, useEffect, useMemo, useRef } from 'react';
-import { useFormContext } from 'react-hook-form';
+import {
+  ControllerRenderProps,
+  FieldValues,
+  useFormContext,
+} from 'react-hook-form';
 import styles from './VerifyCodeInputField.module.scss';
+import FormField from '../common/form/FormField';
+import { formatOnlyNumber } from '@/lib/utils/formatters';
 
 interface VerifyCodeInputFieldProps {
   submitButtonRef: RefObject<HTMLButtonElement>;
@@ -16,7 +22,7 @@ interface VerifyCodeInputFieldProps {
 export default function VerifyCodeInputField({
   submitButtonRef,
 }: VerifyCodeInputFieldProps) {
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues, control } = useFormContext();
 
   const names = useMemo(() => ['1', '2', '3', '4', '5', '6'] as const, []);
   const inputsRef = useRef<HTMLInputElement[]>([]);
@@ -34,10 +40,15 @@ export default function VerifyCodeInputField({
     inputsRef.current[idx]?.focus();
   };
 
-  const handleChange = (idx: number, value: string) => {
-    const onlyDigit = value.replace(/\D/g, '');
-    const char = onlyDigit.slice(0, 1);
-    setValue(names[idx], char);
+  const handleChange = (
+    idx: number,
+    e: React.FormEvent<HTMLInputElement>,
+    field: ControllerRenderProps<FieldValues, string>,
+  ) => {
+    const target = e.currentTarget;
+    const onlyNumber = formatOnlyNumber(target.value);
+    target.value = onlyNumber.slice(0, 1);
+    field.onChange(target.value);
 
     const isFilled = names.every(name => getValues(name));
 
@@ -45,7 +56,7 @@ export default function VerifyCodeInputField({
       submitButtonRef?.current?.click();
     }
 
-    if (char && idx < names.length - 1) {
+    if (target.value && idx < names.length - 1) {
       focusIndex(idx + 1);
     }
   };
@@ -65,7 +76,7 @@ export default function VerifyCodeInputField({
     }
 
     if (key === 'Backspace') {
-      const length = inputsRef.current[idx]?.value.length;
+      const length = inputsRef.current[idx]?.value.length ?? 0;
 
       if (length === 0 && idx > 0) {
         e.preventDefault();
@@ -120,20 +131,26 @@ export default function VerifyCodeInputField({
     <div className={styles.container}>
       {names.map((name, idx) => (
         <div key={name} className={styles.inputBox}>
-          <input
-            ref={el => {
-              if (el) inputsRef.current[idx] = el;
-            }}
-            className={styles.input}
-            type='text'
-            inputMode='numeric'
-            autoComplete='one-time-code'
-            pattern='[0-9]?'
-            maxLength={1}
-            onChange={e => handleChange(idx, e.target.value)}
-            onKeyDown={e => handleKeyDown(e, idx)}
-            onPaste={e => handlePaste(e, 0)}
-            aria-label={`인증 코드 ${idx + 1}번째 숫자`}
+          <FormField
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <input
+                ref={el => {
+                  if (el) inputsRef.current[idx] = el;
+                }}
+                className={styles.input}
+                type='text'
+                inputMode='numeric'
+                autoComplete='one-time-code'
+                pattern='[0-9]?'
+                maxLength={1}
+                onChange={e => handleChange(idx, e, field)}
+                onKeyDown={e => handleKeyDown(e, idx)}
+                onPaste={e => handlePaste(e, 0)}
+                aria-label={`인증 코드 ${idx + 1}번째 숫자`}
+              />
+            )}
           />
         </div>
       ))}
