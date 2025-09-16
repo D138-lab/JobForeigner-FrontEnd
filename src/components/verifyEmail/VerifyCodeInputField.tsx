@@ -46,9 +46,8 @@ export default function VerifyCodeInputField({
     field: ControllerRenderProps<FieldValues, string>,
   ) => {
     const target = e.currentTarget;
-    const onlyNumber = formatOnlyNumber(target.value);
-    target.value = onlyNumber.slice(0, 1);
-    field.onChange(target.value);
+    const nextValue = formatOnlyNumber(target.value).slice(0, 1);
+    field.onChange(nextValue);
 
     const isFilled = names.every(name => getValues(name));
 
@@ -56,7 +55,7 @@ export default function VerifyCodeInputField({
       submitButtonRef?.current?.click();
     }
 
-    if (target.value && idx < names.length - 1) {
+    if (nextValue && idx < names.length - 1) {
       focusIndex(idx + 1);
     }
   };
@@ -136,7 +135,9 @@ export default function VerifyCodeInputField({
             name={name}
             render={({ field }) => (
               <input
+                {...field}
                 ref={el => {
+                  field.ref(el);
                   if (el) inputsRef.current[idx] = el;
                 }}
                 className={styles.input}
@@ -145,6 +146,7 @@ export default function VerifyCodeInputField({
                 autoComplete='one-time-code'
                 pattern='[0-9]?'
                 maxLength={1}
+                value={(field.value as string) ?? ''}
                 onChange={e => handleChange(idx, e, field)}
                 onKeyDown={e => handleKeyDown(e, idx)}
                 onPaste={e => handlePaste(e, 0)}
