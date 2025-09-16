@@ -65,13 +65,6 @@ export default function VerifyCodeInputField({
     idx: number,
   ) => {
     const key = e.key;
-    const isCtrlMeta =
-      (e.ctrlKey || e.metaKey) &&
-      ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase());
-
-    if (isCtrlMeta) {
-      return;
-    }
 
     if (key === 'Backspace') {
       const length = inputsRef.current[idx]?.value.length ?? 0;
