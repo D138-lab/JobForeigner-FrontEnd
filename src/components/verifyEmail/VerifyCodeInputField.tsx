@@ -1,6 +1,12 @@
 import { RefObject, useEffect, useMemo, useRef } from 'react';
-import { useFormContext } from 'react-hook-form';
+import {
+  ControllerRenderProps,
+  FieldValues,
+  useFormContext,
+} from 'react-hook-form';
 import styles from './VerifyCodeInputField.module.scss';
+import FormField from '../common/form/FormField';
+import { formatOnlyNumber } from '@/lib/utils/formatters';
 
 interface VerifyCodeInputFieldProps {
   submitButtonRef: RefObject<HTMLButtonElement>;
@@ -16,7 +22,7 @@ interface VerifyCodeInputFieldProps {
 export default function VerifyCodeInputField({
   submitButtonRef,
 }: VerifyCodeInputFieldProps) {
-  const { setValue, getValues, watch } = useFormContext();
+  const { setValue, getValues, control } = useFormContext();
 
   const names = useMemo(() => ['1', '2', '3', '4', '5', '6'] as const, []);
   const inputsRef = useRef<HTMLInputElement[]>([]);
@@ -34,10 +40,14 @@ export default function VerifyCodeInputField({
     inputsRef.current[idx]?.focus();
   };
 
-  const handleChange = (idx: number, value: string) => {
-    const onlyDigit = value.replace(/\D/g, '');
-    const char = onlyDigit.slice(0, 1);
-    setValue(names[idx], char);
+  const handleChange = (
+    idx: number,
+    e: React.FormEvent<HTMLInputElement>,
+    field: ControllerRenderProps<FieldValues, string>,
+  ) => {
+    const target = e.currentTarget;
+    const nextValue = formatOnlyNumber(target.value).slice(0, 1);
+    field.onChange(nextValue);
 
     const isFilled = names.every(name => getValues(name));
 
@@ -45,7 +55,7 @@ export default function VerifyCodeInputField({
       submitButtonRef?.current?.click();
     }
 
-    if (char && idx < names.length - 1) {
+    if (nextValue && idx < names.length - 1) {
       focusIndex(idx + 1);
     }
   };
@@ -55,21 +65,12 @@ export default function VerifyCodeInputField({
     idx: number,
   ) => {
     const key = e.key;
-    const isCtrlMeta =
-      (e.ctrlKey || e.metaKey) &&
-      ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase());
-    const isNoneNumeric = !/^[0-9]$/.test(key) && key.length === 1;
-
-    if (isCtrlMeta) {
-      return;
-    }
 
     if (key === 'Backspace') {
-      const current = (getValues(names[idx]) as string) ?? '';
+      const length = inputsRef.current[idx]?.value.length ?? 0;
 
-      if (!current && idx > 0) {
+      if (length === 0 && idx > 0) {
         e.preventDefault();
-        setValue(names[idx - 1], '');
         focusIndex(idx - 1);
       }
 
@@ -86,11 +87,6 @@ export default function VerifyCodeInputField({
       e.preventDefault();
       focusIndex(Math.min(names.length - 1, idx + 1));
       return;
-    }
-
-    // 숫자 외 입력 방지
-    if (isNoneNumeric) {
-      e.preventDefault();
     }
   };
 
@@ -117,28 +113,33 @@ export default function VerifyCodeInputField({
     focusIndex(next);
   };
 
-  // watch 값으로 리렌더링 유도
-  watch(names);
-
   return (
     <div className={styles.container}>
       {names.map((name, idx) => (
         <div key={name} className={styles.inputBox}>
-          <input
-            ref={el => {
-              if (el) inputsRef.current[idx] = el;
-            }}
-            className={styles.input}
-            type='text'
-            inputMode='numeric'
-            autoComplete='one-time-code'
-            pattern='[0-9]*'
-            maxLength={1}
-            value={(getValues(name) as string) ?? ''}
-            onChange={e => handleChange(idx, e.target.value)}
-            onKeyDown={e => handleKeyDown(e, idx)}
-            onPaste={e => handlePaste(e, 0)}
-            aria-label={`인증 코드 ${idx + 1}번째 숫자`}
+          <FormField
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <input
+                {...field}
+                ref={el => {
+                  field.ref(el);
+                  if (el) inputsRef.current[idx] = el;
+                }}
+                className={styles.input}
+                type='text'
+                inputMode='numeric'
+                autoComplete='one-time-code'
+                pattern='[0-9]?'
+                maxLength={1}
+                value={(field.value as string) ?? ''}
+                onChange={e => handleChange(idx, e, field)}
+                onKeyDown={e => handleKeyDown(e, idx)}
+                onPaste={e => handlePaste(e, 0)}
+                aria-label={`인증 코드 ${idx + 1}번째 숫자`}
+              />
+            )}
           />
         </div>
       ))}

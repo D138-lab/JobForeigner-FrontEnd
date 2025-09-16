@@ -14,3 +14,7 @@ export const formatPhoneNumber = (value: string) => {
     .replace(NUMBER_ONLY_REGEX, '')
     .replace(PHONE_NUMBER_FORMAT_REGEX, formatToHyphenatedNumber);
 };
+
+export const formatOnlyNumber = (value: string) => {
+  return value.replace(NUMBER_ONLY_REGEX, '');
+};
