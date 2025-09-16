@@ -16,7 +16,7 @@ interface VerifyCodeInputFieldProps {
 export default function VerifyCodeInputField({
   submitButtonRef,
 }: VerifyCodeInputFieldProps) {
-  const { setValue, getValues, watch } = useFormContext();
+  const { setValue, getValues } = useFormContext();
 
   const names = useMemo(() => ['1', '2', '3', '4', '5', '6'] as const, []);
   const inputsRef = useRef<HTMLInputElement[]>([]);
@@ -65,11 +65,10 @@ export default function VerifyCodeInputField({
     }
 
     if (key === 'Backspace') {
-      const current = (getValues(names[idx]) as string) ?? '';
+      const length = inputsRef.current[idx]?.value.length;
 
-      if (!current && idx > 0) {
+      if (length === 0 && idx > 0) {
         e.preventDefault();
-        setValue(names[idx - 1], '');
         focusIndex(idx - 1);
       }
 
@@ -117,9 +116,6 @@ export default function VerifyCodeInputField({
     focusIndex(next);
   };
 
-  // watch 값으로 리렌더링 유도
-  watch(names);
-
   return (
     <div className={styles.container}>
       {names.map((name, idx) => (
@@ -132,9 +128,8 @@ export default function VerifyCodeInputField({
             type='text'
             inputMode='numeric'
             autoComplete='one-time-code'
-            pattern='[0-9]*'
+            pattern='[0-9]?'
             maxLength={1}
-            value={(getValues(name) as string) ?? ''}
             onChange={e => handleChange(idx, e.target.value)}
             onKeyDown={e => handleKeyDown(e, idx)}
             onPaste={e => handlePaste(e, 0)}
