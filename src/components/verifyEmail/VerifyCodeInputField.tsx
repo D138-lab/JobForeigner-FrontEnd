@@ -68,7 +68,6 @@ export default function VerifyCodeInputField({
     const isCtrlMeta =
       (e.ctrlKey || e.metaKey) &&
       ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase());
-    const isNoneNumeric = !/^[0-9]$/.test(key) && key.length === 1;
 
     if (isCtrlMeta) {
       return;
@@ -95,11 +94,6 @@ export default function VerifyCodeInputField({
       e.preventDefault();
       focusIndex(Math.min(names.length - 1, idx + 1));
       return;
-    }
-
-    // 숫자 외 입력 방지
-    if (isNoneNumeric) {
-      e.preventDefault();
     }
   };
 
