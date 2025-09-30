@@ -29,10 +29,14 @@ interface SelectProps {
   onChange?: (value: string) => void;
   value: string;
   name?: string;
+  width?: string | number;
 }
 
 const Select = forwardRef<HTMLDivElement, SelectProps>(
-  ({ icon, options, defaultValue, onChange, name, value, ...props }, ref) => {
+  (
+    { icon, options, defaultValue, onChange, name, value, width, ...props },
+    ref,
+  ) => {
     const [selectedValue, setSelectedValue] = useState(
       defaultValue || options[0]?.value,
     );
@@ -70,6 +74,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
           ref={ref}
           className={clsx(styles.customSelect, icon && styles.isIcon)}
           onClick={() => setIsOpen(prev => !prev)}
+          style={{ width }}
           tabIndex={0}
         >
           {selectedOption ? selectedOption.label : '옵션 선택'}
