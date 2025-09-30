@@ -4,8 +4,8 @@ import { List, Map } from 'lucide-react';
 import styles from './selectByTwo.module.scss';
 
 interface Props {
-  firstIcon?: string;
-  secondIcon?: string;
+  firstIcon: string;
+  secondIcon: string;
   firstText: string;
   secondText: string;
   selected: string;
@@ -31,7 +31,7 @@ export const SelectByTwo = ({
         className={`${styles.firstItem} ${
           selected === firstIcon ? styles.selected : ''
         }`}
-        onClick={() => setSelected(firstText)}
+        onClick={() => setSelected(firstIcon)}
       >
         {getIcon(firstIcon)}
         <span>{firstText}</span>
@@ -40,7 +40,7 @@ export const SelectByTwo = ({
         className={`${styles.secondItem} ${
           selected === secondIcon ? styles.selected : ''
         }`}
-        onClick={() => setSelected(secondText)}
+        onClick={() => setSelected(secondIcon)}
       >
         {getIcon(secondIcon)}
         <span>{secondText}</span>
