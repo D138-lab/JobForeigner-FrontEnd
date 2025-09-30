@@ -1,9 +1,12 @@
+import { ControlBar } from '@/components/nearby-companies/controlBar/ControlBar';
+import { TitleBox } from '@/components/nearby-companies/titleBox/TitleBox';
 import styles from './page.module.scss';
 
 export default function NearbyCompanies() {
   return (
     <div className={styles.container}>
-      <div>hi</div>
+      <TitleBox />
+      <ControlBar />
     </div>
   );
 }
