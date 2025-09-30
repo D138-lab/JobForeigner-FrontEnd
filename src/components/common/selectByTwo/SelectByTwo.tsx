@@ -29,7 +29,7 @@ export const SelectByTwo = ({
     <div className={styles.container}>
       <div
         className={`${styles.firstItem} ${
-          selected === firstText ? styles.selected : ''
+          selected === firstIcon ? styles.selected : ''
         }`}
         onClick={() => setSelected(firstText)}
       >
@@ -38,7 +38,7 @@ export const SelectByTwo = ({
       </div>
       <div
         className={`${styles.secondItem} ${
-          selected === secondText ? styles.selected : ''
+          selected === secondIcon ? styles.selected : ''
         }`}
         onClick={() => setSelected(secondText)}
       >
