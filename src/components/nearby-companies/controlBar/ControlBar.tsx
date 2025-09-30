@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   selectIndustryOptions,
   selectRegionOptions,
@@ -8,15 +9,32 @@ import Select from '@/components/common/select/Select';
 import { SelectByTwo } from '@/components/common/selectByTwo/SelectByTwo';
 import { Slider } from '@mui/material';
 import styles from './controlBar.module.scss';
-import { useState } from 'react';
 
-export const ControlBar = () => {
-  const [region, setRegion] = useState<string>('');
-  const [distanceBound, setDistanceBound] = useState<number>(0);
-  const [jobType, setJobType] = useState<string>('');
-  const [mode, setMode] = useState<string>('map');
-  const [onlyOnRecruitMode, setOnlyOnRecruitMode] = useState<boolean>(false);
+interface Props {
+  region: string;
+  setRegion: Dispatch<SetStateAction<string>>;
+  distanceBound: number;
+  setDistanceBound: Dispatch<SetStateAction<number>>;
+  jobType: string;
+  setJobType: Dispatch<SetStateAction<string>>;
+  mode: string;
+  setMode: Dispatch<SetStateAction<string>>;
+  onlyOnRecruitMode: boolean;
+  setOnlyOnRecruitMode: Dispatch<SetStateAction<boolean>>;
+}
 
+export const ControlBar = ({
+  distanceBound,
+  jobType,
+  mode,
+  onlyOnRecruitMode,
+  region,
+  setDistanceBound,
+  setJobType,
+  setMode,
+  setOnlyOnRecruitMode,
+  setRegion,
+}: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.topArea}>
