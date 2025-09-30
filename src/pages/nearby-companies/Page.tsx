@@ -27,7 +27,11 @@ export default function NearbyCompanies() {
         setOnlyOnRecruitMode={setOnlyOnRecruitMode}
         setRegion={setRegion}
       />
-      <ContentBox sortOption={sortOption} setSortOption={setSortOption} />
+      <ContentBox
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        boundary={distanceBound}
+      />
     </div>
   );
 }
