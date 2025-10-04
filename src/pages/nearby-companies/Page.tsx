@@ -28,6 +28,7 @@ export default function NearbyCompanies() {
         setRegion={setRegion}
       />
       <ContentBox
+        mode={mode}
         sortOption={sortOption}
         setSortOption={setSortOption}
         boundary={distanceBound}
