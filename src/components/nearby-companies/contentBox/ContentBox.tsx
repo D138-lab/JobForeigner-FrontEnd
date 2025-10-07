@@ -14,6 +14,7 @@ export const dummyJobs: JobData[] = [
     description: 'AI 기반 소프트웨어 솔루션을 개발하는 스타트업입니다.',
     welfare: ['자유로운 출퇴근', '간식 제공', '재택근무 가능'],
     rating: 4.5,
+    distance: 0.5,
     isZzimed: true,
   },
   {
@@ -24,6 +25,7 @@ export const dummyJobs: JobData[] = [
     description: '친환경 에너지 개발 및 태양광 솔루션을 제공하는 기업입니다.',
     welfare: ['연 1회 워크숍', '어학 지원', '자기계발비 지급'],
     rating: 3.8,
+    distance: 1.5,
     isZzimed: false,
   },
   {
@@ -34,6 +36,7 @@ export const dummyJobs: JobData[] = [
     description: '글로벌 프랜차이즈 레스토랑 체인을 운영하는 회사입니다.',
     welfare: ['직원 식사 제공', '명절 보너스', '사내 헬스장'],
     rating: 4.2,
+    distance: 2,
     isZzimed: false,
   },
   {
@@ -44,6 +47,7 @@ export const dummyJobs: JobData[] = [
     description: '전기차 및 자율주행 솔루션을 연구·개발하는 기업입니다.',
     welfare: ['사내 카페', '연차 자유 사용', '사내 교육 프로그램'],
     rating: 4.7,
+    distance: 0.2,
     isZzimed: true,
   },
   {
@@ -54,6 +58,7 @@ export const dummyJobs: JobData[] = [
     description: '지역 사회와 함께하는 종합병원으로 의료서비스를 제공합니다.',
     welfare: ['의료비 지원', '기숙사 제공', '교통비 지원'],
     rating: 4.0,
+    distance: 0.5,
     isZzimed: false,
   },
 ];

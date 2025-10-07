@@ -10,6 +10,7 @@ export interface JobData {
   welfare: string[];
   rating: number;
   isZzimed: boolean;
+  distance: number;
 }
 
 const mappingRecruitStatus = (status: boolean) => {
@@ -26,6 +27,7 @@ export const ListBox = ({
   welfare,
   rating,
   isZzimed,
+  distance,
 }: JobData) => {
   return (
     <div className={styles.container}>
@@ -55,7 +57,7 @@ export const ListBox = ({
             <Star size={15} fill='gold' color='gold' />
             <span>{rating}</span>
           </div>
-          <div className={styles.distance}>0.5km</div>
+          <div className={styles.distance}>{distance.toFixed(1)}km</div>
         </div>
       </div>
       <div className={styles.bottomBar}>bottom bar</div>
