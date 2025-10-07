@@ -3,7 +3,7 @@ import Select from '../common/select/Select';
 import styles from './detailSearchForm.module.scss';
 import { useState } from 'react';
 
-const selectRegionOptions = [
+export const selectRegionOptions = [
   { value: 'ALL', label: '전체' },
   { value: 'SEOUL', label: '서울' },
   { value: 'BUSAN', label: '부산' },

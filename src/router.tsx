@@ -1,19 +1,19 @@
 import {
+  Route,
   createBrowserRouter,
   createRoutesFromElements,
-  Route,
 } from 'react-router-dom';
-import { lazy } from 'react';
-import Layout from './components/layout/Layout';
-
-// 만든 HOC 임포트
-import withSuspense from '@/pages/withSuspense';
-import LayoutWithSidebar from './components/layout/LayoutWithSidebar';
 import {
   companySidebarNavItems,
   userSidebarNavItems,
 } from './lib/constants/navItems';
+
+import Layout from './components/layout/Layout';
+import LayoutWithSidebar from './components/layout/LayoutWithSidebar';
 import { PATH } from './lib/constants/routes';
+import { lazy } from 'react';
+// 만든 HOC 임포트
+import withSuspense from '@/pages/withSuspense';
 
 // 메인 페이지랑 관련된 페이지들
 const MainPage = lazy(() => import('./pages/main/Page'));
@@ -62,6 +62,8 @@ const ApplyFailedPage = lazy(() => import('./pages/jobs/ApplyFailed'));
 const NotFoundPage = lazy(() => import('./pages/notFound/Page'));
 const RegisterPage = lazy(() => import('./pages/register/Page'));
 const LoginPage = lazy(() => import('./pages/login/Page'));
+
+const NearbyCompanyPage = lazy(() => import('./pages/nearby-companies/Page'));
 const VerifyEmailPage = lazy(() => import('./pages/verifyEmail/Page'));
 
 // 각 페이지를 Suspense가 적용된 HOC로 감싸기
@@ -100,6 +102,7 @@ const SuspensedApplyFailPage = withSuspense(ApplyFailedPage);
 const SuspensedNotFoundPage = withSuspense(NotFoundPage);
 const SuspensedRegisterPage = withSuspense(RegisterPage);
 const SuspensedLoginPage = withSuspense(LoginPage);
+const SuspensedNearbyCompanyPage = withSuspense(NearbyCompanyPage);
 const SuspensedVerifyEmailPage = withSuspense(VerifyEmailPage);
 
 export const router = createBrowserRouter(
@@ -130,6 +133,10 @@ export const router = createBrowserRouter(
         <Route path={PATH.APPLY_FAIL} element={<SuspensedApplyFailPage />} />
         <Route path={PATH.REGISTER} element={<SuspensedRegisterPage />} />
         <Route path={PATH.LOGIN} element={<SuspensedLoginPage />} />
+        <Route
+          path={PATH.NEARBY_COMPANIES}
+          element={<SuspensedNearbyCompanyPage />}
+        />
       </Route>
 
       {/* 유저 프로필 관련 라우트 */}
