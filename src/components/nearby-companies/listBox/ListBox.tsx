@@ -1,4 +1,6 @@
-import { Star } from 'lucide-react';
+import { Heart, Plane, Send, Star } from 'lucide-react';
+
+import Button from '@/components/common/button/Button';
 import styles from './listbox.module.scss';
 
 export interface JobData {
@@ -60,7 +62,21 @@ export const ListBox = ({
           <div className={styles.distance}>{distance.toFixed(1)}km</div>
         </div>
       </div>
-      <div className={styles.bottomBar}>bottom bar</div>
+      <div className={styles.bottomBar}>
+        <div className={styles.buttonArea}>
+          <Button variant='outline'>
+            <Send size={15} />
+            <span className={styles.buttonText}>길찾기</span>
+          </Button>
+          <Button variant='outline'>
+            <Heart size={15} />
+            <span className={styles.buttonText}>즐겨찾기</span>
+          </Button>
+        </div>
+        <Button variant='outline'>
+          <span className={styles.buttonText}>상세보기</span>
+        </Button>
+      </div>
     </div>
   );
 };
