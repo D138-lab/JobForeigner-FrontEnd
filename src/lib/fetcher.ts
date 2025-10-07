@@ -11,14 +11,13 @@ import axios, {
 import { Mutex } from 'async-mutex';
 import camelcaseKeys from 'camelcase-keys';
 import { refreshAccessToken } from './refreshAccessToken';
+import { END_POINTS } from './constants/routes';
 
 // 커스텀 설정 타입 정의
-export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   skipAuth?: boolean;
-}
-
-interface RetryableAxiosRequestConfig extends AxiosRequestConfig {
-  _retry?: boolean;
+  retry?: boolean;
+  extractAccessToken?: boolean; // post 요청 시 사용
 }
 
 // 기본 설정
@@ -67,17 +66,16 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalConfig = error.config as RetryableAxiosRequestConfig;
+    const originalConfig = error.config as CustomAxiosRequestConfig;
     const response = error.response;
 
-    if (
-      response &&
-      response.status === HttpStatusCode.Unauthorized &&
-      originalConfig &&
-      !originalConfig._retry &&
-      (response.data as any)?.code === 'S003'
-    ) {
-      originalConfig._retry = true;
+    const isUnauthorized =
+      response && response.status === HttpStatusCode.Unauthorized;
+    const isNotFirstRetry = originalConfig && !originalConfig.retry;
+    const isAccessTokenExpired = (response?.data as any)?.code === 'S003';
+
+    if (isUnauthorized && isNotFirstRetry && isAccessTokenExpired) {
+      originalConfig.retry = true;
       try {
         let accessToken: string | undefined;
 
@@ -110,7 +108,7 @@ instance.interceptors.response.use(
         // 리프레시 토큰 만료 시 로컬 스토리지 정리
         if (
           err instanceof AxiosError &&
-          err.response?.config.url?.includes(`리프레시 토큰 API URL`)
+          err.response?.config.url?.includes(END_POINTS.REFRESH)
         ) {
           window.localStorage.removeItem(LOCAL_STORAGE.ACCESS_TOKEN);
           window.localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
@@ -134,11 +132,8 @@ async function resultify<T>(promise: Promise<AxiosResponse<T>>): Promise<T> {
 export const fetcher = {
   get: <T>(url: string, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.get<T>(url, config)),
-  post: <T>(
-    url: string,
-    data?: unknown,
-    config?: CustomAxiosRequestConfig & { extractAccessToken?: boolean },
-  ) => resultify<T>(instance.post<T>(url, data, config)),
+  post: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
+    resultify<T>(instance.post<T>(url, data, config)),
   put: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>
     resultify<T>(instance.put<T>(url, data, config)),
   patch: <T>(url: string, data?: unknown, config?: CustomAxiosRequestConfig) =>

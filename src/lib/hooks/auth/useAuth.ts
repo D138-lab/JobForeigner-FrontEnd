@@ -20,8 +20,7 @@ export const useAuth = () => {
     await signinMutation.mutateAsync(values);
     login();
 
-    const response = await getMyInfo();
-    const user = response;
+    const user = await getMyInfo();
     console.log('[useAuth] User Info:', user);
 
     setName(user.name);

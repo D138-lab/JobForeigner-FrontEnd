@@ -1,0 +1,127 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  background-color: var(--color-gray-50);
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.container {
+  width: 420px;
+
+  > h1 {
+    font-size: 2.5rem;
+    color: var(--color-purple-500);
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  > h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1.125rem;
+  }
+
+  > p {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    color: var(--color-gray-500);
+
+    > a {
+      color: var(--color-purple-500);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-purple-400);
+      }
+    }
+  }
+}
+
+.mailIconContainer {
+  margin: 0 auto 1rem;
+  width: 6rem;
+  height: 6rem;
+  background-color: var(--color-purple-100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .mailIcon {
+    color: var(--color-purple-600);
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.formHeaderTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.formHeaderDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .email {
+    color: var(--color-gray-400);
+    font-size: 0.875rem;
+  }
+
+  .description {
+    color: var(--color-gray-500);
+    font-size: 1rem;
+  }
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  .errorContainer {
+    color: var(--color-red-500);
+    font-size: 0.875rem;
+    padding: 0.875rem;
+    background-color: var(--color-red-50);
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-red-200);
+  }
+
+  .resendMail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .resendMailText {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+.submitButton {
+  font-size: 1rem;
+}
+
+.cardFooter {
+  color: var(--color-gray-600);
+}

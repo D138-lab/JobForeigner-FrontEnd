@@ -27,7 +27,7 @@ export const registerSchema = z
     zipcode: z.string().min(1, ERROR_MSG.required),
   })
   .refine(data => data.password === data.passwordConfirm, {
-    message: '비밀번호가 일치하지 않습니다',
+    message: ERROR_MSG.password.confirm,
     path: ['passwordConfirm'],
   });
 

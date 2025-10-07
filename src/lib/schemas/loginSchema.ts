@@ -1,3 +1,5 @@
+// 추후에 제거할 것
+
 import { z } from 'zod';
 import { ERROR_MSG } from './error';
 

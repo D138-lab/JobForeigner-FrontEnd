@@ -2,7 +2,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { RegisterValues, registerSchema } from '@/lib/schemas/registerSchema';
 
-import Button from '@/components/common/button/Button';
 import Card from '@/components/common/card/Card';
 import CompanyFourthSection from '@/components/register/CompanyFourthSection';
 import CompletedCompanyRegister from '@/components/register/CompletedCompanyRegister';
@@ -17,6 +16,7 @@ import usePostCompanyUserSignup from '@/lib/apis/mutations/usePostCompanyUserSig
 import usePostForeignerSignup from '@/lib/apis/mutations/usePoseForeignerSignup';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PATH } from '@/lib/constants';
 
 const defaultValues = {
   email: '',
@@ -51,12 +51,13 @@ export default function RegisterPage() {
     const { passwordConfirm, ...registerInfo } = data;
     if (isCompanyUser) {
       companyUserSignup.mutate(registerInfo, {
-        onSuccess: () => navigate('/'),
+        onSuccess: () => navigate(PATH.INDEX),
         onError: err => console.error('기업 회원가입 실패:', err),
       });
     } else {
       foreignerSignup.mutate(registerInfo, {
-        onSuccess: () => navigate('/'),
+        onSuccess: () =>
+          navigate(PATH.VERIFY_EMAIL, { state: { email: registerInfo.email } }),
         onError: err => console.error('외국인 회원가입 실패:', err),
       });
     }

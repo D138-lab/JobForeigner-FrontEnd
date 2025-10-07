@@ -48,3 +48,14 @@
     background-color: var(--color-gray-50); /* hover:bg-gray-50 */
   }
 }
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-purple-600);
+  border: none;
+
+  &:hover {
+    background-color: var(--color-gray-100);
+    color: var(--color-purple-700);
+  }
+}

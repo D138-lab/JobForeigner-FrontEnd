@@ -3,6 +3,7 @@ export const PATH = {
 
   LOGIN: '/login',
   REGISTER: '/register',
+  VERIFY_EMAIL: '/verify-email',
 
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
@@ -44,6 +45,8 @@ export const END_POINTS = {
   COMPANY_SIGN_UP_VALIDATE: '/api/v1/members/sign-up/company/validate',
   SIGN_IN: '/api/v1/members/sign-in',
   SIGN_OUT: '/api/v1/members/sign-out',
-  REFRESH: '/token/refresh',
+  SEND_EMAIL_VERIFY_CODE: '/api/v1/email/auth/send',
+  VERIFY_EMAIL: '/api/v1/email/auth/verify',
+  REFRESH: '/api/v1/members/refresh',
   MY_INFO: '/api/v1/members/me',
 };

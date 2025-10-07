@@ -1,12 +1,14 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginValues, loginSchema } from '@/lib/schemas/loginSchema';
+import { LoginValues } from '@/lib/schemas/loginSchema';
 
 import Card from '@/components/common/card/Card';
 import LoginSection from '@/components/login/LoginSection';
 import styles from './page.module.scss';
-import { useAuth } from '@/lib/hooks/useAuth';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuth } from '@/lib/hooks/auth/useAuth';
+import { ParseErrorMsg } from '@/lib/utils/parse';
+import { useState } from 'react';
+import { PATH } from '@/lib/constants';
 
 const defaultValues = {
   email: '',
@@ -17,8 +19,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const formState = useForm({
     defaultValues,
-    resolver: zodResolver(loginSchema),
   });
+  const [error, setError] = useState<string | null>(null);
 
   const { loginAndFetchUser } = useAuth();
 
@@ -27,12 +29,19 @@ export default function LoginPage() {
       await loginAndFetchUser(data);
       navigate('/');
     } catch (err) {
-      console.error('로그인 실패:', err);
+      const { code, msg } = ParseErrorMsg(err);
+
+      if (code === 'U006') {
+        navigate(PATH.VERIFY_EMAIL, { state: { email: data.email } });
+      }
+
+      setError(msg);
     }
   };
 
   const onError = (error: unknown) => {
-    console.error(error);
+    const parsedError = ParseErrorMsg(error);
+    console.error(parsedError);
   };
 
   return (
@@ -46,7 +55,10 @@ export default function LoginPage() {
         <Card>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
-              <LoginSection isPending={formState.formState.isSubmitting} />
+              <LoginSection
+                error={error}
+                isPending={formState.formState.isSubmitting}
+              />
             </form>
           </FormProvider>
         </Card>
