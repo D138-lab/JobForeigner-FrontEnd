@@ -1,3 +1,7 @@
+import {
+  BriefCompanyInfo,
+  ResultDetailBox,
+} from '../resultDetailBox/ResultDetailBox';
 import { Dispatch, SetStateAction } from 'react';
 import { JobData, ListBox } from '../listBox/ListBox';
 
@@ -80,6 +84,30 @@ const getLevelByDistance = (distance: number): number => {
   return 11;
 };
 
+export const dummyCompanyList: BriefCompanyInfo[] = [
+  {
+    companyName: '한빛전자',
+    companyType: '제조 · 전자',
+    rating: 4.3,
+    distance: 1.2,
+    companyStatus: '채용 중',
+  },
+  {
+    companyName: '에코엔지니어링',
+    companyType: '건설 · 환경',
+    rating: 3.9,
+    distance: 8.5,
+    companyStatus: '채용 예정',
+  },
+  {
+    companyName: '글로버스소프트',
+    companyType: 'IT · 소프트웨어',
+    rating: 4.7,
+    distance: 15.0,
+    companyStatus: '채용 마감',
+  },
+];
+
 export const ContentBox = ({
   sortOption,
   setSortOption,
@@ -91,10 +119,11 @@ export const ContentBox = ({
       {mode === 'map' ? (
         <>
           <MapComponent level={getLevelByDistance(boundary)} />
-          <ResultBox
+          <ResultDetailBox
             sortOption={sortOption}
             setSortOption={setSortOption}
-            numOfResult={10}
+            numOfResult={dummyCompanyList.length}
+            companies={dummyCompanyList}
           />
         </>
       ) : (
