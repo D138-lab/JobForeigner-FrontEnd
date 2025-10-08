@@ -38,7 +38,7 @@ export default function Header() {
     <div className={styles.header}>
       <div className={styles.up}>
         <Link className={styles.link} to='/'>
-          {Logo}
+          <img src='public/logo.png' alt='logo' className={styles.logoImg} />
         </Link>
         <SearchForm />
         {!isLoggedIn ? (
