@@ -2,6 +2,7 @@ import styles from './companyAdsBox.module.scss';
 
 export interface CompanyAd {
   adImg: string;
+  title: string;
   companyName: string;
   companyType: string;
 }
@@ -17,6 +18,7 @@ const CompanyAdsBox = ({ data }: Props) => {
         <div className={styles.companyAdBox}>
           <img src={d.adImg} alt={d.companyName} />
           <div className={styles.infos}>
+            <div className={styles.title}>{d.title}</div>
             <div className={styles.companyName}>{d.companyName}</div>
             <div className={styles.companyType}>{d.companyType}</div>
           </div>
