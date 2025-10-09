@@ -47,7 +47,7 @@ export default function Header() {
               <Button variant='outline'>{t('login')}</Button>
             </Link>
             <Link to='/register'>
-              <Button>{t('signUp')}</Button>
+              <Button color='#0c4a6e'>{t('signUp')}</Button>
             </Link>
           </div>
         ) : (
@@ -55,7 +55,11 @@ export default function Header() {
             <Link to='/profile' className={styles.profileBox}>
               <img src={userImgUrl} alt='프로필' />
             </Link>
-            <Button variant='outline' onClick={() => handleLogout()}>
+            <Button
+              variant='outline'
+              onClick={() => handleLogout()}
+              color='#0c4a6e'
+            >
               {t('로그아웃')}
             </Button>
           </div>
