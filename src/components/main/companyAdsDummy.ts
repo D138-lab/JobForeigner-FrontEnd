@@ -2,122 +2,102 @@ import { CompanyAd } from './CompanyAdsBox';
 
 export const companyDummyAds: CompanyAd[] = [
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards1.jpg',
     companyName: 'TechNova',
     companyType: 'IT & Software',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards2.jpg',
     companyName: 'GreenGrow',
     companyType: 'Agriculture',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards3.jpg',
     companyName: 'HealthBridge',
     companyType: 'Healthcare',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards4.jpg',
     companyName: 'EduCore',
     companyType: 'Education',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards5.jpg',
     companyName: 'AutoDrive',
     companyType: 'Automotive',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards6.jpg',
     companyName: 'Finlogic',
     companyType: 'Finance',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards7.jpg',
     companyName: 'CloudShift',
     companyType: 'Cloud Services',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards8.jpg',
     companyName: 'BioGenix',
     companyType: 'Biotechnology',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards1.jpg',
     companyName: 'UrbanNest',
     companyType: 'Real Estate',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards2.jpg',
     companyName: 'GameForge',
     companyType: 'Gaming',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards3.jpg',
     companyName: 'SmartGrid',
     companyType: 'Energy',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards4.jpg',
     companyName: 'MediPlus',
     companyType: 'Pharmaceutical',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards5.jpg',
     companyName: 'NextRetail',
     companyType: 'Retail',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards6.jpg',
     companyName: 'AgroTech',
     companyType: 'AgriTech',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards7.jpg',
     companyName: 'CyberNest',
     companyType: 'Cybersecurity',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards8.jpg',
     companyName: 'FlexWare',
     companyType: 'SaaS',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards1.jpg',
     companyName: 'BuildWise',
     companyType: 'Construction',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards2.jpg',
     companyName: 'AquaPure',
     companyType: 'Water Treatment',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards3.jpg',
     companyName: 'TrendMart',
     companyType: 'E-Commerce',
   },
   {
-    adImg:
-      'https://nas.battlepage.com/upload/2019/0829/292109286bc65e5e561cb876bcb54841dc0fe5e1.jpg',
+    adImg: 'public/dummy_cards4.jpg',
     companyName: 'RocketLabs',
     companyType: 'Aerospace',
   },
