@@ -37,7 +37,7 @@ const TotalReviewBar = (data: ReviewDto) => {
         </div>
         <div className={styles.ratingInfo}>
           <div className={styles.scoreRow}>
-            <Star size={20} color='yellow' fill='yellow' />
+            <Star size={20} color='gold' fill='gold' />
             <div className={styles.score}>{meanOfScore(data)}/5</div>
           </div>
           <div className={styles.scoreLabel}>종합 평점</div>
@@ -51,7 +51,7 @@ const TotalReviewBar = (data: ReviewDto) => {
             <div>직업 안정성</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='yellow' fill='yellow' />
+            <Star size={18} color='gold' fill='gold' />
             <span>{data.jobStability}</span>
           </div>
         </div>
@@ -63,7 +63,7 @@ const TotalReviewBar = (data: ReviewDto) => {
             <div>조직 문화</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='yellow' fill='yellow' />
+            <Star size={18} color='gold' fill='gold' />
             <span>{data.organizationalCulture}</span>
           </div>
         </div>
@@ -75,7 +75,7 @@ const TotalReviewBar = (data: ReviewDto) => {
             <div>급여 만족도</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='yellow' fill='yellow' />
+            <Star size={18} color='gold' fill='gold' />
             <span>{data.salarySatisfaction}</span>
           </div>
         </div>
@@ -87,7 +87,7 @@ const TotalReviewBar = (data: ReviewDto) => {
             <div>복지</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='yellow' fill='yellow' />
+            <Star size={18} color='gold' fill='gold' />
             <span>{data.welfare}</span>
           </div>
         </div>
@@ -99,7 +99,7 @@ const TotalReviewBar = (data: ReviewDto) => {
             <div>워라벨</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='yellow' fill='yellow' />
+            <Star size={18} color='gold' fill='gold' />
             <span>{data.workLifeBalance}</span>
           </div>
         </div>
