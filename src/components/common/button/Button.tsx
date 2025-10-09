@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './button.module.scss';
 import clsx from 'clsx';
+import styles from './button.module.scss';
 
 type ButtonVariant = 'default' | 'outline' | 'ghost';
 type ButtonSize = 'small' | 'medium' | 'large';
@@ -8,6 +8,7 @@ type ButtonSize = 'small' | 'medium' | 'large';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  color?: string;
 }
 
 /**
@@ -23,17 +24,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * - 나머지 props: (onClick, children 등) ButtonHTMLAttributes(button 태그의 속성)
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'default', size = 'small', children, ...props }, ref) => {
+  ({ variant = 'default', size = 'small', children, color, ...props }, ref) => {
     return (
       <button
         ref={ref}
         className={clsx(styles.button, styles[variant], styles[size])}
+        style={{ backgroundColor: color }}
         {...props}
       >
         {children}
       </button>
     );
-  }
+  },
 );
 
 export default Button;
