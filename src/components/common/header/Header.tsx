@@ -56,7 +56,7 @@ export default function Header() {
               <img src={userImgUrl} alt='프로필' />
             </Link>
             <Button
-              variant='outline'
+              variant='default'
               onClick={() => handleLogout()}
               color='#0c4a6e'
             >
