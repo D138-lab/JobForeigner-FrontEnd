@@ -37,10 +37,12 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.up}>
-        <Link className={styles.link} to='/'>
-          <img src='public/logo.png' alt='logo' className={styles.logoImg} />
-        </Link>
-        <SearchForm />
+        <div className={styles.leftAlign}>
+          <Link className={styles.link} to='/'>
+            <img src='public/logo.png' alt='logo' className={styles.logoImg} />
+          </Link>
+          <SearchForm />
+        </div>
         {!isLoggedIn ? (
           <div className={styles.userBox}>
             <Link to='/login'>
