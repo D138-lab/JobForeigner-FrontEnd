@@ -9,13 +9,13 @@ const UnAuthorizedModal = () => {
   return (
     <div className={styles.container}>
       <div className={styles.iconBox}>
-        <X size={20} color='white' />
+        <X size={30} color='white' />
       </div>
       <div className={styles.title}>로그인이 필요한 서비스입니다.</div>
       <div className={styles.text}>
         이 페이지에 접근하려면 로그인이 필요합니다.
       </div>
-      <Button size='medium' onClick={() => navigate('/login')}>
+      <Button color='#0c4a6e' size='medium' onClick={() => navigate('/login')}>
         로그인하러 가기
       </Button>
     </div>
