@@ -52,7 +52,9 @@ export default function SearchForm() {
         onChange={e => setValue(e.currentTarget.value)}
         onKeyDown={handleKeyDown}
       />
-      <div className={styles.searched}>
+      <div
+        className={`${styles.searched} ${!isModalOn ? styles.inactive : ''}`}
+      >
         {isModalOn && <SearchResultForm content={data?.data.content!} />}
       </div>
     </form>

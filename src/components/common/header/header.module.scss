@@ -28,10 +28,23 @@
   justify-content: space-between;
   align-items: center;
 
-  .link {
-    font-size: 2.5em;
-    font-weight: 900;
-    color: var(--color-purple-700);
+  .logoImg {
+    width: 12rem;
+    height: auto;
+  }
+
+  .leftAlign {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+
+    .link {
+      font-size: 2.5em;
+      font-weight: 900;
+      color: var(--color-purple-700);
+    }
   }
 
   .userBox {
@@ -78,16 +91,6 @@
   }
 }
 
-.logo {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: #4335a7;
-
-  @media (max-width: 1280px) {
-    font-size: 1.375rem;
-  }
-}
-
 .nav {
   display: flex;
   gap: 2rem;
@@ -103,5 +106,5 @@
 }
 
 .active {
-  color: var(--color-purple-700);
+  color: var(--color-sky-800);
 }

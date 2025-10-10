@@ -1,14 +1,14 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginValues } from '@/lib/schemas/loginSchema';
 
 import Card from '@/components/common/card/Card';
 import LoginSection from '@/components/login/LoginSection';
+import { LoginValues } from '@/lib/schemas/loginSchema';
+import { PATH } from '@/lib/constants';
+import { ParseErrorMsg } from '@/lib/utils/parse';
 import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/auth/useAuth';
-import { ParseErrorMsg } from '@/lib/utils/parse';
 import { useState } from 'react';
-import { PATH } from '@/lib/constants';
 
 const defaultValues = {
   email: '',
@@ -47,7 +47,7 @@ export default function LoginPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <h1>JobForeigner</h1>
+        <img src='public/logo.png' alt='logo' className={styles.logoImg} />
         <h2>로그인</h2>
         <p>
           아직 계정이 없으신가요? <Link to='/register'>회원가입</Link>

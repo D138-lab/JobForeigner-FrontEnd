@@ -14,10 +14,11 @@ const ScrapButton = ({ id, initial }: { id: number; initial: boolean }) => {
 
   return (
     <Button
+      color='#0c4a6e'
       onClick={handleClick}
       disabled={isPending}
       style={{
-        backgroundColor: scrapped ? 'white' : 'var(--color-purple-500)',
+        backgroundColor: scrapped ? 'white' : 'var(--color-sky-800)',
         color: scrapped ? 'black' : 'white',
       }}
     >

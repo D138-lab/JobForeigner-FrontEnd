@@ -1,11 +1,12 @@
-import { useFormContext } from 'react-hook-form';
-import styles from './loginSection.module.scss';
-import InputField from '../common/field/InputField';
-import Button from '../common/button/Button';
-import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { useRef, useState } from 'react';
+
+import Button from '../common/button/Button';
 import FormErrorContainer from '../common/form/FormErrorContainer';
+import InputField from '../common/field/InputField';
+import { Link } from 'react-router-dom';
+import styles from './loginSection.module.scss';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
   error: string | null;
@@ -63,7 +64,12 @@ export default function LoginSection({ error, isPending }: Props) {
       )}
       <FormErrorContainer error={error} />
       <div className={styles.buttonContainer}>
-        <Button type='submit' size='medium' disabled={isPending}>
+        <Button
+          color='#0c4a6e'
+          type='submit'
+          size='medium'
+          disabled={isPending}
+        >
           로그인
         </Button>
       </div>
