@@ -1,3 +1,4 @@
+import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { PostSortBy } from './PostSortBy';
 import { postSortOption } from '@/pages/community/Page';
 import styles from './contentArea.module.scss';
@@ -15,6 +16,7 @@ export const ContentArea = ({ sortOption, setSortOption }: Props) => {
           sortOption={sortOption}
           onClick={(option: postSortOption) => setSortOption(option)}
         />
+        <CustomDivider />
       </div>
       <div className={styles.right}>
         <div>hi</div>
