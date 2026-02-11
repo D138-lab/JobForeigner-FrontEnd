@@ -1,6 +1,7 @@
 import { PostBox, PostBoxProps } from './PostBox';
 
 import { CustomDivider } from '../common/customDivider/CustomDivider';
+import { PopularPosts } from './PopularPosts';
 import { PostSortBy } from './PostSortBy';
 import { SelectPostType } from './SelectPostType';
 import { postSortOption } from '@/pages/community/Page';
@@ -113,6 +114,7 @@ export const ContentArea = ({
         </div>
       </div>
       <div className={styles.right}>
+        <PopularPosts titles={postBoxDummyData.map(post => post.title)} />
         <div>hi</div>
       </div>
     </div>
