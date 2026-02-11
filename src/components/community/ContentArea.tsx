@@ -4,6 +4,8 @@ import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { PopularPosts } from './PopularPosts';
 import { PostSortBy } from './PostSortBy';
 import { SelectPostType } from './SelectPostType';
+import { TopMember } from './TopMember';
+import { dummyCompanyList } from '../nearby-companies/contentBox/ContentBox';
 import { postSortOption } from '@/pages/community/Page';
 import styles from './contentArea.module.scss';
 
@@ -115,6 +117,13 @@ export const ContentArea = ({
       </div>
       <div className={styles.right}>
         <PopularPosts titles={postBoxDummyData.map(post => post.title)} />
+        <TopMember
+          people={postBoxDummyData.slice(0, 3).map(post => ({
+            name: post.name,
+            profileImgUrl: post.imageUrl,
+          }))}
+        />
+
         <div>hi</div>
       </div>
     </div>
