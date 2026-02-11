@@ -1,9 +1,5 @@
-import {
-  SearchPostForm,
-  selectPostCategory,
-} from '@/components/community/SearchPostForm';
-
 import { ContentArea } from '@/components/community/ContentArea';
+import { SearchPostForm } from '@/components/community/SearchPostForm';
 import styles from './page.module.scss';
 import { useState } from 'react';
 
