@@ -1,5 +1,6 @@
 import { PostBox, PostBoxProps } from './PostBox';
 
+import { AnnouncementAndEvent } from './AnnouncementAndEvent';
 import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { PopularPosts } from './PopularPosts';
 import { PostSortBy } from './PostSortBy';
@@ -123,8 +124,7 @@ export const ContentArea = ({
             profileImgUrl: post.imageUrl,
           }))}
         />
-
-        <div>hi</div>
+        <AnnouncementAndEvent />
       </div>
     </div>
   );
