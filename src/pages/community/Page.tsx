@@ -21,9 +21,7 @@ export default function CommunityPage() {
     <div className={styles.container}>
       <SearchPostForm
         defaultSearchValue={searchValue}
-        defaultPostType={postType}
-        defaultPostCategory={postCategory}
-        onClick={(a, b, c) => console.log(a, b, c)}
+        onClick={a => console.log(a)}
       />
       <ContentArea
         sortOption={sortOption}
