@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.6rem;
+
+  .title {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+
+  .content {
+    font-size: 0.95rem;
+    color: #666;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
