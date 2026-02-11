@@ -1,6 +1,8 @@
 import { ProfileInfoInPost, ProfileInfoInPostProps } from './ProfileInfoInPost';
 
 import { BriefPost } from './briefPost';
+import { CustomDivider } from '../common/customDivider/CustomDivider';
+import { LikeAndComments } from './LikeAndComments';
 import styles from './postBox.module.scss';
 
 export interface PostBoxProps extends ProfileInfoInPostProps {
@@ -8,6 +10,8 @@ export interface PostBoxProps extends ProfileInfoInPostProps {
   tags: string[];
   title: string;
   content: string;
+  numOfLike: number;
+  numOfComment: number;
 }
 
 export const PostBox = ({
@@ -20,6 +24,8 @@ export const PostBox = ({
   postedAt,
   tags,
   title,
+  numOfComment,
+  numOfLike,
 }: PostBoxProps) => {
   return (
     <div className={styles.container}>
@@ -33,9 +39,17 @@ export const PostBox = ({
         />
       </div>
       <div className={styles.middleArea}>
-        <BriefPost category={category} title={title} content={content} />
+        <BriefPost
+          category={category}
+          title={title}
+          content={content}
+          tags={tags}
+        />
       </div>
-      <div className={styles.bottomArea}>bottom</div>
+      <CustomDivider />
+      <div className={styles.bottomArea}>
+        <LikeAndComments numOfComment={numOfComment} numOfLike={numOfLike} />
+      </div>
     </div>
   );
 };
