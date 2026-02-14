@@ -1,17 +1,19 @@
 import { ProfileInfoInPost, ProfileInfoInPostProps } from './ProfileInfoInPost';
 
-import { BriefPost } from './briefPost';
+import { BriefPost } from './BriefPost';
 import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { LikeAndComments } from './LikeAndComments';
 import styles from './postBox.module.scss';
 
 export interface PostBoxProps extends ProfileInfoInPostProps {
+  id: number;
   category: string;
   tags: string[];
   title: string;
   content: string;
   numOfLike: number;
   numOfComment: number;
+  onClick?: () => void;
 }
 
 export const PostBox = ({
@@ -26,9 +28,10 @@ export const PostBox = ({
   title,
   numOfComment,
   numOfLike,
+  onClick,
 }: PostBoxProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles.topArea}>
         <ProfileInfoInPost
           imageUrl={imageUrl}

@@ -9,9 +9,11 @@ import { TopMember } from './TopMember';
 import { dummyCompanyList } from '../nearby-companies/contentBox/ContentBox';
 import { postSortOption } from '@/pages/community/Page';
 import styles from './contentArea.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 export const postBoxDummyData: PostBoxProps[] = [
   {
+    id: 1,
     imageUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
     name: '응우옌 반 민',
     isVerified: true,
@@ -27,6 +29,7 @@ export const postBoxDummyData: PostBoxProps[] = [
     numOfComment: 8,
   },
   {
+    id: 2,
     imageUrl: 'https://randomuser.me/api/portraits/women/45.jpg',
     name: '마리아 곤잘레스',
     isVerified: false,
@@ -42,6 +45,7 @@ export const postBoxDummyData: PostBoxProps[] = [
     numOfComment: 5,
   },
   {
+    id: 3,
     imageUrl: 'https://randomuser.me/api/portraits/men/12.jpg',
     name: '알리 하산',
     isVerified: true,
@@ -57,6 +61,7 @@ export const postBoxDummyData: PostBoxProps[] = [
     numOfComment: 12,
   },
   {
+    id: 3,
     imageUrl: 'https://randomuser.me/api/portraits/women/28.jpg',
     name: '시티 아이샤',
     isVerified: false,
@@ -72,6 +77,7 @@ export const postBoxDummyData: PostBoxProps[] = [
     numOfComment: 3,
   },
   {
+    id: 4,
     imageUrl: 'https://randomuser.me/api/portraits/men/67.jpg',
     name: '카를로스 멘도사',
     isVerified: true,
@@ -101,6 +107,8 @@ export const ContentArea = ({
   postType,
   setPostType,
 }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -112,7 +120,10 @@ export const ContentArea = ({
         <SelectPostType postType={postType} onClick={setPostType} />
         <div className={styles.posts}>
           {postBoxDummyData.map(data => (
-            <PostBox {...data} />
+            <PostBox
+              {...data}
+              onClick={() => navigate(`/community/${data.id}`)}
+            />
           ))}
         </div>
       </div>
