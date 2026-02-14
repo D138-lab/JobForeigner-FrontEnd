@@ -21,6 +21,7 @@ export const PATH = {
   PROFILE_COMPANY_APPLICATIONS: '/profile/company/applications',
 
   COMMUNITY: '/community',
+  DETAIL_COMMUNITY_POST: '/community/:id',
 
   COMPANIES: '/companies',
   COMPANIES_DETAIL: '/companies/:id',
