@@ -1,4 +1,3 @@
-import Button from '../common/button/Button';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { Send } from 'lucide-react';
 import styles from './inputComment.module.scss';
