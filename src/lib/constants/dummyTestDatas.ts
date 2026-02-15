@@ -1,24 +1,9 @@
+import { CommentDetailProps } from '@/components/community/CommentsArea';
 import { DetailPostBoxProps } from '@/components/community/DetailPostBox';
 import { PostBoxProps } from '@/components/community/PostBox';
 
 export interface DetailPostBoxWithId extends DetailPostBoxProps {
   id: number;
-}
-
-export interface CommentDetailProps {
-  id: number;
-  postId: number;
-  parentId: number | null;
-
-  userName: string;
-  country: string;
-  isVerifiedUser: boolean;
-
-  postedAt: Date;
-  content: string;
-
-  numOfLiked: number;
-  isLikedByMe: boolean;
 }
 
 export const postBoxDummyData: PostBoxProps[] = [
@@ -190,6 +175,7 @@ export const detailPostDummyData: DetailPostBoxWithId[] = postBoxDummyData.map(
     userImgUrl: post.imageUrl,
     title: post.title,
     tags: post.tags,
+    isLiked: post.isLiked,
     userName: post.name,
     isVerifiedUser: post.isVerified,
     country: post.nationality,
