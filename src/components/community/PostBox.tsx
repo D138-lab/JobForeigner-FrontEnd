@@ -2,6 +2,7 @@ import { ProfileInfoInPost, ProfileInfoInPostProps } from './ProfileInfoInPost';
 
 import { BriefPost } from './BriefPost';
 import { CustomDivider } from '../common/customDivider/CustomDivider';
+import { EtcDots } from './EtcDots';
 import { LikeAndComments } from './LikeAndComments';
 import styles from './postBox.module.scss';
 
@@ -18,6 +19,7 @@ export interface PostBoxProps extends ProfileInfoInPostProps {
 }
 
 export const PostBox = ({
+  id,
   category,
   content,
   imageUrl,
@@ -42,6 +44,9 @@ export const PostBox = ({
           nationality={nationality}
           postedAt={postedAt}
         />
+        <div onClick={e => e.stopPropagation()}>
+          <EtcDots postId={id} />
+        </div>
       </div>
       <div className={styles.middleArea}>
         <BriefPost
@@ -53,13 +58,15 @@ export const PostBox = ({
       </div>
       <CustomDivider />
       <div className={styles.bottomArea}>
-        <LikeAndComments
-          onLikeClick={() => console.log('좋아요 눌림')}
-          onCommentClick={() => console.log('댓글 눌림')}
-          isLiked={isLiked}
-          numOfComment={numOfComment}
-          numOfLike={numOfLike}
-        />
+        <div onClick={e => e.stopPropagation()}>
+          <LikeAndComments
+            onLikeClick={() => console.log('좋아요 눌림')}
+            onCommentClick={() => console.log('댓글 눌림')}
+            isLiked={isLiked}
+            numOfComment={numOfComment}
+            numOfLike={numOfLike}
+          />
+        </div>
       </div>
     </div>
   );
