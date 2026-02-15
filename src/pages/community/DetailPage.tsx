@@ -8,6 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 import { CommentArea } from '@/components/community/CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { DetailPostBox } from '@/components/community/DetailPostBox';
+import { RelatedPosts } from '@/components/community/RelatedPosts';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 
@@ -53,7 +54,7 @@ export default function DetailPage() {
           />
         </div>
         <div className={styles.subContent}>
-          <div>hi</div>
+          <RelatedPosts />
         </div>
       </div>
     </div>
