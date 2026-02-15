@@ -1,7 +1,7 @@
+import { Comment } from './Comment';
 import { InputComment } from './InputComment';
 import { MessageCircle } from 'lucide-react';
 import styles from './commentsArea.module.scss';
-import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useState } from 'react';
 
 export interface CommentDetailProps {
@@ -12,6 +12,7 @@ export interface CommentDetailProps {
   userName: string;
   country: string;
   isVerifiedUser: boolean;
+  userProfileImgUrl: string;
 
   postedAt: Date;
   content: string;
@@ -45,6 +46,11 @@ export const CommentArea = ({
         onChangeInputText={text => setInputText(text)}
         onSubmitComment={() => console.log('전송요청')}
       />
+      <div className={styles.comments}>
+        {comments.map(comment => (
+          <Comment {...comment} />
+        ))}
+      </div>
     </div>
   );
 };

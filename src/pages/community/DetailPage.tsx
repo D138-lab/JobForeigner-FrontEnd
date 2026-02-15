@@ -1,15 +1,27 @@
+import {
+  commentDetailDummyData,
+  detailPostDummyData,
+} from '@/lib/constants/dummyTestDatas';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ArrowLeft } from 'lucide-react';
+import { CommentArea } from '@/components/community/CommentsArea';
+import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { DetailPostBox } from '@/components/community/DetailPostBox';
-import { detailPostDummyData } from '@/lib/constants/dummyTestDatas';
 import styles from './detailPage.module.scss';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 
 export default function DetailPage() {
   const location = useLocation();
   const postId = location.state?.id;
   const data = detailPostDummyData.find(post => post.id === postId);
   const navigate = useNavigate();
+
+  const userImgUrl = useAuthStore(state => state.profileImageUrl);
+
+  const comments = commentDetailDummyData.filter(
+    comment => comment.postId === postId,
+  );
 
   return (
     <div className={styles.container}>
@@ -32,6 +44,12 @@ export default function DetailPage() {
             title={data?.title ?? ''}
             userImgUrl={data?.userImgUrl ?? ''}
             userName={data?.userName ?? ''}
+          />
+
+          <CommentArea
+            numOfComments={comments.length}
+            myProfileImgUrl={userImgUrl || DEFAULT_IMAGE_URL}
+            comments={comments}
           />
         </div>
         <div className={styles.subContent}>
