@@ -24,6 +24,7 @@ export interface CommentDetailProps {
 export const postBoxDummyData: PostBoxProps[] = [
   {
     id: 1,
+    isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
     name: '응우옌 반 민',
     isVerified: true,
@@ -56,6 +57,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 2,
+    isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/45.jpg',
     name: '마리아 곤잘레스',
     isVerified: false,
@@ -85,6 +87,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 3,
+    isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/12.jpg',
     name: '알리 하산',
     isVerified: true,
@@ -117,6 +120,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 4,
+    isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/28.jpg',
     name: '시티 아이샤',
     isVerified: false,
@@ -147,6 +151,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 5,
+    isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/67.jpg',
     name: '카를로스 멘도사',
     isVerified: true,

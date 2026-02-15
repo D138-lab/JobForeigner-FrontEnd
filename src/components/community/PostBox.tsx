@@ -13,6 +13,7 @@ export interface PostBoxProps extends ProfileInfoInPostProps {
   content: string;
   numOfLike: number;
   numOfComment: number;
+  isLiked: boolean;
   onClick?: () => void;
 }
 
@@ -26,6 +27,7 @@ export const PostBox = ({
   postedAt,
   tags,
   title,
+  isLiked,
   numOfComment,
   numOfLike,
   onClick,
@@ -51,7 +53,13 @@ export const PostBox = ({
       </div>
       <CustomDivider />
       <div className={styles.bottomArea}>
-        <LikeAndComments numOfComment={numOfComment} numOfLike={numOfLike} />
+        <LikeAndComments
+          onLikeClick={() => console.log('좋아요 눌림')}
+          onCommentClick={() => console.log('댓글 눌림')}
+          isLiked={isLiked}
+          numOfComment={numOfComment}
+          numOfLike={numOfLike}
+        />
       </div>
     </div>
   );
