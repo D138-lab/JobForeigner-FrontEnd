@@ -38,7 +38,9 @@ export const ContentArea = ({
           {postBoxDummyData.map(data => (
             <PostBox
               {...data}
-              onClick={() => navigate(`/community/${data.id}`)}
+              onClick={() =>
+                navigate(`/community/${data.id}`, { state: { id: data.id } })
+              }
             />
           ))}
         </div>
