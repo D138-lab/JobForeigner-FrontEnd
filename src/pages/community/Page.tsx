@@ -1,5 +1,6 @@
 import { ContentArea } from '@/components/community/ContentArea';
 import { SearchPostForm } from '@/components/community/SearchPostForm';
+import { WritePostModal } from '@/components/community/WritePostModal';
 import styles from './page.module.scss';
 import { useState } from 'react';
 
@@ -13,8 +14,18 @@ export default function CommunityPage() {
 
   const [sortOption, setSortOption] = useState<postSortOption>('recent');
 
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+
   return (
     <div className={styles.container}>
+      <div className={styles.topArea}>
+        <button
+          className={styles.newPostBtn}
+          onClick={() => setIsWriteModalOpen(true)}
+        >
+          글쓰기
+        </button>
+      </div>
       <SearchPostForm
         defaultSearchValue={searchValue}
         onClick={a => console.log(a)}
@@ -25,6 +36,10 @@ export default function CommunityPage() {
         postType={postType}
         setPostType={setPostType}
       />
+
+      {isWriteModalOpen && (
+        <WritePostModal onClose={() => setIsWriteModalOpen(false)} />
+      )}
     </div>
   );
 }
