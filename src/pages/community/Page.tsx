@@ -1,7 +1,7 @@
 import { ContentArea } from '@/components/community/ContentArea';
 import { SearchPostForm } from '@/components/community/SearchPostForm';
-import { WritePostModal } from '@/components/community/WritePostModal';
 import styles from './page.module.scss';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export type postSortOption = 'recent' | 'popular' | 'verified';
@@ -14,14 +14,14 @@ export default function CommunityPage() {
 
   const [sortOption, setSortOption] = useState<postSortOption>('recent');
 
-  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
       <div className={styles.topArea}>
         <button
           className={styles.newPostBtn}
-          onClick={() => setIsWriteModalOpen(true)}
+          onClick={() => navigate('/community/write')}
         >
           글쓰기
         </button>
@@ -36,10 +36,6 @@ export default function CommunityPage() {
         postType={postType}
         setPostType={setPostType}
       />
-
-      {isWriteModalOpen && (
-        <WritePostModal onClose={() => setIsWriteModalOpen(false)} />
-      )}
     </div>
   );
 }

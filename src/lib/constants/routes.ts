@@ -22,6 +22,7 @@ export const PATH = {
 
   COMMUNITY: '/community',
   DETAIL_COMMUNITY_POST: '/community/:id',
+  WRITE_COMMUNITY_POST: '/community/write',
 
   COMPANIES: '/companies',
   COMPANIES_DETAIL: '/companies/:id',
