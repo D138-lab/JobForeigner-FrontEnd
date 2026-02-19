@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  background-color: #f6f9fb;
+  padding: 0.8rem 0.6rem;
+  gap: 0.4rem;
+
+  .type {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .title {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+}
+
+.notice {
+  color: #e03131;
+}
+
+.event {
+  color: #1971c2;
+}

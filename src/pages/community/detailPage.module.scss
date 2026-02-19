@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  .goBack {
+    cursor: pointer;
+    padding: 1rem 0;
+    width: 84%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.4rem;
+
+    span {
+      font-size: 1.4em;
+      font-weight: 700;
+    }
+  }
+
+  .contentArea {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .mainContent {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    .subContent {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+}

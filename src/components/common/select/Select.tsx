@@ -17,7 +17,7 @@ const getIcon = (icon?: string) => {
   }
 };
 
-interface Option {
+export interface Option {
   value: string;
   label: string;
 }

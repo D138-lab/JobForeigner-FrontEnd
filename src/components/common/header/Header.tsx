@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 import AlarmButton from './AlarmButton';
 import Button from '../button/Button';
+import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
 import RecentJobs from './RecentJobs';
@@ -55,7 +56,7 @@ export default function Header() {
         ) : (
           <div className={styles.topRight}>
             <Link to='/profile' className={styles.profileBox}>
-              <img src={userImgUrl} alt='프로필' />
+              <img src={userImgUrl ?? DEFAULT_IMAGE_URL} alt='프로필' />
             </Link>
             <Button
               variant='default'
