@@ -28,7 +28,7 @@ interface TipTapEditorProps {
 export default function TipTapEditor({
   value,
   onChange,
-  placeholder = 'Share your experience, ask a question, or describe the job opportunity...',
+  placeholder = '여러분의 생각을 자유롭게 공유해주세요.',
   minHeightPx = 220,
 }: TipTapEditorProps) {
   const editor = useEditor({

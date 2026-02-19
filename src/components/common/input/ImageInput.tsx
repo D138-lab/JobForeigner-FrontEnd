@@ -109,8 +109,8 @@ export const ImageInput = ({
         </div>
 
         <div className={styles.text}>
-          <div className={styles.mainText}>Click to upload</div>
-          <div className={styles.subText}>or drag and drop</div>
+          <div className={styles.mainText}>클릭하여 업로드하세요</div>
+          <div className={styles.subText}>혹은 드래그하여 업로드하세요</div>
           <div className={styles.helpText}>{helpText}</div>
         </div>
 
