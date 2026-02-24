@@ -21,6 +21,7 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
   let id = 0;
   void id;
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const onClickPrevious = () => setProgress(3);
 
@@ -30,10 +31,12 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
 
     signup.mutate(registerInfo, {
       onSuccess: response => {
-        navigate('/');
         console.log(response.data.id);
         id = response.data.id;
         setErrorMessage(null);
+        setSuccessMessage(
+          '담당자가 승인하면 메일로 알려드릴게요!\n승인까지 시간이 조금 걸릴 수 있어요.',
+        );
       },
       onError: err => {
         console.error('회원가입 실패:', err);
@@ -51,6 +54,24 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
 
   return (
     <div className={styles.container}>
+      {successMessage && (
+        <div className={styles.errorModalOverlay}>
+          <div className={styles.errorModal}>
+            <div className={styles.errorTitle}>회원가입 완료</div>
+            <div className={styles.errorMessage}>{successMessage}</div>
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => {
+                setSuccessMessage(null);
+                navigate('/');
+              }}
+            >
+              확인
+            </Button>
+          </div>
+        </div>
+      )}
       {errorMessage && (
         <div className={styles.errorModalOverlay}>
           <div className={styles.errorModal}>
