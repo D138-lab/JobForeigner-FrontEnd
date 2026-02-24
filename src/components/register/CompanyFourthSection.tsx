@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import Button from '../common/button/Button';
 import UploadForm from '../common/uploadForm/UploadForm';
@@ -8,6 +8,7 @@ import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import usePostCompanyUserSignup from '@/lib/apis/mutations/usePostCompanyUserSignup';
 import { RegisterValues } from '@/lib/schemas/registerSchema';
+import { ParseErrorMsg } from '@/lib/utils/parse';
 
 interface Props {
   setProgress: Dispatch<SetStateAction<number>>;
@@ -19,6 +20,7 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
   const navigate = useNavigate();
   let id = 0;
   void id;
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onClickPrevious = () => setProgress(3);
 
@@ -31,8 +33,17 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
         navigate('/');
         console.log(response.data.id);
         id = response.data.id;
+        setErrorMessage(null);
       },
-      onError: err => console.error('회원가입 실패:', err),
+      onError: err => {
+        console.error('회원가입 실패:', err);
+        try {
+          const { msg } = ParseErrorMsg(err);
+          setErrorMessage(msg);
+        } catch {
+          setErrorMessage('회원가입 중 오류가 발생했습니다.');
+        }
+      },
     });
 
     console.log('제출된 값:', registerInfo);
@@ -40,6 +51,21 @@ const CompanyFourthSection = ({ setProgress }: Props) => {
 
   return (
     <div className={styles.container}>
+      {errorMessage && (
+        <div className={styles.errorModalOverlay}>
+          <div className={styles.errorModal}>
+            <div className={styles.errorTitle}>회원가입 오류</div>
+            <div className={styles.errorMessage}>{errorMessage}</div>
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => setErrorMessage(null)}
+            >
+              닫기
+            </Button>
+          </div>
+        </div>
+      )}
       <h2>서류 업로드</h2>
       <div className={styles.subtitle}>
         <span>사업자등록증</span>
