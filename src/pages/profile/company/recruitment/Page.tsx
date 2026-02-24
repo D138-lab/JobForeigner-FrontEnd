@@ -68,7 +68,7 @@ export default function CompanyProfileRecruitmentPage() {
             title='전체공고'
             number={12}
             icon={<Building2 />}
-            iconColor='var(--color-purple-600)'
+            iconColor='var(--color-sky-800)'
           />
           <StatusBox
             title='진행중'

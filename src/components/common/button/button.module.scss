@@ -11,7 +11,7 @@
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   outline: none; /* focus:outline-none */
 
-  /* focus:ring-2 focus:ring-offset-2 focus:ring-purple-600 */
+  /* focus:ring-2 focus:ring-offset-2 focus:ring-sky-800 */
   &:focus {
     box-shadow: 0 0 0 2px rgba(128, 90, 213, 0.3); /* 보라색 포커스 효과 */
   }
@@ -29,12 +29,12 @@
 
 /* 기본(default) 스타일 */
 .default {
-  background-color: var(--color-purple-600); /* bg-purple-600 */
+  background-color: var(--color-sky-800); /* bg-sky-800 */
   color: #fff;
   border: none;
 
   &:hover {
-    background-color: var(--color-purple-700); /* hover:bg-purple-700 */
+    background-color: var(--color-sky-900); /* hover:bg-sky-900 */
   }
 }
 
@@ -51,11 +51,11 @@
 
 .ghost {
   background-color: transparent;
-  color: var(--color-purple-600);
+  color: var(--color-sky-800);
   border: none;
 
   &:hover {
     background-color: var(--color-gray-100);
-    color: var(--color-purple-700);
+    color: var(--color-sky-900);
   }
 }

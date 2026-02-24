@@ -44,7 +44,7 @@ export default function CompanyProfilePage() {
         <div className={styles.statusWrapper}>
           <StatusBox
             icon={<Briefcase />}
-            iconColor='var(--color-purple-600)'
+            iconColor='var(--color-sky-800)'
             title='등록한 채용공고'
             number={12}
           />
