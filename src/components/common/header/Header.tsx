@@ -41,7 +41,7 @@ export default function Header() {
       <div className={styles.up}>
         <div className={styles.leftAlign}>
           <Link className={styles.link} to='/'>
-            <img src='public/logo.png' alt='logo' className={styles.logoImg} />
+            <img src='/logo.png' alt='logo' className={styles.logoImg} />
           </Link>
           <SearchForm />
         </div>

@@ -47,7 +47,7 @@ export default function LoginPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <img src='public/logo.png' alt='logo' className={styles.logoImg} />
+        <img src='/logo.png' alt='logo' className={styles.logoImg} />
         <h2>로그인</h2>
         <p>
           아직 계정이 없으신가요? <Link to='/register'>회원가입</Link>
