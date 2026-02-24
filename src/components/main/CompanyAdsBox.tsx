@@ -14,8 +14,11 @@ type Props = {
 const CompanyAdsBox = ({ data }: Props) => {
   return (
     <div className={styles.container}>
-      {data.map(d => (
-        <div className={styles.companyAdBox}>
+      {data.map((d, idx) => (
+        <div
+          key={`${d.companyName}-${d.title}-${idx}`}
+          className={styles.companyAdBox}
+        >
           <img src={d.adImg} alt={d.companyName} />
           <div className={styles.infos}>
             <div className={styles.title}>{d.title}</div>

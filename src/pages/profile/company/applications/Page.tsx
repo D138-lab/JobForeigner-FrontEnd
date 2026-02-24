@@ -131,7 +131,7 @@ export default function CompanyProfileApplicationsPage() {
             title='전체 지원서'
             number={applications.length}
             icon={<FileText />}
-            iconColor='var(--color-purple-600)'
+            iconColor='var(--color-sky-800)'
           />
           <StatusBox
             title='검토중'

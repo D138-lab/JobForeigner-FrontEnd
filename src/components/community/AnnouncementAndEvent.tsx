@@ -22,8 +22,8 @@ export const AnnouncementAndEvent = () => {
     <div className={styles.container}>
       <div className={styles.title}>공지사항 & 이벤트</div>
       <div className={styles.dataList}>
-        {announceDummyData.map(data => (
-          <AnnounceBar {...data} />
+        {announceDummyData.map((data, idx) => (
+          <AnnounceBar key={`${data.type}-${idx}`} {...data} />
         ))}
       </div>
     </div>

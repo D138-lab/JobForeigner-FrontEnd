@@ -130,7 +130,10 @@ export const ContentBox = ({
         <>
           <div className={styles.listContent}>
             {dummyJobs.map(ele => (
-              <ListBox {...ele} />
+              <ListBox
+                key={`${ele.companyName}-${ele.distance}`}
+                {...ele}
+              />
             ))}
           </div>
           <ResultBox

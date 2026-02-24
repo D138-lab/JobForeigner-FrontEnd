@@ -17,8 +17,27 @@ export interface MyInfoResponse {
 }
 
 export const getMyInfo = async (): Promise<MyInfoResponse> => {
-  const response = await fetcher.get<MyInfoResponse>(END_POINTS.MY_INFO);
-  return response;
+  const response = await fetcher.get<{
+    success: string;
+    data: {
+      name: string;
+      type: 'FOREIGNER' | 'COMPANY' | 'ADMIN' | 'NONE';
+      phoneNumber: string;
+      email: string;
+      profileImageUrl?: string;
+      profile_image_url?: string;
+      address: {
+        address: string;
+        detailAddress: string;
+        zipcode: string;
+      };
+    };
+  }>(END_POINTS.MY_INFO);
+  const data = response.data;
+  return {
+    ...data,
+    profile_image_url: data.profile_image_url ?? data.profileImageUrl ?? '',
+  };
 };
 
 const useGetMyInfo = () => {

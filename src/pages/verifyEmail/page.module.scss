@@ -15,7 +15,7 @@
 
   > h1 {
     font-size: 2.5rem;
-    color: var(--color-purple-500);
+    color: var(--color-sky-800);
     font-weight: 700;
     margin-bottom: 2rem;
   }
@@ -33,11 +33,11 @@
     color: var(--color-gray-500);
 
     > a {
-      color: var(--color-purple-500);
+      color: var(--color-sky-800);
       text-decoration: none;
 
       &:hover {
-        color: var(--color-purple-400);
+        color: var(--color-sky-700);
       }
     }
   }
@@ -47,14 +47,14 @@
   margin: 0 auto 1rem;
   width: 6rem;
   height: 6rem;
-  background-color: var(--color-purple-100);
+  background-color: var(--color-sky-100);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .mailIcon {
-    color: var(--color-purple-600);
+    color: var(--color-sky-800);
     width: 3rem;
     height: 3rem;
   }

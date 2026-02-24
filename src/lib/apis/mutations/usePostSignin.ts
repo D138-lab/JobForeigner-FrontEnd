@@ -20,6 +20,31 @@ const postSignin = async (body: LoginValues) => {
     localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, token);
   }
 
+  const responseData = response.data as unknown;
+  const tokenContainer =
+    typeof responseData === 'object' && responseData !== null
+      ? (responseData as Record<string, unknown>)
+      : null;
+  const tokens =
+    tokenContainer && 'data' in tokenContainer
+      ? (tokenContainer.data as Record<string, unknown> | undefined)
+      : tokenContainer;
+  const accessToken =
+    tokens && typeof tokens === 'object'
+      ? (tokens as Record<string, unknown>).accessToken
+      : undefined;
+  const refreshToken =
+    tokens && typeof tokens === 'object'
+      ? (tokens as Record<string, unknown>).refreshToken
+      : undefined;
+
+  if (typeof accessToken === 'string') {
+    localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, accessToken);
+  }
+  if (typeof refreshToken === 'string') {
+    localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, refreshToken);
+  }
+
   return response.data;
 };
 

@@ -48,13 +48,13 @@ $transition: 0.2s ease-in-out;
 
       .icon {
         padding: 0.5rem;
-        background-color: var(--color-purple-100);
+        background-color: var(--color-sky-100);
         border-radius: 0.5rem;
 
         svg {
           width: 1.675rem;
           height: 1.675rem;
-          color: var(--color-purple-500);
+          color: var(--color-sky-800);
         }
       }
 
@@ -107,7 +107,7 @@ $transition: 0.2s ease-in-out;
             height: 1.125rem;
 
             &:hover {
-              color: var(--color-purple-500);
+              color: var(--color-sky-800);
               transition: $transition;
             }
           }

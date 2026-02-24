@@ -21,7 +21,7 @@ export const BriefPost = ({
       <div className={styles.content}>{content}</div>
       <div className={styles.tagsBox}>
         {tags.map(tag => (
-          <span>#{tag}</span>
+          <span key={tag}>#{tag}</span>
         ))}
       </div>
     </div>

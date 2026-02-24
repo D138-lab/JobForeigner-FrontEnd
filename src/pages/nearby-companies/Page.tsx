@@ -1,6 +1,5 @@
 import { ContentBox } from '@/components/nearby-companies/contentBox/ContentBox';
 import { ControlBar } from '@/components/nearby-companies/controlBar/ControlBar';
-import { TitleBox } from '@/components/nearby-companies/titleBox/TitleBox';
 import styles from './page.module.scss';
 import { useState } from 'react';
 
@@ -14,7 +13,6 @@ export default function NearbyCompanies() {
 
   return (
     <div className={styles.container}>
-      <TitleBox />
       <ControlBar
         distanceBound={distanceBound}
         jobType={jobType}

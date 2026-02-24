@@ -141,7 +141,7 @@ export default function ApplicationsPage() {
     {
       id: 1,
       title: '전체 지원',
-      color: 'var(--color-purple-600)',
+      color: 'var(--color-sky-800)',
       number: applications.length,
     },
     {
