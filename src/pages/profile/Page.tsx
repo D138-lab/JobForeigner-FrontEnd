@@ -1,19 +1,54 @@
-import { UserProfile, ResumeList } from '@/components/profile';
+import { ResumeList, UserProfile } from '@/components/profile';
+
 import { ApplicationHistory } from '@/components/profile/ApplicationHistory';
-import styles from './page.module.scss';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import styles from './page.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useEffect } from 'react';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
 
 export default function ProfilePage() {
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const name = useAuthStore(state => state.name);
   const email = useAuthStore(state => state.email);
   const phoneNumber = useAuthStore(state => state.phoneNumber);
   const profileImageUrl = useAuthStore(state => state.profileImageUrl);
-  const address = useAuthStore(state => state.address);
+  const address = useAuthStore(state => state.address) ?? {
+    address: '',
+    detailAddress: '',
+    zipcode: '',
+  };
+  const setName = useAuthStore(state => state.setName);
+  const setType = useAuthStore(state => state.setType);
+  const setPhoneNumber = useAuthStore(state => state.setPhoneNumber);
+  const setEmail = useAuthStore(state => state.setEmail);
+  const setProfileImageUrl = useAuthStore(state => state.setProfileImageUrl);
+  const setAddress = useAuthStore(state => state.setAddress);
+
+  const { data: myInfo } = useGetMyInfo();
 
   const { data, isLoading } = useGetResumeList();
+
+  useEffect(() => {
+    if (!isLoggedIn || !myInfo) return;
+    setName(myInfo.name);
+    setType(myInfo.type);
+    setPhoneNumber(myInfo.phoneNumber);
+    setEmail(myInfo.email);
+    setProfileImageUrl(myInfo.profile_image_url);
+    setAddress(myInfo.address);
+  }, [
+    isLoggedIn,
+    myInfo,
+    setName,
+    setType,
+    setPhoneNumber,
+    setEmail,
+    setProfileImageUrl,
+    setAddress,
+  ]);
 
   const resumes = (data?.data.content || []).map(item => ({
     id: item.resumeId,
@@ -52,7 +87,7 @@ export default function ProfilePage() {
     email,
     phoneNumber,
     profileImageUrl,
-    region: address.address,
+    region: address?.address ?? '',
     resumes,
     applications,
   };
