@@ -43,7 +43,7 @@ export const DetailPostBox = ({
       <div className={styles.title}>{title}</div>
       <div className={styles.tags}>
         {tags.map(tag => (
-          <span>{tag}</span>
+          <span key={tag}>{tag}</span>
         ))}
       </div>
       <ProfileInfoInPost

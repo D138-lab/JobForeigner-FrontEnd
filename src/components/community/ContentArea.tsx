@@ -37,6 +37,7 @@ export const ContentArea = ({
         <div className={styles.posts}>
           {postBoxDummyData.map(data => (
             <PostBox
+              key={data.id}
               {...data}
               onClick={() =>
                 navigate(`/community/${data.id}`, { state: { id: data.id } })

@@ -48,7 +48,7 @@ export const CommentArea = ({
       />
       <div className={styles.comments}>
         {comments.map(comment => (
-          <Comment {...comment} />
+          <Comment key={comment.id} {...comment} />
         ))}
       </div>
     </div>

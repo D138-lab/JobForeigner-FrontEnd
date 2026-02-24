@@ -51,8 +51,8 @@ export const ListBox = ({
           <div className={styles.address}>{address}</div>
           <div className={styles.description}>{description}</div>
           <div className={styles.welfares}>
-            {welfare.map(ele => (
-              <div>{ele}</div>
+            {welfare.map((ele, idx) => (
+              <div key={`${ele}-${idx}`}>{ele}</div>
             ))}
           </div>
         </div>

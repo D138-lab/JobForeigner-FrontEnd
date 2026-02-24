@@ -49,7 +49,7 @@ export const ResultDetailBox = ({
       </div>
       <div className={styles.companies}>
         {companies.map(ele => (
-          <CompanyBriefBar {...ele} />
+          <CompanyBriefBar key={ele.companyName} {...ele} />
         ))}
       </div>
     </div>

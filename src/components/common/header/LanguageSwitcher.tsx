@@ -28,7 +28,11 @@ const LanguageSwitcher = ({
   return (
     <div className={styles.wrapper}>
       {options.map((option: { label: string; value: string }) => (
-        <div className={styles.item} onClick={() => handleChange(option.value)}>
+        <div
+          key={option.value}
+          className={styles.item}
+          onClick={() => handleChange(option.value)}
+        >
           {option.label}
         </div>
       ))}

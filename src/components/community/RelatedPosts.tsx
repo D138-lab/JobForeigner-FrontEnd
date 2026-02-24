@@ -35,6 +35,7 @@ export const RelatedPosts = () => {
       <div className={styles.title}>관련 게시글</div>
       {dummyRelatedPosts.map(data => (
         <div
+          key={data.postId}
           className={styles.post}
           onClick={() =>
             navigate(`/community/${data.postId}`, {
