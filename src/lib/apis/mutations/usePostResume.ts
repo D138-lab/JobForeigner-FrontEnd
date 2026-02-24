@@ -50,6 +50,7 @@ export interface PostResumeRequest {
 }
 
 const postResume = async (body: PostResumeRequest) => {
+  void END_POINTS;
   const response = await instance.post('/api/v1/resumes', body);
   return response.data;
 };

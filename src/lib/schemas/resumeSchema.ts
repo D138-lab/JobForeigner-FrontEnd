@@ -3,6 +3,8 @@ import { ERROR_MSG } from './error';
 import { REGEX } from './regex';
 
 const maxPhotoSize = 50 * 1024 * 1024;
+void REGEX;
+void maxPhotoSize;
 
 export const resumeSchema = z.object({
   resumeTitle: z

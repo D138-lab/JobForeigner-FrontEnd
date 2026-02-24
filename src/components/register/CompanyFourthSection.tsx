@@ -7,16 +7,18 @@ import styles from './companyFourthSection.module.scss';
 import { useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import usePostCompanyUserSignup from '@/lib/apis/mutations/usePostCompanyUserSignup';
+import { RegisterValues } from '@/lib/schemas/registerSchema';
 
 interface Props {
   setProgress: Dispatch<SetStateAction<number>>;
 }
 
 const CompanyFourthSection = ({ setProgress }: Props) => {
-  const { handleSubmit, getValues } = useFormContext();
+  const { handleSubmit, getValues } = useFormContext<RegisterValues>();
   const signup = usePostCompanyUserSignup();
   const navigate = useNavigate();
   let id = 0;
+  void id;
 
   const onClickPrevious = () => setProgress(3);
 

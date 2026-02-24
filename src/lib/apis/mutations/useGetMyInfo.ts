@@ -17,8 +17,8 @@ export interface MyInfoResponse {
 }
 
 export const getMyInfo = async (): Promise<MyInfoResponse> => {
-  const response = await fetcher.get(END_POINTS.MY_INFO);
-  return response.data;
+  const response = await fetcher.get<MyInfoResponse>(END_POINTS.MY_INFO);
+  return response;
 };
 
 const useGetMyInfo = () => {

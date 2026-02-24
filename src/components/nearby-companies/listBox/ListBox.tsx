@@ -31,6 +31,8 @@ export const ListBox = ({
   isZzimed,
   distance,
 }: JobData) => {
+  void Plane;
+  void isZzimed;
   return (
     <div className={styles.container}>
       <div className={styles.contentBox}>

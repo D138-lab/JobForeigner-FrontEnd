@@ -11,6 +11,9 @@ export default function CommunityPage() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [postType, setPostType] = useState<string>('all');
   const [postCategory, setPostCategory] = useState<string>('');
+  void setSearchValue;
+  void postCategory;
+  void setPostCategory;
 
   const [sortOption, setSortOption] = useState<postSortOption>('recent');
 

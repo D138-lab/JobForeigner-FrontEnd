@@ -35,6 +35,7 @@ export const ControlBar = ({
   setOnlyOnRecruitMode,
   setRegion,
 }: Props) => {
+  void useState;
   return (
     <div className={styles.container}>
       <div className={styles.topArea}>

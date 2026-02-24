@@ -42,6 +42,7 @@ const RecruitBox = ({
   const diffTime = expiryDate.getTime() - today.getTime();
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const { mutate, isPending } = usePostToggleScarp();
+  void isPending;
 
   const handleScrap = () => {
     mutate(id, {

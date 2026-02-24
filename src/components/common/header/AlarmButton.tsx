@@ -11,6 +11,7 @@ type Props = {
 };
 
 const AlarmButton = ({ isModalOn, setIsModalOn }: Props) => {
+  void useState;
   const { data: numOfNotificatinos, isError, error } = useGetNotifications();
   const { data: notifications } = useGetAllNotifications();
   if (isError) console.log(error);

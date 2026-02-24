@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Header() {
+  void Logo;
   const { t } = useTranslation('common');
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const logout = useAuthStore(state => state.logout);

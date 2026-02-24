@@ -27,7 +27,7 @@ interface SelectProps {
   options: Option[];
   defaultValue?: string;
   onChange?: (value: string) => void;
-  value: string;
+  value?: string;
   name?: string;
   width?: string | number;
 }
@@ -38,12 +38,18 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
     ref,
   ) => {
     const [selectedValue, setSelectedValue] = useState(
-      defaultValue || options[0]?.value,
+      value ?? defaultValue ?? options[0]?.value,
     );
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const selectedOption = options.find(opt => opt.value === selectedValue);
+
+    useEffect(() => {
+      if (value !== undefined && value !== selectedValue) {
+        setSelectedValue(value);
+      }
+    }, [value, selectedValue]);
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {

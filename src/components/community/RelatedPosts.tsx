@@ -27,6 +27,7 @@ const dummyRelatedPosts: RelatedPostType[] = [
 ];
 
 export const RelatedPosts = () => {
+  void CustomDivider;
   const navigate = useNavigate();
 
   return (

@@ -14,7 +14,7 @@ import { refreshAccessToken } from './refreshAccessToken';
 import { END_POINTS } from './constants/routes';
 
 // 커스텀 설정 타입 정의
-interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   skipAuth?: boolean;
   retry?: boolean;
   extractAccessToken?: boolean; // post 요청 시 사용

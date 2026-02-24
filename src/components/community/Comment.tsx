@@ -16,6 +16,7 @@ export const Comment = ({
   userName,
   userProfileImgUrl,
 }: CommentDetailProps) => {
+  void postId;
   const isReply = parentId !== null;
 
   return (

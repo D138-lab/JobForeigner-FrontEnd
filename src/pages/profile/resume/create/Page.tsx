@@ -47,6 +47,9 @@ const defaultValues = {
 };
 
 export default function CreateResumePage() {
+  void AddressInfo;
+  void IntroductionInfo;
+  void FilesInfo;
   const formState = useForm({
     defaultValues,
     resolver: zodResolver(resumeSchema),

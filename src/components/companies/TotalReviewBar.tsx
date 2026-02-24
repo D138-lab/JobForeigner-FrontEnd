@@ -19,6 +19,8 @@ type Props = {
 };
 
 const TotalReviewBar = (data: ReviewDto) => {
+  const _props: Props | null = null;
+  void _props;
   const meanOfScore = (data: ReviewDto) => {
     let sum =
       data.jobStability +

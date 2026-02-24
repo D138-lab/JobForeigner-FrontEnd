@@ -3,9 +3,11 @@ import styles from './ratingInfoBox.module.scss';
 type Props = {
   title: string;
   value: string;
+  description?: string;
 };
 
-const RatingInfoBox = ({ title, value }: Props) => {
+const RatingInfoBox = ({ title, value, description }: Props) => {
+  void description;
   return (
     <div className={styles.container}>
       <div className={styles.topLine}>

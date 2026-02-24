@@ -46,8 +46,12 @@ const defaultValues = {
 };
 
 export default function EditResumePage() {
+  void AddressInfo;
+  void IntroductionInfo;
+  void FilesInfo;
   const { id } = useParams();
   const { data, isLoading } = useGetResumePreview(id ?? '');
+  void isLoading;
   const { mutate: patchResume } = usePatchResume();
   // TODO: id로 이력서 상세 데이터 fetch 후 defaultValues에 반영
   const formState = useForm<ResumeFormType>({

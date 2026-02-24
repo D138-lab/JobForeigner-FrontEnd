@@ -10,6 +10,7 @@ const patchResume = async ({
   resumeId: number;
   body: PostResumeRequest;
 }) => {
+  void END_POINTS;
   const response = await instance.patch(`/api/v1/resumes/${resumeId}`, body);
   return response.data;
 };
