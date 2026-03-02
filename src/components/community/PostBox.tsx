@@ -4,7 +4,9 @@ import { BriefPost } from './BriefPost';
 import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { EtcDots } from './EtcDots';
 import { LikeAndComments } from './LikeAndComments';
+import usePostBoardPostLike from '@/lib/apis/mutations/usePostBoardPostLike';
 import styles from './postBox.module.scss';
+import { useEffect, useState } from 'react';
 
 export interface PostBoxProps extends ProfileInfoInPostProps {
   id: number;
@@ -38,9 +40,48 @@ export const PostBox = ({
   numOfLike,
   onClick,
 }: PostBoxProps) => {
+  const { mutate: postBoardPostLike, isPending: isLikePending } =
+    usePostBoardPostLike();
+  const [likedState, setLikedState] = useState(isLiked);
+  const [likeCountState, setLikeCountState] = useState(numOfLike);
+
+  useEffect(() => {
+    setLikedState(isLiked);
+    setLikeCountState(numOfLike);
+  }, [isLiked, numOfLike]);
+
   const isMine =
     typeof currentMemberId === 'number' &&
     memberId === currentMemberId;
+
+  const handleLike = () => {
+    if (isLikePending) return;
+
+    postBoardPostLike(id, {
+      onSuccess: response => {
+        setLikedState(response.data.liked);
+        setLikeCountState(response.data.likeCount);
+      },
+      onError: error => {
+        const errorData = (
+          error as {
+            response?: {
+              data?: {
+                message?: string;
+                msg?: string;
+              };
+            };
+          }
+        )?.response?.data;
+
+        alert(
+          errorData?.message ??
+            errorData?.msg ??
+            '좋아요 처리에 실패했습니다. 다시 시도해주세요.',
+        );
+      },
+    });
+  };
 
   return (
     <div className={styles.container} onClick={onClick}>
@@ -68,11 +109,11 @@ export const PostBox = ({
       <div className={styles.bottomArea}>
         <div onClick={e => e.stopPropagation()}>
           <LikeAndComments
-            onLikeClick={() => console.log('좋아요 눌림')}
+            onLikeClick={handleLike}
             onCommentClick={() => console.log('댓글 눌림')}
-            isLiked={isLiked}
+            isLiked={likedState}
             numOfComment={numOfComment}
-            numOfLike={numOfLike}
+            numOfLike={likeCountState}
           />
         </div>
       </div>
