@@ -5,7 +5,8 @@ import { PostBox } from './PostBox';
 import { PostSortBy } from './PostSortBy';
 import { SelectPostType } from './SelectPostType';
 import { TopMember } from './TopMember';
-import { postBoxDummyData } from '@/lib/constants/dummyTestDatas';
+import useGetBoardPosts from '@/lib/apis/queries/useGetBoardPosts';
+import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { postSortOption } from '@/pages/community/Page';
 import styles from './contentArea.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +25,29 @@ export const ContentArea = ({
   setPostType,
 }: Props) => {
   const navigate = useNavigate();
+  const { data } = useGetBoardPosts(0, 12);
+  const posts = data?.data.pageContents ?? [];
+
+  const countryCodeToName: Record<string, string> = {
+    KR: 'South Korea',
+    VN: 'Vietnam',
+    PH: 'Philippines',
+    ID: 'Indonesia',
+    UZ: 'Uzbekistan',
+    TH: 'Thailand',
+    NP: 'Nepal',
+    KH: 'Cambodia',
+    MM: 'Myanmar',
+    LK: 'Sri Lanka',
+    BD: 'Bangladesh',
+    PK: 'Pakistan',
+    IN: 'India',
+    CN: 'China',
+    JP: 'Japan',
+    MN: 'Mongolia',
+    PE: 'Peru',
+    MX: 'Mexico',
+  };
 
   return (
     <div className={styles.container}>
@@ -35,23 +59,46 @@ export const ContentArea = ({
         <CustomDivider />
         <SelectPostType postType={postType} onClick={setPostType} />
         <div className={styles.posts}>
-          {postBoxDummyData.map(data => (
-            <PostBox
-              key={data.id}
-              {...data}
-              onClick={() =>
-                navigate(`/community/${data.id}`, { state: { id: data.id } })
-              }
-            />
-          ))}
+          {posts.length === 0 ? (
+            <div className={styles.emptyState}>
+              해당 카테고리에 게시글이 없습니다.
+            </div>
+          ) : (
+            posts.map(post => (
+              <PostBox
+                key={post.postId}
+                id={post.postId}
+                category={post.boardCategoryName}
+                content=''
+                imageUrl={post.imagePaths?.[0] ?? DEFAULT_IMAGE_URL}
+                isVerified={false}
+                name={post.memberNickname}
+                nationality={
+                  countryCodeToName[post.memberCountryCode] ??
+                  post.memberCountryCode
+                }
+                postedAt={new Date(post.createdAt)}
+                tags={post.tags}
+                title={post.title}
+                isLiked={post.likedByMe}
+                numOfComment={post.commentCount}
+                numOfLike={post.likeCount}
+                onClick={() =>
+                  navigate(`/community/${post.postId}`, {
+                    state: { id: post.postId },
+                  })
+                }
+              />
+            ))
+          )}
         </div>
       </div>
       <div className={styles.right}>
-        <PopularPosts titles={postBoxDummyData.map(post => post.title)} />
+        <PopularPosts titles={posts.map(post => post.title)} />
         <TopMember
-          people={postBoxDummyData.slice(0, 3).map(post => ({
-            name: post.name,
-            profileImgUrl: post.imageUrl,
+          people={posts.slice(0, 3).map(post => ({
+            name: post.memberNickname,
+            profileImgUrl: post.imagePaths?.[0] ?? DEFAULT_IMAGE_URL,
           }))}
         />
         <AnnouncementAndEvent />
