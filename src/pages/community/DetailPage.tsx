@@ -1,28 +1,61 @@
 import {
   commentDetailDummyData,
-  detailPostDummyData,
 } from '@/lib/constants/dummyTestDatas';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { ArrowLeft } from 'lucide-react';
 import { CommentArea } from '@/components/community/CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { DetailPostBox } from '@/components/community/DetailPostBox';
 import { RelatedPosts } from '@/components/community/RelatedPosts';
+import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 
 export default function DetailPage() {
+  const params = useParams();
   const location = useLocation();
-  const postId = location.state?.id;
-  const data = detailPostDummyData.find(post => post.id === postId);
+  const fallbackPostId = location.state?.id;
+  const postId = Number(params.id ?? fallbackPostId ?? 0);
   const navigate = useNavigate();
+  const { data, isPending, isError, error } = useGetBoardPostDetail(
+    postId,
+    Number.isFinite(postId) && postId > 0,
+  );
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
 
   const comments = commentDetailDummyData.filter(
     comment => comment.postId === postId,
   );
+  const post = data?.data;
+
+  const countryCodeToName: Record<string, string> = {
+    KR: 'South Korea',
+    VN: 'Vietnam',
+    PH: 'Philippines',
+    ID: 'Indonesia',
+    UZ: 'Uzbekistan',
+    TH: 'Thailand',
+    NP: 'Nepal',
+    KH: 'Cambodia',
+    MM: 'Myanmar',
+    LK: 'Sri Lanka',
+    BD: 'Bangladesh',
+    PK: 'Pakistan',
+    IN: 'India',
+    CN: 'China',
+    JP: 'Japan',
+    MN: 'Mongolia',
+    PE: 'Peru',
+    MX: 'Mexico',
+  };
+
+  const errorMessage = (
+    error as {
+      response?: { data?: { message?: string; msg?: string } };
+    }
+  )?.response?.data;
 
   return (
     <div className={styles.container}>
@@ -32,20 +65,33 @@ export default function DetailPage() {
       </div>
       <div className={styles.contentArea}>
         <div className={styles.mainContent}>
-          <DetailPostBox
-            isLiked={data?.isLiked ?? false}
-            category={data?.category ?? ''}
-            content={data?.content ?? ''}
-            country={data?.country ?? ''}
-            isVerifiedUser={data?.isVerifiedUser ?? false}
-            numOfComment={data?.numOfComment ?? 0}
-            numOfLiked={data?.numOfComment ?? 0}
-            postedAt={data?.postedAt ?? new Date(2025, 10, 20)}
-            tags={data?.tags ?? []}
-            title={data?.title ?? ''}
-            userImgUrl={data?.userImgUrl ?? ''}
-            userName={data?.userName ?? ''}
-          />
+          {isPending && <div>게시글 정보를 불러오는 중입니다.</div>}
+          {isError && (
+            <div>
+              {errorMessage?.message ??
+                errorMessage?.msg ??
+                '게시글을 불러오지 못했습니다.'}
+            </div>
+          )}
+          {!isPending && !isError && post && (
+            <DetailPostBox
+              isLiked={post.likedByMe}
+              category={post.boardCategoryName}
+              content={post.content}
+              country={
+                countryCodeToName[post.memberCountryCode] ??
+                post.memberCountryCode
+              }
+              isVerifiedUser={false}
+              numOfComment={comments.length}
+              numOfLiked={post.likeCount}
+              postedAt={new Date(post.createdAt)}
+              tags={post.tags}
+              title={post.title}
+              userImgUrl={post.imagePaths?.[0] ?? DEFAULT_IMAGE_URL}
+              userName={post.memberNickname}
+            />
+          )}
 
           <CommentArea
             numOfComments={comments.length}
