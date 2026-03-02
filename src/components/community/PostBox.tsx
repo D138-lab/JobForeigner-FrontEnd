@@ -4,6 +4,7 @@ import { BriefPost } from './BriefPost';
 import { CustomDivider } from '../common/customDivider/CustomDivider';
 import { EtcDots } from './EtcDots';
 import { LikeAndComments } from './LikeAndComments';
+import useDeleteBoardPostLike from '@/lib/apis/mutations/useDeleteBoardPostLike';
 import usePostBoardPostLike from '@/lib/apis/mutations/usePostBoardPostLike';
 import styles from './postBox.module.scss';
 import { useEffect, useState } from 'react';
@@ -42,6 +43,8 @@ export const PostBox = ({
 }: PostBoxProps) => {
   const { mutate: postBoardPostLike, isPending: isLikePending } =
     usePostBoardPostLike();
+  const { mutate: deleteBoardPostLike, isPending: isUnlikePending } =
+    useDeleteBoardPostLike();
   const [likedState, setLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(numOfLike);
 
@@ -55,32 +58,39 @@ export const PostBox = ({
     memberId === currentMemberId;
 
   const handleLike = () => {
-    if (isLikePending) return;
+    if (isLikePending || isUnlikePending) return;
 
-    postBoardPostLike(id, {
-      onSuccess: response => {
-        setLikedState(response.data.liked);
-        setLikeCountState(response.data.likeCount);
-      },
-      onError: error => {
-        const errorData = (
-          error as {
-            response?: {
-              data?: {
-                message?: string;
-                msg?: string;
-              };
+    const onSuccess = (response: {
+      data: { liked: boolean; likeCount: number };
+    }) => {
+      setLikedState(response.data.liked);
+      setLikeCountState(response.data.likeCount);
+    };
+    const onError = (error: unknown) => {
+      const errorData = (
+        error as {
+          response?: {
+            data?: {
+              message?: string;
+              msg?: string;
             };
-          }
-        )?.response?.data;
+          };
+        }
+      )?.response?.data;
 
-        alert(
-          errorData?.message ??
-            errorData?.msg ??
-            '좋아요 처리에 실패했습니다. 다시 시도해주세요.',
-        );
-      },
-    });
+      alert(
+        errorData?.message ??
+          errorData?.msg ??
+          '좋아요 처리에 실패했습니다. 다시 시도해주세요.',
+      );
+    };
+
+    if (likedState) {
+      deleteBoardPostLike(id, { onSuccess, onError });
+      return;
+    }
+
+    postBoardPostLike(id, { onSuccess, onError });
   };
 
   return (
