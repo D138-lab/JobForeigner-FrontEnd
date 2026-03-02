@@ -55,6 +55,9 @@ const CommunityPage = lazy(() => import('./pages/community/Page'));
 const DetailCommunityPostPage = lazy(
   () => import('./pages/community/DetailPage'),
 );
+const EditCommunityPostPage = lazy(
+  () => import('./pages/community/EditPostPage'),
+);
 const WritePostpage = lazy(() => import('./pages/community/WritePostPage'));
 const CompaniesPage = lazy(() => import('./pages/companies/Page'));
 const RecruitPage = lazy(() => import('./pages/jobs/Page'));
@@ -97,6 +100,7 @@ const SuspensedCompanyProfileApplicationsPage = withSuspense(
 
 const SuspensedCommunityPage = withSuspense(CommunityPage);
 const SuspensedDetailCommunityPostPage = withSuspense(DetailCommunityPostPage);
+const SuspensedEditCommunityPostPage = withSuspense(EditCommunityPostPage);
 const SuspensedWritePostPage = withSuspense(WritePostpage);
 
 const SuspensedCompaniesPage = withSuspense(CompaniesPage);
@@ -122,6 +126,10 @@ export const router = createBrowserRouter(
         <Route
           path={PATH.DETAIL_COMMUNITY_POST}
           element={<SuspensedDetailCommunityPostPage />}
+        />
+        <Route
+          path={PATH.EDIT_COMMUNITY_POST}
+          element={<SuspensedEditCommunityPostPage />}
         />
         <Route
           path={PATH.WRITE_COMMUNITY_POST}

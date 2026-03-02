@@ -1,8 +1,9 @@
-import { Ban, Ellipsis, Flag, Trash2 } from 'lucide-react';
+import { Ban, Ellipsis, Flag, SquarePen, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import useDeleteBoardPost from '@/lib/apis/mutations/useDeleteBoardPost';
 import styles from './etcDots.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface EtcDotsProps {
   postId: number;
@@ -58,6 +59,7 @@ interface MiniModalProps {
 
 const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
   const { mutate: deleteBoardPost, isPending } = useDeleteBoardPost();
+  const navigate = useNavigate();
 
   const handleReport = (postId: number) => {
     console.log('신고하기 클릭', postId);
@@ -96,13 +98,24 @@ const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
     });
   };
 
+  const handleEdit = () => {
+    navigate(`/community/${postId}/edit`);
+    onClose();
+  };
+
   return (
     <div className={styles.modal}>
       {isMine ? (
-        <button onClick={handleDelete} disabled={isPending}>
-          <Trash2 size={20} />
-          <span>{isPending ? '삭제 중...' : '삭제하기'}</span>
-        </button>
+        <>
+          <button onClick={handleEdit} disabled={isPending}>
+            <SquarePen size={20} />
+            <span>수정하기</span>
+          </button>
+          <button onClick={handleDelete} disabled={isPending}>
+            <Trash2 size={20} />
+            <span>{isPending ? '삭제 중...' : '삭제하기'}</span>
+          </button>
+        </>
       ) : (
         <>
           <button onClick={() => handleReport(postId)}>
