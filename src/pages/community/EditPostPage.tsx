@@ -3,6 +3,7 @@ import { ImageInput } from '@/components/common/input/ImageInput';
 import Input from '@/components/common/input/Input';
 import { TagInput } from '@/components/common/input/TagInput';
 import TipTapEditor from '@/components/common/tiptapEditor/TipTapEditor';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import usePatchBoardPost from '@/lib/apis/mutations/usePatchBoardPost';
 import styles from './writePostPage.module.scss';
@@ -23,6 +24,7 @@ export default function EditPostPage() {
   const navigate = useNavigate();
   const { mutate: patchBoardPost, isPending: isPatchPending } =
     usePatchBoardPost();
+  const { data: myInfo, isPending: isMyInfoPending } = useGetMyInfo();
   const {
     data,
     isPending: isDetailPending,
@@ -38,6 +40,7 @@ export default function EditPostPage() {
   const [tags, setTags] = useState<string[]>([]);
 
   const initializedRef = useRef(false);
+  const unauthorizedHandledRef = useRef(false);
   const initialRef = useRef({
     title: '',
     content: '',
@@ -45,6 +48,7 @@ export default function EditPostPage() {
   });
 
   const post = data?.data;
+  const canEdit = !!post && !!myInfo?.memberId && post.memberId === myInfo.memberId;
 
   useEffect(() => {
     if (!post || initializedRef.current) return;
@@ -66,9 +70,19 @@ export default function EditPostPage() {
     initializedRef.current = true;
   }, [post]);
 
+  useEffect(() => {
+    if (!post || isMyInfoPending || unauthorizedHandledRef.current) return;
+
+    if (!myInfo?.memberId || post.memberId !== myInfo.memberId) {
+      unauthorizedHandledRef.current = true;
+      alert('게시글 수정 권한이 없습니다.');
+      navigate(`/community/${postId}`, { replace: true });
+    }
+  }, [isMyInfoPending, myInfo?.memberId, navigate, post, postId]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isPatchPending || !postId) return;
+    if (isPatchPending || !postId || !canEdit) return;
 
     const normalizedTitle = postTitle.trim();
     const normalizedContent = contentHtml.trim();
@@ -173,6 +187,10 @@ export default function EditPostPage() {
 
   if (isDetailPending) {
     return <div className={styles.container}>게시글 정보를 불러오는 중입니다.</div>;
+  }
+
+  if (isMyInfoPending) {
+    return <div className={styles.container}>권한을 확인하는 중입니다.</div>;
   }
 
   if (isDetailError || !post) {
