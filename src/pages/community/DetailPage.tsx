@@ -121,6 +121,7 @@ export default function DetailPage() {
           )}
 
           <CommentArea
+            postId={postId}
             numOfComments={totalComments}
             myProfileImgUrl={userImgUrl || DEFAULT_IMAGE_URL}
             comments={comments}
