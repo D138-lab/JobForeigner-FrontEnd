@@ -3,7 +3,9 @@ import { CommentDetailProps } from './CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { LikeAndCommentInComment } from './LikeAndCommentInComment';
 import useDeleteBoardPostComment from '@/lib/apis/mutations/useDeleteBoardPostComment';
+import usePostBoardPostCommentLike from '@/lib/apis/mutations/usePostBoardPostCommentLike';
 import styles from './comment.module.scss';
+import { useEffect, useState } from 'react';
 
 interface CommentProps extends CommentDetailProps {
   currentMemberId?: number;
@@ -26,9 +28,18 @@ export const Comment = ({
 }: CommentProps) => {
   const { mutate: deleteBoardPostComment, isPending } =
     useDeleteBoardPostComment();
+  const { mutate: postBoardPostCommentLike, isPending: isLikePending } =
+    usePostBoardPostCommentLike();
   const isReply = parentId !== null;
   const isMine =
     typeof currentMemberId === 'number' && memberId === currentMemberId;
+  const [likedState, setLikedState] = useState(isLikedByMe);
+  const [likeCountState, setLikeCountState] = useState(numOfLiked);
+
+  useEffect(() => {
+    setLikedState(isLikedByMe);
+    setLikeCountState(numOfLiked);
+  }, [isLikedByMe, numOfLiked]);
 
   const handleDelete = () => {
     if (isPending) return;
@@ -59,6 +70,35 @@ export const Comment = ({
     );
   };
 
+  const handleLike = () => {
+    if (isLikePending) return;
+
+    postBoardPostCommentLike(
+      { postId, commentId: id },
+      {
+        onSuccess: response => {
+          setLikedState(response.data.liked);
+          setLikeCountState(response.data.likeCount);
+        },
+        onError: error => {
+          const errorData = (
+            error as {
+              response?: {
+                data?: { message?: string; msg?: string };
+              };
+            }
+          )?.response?.data;
+
+          alert(
+            errorData?.message ??
+              errorData?.msg ??
+              '댓글 좋아요 처리에 실패했습니다. 다시 시도해주세요.',
+          );
+        },
+      },
+    );
+  };
+
   return (
     <div className={`${styles.container} ${isReply ? styles.reply : ''}`}>
       <div className={styles.left}>
@@ -77,10 +117,10 @@ export const Comment = ({
           postedAt={postedAt}
         />
         <LikeAndCommentInComment
-          isLikedByMe={isLikedByMe}
-          numOfLikes={numOfLiked}
+          isLikedByMe={likedState}
+          numOfLikes={likeCountState}
           onClickComment={() => console.log('답글 클릭됨')}
-          onClickLike={() => console.log('댓글 좋아요 클릭됨')}
+          onClickLike={handleLike}
         />
         {isMine && (
           <button
