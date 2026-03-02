@@ -8,6 +8,8 @@ import styles from './postBox.module.scss';
 
 export interface PostBoxProps extends ProfileInfoInPostProps {
   id: number;
+  memberId: number;
+  currentMemberId?: number;
   category: string;
   tags: string[];
   title: string;
@@ -20,6 +22,8 @@ export interface PostBoxProps extends ProfileInfoInPostProps {
 
 export const PostBox = ({
   id,
+  memberId,
+  currentMemberId,
   category,
   content,
   imageUrl,
@@ -34,6 +38,10 @@ export const PostBox = ({
   numOfLike,
   onClick,
 }: PostBoxProps) => {
+  const isMine =
+    typeof currentMemberId === 'number' &&
+    memberId === currentMemberId;
+
   return (
     <div className={styles.container} onClick={onClick}>
       <div className={styles.topArea}>
@@ -45,7 +53,7 @@ export const PostBox = ({
           postedAt={postedAt}
         />
         <div onClick={e => e.stopPropagation()}>
-          <EtcDots postId={id} />
+          <EtcDots postId={id} isMine={isMine} />
         </div>
       </div>
       <div className={styles.middleArea}>

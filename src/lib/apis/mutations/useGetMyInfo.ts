@@ -4,6 +4,7 @@ import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useQuery } from '@tanstack/react-query';
 
 export interface MyInfoResponse {
+  memberId?: number;
   name: string;
   type: 'FOREIGNER' | 'COMPANY' | 'ADMIN' | 'NONE';
   phoneNumber: string;
@@ -20,6 +21,8 @@ export const getMyInfo = async (): Promise<MyInfoResponse> => {
   const response = await fetcher.get<{
     success: string;
     data: {
+      memberId?: number;
+      member_id?: number;
       name: string;
       type: 'FOREIGNER' | 'COMPANY' | 'ADMIN' | 'NONE';
       phoneNumber: string;
@@ -36,6 +39,7 @@ export const getMyInfo = async (): Promise<MyInfoResponse> => {
   const data = response.data;
   return {
     ...data,
+    memberId: data.memberId ?? data.member_id,
     profile_image_url: data.profile_image_url ?? data.profileImageUrl ?? '',
   };
 };

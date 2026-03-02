@@ -8,6 +8,7 @@ import { CommentArea } from '@/components/community/CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { DetailPostBox } from '@/components/community/DetailPostBox';
 import { RelatedPosts } from '@/components/community/RelatedPosts';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
@@ -22,6 +23,7 @@ export default function DetailPage() {
     postId,
     Number.isFinite(postId) && postId > 0,
   );
+  const { data: myInfo } = useGetMyInfo();
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
 
@@ -29,6 +31,7 @@ export default function DetailPage() {
     comment => comment.postId === postId,
   );
   const post = data?.data;
+  const isMine = !!post && !!myInfo?.memberId && post.memberId === myInfo.memberId;
 
   const countryCodeToName: Record<string, string> = {
     KR: 'South Korea',
@@ -75,6 +78,9 @@ export default function DetailPage() {
           )}
           {!isPending && !isError && post && (
             <DetailPostBox
+              postId={post.postId}
+              isMine={isMine}
+              onDeleted={() => navigate('/community')}
               isLiked={post.likedByMe}
               category={post.boardCategoryName}
               content={post.content}

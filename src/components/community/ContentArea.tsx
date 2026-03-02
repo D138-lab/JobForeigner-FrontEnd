@@ -5,6 +5,7 @@ import { PostBox } from './PostBox';
 import { PostSortBy } from './PostSortBy';
 import { SelectPostType } from './SelectPostType';
 import { TopMember } from './TopMember';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPosts from '@/lib/apis/queries/useGetBoardPosts';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { postSortOption } from '@/pages/community/Page';
@@ -26,7 +27,9 @@ export const ContentArea = ({
 }: Props) => {
   const navigate = useNavigate();
   const { data } = useGetBoardPosts(0, 12);
+  const { data: myInfo } = useGetMyInfo();
   const posts = data?.data.pageContents ?? [];
+  const currentMemberId = myInfo?.memberId;
 
   const countryCodeToName: Record<string, string> = {
     KR: 'South Korea',
@@ -68,6 +71,8 @@ export const ContentArea = ({
               <PostBox
                 key={post.postId}
                 id={post.postId}
+                memberId={post.memberId}
+                currentMemberId={currentMemberId}
                 category={post.boardCategoryName}
                 content=''
                 imageUrl={post.imagePaths?.[0] ?? DEFAULT_IMAGE_URL}

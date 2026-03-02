@@ -6,6 +6,9 @@ import { StyledCategory } from './StyledCategory';
 import styles from './detailPostBox.module.scss';
 
 export interface DetailPostBoxProps {
+  postId: number;
+  isMine?: boolean;
+  onDeleted?: () => void;
   category: string;
   title: string;
   tags: string[];
@@ -21,6 +24,9 @@ export interface DetailPostBoxProps {
 }
 
 export const DetailPostBox = ({
+  postId,
+  isMine = false,
+  onDeleted,
   category,
   title,
   tags,
@@ -38,7 +44,7 @@ export const DetailPostBox = ({
     <div className={styles.container}>
       <div className={styles.topArea}>
         <StyledCategory category={category} />
-        <EtcDots postId={2} />
+        <EtcDots postId={postId} isMine={isMine} onDeleted={onDeleted} />
       </div>
       <div className={styles.title}>{title}</div>
       <div className={styles.tags}>

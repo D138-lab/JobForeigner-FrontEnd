@@ -9,6 +9,7 @@ export interface DetailPostBoxWithId extends DetailPostBoxProps {
 export const postBoxDummyData: PostBoxProps[] = [
   {
     id: 1,
+    memberId: 1,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
     name: '응우옌 반 민',
@@ -42,6 +43,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 2,
+    memberId: 2,
     isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/45.jpg',
     name: '마리아 곤잘레스',
@@ -72,6 +74,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 3,
+    memberId: 3,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/12.jpg',
     name: '알리 하산',
@@ -105,6 +108,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 4,
+    memberId: 4,
     isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/28.jpg',
     name: '시티 아이샤',
@@ -136,6 +140,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 5,
+    memberId: 5,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/67.jpg',
     name: '카를로스 멘도사',
@@ -171,6 +176,7 @@ export const postBoxDummyData: PostBoxProps[] = [
 export const detailPostDummyData: DetailPostBoxWithId[] = postBoxDummyData.map(
   post => ({
     id: post.id,
+    postId: post.id,
     category: post.category,
     userImgUrl: post.imageUrl,
     title: post.title,
