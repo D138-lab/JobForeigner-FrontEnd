@@ -1,15 +1,14 @@
-import {
-  commentDetailDummyData,
-} from '@/lib/constants/dummyTestDatas';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { ArrowLeft } from 'lucide-react';
 import { CommentArea } from '@/components/community/CommentsArea';
+import { CommentDetailProps } from '@/components/community/CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { DetailPostBox } from '@/components/community/DetailPostBox';
 import { RelatedPosts } from '@/components/community/RelatedPosts';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
+import useGetBoardPostComments from '@/lib/apis/queries/useGetBoardPostComments';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 
@@ -23,13 +22,16 @@ export default function DetailPage() {
     postId,
     Number.isFinite(postId) && postId > 0,
   );
+  const { data: commentsData } = useGetBoardPostComments(
+    postId,
+    0,
+    12,
+    [],
+    Number.isFinite(postId) && postId > 0,
+  );
   const { data: myInfo } = useGetMyInfo();
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
-
-  const comments = commentDetailDummyData.filter(
-    comment => comment.postId === postId,
-  );
   const post = data?.data;
   const isMine = !!post && !!myInfo?.memberId && post.memberId === myInfo.memberId;
 
@@ -59,6 +61,25 @@ export default function DetailPage() {
       response?: { data?: { message?: string; msg?: string } };
     }
   )?.response?.data;
+  const comments = (commentsData?.data.pageContents ?? []).map(
+    comment =>
+      ({
+        id: comment.commentId,
+        postId: comment.postId,
+        parentId: null,
+        userName: comment.memberNickname,
+        country:
+          countryCodeToName[comment.memberCountryCode] ??
+          comment.memberCountryCode,
+        isVerifiedUser: false,
+        userProfileImgUrl: DEFAULT_IMAGE_URL,
+        postedAt: new Date(comment.createdAt),
+        content: comment.content,
+        numOfLiked: comment.likeCount,
+        isLikedByMe: comment.likedByMe,
+      }) as CommentDetailProps,
+  );
+  const totalComments = commentsData?.data.totalElements ?? comments.length;
 
   return (
     <div className={styles.container}>
@@ -89,7 +110,7 @@ export default function DetailPage() {
                 post.memberCountryCode
               }
               isVerifiedUser={false}
-              numOfComment={comments.length}
+              numOfComment={totalComments}
               numOfLiked={post.likeCount}
               postedAt={new Date(post.createdAt)}
               tags={post.tags}
@@ -100,7 +121,7 @@ export default function DetailPage() {
           )}
 
           <CommentArea
-            numOfComments={comments.length}
+            numOfComments={totalComments}
             myProfileImgUrl={userImgUrl || DEFAULT_IMAGE_URL}
             comments={comments}
           />
