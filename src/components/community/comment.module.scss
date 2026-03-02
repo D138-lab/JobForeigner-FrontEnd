@@ -25,6 +25,19 @@
     justify-content: center;
     align-items: flex-start;
     gap: 1rem;
+
+    .deleteBtn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #6b7280;
+      font-size: 0.9rem;
+      cursor: pointer;
+
+      &:hover {
+        color: #374151;
+      }
+    }
   }
 }
 

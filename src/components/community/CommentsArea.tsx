@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 export interface CommentDetailProps {
   id: number;
+  memberId: number;
   postId: number;
   parentId: number | null;
 
@@ -24,6 +25,7 @@ export interface CommentDetailProps {
 
 interface CommentAreaProps {
   postId: number;
+  currentMemberId?: number;
   numOfComments: number;
   myProfileImgUrl: string;
   comments: CommentDetailProps[];
@@ -31,6 +33,7 @@ interface CommentAreaProps {
 
 export const CommentArea = ({
   postId,
+  currentMemberId,
   numOfComments,
   myProfileImgUrl,
   comments,
@@ -88,7 +91,11 @@ export const CommentArea = ({
       />
       <div className={styles.comments}>
         {comments.map(comment => (
-          <Comment key={comment.id} {...comment} />
+          <Comment
+            key={comment.id}
+            {...comment}
+            currentMemberId={currentMemberId}
+          />
         ))}
       </div>
     </div>

@@ -65,6 +65,7 @@ export default function DetailPage() {
     comment =>
       ({
         id: comment.commentId,
+        memberId: comment.memberId,
         postId: comment.postId,
         parentId: null,
         userName: comment.memberNickname,
@@ -122,6 +123,7 @@ export default function DetailPage() {
 
           <CommentArea
             postId={postId}
+            currentMemberId={myInfo?.memberId}
             numOfComments={totalComments}
             myProfileImgUrl={userImgUrl || DEFAULT_IMAGE_URL}
             comments={comments}
