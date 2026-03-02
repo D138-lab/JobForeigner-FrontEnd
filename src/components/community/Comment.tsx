@@ -3,6 +3,7 @@ import { CommentDetailProps } from './CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { LikeAndCommentInComment } from './LikeAndCommentInComment';
 import useDeleteBoardPostComment from '@/lib/apis/mutations/useDeleteBoardPostComment';
+import useDeleteBoardPostCommentLike from '@/lib/apis/mutations/useDeleteBoardPostCommentLike';
 import usePostBoardPostCommentLike from '@/lib/apis/mutations/usePostBoardPostCommentLike';
 import styles from './comment.module.scss';
 import { useEffect, useState } from 'react';
@@ -30,6 +31,8 @@ export const Comment = ({
     useDeleteBoardPostComment();
   const { mutate: postBoardPostCommentLike, isPending: isLikePending } =
     usePostBoardPostCommentLike();
+  const { mutate: deleteBoardPostCommentLike, isPending: isUnlikePending } =
+    useDeleteBoardPostCommentLike();
   const isReply = parentId !== null;
   const isMine =
     typeof currentMemberId === 'number' && memberId === currentMemberId;
@@ -71,32 +74,36 @@ export const Comment = ({
   };
 
   const handleLike = () => {
-    if (isLikePending) return;
+    if (isLikePending || isUnlikePending) return;
 
-    postBoardPostCommentLike(
-      { postId, commentId: id },
-      {
-        onSuccess: response => {
-          setLikedState(response.data.liked);
-          setLikeCountState(response.data.likeCount);
-        },
-        onError: error => {
-          const errorData = (
-            error as {
-              response?: {
-                data?: { message?: string; msg?: string };
-              };
-            }
-          )?.response?.data;
+    const onSuccess = (response: {
+      data: { liked: boolean; likeCount: number };
+    }) => {
+      setLikedState(response.data.liked);
+      setLikeCountState(response.data.likeCount);
+    };
+    const onError = (error: unknown) => {
+      const errorData = (
+        error as {
+          response?: {
+            data?: { message?: string; msg?: string };
+          };
+        }
+      )?.response?.data;
 
-          alert(
-            errorData?.message ??
-              errorData?.msg ??
-              '댓글 좋아요 처리에 실패했습니다. 다시 시도해주세요.',
-          );
-        },
-      },
-    );
+      alert(
+        errorData?.message ??
+          errorData?.msg ??
+          '댓글 좋아요 처리에 실패했습니다. 다시 시도해주세요.',
+      );
+    };
+
+    if (likedState) {
+      deleteBoardPostCommentLike({ postId, commentId: id }, { onSuccess, onError });
+      return;
+    }
+
+    postBoardPostCommentLike({ postId, commentId: id }, { onSuccess, onError });
   };
 
   return (
