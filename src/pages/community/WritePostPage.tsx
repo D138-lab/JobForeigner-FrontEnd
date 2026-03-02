@@ -5,7 +5,10 @@ import { ImageInput } from '@/components/common/input/ImageInput';
 import Input from '@/components/common/input/Input';
 import { TagInput } from '@/components/common/input/TagInput';
 import TipTapEditor from '@/components/common/tiptapEditor/TipTapEditor';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import usePostBoardPost from '@/lib/apis/mutations/usePostBoardPost';
+import usePostFileUpload from '@/lib/apis/mutations/usePostFileUpload';
+import usePostFileUploadConfirm from '@/lib/apis/mutations/usePostFileUploadConfirm';
 import { PATH } from '@/lib/constants';
 import styles from './writePostPage.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -21,16 +24,24 @@ const postTypeOptions: Option[] = [
 export default function WritePostPage() {
   const navigate = useNavigate();
   const { mutate: postBoardPost, isPending } = usePostBoardPost();
+  const { mutateAsync: postFileUpload, isPending: isFileUploadPending } =
+    usePostFileUpload();
+  const {
+    mutateAsync: postFileUploadConfirm,
+    isPending: isFileConfirmPending,
+  } = usePostFileUploadConfirm();
+  const { data: myInfo } = useGetMyInfo();
   const [boardCategoryType, setBoardCategoryType] =
     useState<BoardCategoryType>('GENERAL');
   const [postTitle, setPostTitle] = useState('');
   const [contentHtml, setContentHtml] = useState<string>('');
   const [files, setFiles] = useState<File[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const isSubmitting = isPending || isFileUploadPending || isFileConfirmPending;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isPending) return;
+    if (isSubmitting) return;
 
     const normalizedTitle = postTitle.trim();
     const normalizedContent = contentHtml.trim();
@@ -52,8 +63,53 @@ export default function WritePostPage() {
       return;
     }
 
-    if (files.length > 0) {
-      alert('이미지 업로드 연동 전이라 현재는 이미지 없이 등록됩니다.');
+    try {
+      for (const file of files) {
+        const presignedResponse = await postFileUpload({
+          fileType: 'BOARD_POST_IMAGE',
+          referenceId: myInfo?.memberId ?? 0,
+          fileName: file.name,
+        });
+
+        const uploadResponse = await fetch(presignedResponse.data.presignedUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          body: file,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error('PRESIGNED_UPLOAD_FAILED');
+        }
+
+        await postFileUploadConfirm({
+          fileName: file.name,
+          objectName: presignedResponse.data.objectName,
+          fileSize: file.size,
+          fileType: 'BOARD_POST_IMAGE',
+          referenceId: myInfo?.memberId ?? 0,
+          contentType: file.type || 'application/octet-stream',
+        });
+      }
+    } catch (error) {
+      const errorData = (
+        error as {
+          response?: {
+            data?: {
+              message?: string;
+              msg?: string;
+            };
+          };
+        }
+      )?.response?.data;
+
+      alert(
+        errorData?.message ??
+          errorData?.msg ??
+          '이미지 업로드에 실패했습니다. 다시 시도해주세요.',
+      );
+      return;
     }
 
     postBoardPost(
@@ -95,7 +151,7 @@ export default function WritePostPage() {
   };
 
   const handleCancel = () => {
-    if (isPending) return;
+    if (isSubmitting) return;
 
     const hasChanges =
       boardCategoryType !== 'GENERAL' ||
@@ -156,12 +212,16 @@ export default function WritePostPage() {
             className={styles.cancelBtn}
             type='button'
             onClick={handleCancel}
-            disabled={isPending}
+            disabled={isSubmitting}
           >
             취소
           </button>
-          <button className={styles.submitBtn} type='submit' disabled={isPending}>
-            {isPending ? '등록 중...' : '등록'}
+          <button
+            className={styles.submitBtn}
+            type='submit'
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '등록 중...' : '등록'}
           </button>
         </div>
       </form>
