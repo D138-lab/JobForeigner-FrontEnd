@@ -1,5 +1,9 @@
 import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
 import { LocateFixed, Minus, Plus, Search } from 'lucide-react';
+import useGetPlaces, {
+  PlaceCategoryCode,
+  PlaceItem,
+} from '@/lib/apis/queries/useGetPlaces';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -13,17 +17,31 @@ type PlaceCategory =
   | '기타';
 
 interface Place {
-  id: number;
-  name: string;
-  category: PlaceCategory;
-  address: string;
-  phone: string;
-  description: string;
-  lat: number;
-  lng: number;
+  label: PlaceCategory;
+  code: PlaceCategoryCode;
 }
 
-const categories: PlaceCategory[] = [
+const categories: Place[] = [
+  { label: '할랄 식당', code: 'HALAL_RESTAURANT' },
+  { label: '국가별 음식점', code: 'ETHNIC_RESTAURANT' },
+  { label: '국가별 마트', code: 'ETHNIC_MART' },
+  { label: '종교 시설', code: 'RELIGIOUS_FACILITY' },
+  { label: '외국인 지원센터', code: 'COMMUNITY_CENTER' },
+  { label: '송금/환전소', code: 'MONEY_TRANSFER' },
+  { label: '기타', code: 'OTHER' },
+];
+
+const categoryLabelByCode: Record<PlaceCategoryCode, PlaceCategory> = {
+  HALAL_RESTAURANT: '할랄 식당',
+  ETHNIC_RESTAURANT: '국가별 음식점',
+  ETHNIC_MART: '국가별 마트',
+  RELIGIOUS_FACILITY: '종교 시설',
+  COMMUNITY_CENTER: '외국인 지원센터',
+  MONEY_TRANSFER: '송금/환전소',
+  OTHER: '기타',
+};
+
+const fallbackCategories: PlaceCategory[] = [
   '할랄 식당',
   '국가별 음식점',
   '국가별 마트',
@@ -33,83 +51,37 @@ const categories: PlaceCategory[] = [
   '기타',
 ];
 
-const mockPlaces: Place[] = [
-  {
-    id: 1,
-    name: '안산 할랄 키친',
-    category: '할랄 식당',
-    address: '경기 안산시 단원구 중앙대로 927',
-    phone: '031-111-2233',
-    description: '무슬림 친화 메뉴와 영어 안내가 가능한 식당입니다.',
-    lat: 37.3205,
-    lng: 126.8307,
-  },
-  {
-    id: 2,
-    name: '이태원 글로벌 마트',
-    category: '국가별 마트',
-    address: '서울 용산구 이태원로 188',
-    phone: '02-543-7788',
-    description: '동남아 및 중동 식재료를 중심으로 취급합니다.',
-    lat: 37.5346,
-    lng: 126.9942,
-  },
-  {
-    id: 3,
-    name: '서울 외국인 지원센터',
-    category: '외국인 지원센터',
-    address: '서울 영등포구 국회대로 53길 20',
-    phone: '02-3210-4000',
-    description: '비자, 노동, 생활 상담을 다국어로 제공합니다.',
-    lat: 37.5236,
-    lng: 126.9055,
-  },
-  {
-    id: 4,
-    name: '부산 환전 라운지',
-    category: '송금/환전소',
-    address: '부산 해운대구 구남로 24',
-    phone: '051-222-3333',
-    description: '주요 통화 환전과 해외송금 서비스를 제공합니다.',
-    lat: 35.1601,
-    lng: 129.1604,
-  },
-  {
-    id: 5,
-    name: '인천 평화 사원',
-    category: '종교 시설',
-    address: '인천 연수구 센트럴로 160',
-    phone: '032-777-0101',
-    description: '예배 시간 및 커뮤니티 모임 정보를 제공합니다.',
-    lat: 37.3852,
-    lng: 126.6542,
-  },
-  {
-    id: 6,
-    name: '대구 아시아 푸드 스트리트',
-    category: '국가별 음식점',
-    address: '대구 중구 중앙대로 406',
-    phone: '053-616-5252',
-    description: '태국, 베트남, 인도 음식점을 한 곳에서 찾을 수 있습니다.',
-    lat: 35.8697,
-    lng: 128.6062,
-  },
-];
-
 export default function NearbyPlaces() {
   const [keywordInput, setKeywordInput] = useState('');
   const [keyword, setKeyword] = useState('');
   const [selectedCategory, setSelectedCategory] =
     useState<PlaceCategory>('할랄 식당');
-  const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(
-    mockPlaces[0]?.id ?? null,
-  );
+  const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(null);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [mapLevel, setMapLevel] = useState(5);
   const [currentPosition, setCurrentPosition] = useState({
     lat: 37.5665,
     lng: 126.978,
   });
+
+  const selectedCategoryCode = useMemo(
+    () =>
+      categories.find(category => category.label === selectedCategory)?.code ??
+      'HALAL_RESTAURANT',
+    [selectedCategory],
+  );
+
+  const { data, isLoading, isError, refetch } = useGetPlaces(
+    {
+      lat: currentPosition.lat,
+      lng: currentPosition.lng,
+      radius: 5000,
+      categories: [selectedCategoryCode],
+      page: 0,
+      size: 50,
+    },
+    !!currentPosition.lat && !!currentPosition.lng,
+  );
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -126,18 +98,36 @@ export default function NearbyPlaces() {
     );
   }, []);
 
+  const apiPlaces = data?.data.places ?? [];
+  const searchCenter = data?.data.searchCenter?.approximateCenter ?? null;
+
+  const getPlacePosition = (place: PlaceItem, index: number) => {
+    if (typeof place.lat === 'number' && typeof place.lng === 'number') {
+      return { lat: place.lat, lng: place.lng };
+    }
+
+    const center = searchCenter ?? currentPosition;
+    const spread = 0.006;
+    const angle = ((place.id + index) % 360) * (Math.PI / 180);
+    return {
+      lat: center.lat + Math.sin(angle) * spread,
+      lng: center.lng + Math.cos(angle) * spread,
+    };
+  };
+
   const filteredPlaces = useMemo(() => {
-    return mockPlaces.filter(place => {
-      const isCategoryMatched = place.category === selectedCategory;
+    return apiPlaces.filter(place => {
+      const isCategoryMatched =
+        categoryLabelByCode[place.category] === selectedCategory;
       const normalizedKeyword = keyword.trim().toLowerCase();
       if (!normalizedKeyword) return isCategoryMatched;
       return (
         isCategoryMatched &&
         (place.name.toLowerCase().includes(normalizedKeyword) ||
-          place.address.toLowerCase().includes(normalizedKeyword))
+          place.displayAddress.toLowerCase().includes(normalizedKeyword))
       );
     });
-  }, [keyword, selectedCategory]);
+  }, [apiPlaces, keyword, selectedCategory]);
 
   const selectedPlace = useMemo(
     () =>
@@ -148,14 +138,15 @@ export default function NearbyPlaces() {
   );
 
   const mapCenter = selectedPlace
-    ? { lat: selectedPlace.lat, lng: selectedPlace.lng }
-    : { lat: 37.5665, lng: 126.978 };
+    ? getPlacePosition(selectedPlace, 0)
+    : searchCenter ?? currentPosition;
 
   const handleSelectPlace = (placeId: number) => {
     setSelectedPlaceId(placeId);
-    const place = filteredPlaces.find(item => item.id === placeId);
+    const place = filteredPlaces.find(item => item.id === placeId) ?? null;
     if (map && place) {
-      map.panTo(new kakao.maps.LatLng(place.lat, place.lng));
+      const position = getPlacePosition(place, 0);
+      map.panTo(new kakao.maps.LatLng(position.lat, position.lng));
     }
   };
 
@@ -163,6 +154,7 @@ export default function NearbyPlaces() {
     e.preventDefault();
     setKeyword(keywordInput);
     setSelectedPlaceId(null);
+    void refetch();
   };
 
   const moveToCurrentPosition = () => {
@@ -198,17 +190,17 @@ export default function NearbyPlaces() {
       <div className={styles.categoryRow}>
         {categories.map(category => (
           <button
-            key={category}
+            key={category.code}
             type='button'
             className={`${styles.categoryButton} ${
-              selectedCategory === category ? styles.activeCategory : ''
+              selectedCategory === category.label ? styles.activeCategory : ''
             }`}
             onClick={() => {
-              setSelectedCategory(category);
+              setSelectedCategory(category.label);
               setSelectedPlaceId(null);
             }}
           >
-            {category}
+            {category.label}
           </button>
         ))}
       </div>
@@ -227,7 +219,7 @@ export default function NearbyPlaces() {
             {filteredPlaces.map(place => (
               <CustomOverlayMap
                 key={place.id}
-                position={{ lat: place.lat, lng: place.lng }}
+                position={getPlacePosition(place, 0)}
               >
                 <button
                   type='button'
@@ -242,11 +234,11 @@ export default function NearbyPlaces() {
             ))}
             {selectedPlace && (
               <CustomOverlayMap
-                position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
+                position={getPlacePosition(selectedPlace, 0)}
               >
                 <div className={styles.overlayCard}>
                   <strong>{selectedPlace.name}</strong>
-                  <span>{selectedPlace.category}</span>
+                  <span>{categoryLabelByCode[selectedPlace.category]}</span>
                 </div>
               </CustomOverlayMap>
             )}
@@ -284,14 +276,20 @@ export default function NearbyPlaces() {
 
         <aside className={styles.listArea}>
           <h2 className={styles.listTitle}>장소 리스트</h2>
-          {selectedPlace && (
+          {isLoading ? (
+            <div className={styles.emptyItem}>장소를 불러오는 중입니다.</div>
+          ) : isError ? (
+            <div className={styles.emptyItem}>
+              장소 검색에 실패했습니다. 잠시 후 다시 시도해주세요.
+            </div>
+          ) : selectedPlace ? (
             <div className={styles.detailCard}>
               <h3>{selectedPlace.name}</h3>
-              <p>{selectedPlace.description}</p>
-              <div>{selectedPlace.address}</div>
-              <div>{selectedPlace.phone}</div>
+              <p>{selectedPlace.subCategory || '상세 카테고리 정보 없음'}</p>
+              <div>{selectedPlace.displayAddress}</div>
+              <div>팁 {selectedPlace.tipCount}개</div>
             </div>
-          )}
+          ) : null}
           <ul className={styles.placeList}>
             {filteredPlaces.map(place => (
               <li
@@ -302,8 +300,8 @@ export default function NearbyPlaces() {
                 onClick={() => handleSelectPlace(place.id)}
               >
                 <strong>{place.name}</strong>
-                <div>{place.category}</div>
-                <div>{place.address}</div>
+                <div>{categoryLabelByCode[place.category] || fallbackCategories[6]}</div>
+                <div>{place.displayAddress}</div>
               </li>
             ))}
             {filteredPlaces.length === 0 && (
