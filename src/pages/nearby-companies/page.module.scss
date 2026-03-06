@@ -21,7 +21,7 @@
 .statsArea {
   border: 1px solid #d6e4f0;
   border-radius: 8px;
-  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  background: #fff;
   padding: 1rem;
   box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
 }
@@ -77,7 +77,8 @@
   font-size: 0.8rem;
   font-weight: 700;
   color: #0c4a6e;
-  background: #dff1ff;
+  background: #fff;
+  border: 1px solid #c9d8e6;
 }
 
 .regionName {
@@ -93,25 +94,26 @@
 .count {
   color: #0c4a6e;
   font-size: 0.95rem;
-  background: #e8f5ff;
-  border: 1px solid #c6e7ff;
+  background: #fff;
+  border: 1px solid #c9d8e6;
   border-radius: 999px;
   padding: 0.2rem 0.55rem;
 }
 
 .active {
   border-color: #1d6ca1;
-  background: linear-gradient(90deg, #eef8ff 0%, #ffffff 100%);
+  background: #fff;
 }
 
 .active .rankBadge {
-  background: #0c4a6e;
-  color: #ffffff;
+  background: #fff;
+  color: #0c4a6e;
+  border-color: #0c4a6e;
 }
 
 .active .count {
-  background: #0c4a6e;
-  color: #ffffff;
+  background: #fff;
+  color: #0c4a6e;
   border-color: #0c4a6e;
 }
 
