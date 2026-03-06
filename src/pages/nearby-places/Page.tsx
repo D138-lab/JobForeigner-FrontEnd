@@ -4,6 +4,7 @@ import useGetPlaces, {
   PlaceCategoryCode,
   PlaceItem,
 } from '@/lib/apis/queries/useGetPlaces';
+import { useNavigate } from 'react-router-dom';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -63,6 +64,7 @@ export default function NearbyPlaces() {
     lat: 37.5665,
     lng: 126.978,
   });
+  const navigate = useNavigate();
 
   const selectedCategoryCode = useMemo(
     () =>
@@ -148,6 +150,7 @@ export default function NearbyPlaces() {
       const position = getPlacePosition(place, 0);
       map.panTo(new kakao.maps.LatLng(position.lat, position.lng));
     }
+    navigate(`/nearby-places/${placeId}`);
   };
 
   const handleSubmitSearch = (e: React.FormEvent) => {

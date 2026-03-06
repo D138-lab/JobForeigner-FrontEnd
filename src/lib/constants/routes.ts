@@ -32,6 +32,7 @@ export const PATH = {
 
   NEARBY_COMPANIES: '/nearby-companies',
   NEARBY_PLACES: '/nearby-places',
+  NEARBY_PLACES_DETAIL: '/nearby-places/:placeId',
 
   SELECT_RESUME: '/select-resume',
 
