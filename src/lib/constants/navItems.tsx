@@ -14,7 +14,7 @@ export const headerNavItems = [
   {
     id: 3,
     name: 'nearBy',
-    link: './nearby-companies',
+    link: './nearby-places',
   },
   {
     id: 4,

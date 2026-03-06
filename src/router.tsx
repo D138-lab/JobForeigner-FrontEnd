@@ -67,7 +67,7 @@ const NotFoundPage = lazy(() => import('./pages/notFound/Page'));
 const RegisterPage = lazy(() => import('./pages/register/Page'));
 const LoginPage = lazy(() => import('./pages/login/Page'));
 
-const NearbyCompanyPage = lazy(() => import('./pages/nearby-companies/Page'));
+const NearbyCompanyPage = lazy(() => import('./pages/nearby-places/Page'));
 const VerifyEmailPage = lazy(() => import('./pages/verifyEmail/Page'));
 
 // 각 페이지를 Suspense가 적용된 HOC로 감싸기
