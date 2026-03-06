@@ -30,7 +30,8 @@ export const PATH = {
   JOBS: '/jobs',
   JOB_DETAIL: '/jobs/:id',
 
-  NEARBY_COMPANIES: '/nearby-places',
+  NEARBY_COMPANIES: '/nearby-companies',
+  NEARBY_PLACES: '/nearby-places',
 
   SELECT_RESUME: '/select-resume',
 
