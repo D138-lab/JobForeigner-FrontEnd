@@ -41,6 +41,15 @@
   transform: translateY(1px);
 }
 
+.currentPin {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #0c4a6e;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 5px rgba(12, 74, 110, 0.2);
+}
+
 .clusterBadge {
   border: 1px solid #bcd4e6;
   border-radius: 999px;

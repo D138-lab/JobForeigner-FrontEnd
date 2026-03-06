@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { LocateFixed, Minus, Plus } from 'lucide-react';
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
 import styles from './mapComponent.module.scss';
 
 interface Props {
@@ -139,7 +139,9 @@ export const MapComponent = ({
         level={currentLevel}
         onCreate={setMap}
       >
-        <MapMarker position={position || fallbackPosition} />
+        <CustomOverlayMap position={position || fallbackPosition}>
+          <div className={styles.currentPin} />
+        </CustomOverlayMap>
         {clusters.map(cluster => (
           <CustomOverlayMap
             key={cluster.regionCode}

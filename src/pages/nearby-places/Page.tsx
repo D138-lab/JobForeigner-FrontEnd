@@ -1,4 +1,4 @@
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
 import { LocateFixed, Minus, Plus, Search } from 'lucide-react';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
@@ -221,13 +221,24 @@ export default function NearbyPlaces() {
             style={{ width: '100%', height: '620px' }}
             onCreate={setMap}
           >
-            <MapMarker position={currentPosition} />
+            <CustomOverlayMap position={currentPosition}>
+              <div className={styles.currentPin} />
+            </CustomOverlayMap>
             {filteredPlaces.map(place => (
-              <MapMarker
+              <CustomOverlayMap
                 key={place.id}
                 position={{ lat: place.lat, lng: place.lng }}
-                onClick={() => handleSelectPlace(place.id)}
-              />
+              >
+                <button
+                  type='button'
+                  className={`${styles.placePin} ${
+                    selectedPlace?.id === place.id ? styles.activePlacePin : ''
+                  }`}
+                  onClick={() => handleSelectPlace(place.id)}
+                  aria-label={`${place.name} 위치`}
+                  title={place.name}
+                />
+              </CustomOverlayMap>
             ))}
             {selectedPlace && (
               <CustomOverlayMap
