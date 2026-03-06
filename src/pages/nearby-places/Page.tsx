@@ -4,6 +4,7 @@ import useGetPlaces, {
   PlaceCategoryCode,
   PlaceItem,
 } from '@/lib/apis/queries/useGetPlaces';
+import useSearchPlaces from '@/lib/apis/queries/useSearchPlaces';
 import { useNavigate } from 'react-router-dom';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
@@ -54,7 +55,7 @@ const fallbackCategories: PlaceCategory[] = [
 
 export default function NearbyPlaces() {
   const [keywordInput, setKeywordInput] = useState('');
-  const [keyword, setKeyword] = useState('');
+  const [submittedKeyword, setSubmittedKeyword] = useState('');
   const [selectedCategory, setSelectedCategory] =
     useState<PlaceCategory>('할랄 식당');
   const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(null);
@@ -73,7 +74,13 @@ export default function NearbyPlaces() {
     [selectedCategory],
   );
 
-  const { data, isLoading, isError, refetch } = useGetPlaces(
+  const isKeywordMode = submittedKeyword.trim().length > 0;
+
+  const {
+    data: placesData,
+    isLoading: isPlacesLoading,
+    isError: isPlacesError,
+  } = useGetPlaces(
     {
       lat: currentPosition.lat,
       lng: currentPosition.lng,
@@ -82,7 +89,18 @@ export default function NearbyPlaces() {
       page: 0,
       size: 50,
     },
-    !!currentPosition.lat && !!currentPosition.lng,
+    !!currentPosition.lat && !!currentPosition.lng && !isKeywordMode,
+  );
+
+  const {
+    data: searchedPlacesData,
+    isLoading: isSearchedPlacesLoading,
+    isError: isSearchedPlacesError,
+  } = useSearchPlaces(
+    submittedKeyword,
+    0,
+    50,
+    isKeywordMode,
   );
 
   useEffect(() => {
@@ -100,8 +118,12 @@ export default function NearbyPlaces() {
     );
   }, []);
 
-  const apiPlaces = data?.data.places ?? [];
-  const searchCenter = data?.data.searchCenter?.approximateCenter ?? null;
+  const activeData = isKeywordMode ? searchedPlacesData : placesData;
+  const isLoading = isKeywordMode ? isSearchedPlacesLoading : isPlacesLoading;
+  const isError = isKeywordMode ? isSearchedPlacesError : isPlacesError;
+
+  const apiPlaces = activeData?.data.places ?? [];
+  const searchCenter = activeData?.data.searchCenter?.approximateCenter ?? null;
 
   const getPlacePosition = (place: PlaceItem, index: number) => {
     if (typeof place.lat === 'number' && typeof place.lng === 'number') {
@@ -121,15 +143,9 @@ export default function NearbyPlaces() {
     return apiPlaces.filter(place => {
       const isCategoryMatched =
         categoryLabelByCode[place.category] === selectedCategory;
-      const normalizedKeyword = keyword.trim().toLowerCase();
-      if (!normalizedKeyword) return isCategoryMatched;
-      return (
-        isCategoryMatched &&
-        (place.name.toLowerCase().includes(normalizedKeyword) ||
-          place.displayAddress.toLowerCase().includes(normalizedKeyword))
-      );
+      return isCategoryMatched;
     });
-  }, [apiPlaces, keyword, selectedCategory]);
+  }, [apiPlaces, selectedCategory]);
 
   const selectedPlace = useMemo(
     () =>
@@ -155,9 +171,8 @@ export default function NearbyPlaces() {
 
   const handleSubmitSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setKeyword(keywordInput);
+    setSubmittedKeyword(keywordInput.trim());
     setSelectedPlaceId(null);
-    void refetch();
   };
 
   const moveToCurrentPosition = () => {
