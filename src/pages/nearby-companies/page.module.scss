@@ -54,6 +54,7 @@
   font-size: 0.95rem;
   background: #ffffff;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
 }
 
 .statsItem:hover {
@@ -115,6 +116,53 @@
   background: #fff;
   color: #0c4a6e;
   border-color: #0c4a6e;
+}
+
+.postListSection {
+  margin-top: 0.9rem;
+  border-top: 1px solid #dce8f3;
+  padding-top: 0.9rem;
+}
+
+.postListTitle {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  color: #14344f;
+}
+
+.postList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.postItem {
+  border: 1px solid #dce8f3;
+  border-radius: 8px;
+  padding: 0.65rem;
+}
+
+.postTitle {
+  display: block;
+  color: #1a3f5e;
+  font-size: 0.88rem;
+  margin-bottom: 0.22rem;
+}
+
+.postMeta {
+  font-size: 0.78rem;
+  color: #5b748a;
+}
+
+.postListEmpty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5b748a;
 }
 
 @media (max-width: 900px) {
