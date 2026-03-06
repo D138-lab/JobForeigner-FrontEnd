@@ -14,10 +14,15 @@ export const headerNavItems = [
   {
     id: 3,
     name: 'nearBy',
-    link: './nearby-places',
+    link: './nearby-companies',
   },
   {
     id: 4,
+    name: 'nearByPlaces',
+    link: './nearby-places',
+  },
+  {
+    id: 5,
     name: 'community',
     link: './community',
   },
