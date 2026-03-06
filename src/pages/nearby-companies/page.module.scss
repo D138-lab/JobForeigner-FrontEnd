@@ -1,0 +1,126 @@
+.container {
+  width: min(1200px, 90%);
+  margin: 4rem auto;
+}
+
+.filterRow {
+  margin-bottom: 1.25rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.mapArea {
+  min-width: 0;
+}
+
+.statsArea {
+  border: 1px solid #d6e4f0;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
+}
+
+.statsTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f2f4a;
+}
+
+.statsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.statsItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dce8f3;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  background: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.statsItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(18, 66, 105, 0.12);
+}
+
+.regionInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rankBadge {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  background: #dff1ff;
+}
+
+.regionName {
+  font-weight: 700;
+  color: #14344f;
+}
+
+.distance {
+  font-size: 0.78rem;
+  color: #5b748a;
+}
+
+.count {
+  color: #0c4a6e;
+  font-size: 0.95rem;
+  background: #e8f5ff;
+  border: 1px solid #c6e7ff;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.active {
+  border-color: #1d6ca1;
+  background: linear-gradient(90deg, #eef8ff 0%, #ffffff 100%);
+}
+
+.active .rankBadge {
+  background: #0c4a6e;
+  color: #ffffff;
+}
+
+.active .count {
+  background: #0c4a6e;
+  color: #ffffff;
+  border-color: #0c4a6e;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .statsList {
+    max-height: 360px;
+  }
+}

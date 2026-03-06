@@ -1,36 +1,10 @@
-import { ContentBox } from '@/components/nearby-companies/contentBox/ContentBox';
-import { ControlBar } from '@/components/nearby-companies/controlBar/ControlBar';
 import styles from './page.module.scss';
-import { useState } from 'react';
 
-export default function NearbyCompanies() {
-  const [region, setRegion] = useState<string>('');
-  const [distanceBound, setDistanceBound] = useState<number>(0);
-  const [jobType, setJobType] = useState<string>('');
-  const [mode, setMode] = useState<string>('map');
-  const [onlyOnRecruitMode, setOnlyOnRecruitMode] = useState<boolean>(false);
-  const [sortOption, setSortOption] = useState<string>('');
-
+export default function NearbyPlaces() {
   return (
     <div className={styles.container}>
-      <ControlBar
-        distanceBound={distanceBound}
-        jobType={jobType}
-        mode={mode}
-        onlyOnRecruitMode={onlyOnRecruitMode}
-        region={region}
-        setDistanceBound={setDistanceBound}
-        setJobType={setJobType}
-        setMode={setMode}
-        setOnlyOnRecruitMode={setOnlyOnRecruitMode}
-        setRegion={setRegion}
-      />
-      <ContentBox
-        mode={mode}
-        sortOption={sortOption}
-        setSortOption={setSortOption}
-        boundary={distanceBound}
-      />
+      <h1 className={styles.title}>주변 장소 찾기</h1>
+      <p className={styles.description}>주변 장소 정보를 준비 중입니다.</p>
     </div>
   );
 }
