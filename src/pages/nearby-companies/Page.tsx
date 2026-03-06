@@ -1,10 +1,10 @@
 import Select, { Option } from '@/components/common/select/Select';
 import { selectRegionOptions } from '@/components/jobs/DetailSearchForm';
 import { MapComponent } from '@/components/nearby-companies/mapComponent/MapComponent';
+import useGetMapJobPostClusters from '@/lib/apis/queries/useGetMapJobPostClusters';
 import useGetMapSido from '@/lib/apis/queries/useGetMapSido';
-import { getRegionJobPosts } from '@/lib/apis/queries/useGetRegionJobPosts';
+import useGetRegionJobPosts from '@/lib/apis/queries/useGetRegionJobPosts';
 import useGetSidoRegions from '@/lib/apis/queries/useGetSidoRegions';
-import { useQueries } from '@tanstack/react-query';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -33,6 +33,7 @@ export default function NearbyCompanies() {
   } | null>(null);
   const { data: sidoData } = useGetMapSido();
   const { data: regionsData } = useGetSidoRegions(selectedSido);
+  const { data: clusterData } = useGetMapJobPostClusters(selectedSido);
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -63,22 +64,43 @@ export default function NearbyCompanies() {
     }
   }, [regionOptions, selectedSido]);
 
+  const clusterByRegionCode = useMemo(
+    () =>
+      (clusterData?.data.clusters ?? []).reduce<
+        Record<
+          string,
+          { jobPostCount: number; center: { lat: number; lng: number } }
+        >
+      >((acc, cluster) => {
+        acc[cluster.regionCode] = {
+          jobPostCount: cluster.jobPostCount,
+          center: cluster.center,
+        };
+        return acc;
+      }, {}),
+    [clusterData?.data.clusters],
+  );
+
   const sortedRegions = useMemo(() => {
     const withDistance = (regionsData?.data ?? []).map(region => {
+      const center = clusterByRegionCode[region.regionCode]?.center;
       const distance =
-        currentPosition && region.approximateCenter
-          ? calcDistanceKm(currentPosition, region.approximateCenter)
+        currentPosition && center
+          ? calcDistanceKm(currentPosition, center)
+          : currentPosition && region.approximateCenter
+            ? calcDistanceKm(currentPosition, region.approximateCenter)
           : Number.POSITIVE_INFINITY;
 
       return {
         regionCode: region.regionCode,
         regionName: region.regionName,
+        count: clusterByRegionCode[region.regionCode]?.jobPostCount ?? 0,
         distance,
       };
     });
 
     return withDistance.sort((a, b) => a.distance - b.distance);
-  }, [currentPosition, regionsData?.data]);
+  }, [clusterByRegionCode, currentPosition, regionsData?.data]);
 
   useEffect(() => {
     if (sortedRegions.length === 0) {
@@ -90,38 +112,26 @@ export default function NearbyCompanies() {
     }
   }, [selectedRegionCode, sortedRegions]);
 
-  const regionPostQueries = useQueries({
-    queries: sortedRegions.map(region => ({
-      queryKey: ['useGetRegionJobPosts', region.regionCode],
-      queryFn: () => getRegionJobPosts(region.regionCode),
-      enabled: !!region.regionCode,
-    })),
-  });
+  const { data: selectedRegionPostData, isLoading: isSelectedRegionPostsLoading } =
+    useGetRegionJobPosts(selectedRegionCode, !!selectedRegionCode);
 
-  const postCountByRegionCode = useMemo(() => {
-    return sortedRegions.reduce<Record<string, number>>((acc, region, idx) => {
-      acc[region.regionCode] = regionPostQueries[idx]?.data?.data.length ?? 0;
-      return acc;
-    }, {});
-  }, [regionPostQueries, sortedRegions]);
-
-  const selectedRegionIndex = sortedRegions.findIndex(
-    region => region.regionCode === selectedRegionCode,
-  );
-
-  const selectedRegionPosts =
-    selectedRegionIndex >= 0
-      ? (regionPostQueries[selectedRegionIndex]?.data?.data ?? [])
-      : [];
-
-  const isSelectedRegionPostsLoading =
-    selectedRegionIndex >= 0
-      ? !!regionPostQueries[selectedRegionIndex]?.isLoading
-      : false;
+  const selectedRegionPosts = selectedRegionPostData?.data ?? [];
 
   const selectedRegionName =
     sortedRegions.find(region => region.regionCode === selectedRegionCode)
       ?.regionName ?? '';
+
+  const mapClusters = useMemo(
+    () =>
+      (clusterData?.data.clusters ?? []).map(cluster => ({
+        regionCode: cluster.regionCode,
+        regionName: cluster.regionName,
+        lat: cluster.center.lat,
+        lng: cluster.center.lng,
+        jobPostCount: cluster.jobPostCount,
+      })),
+    [clusterData?.data.clusters],
+  );
 
   return (
     <div className={styles.container}>
@@ -137,12 +147,17 @@ export default function NearbyCompanies() {
       </div>
       <div className={styles.content}>
         <section className={styles.mapArea}>
-          <MapComponent level={6} />
+          <MapComponent
+            level={6}
+            clusters={mapClusters}
+            selectedRegionCode={selectedRegionCode}
+            onSelectRegion={setSelectedRegionCode}
+          />
         </section>
         <aside className={styles.statsArea}>
           <h2 className={styles.statsTitle}>가까운 지역별 채용공고</h2>
           <ul className={styles.statsList}>
-            {sortedRegions.map(({ regionCode, regionName, distance }, idx) => (
+            {sortedRegions.map(({ regionCode, regionName, count, distance }, idx) => (
               <li
                 key={regionCode}
                 className={`${styles.statsItem} ${
@@ -162,7 +177,7 @@ export default function NearbyCompanies() {
                   </div>
                 </div>
                 <strong className={styles.count}>
-                  {postCountByRegionCode[regionCode] ?? 0}건
+                  {count}건
                 </strong>
               </li>
             ))}

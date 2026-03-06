@@ -1,14 +1,28 @@
 import { useEffect, useState } from 'react';
 
 import { LocateFixed, Minus, Plus } from 'lucide-react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import styles from './mapComponent.module.scss';
 
 interface Props {
   level: number;
+  clusters?: {
+    regionCode: string;
+    regionName: string;
+    lat: number;
+    lng: number;
+    jobPostCount: number;
+  }[];
+  selectedRegionCode?: string;
+  onSelectRegion?: (regionCode: string) => void;
 }
 
-export const MapComponent = ({ level }: Props) => {
+export const MapComponent = ({
+  level,
+  clusters = [],
+  selectedRegionCode,
+  onSelectRegion,
+}: Props) => {
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
     null,
   );
@@ -73,6 +87,17 @@ export const MapComponent = ({ level }: Props) => {
     setCurrentLevel(level);
   }, [level]);
 
+  const handleSelectCluster = (cluster: {
+    regionCode: string;
+    lat: number;
+    lng: number;
+  }) => {
+    onSelectRegion?.(cluster.regionCode);
+    if (map) {
+      map.panTo(new kakao.maps.LatLng(cluster.lat, cluster.lng));
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.mapControls}>
@@ -115,6 +140,26 @@ export const MapComponent = ({ level }: Props) => {
         onCreate={setMap}
       >
         <MapMarker position={position || fallbackPosition} />
+        {clusters.map(cluster => (
+          <CustomOverlayMap
+            key={cluster.regionCode}
+            position={{ lat: cluster.lat, lng: cluster.lng }}
+          >
+            <button
+              type='button'
+              className={`${styles.clusterBadge} ${
+                selectedRegionCode === cluster.regionCode ? styles.activeCluster : ''
+              }`}
+              onClick={() => handleSelectCluster(cluster)}
+              title={`${cluster.regionName} ${cluster.jobPostCount}건`}
+            >
+              <span className={styles.clusterRegion}>{cluster.regionName}</span>
+              <strong className={styles.clusterCount}>
+                {cluster.jobPostCount}건
+              </strong>
+            </button>
+          </CustomOverlayMap>
+        ))}
       </Map>
     </div>
   );
