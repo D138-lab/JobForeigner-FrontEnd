@@ -71,6 +71,10 @@ const RegisterPage = lazy(() => import('./pages/register/Page'));
 const LoginPage = lazy(() => import('./pages/login/Page'));
 
 const NearbyCompanyPage = lazy(() => import('./pages/nearby-companies/Page'));
+const NearbyPlacesPage = lazy(() => import('./pages/nearby-places/Page'));
+const NearbyPlaceDetailPage = lazy(
+  () => import('./pages/nearby-places/detail/Page'),
+);
 const VerifyEmailPage = lazy(() => import('./pages/verifyEmail/Page'));
 
 // 각 페이지를 Suspense가 적용된 HOC로 감싸기
@@ -114,6 +118,8 @@ const SuspensedNotFoundPage = withSuspense(NotFoundPage);
 const SuspensedRegisterPage = withSuspense(RegisterPage);
 const SuspensedLoginPage = withSuspense(LoginPage);
 const SuspensedNearbyCompanyPage = withSuspense(NearbyCompanyPage);
+const SuspensedNearbyPlacesPage = withSuspense(NearbyPlacesPage);
+const SuspensedNearbyPlaceDetailPage = withSuspense(NearbyPlaceDetailPage);
 const SuspensedVerifyEmailPage = withSuspense(VerifyEmailPage);
 
 export const router = createBrowserRouter(
@@ -159,6 +165,14 @@ export const router = createBrowserRouter(
         <Route
           path={PATH.NEARBY_COMPANIES}
           element={<SuspensedNearbyCompanyPage />}
+        />
+        <Route
+          path={PATH.NEARBY_PLACES}
+          element={<SuspensedNearbyPlacesPage />}
+        />
+        <Route
+          path={PATH.NEARBY_PLACES_DETAIL}
+          element={<SuspensedNearbyPlaceDetailPage />}
         />
       </Route>
 

@@ -1,0 +1,294 @@
+.container {
+  width: min(1240px, 92%);
+  margin: 2rem auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.searchBox {
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+}
+
+.searchIcon {
+  color: #6b7f91;
+}
+
+.searchInput {
+  width: 100%;
+  border: 0;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.searchButton {
+  border: 1px solid #0c4a6e;
+  background: #0c4a6e;
+  color: #fff;
+  border-radius: 8px;
+  height: 34px;
+  min-width: 56px;
+  padding: 0 0.9rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.categoryRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.favoriteSuccess {
+  font-size: 0.82rem;
+  color: #0f766e;
+}
+
+.favoriteError {
+  font-size: 0.82rem;
+  color: #b91c1c;
+}
+
+.categoryButton {
+  border: 1px solid #cad7e2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.88rem;
+  color: #29475e;
+  cursor: pointer;
+}
+
+.activeCategory {
+  border-color: #0c4a6e;
+  color: #0c4a6e;
+  font-weight: 700;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 1rem;
+}
+
+.mapArea {
+  position: relative;
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 0.6rem;
+  background: #fff;
+}
+
+.mapControls {
+  position: absolute;
+  right: 1.05rem;
+  bottom: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 4;
+}
+
+.controlButton {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #c9d8e6;
+  background: rgba(255, 255, 255, 0.96);
+  color: #12344e;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(20, 52, 79, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.overlayCard {
+  border-radius: 10px;
+  border: 1px solid #c9d8e6;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 5px 14px rgba(17, 52, 77, 0.2);
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.overlayCard strong {
+  font-size: 0.82rem;
+  color: #14344f;
+}
+
+.overlayCard span {
+  font-size: 0.72rem;
+  color: #5f768b;
+}
+
+.currentPin {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #0c4a6e;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 5px rgba(12, 74, 110, 0.2);
+}
+
+.placePin {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: #6b8aa3;
+  box-shadow: 0 2px 8px rgba(21, 48, 70, 0.24);
+  cursor: pointer;
+}
+
+.activePlacePin {
+  background: #0c4a6e;
+  transform: scale(1.15);
+}
+
+.listArea {
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 0.9rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.listTitle {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  color: #14344f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.favoriteCount {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #5a7287;
+  border: 1px solid #d3e1ec;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.detailCard {
+  border: 1px solid #dce8f3;
+  border-radius: 10px;
+  padding: 0.7rem;
+  margin-bottom: 0.65rem;
+  background: #fdfefe;
+}
+
+.detailCard h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.detailCard p {
+  margin: 0.35rem 0 0.45rem;
+  color: #556d82;
+  font-size: 0.82rem;
+}
+
+.detailCard div {
+  font-size: 0.78rem;
+  color: #476075;
+}
+
+.favoriteActionButton {
+  margin-top: 0.3rem;
+  border: 1px solid #c8dbea;
+  background: #fff;
+  color: #0c4a6e;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.placeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  overflow-y: auto;
+}
+
+.placeItem {
+  border: 1px solid #dce8f3;
+  border-radius: 10px;
+  padding: 0.65rem;
+  cursor: pointer;
+}
+
+.placeItem strong {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.87rem;
+  color: #173a57;
+  margin-bottom: 0.2rem;
+}
+
+.favoriteMark {
+  border: none;
+  background: transparent;
+  color: #f59e0b;
+  font-size: 0.88rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.placeItem div {
+  font-size: 0.76rem;
+  color: #5b748a;
+}
+
+.activePlace {
+  border-color: #0c4a6e;
+}
+
+.emptyItem {
+  border: 1px dashed #ccd9e5;
+  border-radius: 10px;
+  padding: 0.8rem;
+  color: #6b8092;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 960px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .mapArea {
+    order: 1;
+  }
+
+  .listArea {
+    order: 2;
+  }
+}

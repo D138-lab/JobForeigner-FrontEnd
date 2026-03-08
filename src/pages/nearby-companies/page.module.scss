@@ -1,8 +1,230 @@
 .container {
-  width: 80%;
+  width: min(1200px, 90%);
   margin: 4rem auto;
+}
+
+.filterRow {
+  margin-bottom: 1.25rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.mapArea {
+  min-width: 0;
+}
+
+.statsArea {
+  border: 1px solid #d6e4f0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
+}
+
+.statsTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f2f4a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.favoriteCount {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #5a7287;
+  border: 1px solid #d3e1ec;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.favoriteSuccess {
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  color: #0f766e;
+}
+
+.favoriteError {
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  color: #b91c1c;
+}
+
+.statsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.statsItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dce8f3;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  background: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.statsItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(18, 66, 105, 0.12);
+}
+
+.regionInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rankBadge {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  align-items: stretch;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  background: #fff;
+  border: 1px solid #c9d8e6;
+}
+
+.regionName {
+  font-weight: 700;
+  color: #14344f;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.favoriteMark {
+  color: #f59e0b;
+  font-size: 0.78rem;
+}
+
+.favoriteMarkButton {
+  border: none;
+  background: transparent;
+  color: #f59e0b;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.notificationToggleButton {
+  border: 1px solid #cadbeb;
+  border-radius: 999px;
+  background: #fff;
+  color: #1f4f74;
+  font-size: 0.68rem;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+}
+
+.distance {
+  font-size: 0.78rem;
+  color: #5b748a;
+}
+
+.count {
+  color: #0c4a6e;
+  font-size: 0.95rem;
+  background: #fff;
+  border: 1px solid #c9d8e6;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.active {
+  border-color: #1d6ca1;
+  background: #fff;
+}
+
+.active .rankBadge {
+  background: #fff;
+  color: #0c4a6e;
+  border-color: #0c4a6e;
+}
+
+.active .count {
+  background: #fff;
+  color: #0c4a6e;
+  border-color: #0c4a6e;
+}
+
+.postListSection {
+  margin-top: 0.9rem;
+  border-top: 1px solid #dce8f3;
+  padding-top: 0.9rem;
+}
+
+.postListTitle {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  color: #14344f;
+}
+
+.postList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.postItem {
+  border: 1px solid #dce8f3;
+  border-radius: 8px;
+  padding: 0.65rem;
+}
+
+.postTitle {
+  display: block;
+  color: #1a3f5e;
+  font-size: 0.88rem;
+  margin-bottom: 0.22rem;
+}
+
+.postMeta {
+  font-size: 0.78rem;
+  color: #5b748a;
+}
+
+.postListEmpty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5b748a;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .statsList {
+    max-height: 360px;
+  }
 }

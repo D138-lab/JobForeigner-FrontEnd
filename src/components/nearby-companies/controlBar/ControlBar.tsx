@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import {
-  selectIndustryOptions,
-  selectRegionOptions,
-} from '@/components/jobs/DetailSearchForm';
+import { Option } from '@/components/common/select/Select';
+import { selectIndustryOptions } from '@/components/jobs/DetailSearchForm';
 
 import { ActivateButton } from '@/components/common/activateButton/ActivateButton';
 import Select from '@/components/common/select/Select';
@@ -21,6 +19,7 @@ interface Props {
   setMode: Dispatch<SetStateAction<string>>;
   onlyOnRecruitMode: boolean;
   setOnlyOnRecruitMode: Dispatch<SetStateAction<boolean>>;
+  regionOptions: Option[];
 }
 
 export const ControlBar = ({
@@ -34,6 +33,7 @@ export const ControlBar = ({
   setMode,
   setOnlyOnRecruitMode,
   setRegion,
+  regionOptions,
 }: Props) => {
   void useState;
   return (
@@ -45,7 +45,7 @@ export const ControlBar = ({
             name='region'
             icon='map-pin'
             width='300px'
-            options={selectRegionOptions}
+            options={regionOptions}
             value={region}
             onChange={setRegion}
           />

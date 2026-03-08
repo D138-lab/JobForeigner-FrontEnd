@@ -18,6 +18,11 @@ export const headerNavItems = [
   },
   {
     id: 4,
+    name: 'nearByPlaces',
+    link: './nearby-places',
+  },
+  {
+    id: 5,
     name: 'community',
     link: './community',
   },

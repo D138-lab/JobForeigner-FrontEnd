@@ -1,9 +1,84 @@
 .container {
+  position: relative;
   width: 100%;
   background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--color-gray-200);
   padding: 10px;
-  margin: 10px;
   border-radius: 4px;
+  overflow: hidden;
+}
+
+.mapControls {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.controlButton {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #c9d8e6;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #12344e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(20, 52, 79, 0.16);
+}
+
+.controlButton:hover {
+  background: #f0f8ff;
+}
+
+.controlButton:active {
+  transform: translateY(1px);
+}
+
+.currentPin {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #0c4a6e;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 5px rgba(12, 74, 110, 0.2);
+}
+
+.clusterBadge {
+  border: 1px solid #bcd4e6;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(17, 52, 77, 0.2);
+  padding: 0.35rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clusterRegion {
+  font-size: 0.75rem;
+  color: #34566f;
+}
+
+.clusterCount {
+  font-size: 0.78rem;
+  color: #0c4a6e;
+}
+
+.activeCluster {
+  border-color: #0c4a6e;
+  background: #0c4a6e;
+}
+
+.activeCluster .clusterRegion,
+.activeCluster .clusterCount {
+  color: #fff;
 }
