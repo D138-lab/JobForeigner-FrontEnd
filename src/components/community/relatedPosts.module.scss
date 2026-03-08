@@ -17,23 +17,14 @@
     margin-bottom: 1rem;
   }
 
-  .post {
-    margin-bottom: 0.6rem;
-    cursor: pointer;
+  .emptyState {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 0.4rem;
-
-    .postTitle {
-      font-size: 1.4em;
-      font-weight: 600;
-    }
-
-    .numOfComment {
-      font-size: 1.2em;
-    }
+    border: 1px dashed var(--color-gray-300);
+    border-radius: 10px;
+    background-color: #f9fafb;
+    color: #6b7280;
+    font-size: 1.3em;
+    text-align: center;
+    padding: 1.4rem 1rem;
   }
 }

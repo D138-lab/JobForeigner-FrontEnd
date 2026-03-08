@@ -1,11 +1,13 @@
 import { Comment } from './Comment';
 import { InputComment } from './InputComment';
 import { MessageCircle } from 'lucide-react';
+import usePostBoardPostComment from '@/lib/apis/mutations/usePostBoardPostComment';
 import styles from './commentsArea.module.scss';
 import { useState } from 'react';
 
 export interface CommentDetailProps {
   id: number;
+  memberId: number;
   postId: number;
   parentId: number | null;
 
@@ -22,17 +24,91 @@ export interface CommentDetailProps {
 }
 
 interface CommentAreaProps {
+  postId: number;
+  currentMemberId?: number;
+  currentMemberName?: string;
   numOfComments: number;
   myProfileImgUrl: string;
   comments: CommentDetailProps[];
 }
 
 export const CommentArea = ({
+  postId,
+  currentMemberId,
+  currentMemberName,
   numOfComments,
   myProfileImgUrl,
   comments,
 }: CommentAreaProps) => {
   const [inputText, setInputText] = useState<string>('');
+  const { mutate: postBoardPostComment, isPending } = usePostBoardPostComment();
+
+  const handleSubmitComment = () => {
+    const normalized = inputText.trim();
+    if (!normalized) {
+      alert('댓글 내용을 입력해주세요.');
+      return;
+    }
+
+    postBoardPostComment(
+      {
+        postId,
+        body: { content: normalized },
+      },
+      {
+        onSuccess: () => {
+          setInputText('');
+        },
+        onError: error => {
+          const errorData = (
+            error as {
+              response?: {
+                data?: { message?: string; msg?: string };
+              };
+            }
+          )?.response?.data;
+
+          alert(
+            errorData?.message ??
+              errorData?.msg ??
+              '댓글 작성에 실패했습니다. 다시 시도해주세요.',
+          );
+        },
+      },
+    );
+  };
+
+  const handleSubmitReply = (content: string) => {
+    const normalized = content.trim();
+    if (!normalized) {
+      alert('답글 내용을 입력해주세요.');
+      return;
+    }
+
+    postBoardPostComment(
+      {
+        postId,
+        body: { content: normalized },
+      },
+      {
+        onError: error => {
+          const errorData = (
+            error as {
+              response?: {
+                data?: { message?: string; msg?: string };
+              };
+            }
+          )?.response?.data;
+
+          alert(
+            errorData?.message ??
+              errorData?.msg ??
+              '답글 작성에 실패했습니다. 다시 시도해주세요.',
+          );
+        },
+      },
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -44,11 +120,19 @@ export const CommentArea = ({
         inputText={inputText}
         myProfileImgUrl={myProfileImgUrl}
         onChangeInputText={text => setInputText(text)}
-        onSubmitComment={() => console.log('전송요청')}
+        onSubmitComment={handleSubmitComment}
+        isSubmitting={isPending}
       />
       <div className={styles.comments}>
         {comments.map(comment => (
-          <Comment key={comment.id} {...comment} />
+          <Comment
+            key={comment.id}
+            {...comment}
+            currentMemberId={currentMemberId}
+            currentMemberName={currentMemberName}
+            onSubmitReply={handleSubmitReply}
+            isSubmittingReply={isPending}
+          />
         ))}
       </div>
     </div>

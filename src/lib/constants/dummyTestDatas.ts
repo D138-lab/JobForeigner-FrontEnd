@@ -1,4 +1,3 @@
-import { CommentDetailProps } from '@/components/community/CommentsArea';
 import { DetailPostBoxProps } from '@/components/community/DetailPostBox';
 import { PostBoxProps } from '@/components/community/PostBox';
 
@@ -9,6 +8,7 @@ export interface DetailPostBoxWithId extends DetailPostBoxProps {
 export const postBoxDummyData: PostBoxProps[] = [
   {
     id: 1,
+    memberId: 1,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
     name: '응우옌 반 민',
@@ -42,6 +42,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 2,
+    memberId: 2,
     isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/45.jpg',
     name: '마리아 곤잘레스',
@@ -72,6 +73,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 3,
+    memberId: 3,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/12.jpg',
     name: '알리 하산',
@@ -105,6 +107,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 4,
+    memberId: 4,
     isLiked: false,
     imageUrl: 'https://randomuser.me/api/portraits/women/28.jpg',
     name: '시티 아이샤',
@@ -136,6 +139,7 @@ export const postBoxDummyData: PostBoxProps[] = [
   },
   {
     id: 5,
+    memberId: 5,
     isLiked: true,
     imageUrl: 'https://randomuser.me/api/portraits/men/67.jpg',
     name: '카를로스 멘도사',
@@ -171,6 +175,7 @@ export const postBoxDummyData: PostBoxProps[] = [
 export const detailPostDummyData: DetailPostBoxWithId[] = postBoxDummyData.map(
   post => ({
     id: post.id,
+    postId: post.id,
     category: post.category,
     userImgUrl: post.imageUrl,
     title: post.title,
@@ -185,87 +190,3 @@ export const detailPostDummyData: DetailPostBoxWithId[] = postBoxDummyData.map(
     numOfComment: post.numOfComment,
   }),
 );
-
-export const commentDetailDummyData: CommentDetailProps[] = [
-  {
-    id: 101,
-    postId: 1,
-    parentId: null,
-    userProfileImgUrl: 'https://randomuser.me/api/portraits/women/45.jpg',
-    userName: '마리아 곤잘레스',
-    country: 'Philippines',
-    isVerifiedUser: false,
-    postedAt: new Date('2025-01-05T11:10:00Z'),
-    content: `저도 작년에 E-9 갱신을 진행했습니다. 제 경험을 정리해볼게요.
-
-    - 회사에서 준비해준 것:
-        · 재직증명서
-        · 사업자 관련 서류(회사 담당자가 챙겨줌)
-        · 근로계약서 사본(요청하면 출력해줌)
-
-    - 제가 준비한 것:
-        · 여권, 외국인등록증
-        · 수수료(카드/현금 가능 여부는 지점마다 다를 수 있음)
-
-출입국은 ‘온라인 예약’이 거의 필수였고,
-예약이 늦으면 원하는 날짜가 잘 안 나옵니다.
-
-팁을 하나 더 적자면,
-    서류 체크리스트를 캡처해서 회사 담당자와 같이 확인하면
-    빠지는 서류가 줄어들어서 좋았습니다.`,
-    numOfLiked: 5,
-    isLikedByMe: false,
-  },
-  {
-    id: 102,
-    postId: 1,
-    parentId: 101,
-    userProfileImgUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
-    userName: '응우옌 반 민',
-    country: 'Vietnam',
-    isVerifiedUser: true,
-    postedAt: new Date('2025-01-05T12:05:00Z'),
-    content: `정말 감사합니다!
-
-말씀하신 “체크리스트”는
-    어디에서 확인하셨는지 궁금합니다.
-
-그리고 혹시 예약은
-    1) 사이트에서 직접 하셨나요?
-    2) 회사에서 도와주셨나요?
-
-가능하면 공식 링크/경로도 알려주시면 큰 도움이 될 것 같습니다.`,
-    numOfLiked: 2,
-    isLikedByMe: true,
-  },
-  {
-    id: 201,
-    postId: 3,
-    parentId: null,
-    userProfileImgUrl: 'https://randomuser.me/api/portraits/men/67.jpg',
-    userName: '카를로스 멘도사',
-    country: 'Peru',
-    isVerifiedUser: true,
-    postedAt: new Date('2025-01-03T20:15:00Z'),
-    content: `쉐어하우스/원룸 계약할 때 제가 겪은 체크 포인트 공유합니다.
-
-    1) 관리비 항목을 “문장”으로 정확히 적어두기
-       - 전기/가스/수도/인터넷/청소비 포함 여부
-    2) 퇴실 정산 기준 확인
-       - 청소비, 수리비 공제 조건
-    3) 입주 당일 사진/영상 촬영
-       - 벽지, 바닥, 화장실, 창문, 보일러 상태
-       - 나중에 분쟁 방지에 진짜 도움 됩니다.
-
-직거래는 싸게 구할 수 있지만,
-    계약서 없이 돈 먼저 요구하면 무조건 피하세요.
-
-가능하면
-    - 계약서 작성
-    - 집주인 신분 확인
-    - 입금 계좌 명의 일치
-이 3가지는 꼭 확인 추천드립니다.`,
-    numOfLiked: 4,
-    isLikedByMe: false,
-  },
-];

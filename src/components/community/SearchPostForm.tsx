@@ -1,18 +1,18 @@
 import Input from '../common/input/Input';
 import styles from './searchPostForm.module.scss';
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
-  defaultSearchValue: string;
-  onClick: (searchValue: string) => void;
+  searchValue: string;
+  onChangeSearchValue: (searchValue: string) => void;
 };
 
-export const SearchPostForm = ({ defaultSearchValue, onClick }: Props) => {
-  const [searchValue, setSearchValue] = useState<string>(defaultSearchValue);
+export const SearchPostForm = ({ searchValue, onChangeSearchValue }: Props) => {
+  const { t } = useTranslation('common');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onClick(searchValue);
+    onChangeSearchValue(searchValue.trim());
   };
 
   return (
@@ -21,13 +21,13 @@ export const SearchPostForm = ({ defaultSearchValue, onClick }: Props) => {
         <Input
           value={searchValue}
           icon='search'
-          placeholder='게시글 검색'
-          onChange={e => setSearchValue(e.currentTarget.value)}
+          placeholder={t('communityPage.searchPlaceholder')}
+          onChange={e => onChangeSearchValue(e.currentTarget.value)}
         />
       </div>
 
       <button type='submit' className={styles.searchButton}>
-        검색
+        {t('communityPage.searchButton')}
       </button>
     </form>
   );

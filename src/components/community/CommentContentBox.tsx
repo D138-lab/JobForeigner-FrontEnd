@@ -9,6 +9,7 @@ interface CommentContentBoxProps {
   isVerified: boolean;
   postedAt: Date;
   content: string;
+  hasMenu?: boolean;
 }
 
 export const CommentContentBox = ({
@@ -17,10 +18,11 @@ export const CommentContentBox = ({
   isVerified,
   postedAt,
   content,
+  hasMenu = false,
 }: CommentContentBoxProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.topArea}>
+      <div className={`${styles.topArea} ${hasMenu ? styles.withMenu : ''}`}>
         <span className={styles.name}>{userName}</span>
         <span>
           {isVerified ? <BadgeCheck size={14} color='#0081FF' /> : null}
