@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import Select, { Option } from '@/components/common/select/Select';
 import { selectRegionOptions } from '@/components/jobs/DetailSearchForm';
 import { MapComponent } from '@/components/nearby-companies/mapComponent/MapComponent';
+import useDeleteFavoriteRegion from '@/lib/apis/mutations/useDeleteFavoriteRegion';
 import usePostFavoriteRegion from '@/lib/apis/mutations/usePostFavoriteRegion';
 import useGetMapFavorites from '@/lib/apis/queries/useGetMapFavorites';
 import useGetMapJobPostClusters from '@/lib/apis/queries/useGetMapJobPostClusters';
@@ -45,6 +46,12 @@ export default function NearbyCompanies() {
     error: postFavoriteRegionError,
     reset: resetPostFavoriteRegionError,
   } = usePostFavoriteRegion();
+  const {
+    mutate: deleteFavoriteRegionMutate,
+    isPending: isDeletingFavoriteRegion,
+    error: deleteFavoriteRegionError,
+    reset: resetDeleteFavoriteRegionError,
+  } = useDeleteFavoriteRegion();
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -151,16 +158,24 @@ export default function NearbyCompanies() {
   const postFavoriteRegionErrorCode = (
     postFavoriteRegionError as AxiosError<{ code?: string }> | null
   )?.response?.data?.code;
+  const deleteFavoriteRegionErrorCode = (
+    deleteFavoriteRegionError as AxiosError<{ code?: string }> | null
+  )?.response?.data?.code;
   const favoriteErrorMessage = (() => {
-    if (!postFavoriteRegionErrorCode) return '';
     if (postFavoriteRegionErrorCode === 'C002')
       return '요청 데이터가 올바르지 않습니다.';
     if (postFavoriteRegionErrorCode === 'U001')
       return '사용자를 찾을 수 없습니다.';
     if (postFavoriteRegionErrorCode === 'M005')
       return '이미 즐겨찾기에 등록된 지역입니다.';
-    return '즐겨찾기 등록 중 오류가 발생했습니다.';
+    if (deleteFavoriteRegionErrorCode === 'M006')
+      return '해당 즐겨찾기를 찾을 수 없습니다.';
+    if (postFavoriteRegionErrorCode) return '즐겨찾기 등록 중 오류가 발생했습니다.';
+    if (deleteFavoriteRegionErrorCode) return '즐겨찾기 삭제 중 오류가 발생했습니다.';
+    return '';
   })();
+  const isFavoriteRegionPending =
+    isPostingFavoriteRegion || isDeletingFavoriteRegion;
 
   const handleFavoriteRegion = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -170,9 +185,14 @@ export default function NearbyCompanies() {
     event.stopPropagation();
     setFavoriteMessage('');
     resetPostFavoriteRegionError();
+    resetDeleteFavoriteRegionError();
 
     if (favoriteRegionCodeSet.has(regionCode)) {
-      setFavoriteMessage('이미 즐겨찾기에 등록된 지역입니다.');
+      deleteFavoriteRegionMutate(regionCode, {
+        onSuccess: () => {
+          setFavoriteMessage('지역 즐겨찾기에서 삭제되었습니다.');
+        },
+      });
       return;
     }
 
@@ -244,7 +264,7 @@ export default function NearbyCompanies() {
                         onClick={event =>
                           handleFavoriteRegion(event, regionCode, regionName)
                         }
-                        disabled={isPostingFavoriteRegion}
+                        disabled={isFavoriteRegionPending}
                         aria-label='지역 즐겨찾기 등록'
                       >
                         {favoriteRegionCodeSet.has(regionCode) ? '★' : '☆'}
