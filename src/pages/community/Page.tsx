@@ -6,19 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 
-export type postSortOption = 'recent' | 'popular' | 'verified';
 export type postType = 'all' | 'normal' | 'used' | 'curation';
 
 export default function CommunityPage() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [postType, setPostType] = useState<string>('all');
+  const [postType, setPostType] = useState<postType>('all');
   const [postCategory, setPostCategory] = useState<string>('');
   void setSearchValue;
   void postCategory;
   void setPostCategory;
-
-  const [sortOption, setSortOption] = useState<postSortOption>('recent');
 
   const navigate = useNavigate();
 
@@ -41,12 +38,7 @@ export default function CommunityPage() {
         defaultSearchValue={searchValue}
         onClick={a => console.log(a)}
       />
-      <ContentArea
-        sortOption={sortOption}
-        setSortOption={setSortOption}
-        postType={postType}
-        setPostType={setPostType}
-      />
+      <ContentArea postType={postType} setPostType={setPostType} />
     </div>
   );
 }

@@ -1,8 +1,9 @@
+import { postType } from '@/pages/community/Page';
 import styles from './selectPostType.module.scss';
 
 interface Props {
-  postType: string;
-  onClick: (type: string) => void;
+  postType: postType;
+  onClick: (type: postType) => void;
 }
 
 export const SelectPostType = ({ postType, onClick }: Props) => {
