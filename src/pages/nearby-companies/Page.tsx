@@ -1,6 +1,7 @@
 import Select, { Option } from '@/components/common/select/Select';
 import { selectRegionOptions } from '@/components/jobs/DetailSearchForm';
 import { MapComponent } from '@/components/nearby-companies/mapComponent/MapComponent';
+import useGetMapFavorites from '@/lib/apis/queries/useGetMapFavorites';
 import useGetMapJobPostClusters from '@/lib/apis/queries/useGetMapJobPostClusters';
 import useGetMapSido from '@/lib/apis/queries/useGetMapSido';
 import useGetRegionJobPosts from '@/lib/apis/queries/useGetRegionJobPosts';
@@ -34,6 +35,7 @@ export default function NearbyCompanies() {
   const { data: sidoData } = useGetMapSido();
   const { data: regionsData } = useGetSidoRegions(selectedSido);
   const { data: clusterData } = useGetMapJobPostClusters(selectedSido);
+  const { data: favoritesData } = useGetMapFavorites();
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -132,6 +134,11 @@ export default function NearbyCompanies() {
       })),
     [clusterData?.data.clusters],
   );
+  const favoriteRegionCodeSet = useMemo(
+    () =>
+      new Set((favoritesData?.data.regions ?? []).map(region => region.regionCode)),
+    [favoritesData?.data.regions],
+  );
 
   return (
     <div className={styles.container}>
@@ -155,7 +162,12 @@ export default function NearbyCompanies() {
           />
         </section>
         <aside className={styles.statsArea}>
-          <h2 className={styles.statsTitle}>가까운 지역별 채용공고</h2>
+          <h2 className={styles.statsTitle}>
+            가까운 지역별 채용공고
+            <span className={styles.favoriteCount}>
+              즐겨찾기 {favoriteRegionCodeSet.size}
+            </span>
+          </h2>
           <ul className={styles.statsList}>
             {sortedRegions.map(({ regionCode, regionName, count, distance }, idx) => (
               <li
@@ -167,8 +179,13 @@ export default function NearbyCompanies() {
               >
                 <div className={styles.regionInfo}>
                   <span className={styles.rankBadge}>{idx + 1}</span>
-                  <div>
-                    <div className={styles.regionName}>{regionName}</div>
+                    <div>
+                    <div className={styles.regionName}>
+                      {regionName}
+                      {favoriteRegionCodeSet.has(regionCode) ? (
+                        <span className={styles.favoriteMark}>★</span>
+                      ) : null}
+                    </div>
                     <div className={styles.distance}>
                       {Number.isFinite(distance)
                         ? `${distance.toFixed(1)}km`

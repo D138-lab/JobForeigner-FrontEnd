@@ -166,6 +166,19 @@
   margin: 0 0 0.55rem;
   font-size: 1rem;
   color: #14344f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.favoriteCount {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #5a7287;
+  border: 1px solid #d3e1ec;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
 }
 
 .detailCard {
@@ -192,6 +205,17 @@
   color: #476075;
 }
 
+.favoriteBadge {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.3rem;
+  border: 1px solid #d1e5f4;
+  border-radius: 999px;
+  padding: 0.12rem 0.45rem;
+  font-size: 0.73rem;
+  color: #0c4a6e;
+}
+
 .placeList {
   list-style: none;
   margin: 0;
@@ -210,10 +234,17 @@
 }
 
 .placeItem strong {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: 0.87rem;
   color: #173a57;
   margin-bottom: 0.2rem;
+}
+
+.favoriteMark {
+  color: #f59e0b;
+  font-size: 0.78rem;
 }
 
 .placeItem div {

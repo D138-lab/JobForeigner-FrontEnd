@@ -4,6 +4,7 @@ import useGetPlaces, {
   PlaceCategoryCode,
   PlaceItem,
 } from '@/lib/apis/queries/useGetPlaces';
+import useGetMapFavorites from '@/lib/apis/queries/useGetMapFavorites';
 import useSearchPlaces from '@/lib/apis/queries/useSearchPlaces';
 import { useNavigate } from 'react-router-dom';
 import styles from './page.module.scss';
@@ -66,6 +67,7 @@ export default function NearbyPlaces() {
     lng: 126.978,
   });
   const navigate = useNavigate();
+  const { data: favoritesData } = useGetMapFavorites();
 
   const selectedCategoryCode = useMemo(
     () =>
@@ -146,6 +148,11 @@ export default function NearbyPlaces() {
       return isCategoryMatched;
     });
   }, [apiPlaces, selectedCategory]);
+  const favoritePlaceIdSet = useMemo(
+    () =>
+      new Set((favoritesData?.data.places ?? []).map(place => place.placeId)),
+    [favoritesData?.data.places],
+  );
 
   const selectedPlace = useMemo(
     () =>
@@ -293,7 +300,12 @@ export default function NearbyPlaces() {
         </section>
 
         <aside className={styles.listArea}>
-          <h2 className={styles.listTitle}>장소 리스트</h2>
+          <h2 className={styles.listTitle}>
+            장소 리스트
+            <span className={styles.favoriteCount}>
+              즐겨찾기 {favoritePlaceIdSet.size}
+            </span>
+          </h2>
           {isLoading ? (
             <div className={styles.emptyItem}>장소를 불러오는 중입니다.</div>
           ) : isError ? (
@@ -305,6 +317,9 @@ export default function NearbyPlaces() {
               <h3>{selectedPlace.name}</h3>
               <p>{selectedPlace.subCategory || '상세 카테고리 정보 없음'}</p>
               <div>{selectedPlace.displayAddress}</div>
+              {favoritePlaceIdSet.has(selectedPlace.id) && (
+                <div className={styles.favoriteBadge}>즐겨찾기 등록됨</div>
+              )}
               <div>팁 {selectedPlace.tipCount}개</div>
             </div>
           ) : null}
@@ -317,7 +332,12 @@ export default function NearbyPlaces() {
                 }`}
                 onClick={() => handleSelectPlace(place.id)}
               >
-                <strong>{place.name}</strong>
+                <strong>
+                  {place.name}
+                  {favoritePlaceIdSet.has(place.id) ? (
+                    <span className={styles.favoriteMark}>★</span>
+                  ) : null}
+                </strong>
                 <div>{categoryLabelByCode[place.category] || fallbackCategories[6]}</div>
                 <div>{place.displayAddress}</div>
               </li>
