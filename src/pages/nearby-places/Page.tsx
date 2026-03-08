@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
 import { LocateFixed, Minus, Plus, Search } from 'lucide-react';
+import useDeleteFavoritePlace from '@/lib/apis/mutations/useDeleteFavoritePlace';
 import usePostFavoritePlace from '@/lib/apis/mutations/usePostFavoritePlace';
 import useGetPlaces, {
   PlaceCategoryCode,
@@ -77,6 +78,12 @@ export default function NearbyPlaces() {
     error: postFavoriteError,
     reset: resetPostFavoriteError,
   } = usePostFavoritePlace();
+  const {
+    mutate: deleteFavoritePlaceMutate,
+    isPending: isDeletingFavorite,
+    error: deleteFavoriteError,
+    reset: resetDeleteFavoriteError,
+  } = useDeleteFavoritePlace();
 
   const selectedCategoryCode = useMemo(
     () =>
@@ -162,18 +169,25 @@ export default function NearbyPlaces() {
       new Set((favoritesData?.data.places ?? []).map(place => place.placeId)),
     [favoritesData?.data.places],
   );
-  const favoriteErrorCode = (
+  const postFavoriteErrorCode = (
     postFavoriteError as AxiosError<{ code?: string }> | null
   )?.response?.data?.code;
+  const deleteFavoriteErrorCode = (
+    deleteFavoriteError as AxiosError<{ code?: string }> | null
+  )?.response?.data?.code;
   const favoriteErrorMessage = (() => {
-    if (!favoriteErrorCode) return '';
-    if (favoriteErrorCode === 'C002')
+    if (postFavoriteErrorCode === 'C002')
       return '요청 데이터가 올바르지 않습니다.';
-    if (favoriteErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
-    if (favoriteErrorCode === 'M005')
+    if (postFavoriteErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+    if (postFavoriteErrorCode === 'M005')
       return '이미 즐겨찾기에 등록된 장소입니다.';
-    return '즐겨찾기 등록 중 오류가 발생했습니다.';
+    if (deleteFavoriteErrorCode === 'M006')
+      return '해당 즐겨찾기를 찾을 수 없습니다.';
+    if (postFavoriteErrorCode) return '즐겨찾기 등록 중 오류가 발생했습니다.';
+    if (deleteFavoriteErrorCode) return '즐겨찾기 삭제 중 오류가 발생했습니다.';
+    return '';
   })();
+  const isFavoritePending = isPostingFavorite || isDeletingFavorite;
 
   const selectedPlace = useMemo(
     () =>
@@ -204,9 +218,14 @@ export default function NearbyPlaces() {
     event.stopPropagation();
     setFavoriteMessage('');
     resetPostFavoriteError();
+    resetDeleteFavoriteError();
 
     if (favoritePlaceIdSet.has(placeId)) {
-      setFavoriteMessage('이미 즐겨찾기에 등록된 장소입니다.');
+      deleteFavoritePlaceMutate(placeId, {
+        onSuccess: () => {
+          setFavoriteMessage('즐겨찾기에서 삭제되었습니다.');
+        },
+      });
       return;
     }
 
@@ -371,10 +390,10 @@ export default function NearbyPlaces() {
                 type='button'
                 className={styles.favoriteActionButton}
                 onClick={event => handleFavoritePlace(event, selectedPlace.id)}
-                disabled={isPostingFavorite || favoritePlaceIdSet.has(selectedPlace.id)}
+                disabled={isFavoritePending}
               >
                 {favoritePlaceIdSet.has(selectedPlace.id)
-                  ? '즐겨찾기 등록됨'
+                  ? '즐겨찾기 해제'
                   : '즐겨찾기 등록'}
               </button>
               <div>팁 {selectedPlace.tipCount}개</div>
@@ -395,7 +414,7 @@ export default function NearbyPlaces() {
                     type='button'
                     className={styles.favoriteMark}
                     onClick={event => handleFavoritePlace(event, place.id)}
-                    disabled={isPostingFavorite}
+                    disabled={isFavoritePending}
                     aria-label='장소 즐겨찾기 등록'
                   >
                     {favoritePlaceIdSet.has(place.id) ? '★' : '☆'}
