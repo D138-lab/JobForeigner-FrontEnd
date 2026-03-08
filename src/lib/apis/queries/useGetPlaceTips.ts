@@ -8,6 +8,9 @@ export interface PlaceTip {
   authorNickname: string;
   likeCount: number;
   createdAt: string;
+  isMine?: boolean;
+  isAuthor?: boolean;
+  canDelete?: boolean;
 }
 
 interface GetPlaceTipsResponse {

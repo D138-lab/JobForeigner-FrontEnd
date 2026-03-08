@@ -197,6 +197,12 @@
   align-items: center;
 }
 
+.tipTopRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .tipType {
   font-size: 0.75rem;
   color: #0c4a6e;
@@ -208,6 +214,38 @@
 .tipAuthor {
   font-size: 0.76rem;
   color: #5f768b;
+}
+
+.tipMenuWrap {
+  position: relative;
+}
+
+.tipMenuButton {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbddea;
+  border-radius: 8px;
+  background: #fff;
+  color: #506a7f;
+  cursor: pointer;
+}
+
+.tipDeleteButton {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.2rem);
+  border: 1px solid #d8e5f0;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.76rem;
+  color: #b91c1c;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 2;
 }
 
 .tipItem p {

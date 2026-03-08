@@ -1,15 +1,25 @@
 import { FormEvent, useState } from 'react';
-import { ArrowLeft, Clock3, MapPin, Phone, ThumbsUp } from 'lucide-react';
+import {
+  ArrowLeft,
+  Clock3,
+  MapPin,
+  MoreHorizontal,
+  Phone,
+  ThumbsUp,
+} from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import Button from '@/components/common/button/Button';
+import useDeletePlaceTip from '@/lib/apis/mutations/useDeletePlaceTip';
 import usePostPlaceTip, {
   PlaceTipType,
 } from '@/lib/apis/mutations/usePostPlaceTip';
+import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import { PATH } from '@/lib/constants/routes';
 import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
 import useGetPlaceTips from '@/lib/apis/queries/useGetPlaceTips';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 import styles from './page.module.scss';
 
 const tipTypeLabel: Record<string, string> = {
@@ -32,6 +42,11 @@ export default function NearbyPlaceDetailPage() {
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [tipSubmitSuccess, setTipSubmitSuccess] = useState('');
   const [tipSubmitError, setTipSubmitError] = useState('');
+  const [tipActionError, setTipActionError] = useState('');
+  const [activeTipMenuId, setActiveTipMenuId] = useState<number | null>(null);
+  const { name: authName } = useAuthStore();
+  const { data: myInfo } = useGetMyInfo();
+  const currentUserName = (myInfo?.name ?? authName ?? '').trim();
   const { data, isLoading, isError } = useGetPlaceDetail(parsedPlaceId, !!placeId);
   const {
     data: tipsData,
@@ -46,11 +61,19 @@ export default function NearbyPlaceDetailPage() {
     error: postTipError,
     reset: resetPostTipError,
   } = usePostPlaceTip();
+  const {
+    mutate: deleteTipMutate,
+    isPending: isTipDeleting,
+    error: deleteTipError,
+    reset: resetDeleteTipError,
+  } = useDeletePlaceTip();
 
   const detail = data?.data;
   const tips = tipsData?.data ?? [];
   const typedTipsError = tipsError as AxiosError<ApiErrorResponse> | null;
   const typedPostTipError = postTipError as AxiosError<ApiErrorResponse> | null;
+  const typedDeleteTipError =
+    deleteTipError as AxiosError<ApiErrorResponse> | null;
   const isForeignerOnlyTipsError =
     typedTipsError instanceof AxiosError &&
     typedTipsError.response?.status === 403 &&
@@ -62,6 +85,7 @@ export default function NearbyPlaceDetailPage() {
   const isForeignerOnlyAccessBlocked =
     isForeignerOnlyTipsError || isForeignerOnlyPostError;
   const postTipErrorCode = typedPostTipError?.response?.data?.code;
+  const deleteTipErrorCode = typedDeleteTipError?.response?.data?.code;
 
   const postTipErrorMessage = (() => {
     if (!postTipErrorCode) return '';
@@ -72,6 +96,20 @@ export default function NearbyPlaceDetailPage() {
     if (postTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
     return '팁 등록 중 오류가 발생했습니다.';
   })();
+
+  const deleteTipErrorMessage = (() => {
+    if (!deleteTipErrorCode) return '';
+    if (deleteTipErrorCode === 'S002')
+      return '해당 팁을 삭제할 권한이 없습니다.';
+    if (deleteTipErrorCode === 'M008') return '팁 정보를 찾을 수 없습니다.';
+    return '팁 삭제 중 오류가 발생했습니다.';
+  })();
+
+  const isMyTip = (authorNickname: string, tip: { isMine?: boolean; isAuthor?: boolean; canDelete?: boolean }) => {
+    if (tip.isMine || tip.isAuthor || tip.canDelete) return true;
+    if (!currentUserName) return false;
+    return authorNickname === currentUserName;
+  };
 
   const handleSubmitTip = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -85,7 +123,9 @@ export default function NearbyPlaceDetailPage() {
 
     setTipSubmitError('');
     setTipSubmitSuccess('');
+    setTipActionError('');
     resetPostTipError();
+    resetDeleteTipError();
 
     postTipMutate(
       {
@@ -100,6 +140,24 @@ export default function NearbyPlaceDetailPage() {
         onSuccess: () => {
           setTipContent('');
           setTipSubmitSuccess('팁이 등록되었습니다.');
+        },
+      },
+    );
+  };
+
+  const handleDeleteTip = (tipId: number) => {
+    const confirmed = window.confirm('이 팁을 삭제하시겠습니까?');
+    if (!confirmed) return;
+
+    setTipActionError('');
+    resetDeleteTipError();
+    setActiveTipMenuId(null);
+
+    deleteTipMutate(
+      { tipId, placeId: parsedPlaceId },
+      {
+        onSuccess: () => {
+          setTipSubmitSuccess('팁이 삭제되었습니다.');
         },
       },
     );
@@ -228,6 +286,10 @@ export default function NearbyPlaceDetailPage() {
           {isForeignerOnlyAccessBlocked ? (
             <div className={styles.formError}>외국인 회원만 팁 작성 및 조회가 가능합니다.</div>
           ) : null}
+          {tipActionError ? <div className={styles.formError}>{tipActionError}</div> : null}
+          {deleteTipErrorMessage ? (
+            <div className={styles.formError}>{deleteTipErrorMessage}</div>
+          ) : null}
         </form>
         {isTipsLoading ? (
           <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
@@ -242,8 +304,37 @@ export default function NearbyPlaceDetailPage() {
             {tips.map(tip => (
               <li key={tip.id} className={styles.tipItem}>
                 <div className={styles.tipTop}>
-                  <span className={styles.tipType}>{tipTypeLabel[tip.tipType] ?? tip.tipType}</span>
-                  <span className={styles.tipAuthor}>{tip.authorNickname}</span>
+                  <span className={styles.tipType}>
+                    {tipTypeLabel[tip.tipType] ?? tip.tipType}
+                  </span>
+                  <div className={styles.tipTopRight}>
+                    <span className={styles.tipAuthor}>{tip.authorNickname}</span>
+                    {isMyTip(tip.authorNickname, tip) ? (
+                      <div className={styles.tipMenuWrap}>
+                        <button
+                          type='button'
+                          className={styles.tipMenuButton}
+                          aria-label='팁 더보기'
+                          onClick={() =>
+                            setActiveTipMenuId(prev => (prev === tip.id ? null : tip.id))
+                          }
+                          disabled={isTipDeleting}
+                        >
+                          <MoreHorizontal size={14} />
+                        </button>
+                        {activeTipMenuId === tip.id ? (
+                          <button
+                            type='button'
+                            className={styles.tipDeleteButton}
+                            onClick={() => handleDeleteTip(tip.id)}
+                            disabled={isTipDeleting}
+                          >
+                            삭제
+                          </button>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
                 <p>{tip.content}</p>
                 <div className={styles.tipBottom}>
