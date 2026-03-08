@@ -1,5 +1,7 @@
+import { AxiosError } from 'axios';
 import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
 import { LocateFixed, Minus, Plus, Search } from 'lucide-react';
+import usePostFavoritePlace from '@/lib/apis/mutations/usePostFavoritePlace';
 import useGetPlaces, {
   PlaceCategoryCode,
   PlaceItem,
@@ -62,12 +64,19 @@ export default function NearbyPlaces() {
   const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(null);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [mapLevel, setMapLevel] = useState(5);
+  const [favoriteMessage, setFavoriteMessage] = useState('');
   const [currentPosition, setCurrentPosition] = useState({
     lat: 37.5665,
     lng: 126.978,
   });
   const navigate = useNavigate();
   const { data: favoritesData } = useGetMapFavorites();
+  const {
+    mutate: postFavoritePlaceMutate,
+    isPending: isPostingFavorite,
+    error: postFavoriteError,
+    reset: resetPostFavoriteError,
+  } = usePostFavoritePlace();
 
   const selectedCategoryCode = useMemo(
     () =>
@@ -153,6 +162,18 @@ export default function NearbyPlaces() {
       new Set((favoritesData?.data.places ?? []).map(place => place.placeId)),
     [favoritesData?.data.places],
   );
+  const favoriteErrorCode = (
+    postFavoriteError as AxiosError<{ code?: string }> | null
+  )?.response?.data?.code;
+  const favoriteErrorMessage = (() => {
+    if (!favoriteErrorCode) return '';
+    if (favoriteErrorCode === 'C002')
+      return '요청 데이터가 올바르지 않습니다.';
+    if (favoriteErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+    if (favoriteErrorCode === 'M005')
+      return '이미 즐겨찾기에 등록된 장소입니다.';
+    return '즐겨찾기 등록 중 오류가 발생했습니다.';
+  })();
 
   const selectedPlace = useMemo(
     () =>
@@ -174,6 +195,29 @@ export default function NearbyPlaces() {
       map.panTo(new kakao.maps.LatLng(position.lat, position.lng));
     }
     navigate(`/nearby-places/${placeId}`);
+  };
+
+  const handleFavoritePlace = (
+    event: React.MouseEvent<HTMLElement>,
+    placeId: number,
+  ) => {
+    event.stopPropagation();
+    setFavoriteMessage('');
+    resetPostFavoriteError();
+
+    if (favoritePlaceIdSet.has(placeId)) {
+      setFavoriteMessage('이미 즐겨찾기에 등록된 장소입니다.');
+      return;
+    }
+
+    postFavoritePlaceMutate(
+      { placeId },
+      {
+        onSuccess: () => {
+          setFavoriteMessage('즐겨찾기에 등록되었습니다.');
+        },
+      },
+    );
   };
 
   const handleSubmitSearch = (e: React.FormEvent) => {
@@ -229,6 +273,12 @@ export default function NearbyPlaces() {
           </button>
         ))}
       </div>
+      {favoriteMessage ? (
+        <div className={styles.favoriteSuccess}>{favoriteMessage}</div>
+      ) : null}
+      {favoriteErrorMessage ? (
+        <div className={styles.favoriteError}>{favoriteErrorMessage}</div>
+      ) : null}
 
       <div className={styles.content}>
         <section className={styles.mapArea}>
@@ -317,9 +367,16 @@ export default function NearbyPlaces() {
               <h3>{selectedPlace.name}</h3>
               <p>{selectedPlace.subCategory || '상세 카테고리 정보 없음'}</p>
               <div>{selectedPlace.displayAddress}</div>
-              {favoritePlaceIdSet.has(selectedPlace.id) && (
-                <div className={styles.favoriteBadge}>즐겨찾기 등록됨</div>
-              )}
+              <button
+                type='button'
+                className={styles.favoriteActionButton}
+                onClick={event => handleFavoritePlace(event, selectedPlace.id)}
+                disabled={isPostingFavorite || favoritePlaceIdSet.has(selectedPlace.id)}
+              >
+                {favoritePlaceIdSet.has(selectedPlace.id)
+                  ? '즐겨찾기 등록됨'
+                  : '즐겨찾기 등록'}
+              </button>
               <div>팁 {selectedPlace.tipCount}개</div>
             </div>
           ) : null}
@@ -334,9 +391,15 @@ export default function NearbyPlaces() {
               >
                 <strong>
                   {place.name}
-                  {favoritePlaceIdSet.has(place.id) ? (
-                    <span className={styles.favoriteMark}>★</span>
-                  ) : null}
+                  <button
+                    type='button'
+                    className={styles.favoriteMark}
+                    onClick={event => handleFavoritePlace(event, place.id)}
+                    disabled={isPostingFavorite}
+                    aria-label='장소 즐겨찾기 등록'
+                  >
+                    {favoritePlaceIdSet.has(place.id) ? '★' : '☆'}
+                  </button>
                 </strong>
                 <div>{categoryLabelByCode[place.category] || fallbackCategories[6]}</div>
                 <div>{place.displayAddress}</div>
