@@ -41,11 +41,16 @@
 
     .item {
       width: 100%;
+      border: none;
+      background: transparent;
+      padding: 0;
+      text-align: left;
       display: flex;
       flex-direction: row;
       justify-content: start;
       align-items: center;
       gap: 1rem;
+      cursor: pointer;
 
       span {
         width: 0.8rem;

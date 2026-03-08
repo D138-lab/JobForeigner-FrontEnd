@@ -103,7 +103,12 @@ export const ContentArea = ({ postType, setPostType }: Props) => {
         </div>
       </div>
       <div className={styles.right}>
-        <PopularPosts titles={filteredPosts.map(post => post.title)} />
+        <PopularPosts
+          posts={filteredPosts.map(post => ({
+            id: post.postId,
+            title: post.title,
+          }))}
+        />
         <TopMember
           people={filteredPosts.slice(0, 3).map(post => ({
             name: post.memberNickname,
