@@ -67,7 +67,7 @@ export default function DetailPage() {
         id: comment.commentId,
         memberId: comment.memberId,
         postId: comment.postId,
-        parentId: comment.parentId ?? null,
+        parentId: null,
         userName: comment.memberNickname,
         country:
           countryCodeToName[comment.memberCountryCode] ??

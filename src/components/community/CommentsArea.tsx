@@ -3,7 +3,7 @@ import { InputComment } from './InputComment';
 import { MessageCircle } from 'lucide-react';
 import usePostBoardPostComment from '@/lib/apis/mutations/usePostBoardPostComment';
 import styles from './commentsArea.module.scss';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 export interface CommentDetailProps {
   id: number;
@@ -41,24 +41,6 @@ export const CommentArea = ({
   const [inputText, setInputText] = useState<string>('');
   const { mutate: postBoardPostComment, isPending } = usePostBoardPostComment();
 
-  const topLevelComments = useMemo(
-    () =>
-      comments.filter(
-        comment => comment.parentId === null || comment.parentId === undefined,
-      ),
-    [comments],
-  );
-  const repliesByParentId = useMemo(() => {
-    const replyMap = new Map<number, CommentDetailProps[]>();
-    comments.forEach(comment => {
-      if (comment.parentId === null || comment.parentId === undefined) return;
-      const existingReplies = replyMap.get(comment.parentId) ?? [];
-      existingReplies.push(comment);
-      replyMap.set(comment.parentId, existingReplies);
-    });
-    return replyMap;
-  }, [comments]);
-
   const handleSubmitComment = () => {
     const normalized = inputText.trim();
     if (!normalized) {
@@ -94,7 +76,7 @@ export const CommentArea = ({
     );
   };
 
-  const handleSubmitReply = (parentId: number, content: string) => {
+  const handleSubmitReply = (content: string) => {
     const normalized = content.trim();
     if (!normalized) {
       alert('답글 내용을 입력해주세요.');
@@ -104,7 +86,7 @@ export const CommentArea = ({
     postBoardPostComment(
       {
         postId,
-        body: { content: normalized, parentId },
+        body: { content: normalized },
       },
       {
         onError: error => {
@@ -126,22 +108,6 @@ export const CommentArea = ({
     );
   };
 
-  const renderCommentTree = (comment: CommentDetailProps) => {
-    const replies = repliesByParentId.get(comment.id) ?? [];
-
-    return (
-      <div key={comment.id}>
-        <Comment
-          {...comment}
-          currentMemberId={currentMemberId}
-          onSubmitReply={handleSubmitReply}
-          isSubmittingReply={isPending}
-        />
-        {replies.map(reply => renderCommentTree(reply))}
-      </div>
-    );
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -156,7 +122,15 @@ export const CommentArea = ({
         isSubmitting={isPending}
       />
       <div className={styles.comments}>
-        {topLevelComments.map(comment => renderCommentTree(comment))}
+        {comments.map(comment => (
+          <Comment
+            key={comment.id}
+            {...comment}
+            currentMemberId={currentMemberId}
+            onSubmitReply={handleSubmitReply}
+            isSubmittingReply={isPending}
+          />
+        ))}
       </div>
     </div>
   );

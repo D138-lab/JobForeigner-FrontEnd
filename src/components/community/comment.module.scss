@@ -26,20 +26,39 @@
     align-items: flex-start;
     gap: 1rem;
 
-    .deleteBtn {
-      background: transparent;
-      border: none;
-      padding: 0;
-      color: #6b7280;
-      font-size: 0.9rem;
-      cursor: pointer;
-
-      &:hover {
-        color: #374151;
-      }
+    .menuWrap {
+      position: relative;
     }
 
-    .replyInputArea {
+    .menuButton {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #4b5563;
+      border-radius: 8px;
+      width: 1.9rem;
+      height: 1.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .deleteMenuButton {
+      position: absolute;
+      top: calc(100% + 0.25rem);
+      right: 0;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      color: #b91c1c;
+      border-radius: 8px;
+      padding: 0.35rem 0.55rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .replyForm {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -47,36 +66,37 @@
 
       textarea {
         width: 100%;
-        min-height: 70px;
-        resize: none;
-        border: 1px solid #e5e7eb;
+        min-height: 76px;
+        border: 1px solid #dbe4ec;
         border-radius: 10px;
-        padding: 0.65rem;
-        font-size: 0.95rem;
+        padding: 0.6rem 0.7rem;
+        font-size: 0.9rem;
+        resize: vertical;
       }
+    }
 
-      .replyBtnRow {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.45rem;
-      }
+    .replyActions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.45rem;
+    }
 
-      .replyCancelBtn {
-        border: 1px solid #e5e7eb;
-        background: #fff;
-        border-radius: 8px;
-        padding: 0.35rem 0.65rem;
-        cursor: pointer;
-      }
+    .replyCancelButton {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: #4b5563;
+      border-radius: 8px;
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+    }
 
-      .replySubmitBtn {
-        border: 1px solid var(--color-sky-700);
-        background: var(--color-sky-700);
-        color: #fff;
-        border-radius: 8px;
-        padding: 0.35rem 0.65rem;
-        cursor: pointer;
-      }
+    .replySubmitButton {
+      border: 1px solid var(--color-sky-700);
+      background: var(--color-sky-700);
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
     }
   }
 }
@@ -86,21 +106,35 @@
 }
 
 .reply {
-  margin-left: 3.5rem;
-  width: calc(100% - 2.8rem);
+  margin-left: 4.6rem;
+  width: calc(100% - 4.6rem);
   border-radius: 12px;
-  padding: 0.8rem;
+  padding: 0.9rem 0.85rem;
   position: relative;
+  background: #f8fafc;
+  border: 1px solid #e5edf5;
 }
 
 .reply::before {
   content: '';
   position: absolute;
-  left: -1.1rem;
-  top: 1rem;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-left: 2px solid #e5e7eb;
-  border-bottom: 2px solid #e5e7eb;
-  border-radius: 0 0 0 8px;
+  left: -1.3rem;
+  top: 0.95rem;
+  width: 0.95rem;
+  height: calc(100% - 1.2rem);
+  border-left: 2px solid #cbd9e6;
+  border-top: 2px solid #cbd9e6;
+  border-radius: 10px 0 0 0;
+}
+
+.replyBadge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d2dfeb;
+  background: #eef5fb;
+  color: #35556f;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.74rem;
+  margin-bottom: 0.25rem;
 }

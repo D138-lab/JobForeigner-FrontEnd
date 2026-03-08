@@ -2,6 +2,7 @@ import { CommentContentBox } from './CommentContentBox';
 import { CommentDetailProps } from './CommentsArea';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { LikeAndCommentInComment } from './LikeAndCommentInComment';
+import { MoreHorizontal } from 'lucide-react';
 import useDeleteBoardPostComment from '@/lib/apis/mutations/useDeleteBoardPostComment';
 import useDeleteBoardPostCommentLike from '@/lib/apis/mutations/useDeleteBoardPostCommentLike';
 import usePostBoardPostCommentLike from '@/lib/apis/mutations/usePostBoardPostCommentLike';
@@ -10,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 interface CommentProps extends CommentDetailProps {
   currentMemberId?: number;
-  onSubmitReply: (parentId: number, content: string) => void;
+  onSubmitReply: (content: string) => void;
   isSubmittingReply?: boolean;
 }
 
@@ -42,7 +43,8 @@ export const Comment = ({
     typeof currentMemberId === 'number' && memberId === currentMemberId;
   const [likedState, setLikedState] = useState(isLikedByMe);
   const [likeCountState, setLikeCountState] = useState(numOfLiked);
-  const [isReplyInputOpen, setIsReplyInputOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isReplyOpen, setIsReplyOpen] = useState(false);
   const [replyText, setReplyText] = useState('');
 
   useEffect(() => {
@@ -58,6 +60,7 @@ export const Comment = ({
       { postId, commentId: id },
       {
         onSuccess: () => {
+          setIsMenuOpen(false);
           alert('댓글이 삭제되었습니다.');
         },
         onError: error => {
@@ -77,17 +80,6 @@ export const Comment = ({
         },
       },
     );
-  };
-
-  const handleReplySubmit = () => {
-    const normalized = replyText.trim();
-    if (!normalized) {
-      alert('답글 내용을 입력해주세요.');
-      return;
-    }
-    onSubmitReply(id, normalized);
-    setReplyText('');
-    setIsReplyInputOpen(false);
   };
 
   const handleLike = () => {
@@ -123,6 +115,24 @@ export const Comment = ({
     postBoardPostCommentLike({ postId, commentId: id }, { onSuccess, onError });
   };
 
+  const handleOpenReply = () => {
+    setIsReplyOpen(prev => !prev);
+    if (!isReplyOpen) {
+      setReplyText(`@${userName} `);
+    }
+  };
+
+  const handleSubmitReply = () => {
+    const normalized = replyText.trim();
+    if (!normalized) {
+      alert('답글 내용을 입력해주세요.');
+      return;
+    }
+    onSubmitReply(normalized);
+    setReplyText('');
+    setIsReplyOpen(false);
+  };
+
   return (
     <div className={`${styles.container} ${isReply ? styles.reply : ''}`}>
       <div className={styles.left}>
@@ -133,6 +143,7 @@ export const Comment = ({
         />
       </div>
       <div className={styles.right}>
+        {isReply ? <div className={styles.replyBadge}>↳ 답글</div> : null}
         <CommentContentBox
           isVerified={isVerifiedUser}
           userName={userName}
@@ -143,24 +154,24 @@ export const Comment = ({
         <LikeAndCommentInComment
           isLikedByMe={likedState}
           numOfLikes={likeCountState}
-          onClickComment={() => setIsReplyInputOpen(prev => !prev)}
+          onClickComment={handleOpenReply}
           onClickLike={handleLike}
         />
-        {isReplyInputOpen && (
-          <div className={styles.replyInputArea}>
+        {isReplyOpen && (
+          <div className={styles.replyForm}>
             <textarea
               value={replyText}
               onChange={event => setReplyText(event.target.value)}
               placeholder='답글을 입력하세요'
               disabled={isSubmittingReply}
             />
-            <div className={styles.replyBtnRow}>
+            <div className={styles.replyActions}>
               <button
                 type='button'
-                className={styles.replyCancelBtn}
+                className={styles.replyCancelButton}
                 onClick={() => {
+                  setIsReplyOpen(false);
                   setReplyText('');
-                  setIsReplyInputOpen(false);
                 }}
                 disabled={isSubmittingReply}
               >
@@ -168,8 +179,8 @@ export const Comment = ({
               </button>
               <button
                 type='button'
-                className={styles.replySubmitBtn}
-                onClick={handleReplySubmit}
+                className={styles.replySubmitButton}
+                onClick={handleSubmitReply}
                 disabled={isSubmittingReply}
               >
                 {isSubmittingReply ? '등록 중...' : '답글 등록'}
@@ -178,14 +189,27 @@ export const Comment = ({
           </div>
         )}
         {isMine && (
-          <button
-            type='button'
-            className={styles.deleteBtn}
-            onClick={handleDelete}
-            disabled={isPending}
-          >
-            {isPending ? '삭제 중...' : '삭제하기'}
-          </button>
+          <div className={styles.menuWrap}>
+            <button
+              type='button'
+              className={styles.menuButton}
+              onClick={() => setIsMenuOpen(prev => !prev)}
+              aria-label='댓글 더보기'
+              disabled={isPending}
+            >
+              <MoreHorizontal size={16} />
+            </button>
+            {isMenuOpen && (
+              <button
+                type='button'
+                className={styles.deleteMenuButton}
+                onClick={handleDelete}
+                disabled={isPending}
+              >
+                {isPending ? '삭제 중...' : '삭제하기'}
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>
