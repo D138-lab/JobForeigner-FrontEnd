@@ -3,6 +3,7 @@ import Select, { Option } from '@/components/common/select/Select';
 import { selectRegionOptions } from '@/components/jobs/DetailSearchForm';
 import { MapComponent } from '@/components/nearby-companies/mapComponent/MapComponent';
 import useDeleteFavoriteRegion from '@/lib/apis/mutations/useDeleteFavoriteRegion';
+import usePatchFavoriteRegionNotification from '@/lib/apis/mutations/usePatchFavoriteRegionNotification';
 import usePostFavoriteRegion from '@/lib/apis/mutations/usePostFavoriteRegion';
 import useGetMapFavorites from '@/lib/apis/queries/useGetMapFavorites';
 import useGetMapJobPostClusters from '@/lib/apis/queries/useGetMapJobPostClusters';
@@ -52,6 +53,12 @@ export default function NearbyCompanies() {
     error: deleteFavoriteRegionError,
     reset: resetDeleteFavoriteRegionError,
   } = useDeleteFavoriteRegion();
+  const {
+    mutate: patchFavoriteRegionNotificationMutate,
+    isPending: isPatchingFavoriteRegionNotification,
+    error: patchFavoriteRegionNotificationError,
+    reset: resetPatchFavoriteRegionNotificationError,
+  } = usePatchFavoriteRegionNotification();
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -155,11 +162,24 @@ export default function NearbyCompanies() {
       new Set((favoritesData?.data.regions ?? []).map(region => region.regionCode)),
     [favoritesData?.data.regions],
   );
+  const favoriteRegionMap = useMemo(
+    () =>
+      new Map(
+        (favoritesData?.data.regions ?? []).map(region => [
+          region.regionCode,
+          region,
+        ]),
+      ),
+    [favoritesData?.data.regions],
+  );
   const postFavoriteRegionErrorCode = (
     postFavoriteRegionError as AxiosError<{ code?: string }> | null
   )?.response?.data?.code;
   const deleteFavoriteRegionErrorCode = (
     deleteFavoriteRegionError as AxiosError<{ code?: string }> | null
+  )?.response?.data?.code;
+  const patchFavoriteRegionNotificationErrorCode = (
+    patchFavoriteRegionNotificationError as AxiosError<{ code?: string }> | null
   )?.response?.data?.code;
   const favoriteErrorMessage = (() => {
     if (postFavoriteRegionErrorCode === 'C002')
@@ -170,12 +190,18 @@ export default function NearbyCompanies() {
       return '이미 즐겨찾기에 등록된 지역입니다.';
     if (deleteFavoriteRegionErrorCode === 'M006')
       return '해당 즐겨찾기를 찾을 수 없습니다.';
+    if (patchFavoriteRegionNotificationErrorCode === 'M006')
+      return '해당 즐겨찾기를 찾을 수 없습니다.';
     if (postFavoriteRegionErrorCode) return '즐겨찾기 등록 중 오류가 발생했습니다.';
     if (deleteFavoriteRegionErrorCode) return '즐겨찾기 삭제 중 오류가 발생했습니다.';
+    if (patchFavoriteRegionNotificationErrorCode)
+      return '알림 설정 변경 중 오류가 발생했습니다.';
     return '';
   })();
   const isFavoriteRegionPending =
-    isPostingFavoriteRegion || isDeletingFavoriteRegion;
+    isPostingFavoriteRegion ||
+    isDeletingFavoriteRegion ||
+    isPatchingFavoriteRegionNotification;
 
   const handleFavoriteRegion = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -186,6 +212,7 @@ export default function NearbyCompanies() {
     setFavoriteMessage('');
     resetPostFavoriteRegionError();
     resetDeleteFavoriteRegionError();
+    resetPatchFavoriteRegionNotificationError();
 
     if (favoriteRegionCodeSet.has(regionCode)) {
       deleteFavoriteRegionMutate(regionCode, {
@@ -208,6 +235,23 @@ export default function NearbyCompanies() {
         },
       },
     );
+  };
+
+  const handleToggleRegionNotification = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    regionCode: string,
+  ) => {
+    event.stopPropagation();
+    setFavoriteMessage('');
+    resetPostFavoriteRegionError();
+    resetDeleteFavoriteRegionError();
+    resetPatchFavoriteRegionNotificationError();
+
+    patchFavoriteRegionNotificationMutate(regionCode, {
+      onSuccess: () => {
+        setFavoriteMessage('지역 새 공고 알림 설정이 변경되었습니다.');
+      },
+    });
   };
 
   return (
@@ -269,6 +313,20 @@ export default function NearbyCompanies() {
                       >
                         {favoriteRegionCodeSet.has(regionCode) ? '★' : '☆'}
                       </button>
+                      {favoriteRegionCodeSet.has(regionCode) ? (
+                        <button
+                          type='button'
+                          className={styles.notificationToggleButton}
+                          onClick={event =>
+                            handleToggleRegionNotification(event, regionCode)
+                          }
+                          disabled={isFavoriteRegionPending}
+                        >
+                          {favoriteRegionMap.get(regionCode)?.notifyNewJobPost
+                            ? '알림 ON'
+                            : '알림 OFF'}
+                        </button>
+                      ) : null}
                     </div>
                     <div className={styles.distance}>
                       {Number.isFinite(distance)
