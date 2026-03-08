@@ -1,18 +1,15 @@
 import Input from '../common/input/Input';
 import styles from './searchPostForm.module.scss';
-import { useState } from 'react';
 
 type Props = {
-  defaultSearchValue: string;
-  onClick: (searchValue: string) => void;
+  searchValue: string;
+  onChangeSearchValue: (searchValue: string) => void;
 };
 
-export const SearchPostForm = ({ defaultSearchValue, onClick }: Props) => {
-  const [searchValue, setSearchValue] = useState<string>(defaultSearchValue);
-
+export const SearchPostForm = ({ searchValue, onChangeSearchValue }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onClick(searchValue);
+    onChangeSearchValue(searchValue.trim());
   };
 
   return (
@@ -22,7 +19,7 @@ export const SearchPostForm = ({ defaultSearchValue, onClick }: Props) => {
           value={searchValue}
           icon='search'
           placeholder='게시글 검색'
-          onChange={e => setSearchValue(e.currentTarget.value)}
+          onChange={e => onChangeSearchValue(e.currentTarget.value)}
         />
       </div>
 

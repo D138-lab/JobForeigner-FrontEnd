@@ -15,29 +15,44 @@ import { useMemo } from 'react';
 interface Props {
   postType: postType;
   setPostType: (type: postType) => void;
+  searchValue: string;
 }
 
-export const ContentArea = ({ postType, setPostType }: Props) => {
+export const ContentArea = ({ postType, setPostType, searchValue }: Props) => {
   const navigate = useNavigate();
   const { data } = useGetBoardPosts(0, 12);
   const { data: myInfo } = useGetMyInfo();
   const posts = data?.data.pageContents ?? [];
   const currentMemberId = myInfo?.memberId;
+  const normalizedSearch = searchValue.trim().toLowerCase();
   const filteredPosts = useMemo(() => {
-    if (postType === 'all') return posts;
+    let result = posts;
 
-    const boardCategoryTypeByPostType: Record<Exclude<postType, 'all'>, string> = {
-      normal: 'GENERAL',
-      used: 'MARKET',
-      curation: 'POLICY',
-    };
+    if (postType !== 'all') {
+      const boardCategoryTypeByPostType: Record<
+        Exclude<postType, 'all'>,
+        string
+      > = {
+        normal: 'GENERAL',
+        used: 'MARKET',
+        curation: 'POLICY',
+      };
 
-    return posts.filter(
-      post =>
-        post.boardCategoryType ===
-        boardCategoryTypeByPostType[postType as Exclude<postType, 'all'>],
+      result = result.filter(
+        post =>
+          post.boardCategoryType ===
+          boardCategoryTypeByPostType[postType as Exclude<postType, 'all'>],
+      );
+    }
+
+    if (normalizedSearch === '') return result;
+
+    return result.filter(post =>
+      post.title.toLowerCase().includes(normalizedSearch),
     );
-  }, [postType, posts]);
+  }, [postType, posts, normalizedSearch]);
+
+  const hasSearchKeyword = normalizedSearch.length > 0;
 
   const countryCodeToName: Record<string, string> = {
     KR: 'South Korea',
@@ -68,7 +83,9 @@ export const ContentArea = ({ postType, setPostType }: Props) => {
         <div className={styles.posts}>
           {filteredPosts.length === 0 ? (
             <div className={styles.emptyState}>
-              해당 카테고리에 게시글이 없습니다.
+              {hasSearchKeyword
+                ? '검색된 제목의 게시글이 없습니다.'
+                : '해당 카테고리에 게시글이 없습니다.'}
             </div>
           ) : (
             filteredPosts.map(post => (

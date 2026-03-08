@@ -12,10 +12,6 @@ export default function CommunityPage() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [searchValue, setSearchValue] = useState<string>('');
   const [postType, setPostType] = useState<postType>('all');
-  const [postCategory, setPostCategory] = useState<string>('');
-  void setSearchValue;
-  void postCategory;
-  void setPostCategory;
 
   const navigate = useNavigate();
 
@@ -35,10 +31,14 @@ export default function CommunityPage() {
         </button>
       </div>
       <SearchPostForm
-        defaultSearchValue={searchValue}
-        onClick={a => console.log(a)}
+        searchValue={searchValue}
+        onChangeSearchValue={value => setSearchValue(value)}
       />
-      <ContentArea postType={postType} setPostType={setPostType} />
+      <ContentArea
+        postType={postType}
+        setPostType={setPostType}
+        searchValue={searchValue}
+      />
     </div>
   );
 }
