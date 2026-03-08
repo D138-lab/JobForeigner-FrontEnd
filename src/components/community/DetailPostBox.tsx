@@ -3,10 +3,11 @@ import { EtcDots } from './EtcDots';
 import { LikeAndComments } from './LikeAndComments';
 import { ProfileInfoInPost } from './ProfileInfoInPost';
 import { StyledCategory } from './StyledCategory';
+import DOMPurify from 'dompurify';
 import useDeleteBoardPostLike from '@/lib/apis/mutations/useDeleteBoardPostLike';
 import usePostBoardPostLike from '@/lib/apis/mutations/usePostBoardPostLike';
 import styles from './detailPostBox.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export interface DetailPostBoxProps {
   postId: number;
@@ -49,6 +50,7 @@ export const DetailPostBox = ({
     useDeleteBoardPostLike();
   const [likedState, setLikedState] = useState(isLiked);
   const [likeCountState, setLikeCountState] = useState(numOfLiked);
+  const sanitizedContent = useMemo(() => DOMPurify.sanitize(content), [content]);
 
   useEffect(() => {
     setLikedState(isLiked);
@@ -110,7 +112,10 @@ export const DetailPostBox = ({
         nationality={country}
         postedAt={postedAt}
       />
-      <div className={styles.content}>{content}</div>
+      <div
+        className={styles.content}
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+      />
       <CustomDivider />
       <LikeAndComments
         isLiked={likedState}

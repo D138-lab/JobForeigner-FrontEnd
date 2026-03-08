@@ -42,7 +42,11 @@
 
   .content {
     margin: 1.5rem 0 0 0;
-    white-space: pre-wrap;
     font-size: 1.4em;
+    line-height: 1.6;
+
+    p {
+      margin: 0.6rem 0;
+    }
   }
 }
