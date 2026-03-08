@@ -16,6 +16,7 @@ import usePostPlaceTip, {
   PlaceTipType,
 } from '@/lib/apis/mutations/usePostPlaceTip';
 import usePostPlaceTipLike from '@/lib/apis/mutations/usePostPlaceTipLike';
+import usePostPlaceTipReport from '@/lib/apis/mutations/usePostPlaceTipReport';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import { PATH } from '@/lib/constants/routes';
 import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
@@ -74,6 +75,12 @@ export default function NearbyPlaceDetailPage() {
     error: likeTipError,
     reset: resetLikeTipError,
   } = usePostPlaceTipLike();
+  const {
+    mutate: reportTipMutate,
+    isPending: isTipReporting,
+    error: reportTipError,
+    reset: resetReportTipError,
+  } = usePostPlaceTipReport();
 
   const detail = data?.data;
   const tips = tipsData?.data ?? [];
@@ -82,6 +89,8 @@ export default function NearbyPlaceDetailPage() {
   const typedDeleteTipError =
     deleteTipError as AxiosError<ApiErrorResponse> | null;
   const typedLikeTipError = likeTipError as AxiosError<ApiErrorResponse> | null;
+  const typedReportTipError =
+    reportTipError as AxiosError<ApiErrorResponse> | null;
   const isForeignerOnlyTipsError =
     typedTipsError instanceof AxiosError &&
     typedTipsError.response?.status === 403 &&
@@ -95,6 +104,7 @@ export default function NearbyPlaceDetailPage() {
   const postTipErrorCode = typedPostTipError?.response?.data?.code;
   const deleteTipErrorCode = typedDeleteTipError?.response?.data?.code;
   const likeTipErrorCode = typedLikeTipError?.response?.data?.code;
+  const reportTipErrorCode = typedReportTipError?.response?.data?.code;
 
   const postTipErrorMessage = (() => {
     if (!postTipErrorCode) return '';
@@ -122,6 +132,14 @@ export default function NearbyPlaceDetailPage() {
     return '좋아요 처리 중 오류가 발생했습니다.';
   })();
 
+  const reportTipErrorMessage = (() => {
+    if (!reportTipErrorCode) return '';
+    if (reportTipErrorCode === 'M004')
+      return '외국인 회원만 신고할 수 있습니다.';
+    if (reportTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+    return '신고 처리 중 오류가 발생했습니다.';
+  })();
+
   const isMyTip = (authorNickname: string, tip: { isMine?: boolean; isAuthor?: boolean; canDelete?: boolean }) => {
     if (tip.isMine || tip.isAuthor || tip.canDelete) return true;
     if (!currentUserName) return false;
@@ -144,6 +162,7 @@ export default function NearbyPlaceDetailPage() {
     resetPostTipError();
     resetDeleteTipError();
     resetLikeTipError();
+    resetReportTipError();
 
     postTipMutate(
       {
@@ -170,6 +189,7 @@ export default function NearbyPlaceDetailPage() {
     setTipActionError('');
     resetDeleteTipError();
     resetLikeTipError();
+    resetReportTipError();
     setActiveTipMenuId(null);
 
     deleteTipMutate(
@@ -186,8 +206,29 @@ export default function NearbyPlaceDetailPage() {
     setTipActionError('');
     resetDeleteTipError();
     resetLikeTipError();
+    resetReportTipError();
 
     likeTipMutate({ tipId, placeId: parsedPlaceId });
+  };
+
+  const handleReportTip = (tipId: number) => {
+    const confirmed = window.confirm('이 팁을 신고하시겠습니까?');
+    if (!confirmed) return;
+
+    setTipActionError('');
+    resetDeleteTipError();
+    resetLikeTipError();
+    resetReportTipError();
+    setActiveTipMenuId(null);
+
+    reportTipMutate(
+      { tipId },
+      {
+        onSuccess: () => {
+          setTipSubmitSuccess('신고가 접수되었습니다.');
+        },
+      },
+    );
   };
 
   if (isLoading) {
@@ -320,6 +361,9 @@ export default function NearbyPlaceDetailPage() {
           {likeTipErrorMessage ? (
             <div className={styles.formError}>{likeTipErrorMessage}</div>
           ) : null}
+          {reportTipErrorMessage ? (
+            <div className={styles.formError}>{reportTipErrorMessage}</div>
+          ) : null}
         </form>
         {isTipsLoading ? (
           <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
@@ -339,20 +383,20 @@ export default function NearbyPlaceDetailPage() {
                   </span>
                   <div className={styles.tipTopRight}>
                     <span className={styles.tipAuthor}>{tip.authorNickname}</span>
-                    {isMyTip(tip.authorNickname, tip) ? (
-                      <div className={styles.tipMenuWrap}>
-                        <button
-                          type='button'
-                          className={styles.tipMenuButton}
-                          aria-label='팁 더보기'
-                          onClick={() =>
-                            setActiveTipMenuId(prev => (prev === tip.id ? null : tip.id))
-                          }
-                          disabled={isTipDeleting}
-                        >
-                          <MoreHorizontal size={14} />
-                        </button>
-                        {activeTipMenuId === tip.id ? (
+                    <div className={styles.tipMenuWrap}>
+                      <button
+                        type='button'
+                        className={styles.tipMenuButton}
+                        aria-label='팁 더보기'
+                        onClick={() =>
+                          setActiveTipMenuId(prev => (prev === tip.id ? null : tip.id))
+                        }
+                        disabled={isTipDeleting || isTipReporting}
+                      >
+                        <MoreHorizontal size={14} />
+                      </button>
+                      {activeTipMenuId === tip.id ? (
+                        isMyTip(tip.authorNickname, tip) ? (
                           <button
                             type='button'
                             className={styles.tipDeleteButton}
@@ -361,9 +405,18 @@ export default function NearbyPlaceDetailPage() {
                           >
                             삭제
                           </button>
-                        ) : null}
-                      </div>
-                    ) : null}
+                        ) : (
+                          <button
+                            type='button'
+                            className={styles.tipReportButton}
+                            onClick={() => handleReportTip(tip.id)}
+                            disabled={isTipReporting}
+                          >
+                            신고
+                          </button>
+                        )
+                      ) : null}
+                    </div>
                   </div>
                 </div>
                 <p>{tip.content}</p>

@@ -248,6 +248,21 @@
   z-index: 2;
 }
 
+.tipReportButton {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.2rem);
+  border: 1px solid #d8e5f0;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.76rem;
+  color: #1d4ed8;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 2;
+}
+
 .tipItem p {
   margin: 0.55rem 0 0.65rem;
   font-size: 0.86rem;
