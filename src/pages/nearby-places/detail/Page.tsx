@@ -1,7 +1,12 @@
+import { FormEvent, useState } from 'react';
 import { ArrowLeft, Clock3, MapPin, Phone, ThumbsUp } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
+import Button from '@/components/common/button/Button';
+import usePostPlaceTip, {
+  PlaceTipType,
+} from '@/lib/apis/mutations/usePostPlaceTip';
 import { PATH } from '@/lib/constants/routes';
 import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
 import useGetPlaceTips from '@/lib/apis/queries/useGetPlaceTips';
@@ -22,6 +27,11 @@ interface ApiErrorResponse {
 export default function NearbyPlaceDetailPage() {
   const { placeId } = useParams();
   const parsedPlaceId = Number(placeId);
+  const [tipContent, setTipContent] = useState('');
+  const [tipType, setTipType] = useState<PlaceTipType>('POSITIVE');
+  const [isAnonymous, setIsAnonymous] = useState(true);
+  const [tipSubmitSuccess, setTipSubmitSuccess] = useState('');
+  const [tipSubmitError, setTipSubmitError] = useState('');
   const { data, isLoading, isError } = useGetPlaceDetail(parsedPlaceId, !!placeId);
   const {
     data: tipsData,
@@ -30,13 +40,70 @@ export default function NearbyPlaceDetailPage() {
     error: tipsError,
   } = useGetPlaceTips(parsedPlaceId, !!placeId);
 
+  const {
+    mutate: postTipMutate,
+    isPending: isTipPosting,
+    error: postTipError,
+    reset: resetPostTipError,
+  } = usePostPlaceTip();
+
   const detail = data?.data;
   const tips = tipsData?.data ?? [];
   const typedTipsError = tipsError as AxiosError<ApiErrorResponse> | null;
+  const typedPostTipError = postTipError as AxiosError<ApiErrorResponse> | null;
   const isForeignerOnlyTipsError =
     typedTipsError instanceof AxiosError &&
     typedTipsError.response?.status === 403 &&
     typedTipsError.response?.data?.code === 'M004';
+  const isForeignerOnlyPostError =
+    typedPostTipError instanceof AxiosError &&
+    typedPostTipError.response?.status === 403 &&
+    typedPostTipError.response?.data?.code === 'M004';
+  const isForeignerOnlyAccessBlocked =
+    isForeignerOnlyTipsError || isForeignerOnlyPostError;
+  const postTipErrorCode = typedPostTipError?.response?.data?.code;
+
+  const postTipErrorMessage = (() => {
+    if (!postTipErrorCode) return '';
+    if (postTipErrorCode === 'M004') return '';
+    if (postTipErrorCode === 'M007') return '이미 등록된 팁입니다.';
+    if (postTipErrorCode === 'C002')
+      return '요청 데이터가 올바르지 않습니다. 입력값을 확인해주세요.';
+    if (postTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+    return '팁 등록 중 오류가 발생했습니다.';
+  })();
+
+  const handleSubmitTip = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const normalizedContent = tipContent.trim();
+    if (!normalizedContent) {
+      setTipSubmitSuccess('');
+      setTipSubmitError('팁 내용을 입력해주세요.');
+      return;
+    }
+
+    setTipSubmitError('');
+    setTipSubmitSuccess('');
+    resetPostTipError();
+
+    postTipMutate(
+      {
+        placeId: parsedPlaceId,
+        body: {
+          content: normalizedContent,
+          tipType,
+          isAnonymous,
+        },
+      },
+      {
+        onSuccess: () => {
+          setTipContent('');
+          setTipSubmitSuccess('팁이 등록되었습니다.');
+        },
+      },
+    );
+  };
 
   if (isLoading) {
     return <div className={styles.stateBox}>장소 상세 정보를 불러오는 중입니다.</div>;
@@ -101,6 +168,67 @@ export default function NearbyPlaceDetailPage() {
 
       <div className={styles.tipsCard}>
         <h2>사용자 팁</h2>
+        <form className={styles.tipForm} onSubmit={handleSubmitTip}>
+          <textarea
+            className={styles.tipTextarea}
+            placeholder='이 장소에 도움이 되는 팁을 작성해주세요.'
+            value={tipContent}
+            onChange={event => {
+              setTipContent(event.target.value);
+              if (tipSubmitError) setTipSubmitError('');
+              if (tipSubmitSuccess) setTipSubmitSuccess('');
+              if (postTipErrorCode) resetPostTipError();
+            }}
+            rows={3}
+            maxLength={500}
+            disabled={isTipPosting || isForeignerOnlyAccessBlocked}
+          />
+          <div className={styles.tipFormControlRow}>
+            <div className={styles.tipFormOptions}>
+              <label className={styles.tipFormLabel}>
+                유형
+                <select
+                  className={styles.tipTypeSelect}
+                  value={tipType}
+                  onChange={event => setTipType(event.target.value as PlaceTipType)}
+                  disabled={isTipPosting || isForeignerOnlyAccessBlocked}
+                >
+                  <option value='POSITIVE'>긍정</option>
+                  <option value='NEUTRAL'>중립</option>
+                  <option value='WARNING'>주의</option>
+                </select>
+              </label>
+              <label className={styles.tipFormCheck}>
+                <input
+                  type='checkbox'
+                  checked={isAnonymous}
+                  onChange={event => setIsAnonymous(event.target.checked)}
+                  disabled={isTipPosting || isForeignerOnlyAccessBlocked}
+                />
+                익명으로 등록
+              </label>
+            </div>
+            <Button
+              type='submit'
+              color='#0c4a6e'
+              disabled={isTipPosting || isForeignerOnlyAccessBlocked}
+            >
+              {isTipPosting ? '등록 중...' : '팁 등록'}
+            </Button>
+          </div>
+          {tipSubmitSuccess ? (
+            <div className={styles.formSuccess}>{tipSubmitSuccess}</div>
+          ) : null}
+          {tipSubmitError ? (
+            <div className={styles.formError}>{tipSubmitError}</div>
+          ) : null}
+          {postTipErrorMessage ? (
+            <div className={styles.formError}>{postTipErrorMessage}</div>
+          ) : null}
+          {isForeignerOnlyAccessBlocked ? (
+            <div className={styles.formError}>외국인 회원만 팁 작성 및 조회가 가능합니다.</div>
+          ) : null}
+        </form>
         {isTipsLoading ? (
           <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
         ) : isForeignerOnlyTipsError ? (
