@@ -12,13 +12,21 @@ import usePostFileUploadConfirm from '@/lib/apis/mutations/usePostFileUploadConf
 import { PATH } from '@/lib/constants';
 import styles from './writePostPage.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 type BoardCategoryType = 'GENERAL' | 'MARKET' | 'POLICY';
+type GeneralCategoryCode = 'NOTICE' | 'FREE' | 'QNA' | 'INFO';
+
 const postTypeOptions: Option[] = [
   { label: '일반 게시글', value: 'GENERAL' },
   { label: '중고 거래', value: 'MARKET' },
   { label: '정책 큐레이션', value: 'POLICY' },
+];
+const allGeneralCategoryOptions: Option[] = [
+  { label: '운영 안내/공지', value: 'NOTICE' },
+  { label: '자유 게시글', value: 'FREE' },
+  { label: '질문/답변', value: 'QNA' },
+  { label: '정보 공유', value: 'INFO' },
 ];
 
 export default function WritePostPage() {
@@ -31,13 +39,23 @@ export default function WritePostPage() {
     isPending: isFileConfirmPending,
   } = usePostFileUploadConfirm();
   const { data: myInfo } = useGetMyInfo();
+  const isAdminUser = myInfo?.type === 'ADMIN';
   const [boardCategoryType, setBoardCategoryType] =
     useState<BoardCategoryType>('GENERAL');
+  const [generalCategoryCode, setGeneralCategoryCode] =
+    useState<GeneralCategoryCode>('FREE');
   const [postTitle, setPostTitle] = useState('');
   const [contentHtml, setContentHtml] = useState<string>('');
   const [files, setFiles] = useState<File[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const isSubmitting = isPending || isFileUploadPending || isFileConfirmPending;
+  const generalCategoryOptions = useMemo(
+    () =>
+      isAdminUser
+        ? allGeneralCategoryOptions
+        : allGeneralCategoryOptions.filter(option => option.value !== 'NOTICE'),
+    [isAdminUser],
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +78,20 @@ export default function WritePostPage() {
 
     if (!plainText) {
       alert('본문을 입력해주세요.');
+      return;
+    }
+
+    if (boardCategoryType === 'GENERAL' && !generalCategoryCode) {
+      alert('일반 게시글 카테고리를 선택해주세요.');
+      return;
+    }
+
+    if (
+      boardCategoryType === 'GENERAL' &&
+      generalCategoryCode === 'NOTICE' &&
+      !isAdminUser
+    ) {
+      alert('일반 사용자는 운영 안내/공지를 선택할 수 없습니다.');
       return;
     }
 
@@ -112,15 +144,19 @@ export default function WritePostPage() {
       return;
     }
 
+    const requestBody = {
+      title: normalizedTitle,
+      content: normalizedContent,
+      boardCategoryType,
+      ...(boardCategoryType === 'GENERAL'
+        ? { categoryCode: generalCategoryCode }
+        : {}),
+      tags: normalizedTags,
+      imageFileIds: [],
+    };
+
     postBoardPost(
-      {
-        title: normalizedTitle,
-        content: normalizedContent,
-        boardCategoryType,
-        categoryCode: '',
-        tags: normalizedTags,
-        imageFileIds: [],
-      },
+      requestBody,
       {
         onSuccess: () => {
           alert('게시글이 등록되었습니다.');
@@ -187,9 +223,23 @@ export default function WritePostPage() {
           options={postTypeOptions}
           value={boardCategoryType}
           onChange={value => {
-            setBoardCategoryType(value as BoardCategoryType);
+            const nextType = value as BoardCategoryType;
+            setBoardCategoryType(nextType);
+            if (nextType !== 'GENERAL') {
+              setGeneralCategoryCode('FREE');
+            }
           }}
         />
+        {boardCategoryType === 'GENERAL' ? (
+          <>
+            <div>일반 게시글 카테고리</div>
+            <Select
+              options={generalCategoryOptions}
+              value={generalCategoryCode}
+              onChange={value => setGeneralCategoryCode(value as GeneralCategoryCode)}
+            />
+          </>
+        ) : null}
 
         <div>제목</div>
         <Input

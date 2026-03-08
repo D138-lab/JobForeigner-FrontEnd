@@ -1,11 +1,14 @@
 import { fetcher } from '@/lib/fetcher';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+export type BoardCategoryType = 'GENERAL' | 'MARKET' | 'POLICY';
+export type GeneralCategoryCode = 'NOTICE' | 'FREE' | 'QNA' | 'INFO';
+
 export interface PostBoardPostRequest {
   title: string;
   content: string;
-  boardCategoryType: string;
-  categoryCode: string;
+  boardCategoryType: BoardCategoryType;
+  categoryCode?: GeneralCategoryCode;
   tags: string[];
   imageFileIds: number[];
 }
