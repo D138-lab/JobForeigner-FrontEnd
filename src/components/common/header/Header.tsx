@@ -19,6 +19,10 @@ export default function Header() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const logout = useAuthStore(state => state.logout);
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
+  const resolvedProfileImage =
+    typeof userImgUrl === 'string' && userImgUrl.trim() !== ''
+      ? userImgUrl
+      : DEFAULT_IMAGE_URL;
   const [activeModal, setActiveModal] = useState<'recent' | 'alarm' | null>(
     null,
   );
@@ -57,7 +61,13 @@ export default function Header() {
         ) : (
           <div className={styles.topRight}>
             <Link to='/profile' className={styles.profileBox}>
-              <img src={userImgUrl ?? DEFAULT_IMAGE_URL} alt='프로필' />
+              <img
+                src={resolvedProfileImage}
+                alt='프로필'
+                onError={event => {
+                  event.currentTarget.src = DEFAULT_IMAGE_URL;
+                }}
+              />
             </Link>
             <Button
               variant='default'

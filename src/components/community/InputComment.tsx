@@ -17,13 +17,21 @@ export const InputComment = ({
   onSubmitComment,
   isSubmitting = false,
 }: InputCommentProps) => {
+  const resolvedProfileImage =
+    typeof myProfileImgUrl === 'string' && myProfileImgUrl.trim() !== ''
+      ? myProfileImgUrl
+      : DEFAULT_IMAGE_URL;
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <img
           className={styles.image}
-          src={myProfileImgUrl ?? DEFAULT_IMAGE_URL}
+          src={resolvedProfileImage}
           alt='profileImage'
+          onError={event => {
+            event.currentTarget.src = DEFAULT_IMAGE_URL;
+          }}
         />
       </div>
 
