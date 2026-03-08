@@ -2,15 +2,6 @@ import { fetcher } from '@/lib/fetcher';
 import { PlaceCategoryCode } from './useGetPlaces';
 import { useQuery } from '@tanstack/react-query';
 
-export interface PlaceTip {
-  id: number;
-  content: string;
-  tipType: 'POSITIVE' | 'NEUTRAL' | 'WARNING';
-  authorNickname: string;
-  likeCount: number;
-  createdAt: string;
-}
-
 export interface PlaceDetail {
   id: number;
   name: string;
@@ -25,7 +16,6 @@ export interface PlaceDetail {
   description: string;
   imageUrl: string;
   isVerified: boolean;
-  tips: PlaceTip[];
   tipSummary: {
     total: number;
     positive: number;

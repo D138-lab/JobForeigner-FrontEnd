@@ -1,8 +1,10 @@
 import { ArrowLeft, Clock3, MapPin, Phone, ThumbsUp } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 import { PATH } from '@/lib/constants/routes';
 import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
+import useGetPlaceTips from '@/lib/apis/queries/useGetPlaceTips';
 import styles from './page.module.scss';
 
 const tipTypeLabel: Record<string, string> = {
@@ -11,12 +13,30 @@ const tipTypeLabel: Record<string, string> = {
   WARNING: '주의',
 };
 
+interface ApiErrorResponse {
+  success: string;
+  code?: string;
+  message?: string;
+}
+
 export default function NearbyPlaceDetailPage() {
   const { placeId } = useParams();
   const parsedPlaceId = Number(placeId);
   const { data, isLoading, isError } = useGetPlaceDetail(parsedPlaceId, !!placeId);
+  const {
+    data: tipsData,
+    isLoading: isTipsLoading,
+    isError: isTipsError,
+    error: tipsError,
+  } = useGetPlaceTips(parsedPlaceId, !!placeId);
 
   const detail = data?.data;
+  const tips = tipsData?.data ?? [];
+  const typedTipsError = tipsError as AxiosError<ApiErrorResponse> | null;
+  const isForeignerOnlyTipsError =
+    typedTipsError instanceof AxiosError &&
+    typedTipsError.response?.status === 403 &&
+    typedTipsError.response?.data?.code === 'M004';
 
   if (isLoading) {
     return <div className={styles.stateBox}>장소 상세 정보를 불러오는 중입니다.</div>;
@@ -81,11 +101,17 @@ export default function NearbyPlaceDetailPage() {
 
       <div className={styles.tipsCard}>
         <h2>사용자 팁</h2>
-        {detail.tips.length === 0 ? (
+        {isTipsLoading ? (
+          <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
+        ) : isForeignerOnlyTipsError ? (
+          <div className={styles.empty}>외국인 회원만 팁을 조회할 수 있습니다.</div>
+        ) : isTipsError ? (
+          <div className={styles.empty}>팁 목록을 불러오지 못했습니다.</div>
+        ) : tips.length === 0 ? (
           <div className={styles.empty}>등록된 팁이 없습니다.</div>
         ) : (
           <ul className={styles.tipList}>
-            {detail.tips.map(tip => (
+            {tips.map(tip => (
               <li key={tip.id} className={styles.tipItem}>
                 <div className={styles.tipTop}>
                   <span className={styles.tipType}>{tipTypeLabel[tip.tipType] ?? tip.tipType}</span>
