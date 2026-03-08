@@ -7,6 +7,7 @@ interface InputCommentProps {
   inputText: string;
   onChangeInputText: (text: string) => void;
   onSubmitComment: () => void;
+  isSubmitting?: boolean;
 }
 
 export const InputComment = ({
@@ -14,14 +15,23 @@ export const InputComment = ({
   inputText,
   onChangeInputText,
   onSubmitComment,
+  isSubmitting = false,
 }: InputCommentProps) => {
+  const resolvedProfileImage =
+    typeof myProfileImgUrl === 'string' && myProfileImgUrl.trim() !== ''
+      ? myProfileImgUrl
+      : DEFAULT_IMAGE_URL;
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <img
           className={styles.image}
-          src={myProfileImgUrl ?? DEFAULT_IMAGE_URL}
+          src={resolvedProfileImage}
           alt='profileImage'
+          onError={event => {
+            event.currentTarget.src = DEFAULT_IMAGE_URL;
+          }}
         />
       </div>
 
@@ -35,9 +45,13 @@ export const InputComment = ({
         </div>
         <div className={styles.submitArea}>
           <div className={styles.subText}>서로 존중하며 예의를 지켜주세요.</div>
-          <button className={styles.commentBtn} onClick={onSubmitComment}>
+          <button
+            className={styles.commentBtn}
+            onClick={onSubmitComment}
+            disabled={isSubmitting}
+          >
             <Send size={20} />
-            <span>댓글 작성</span>
+            <span>{isSubmitting ? '등록 중...' : '댓글 작성'}</span>
           </button>
         </div>
       </div>

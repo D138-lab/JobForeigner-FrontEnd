@@ -1,11 +1,12 @@
 import { BadgeCheck, Clock, TrendingUp } from 'lucide-react';
 
-import { postSortOption } from '@/pages/community/Page';
 import styles from './postSortBy.module.scss';
 
+type PostSortOption = 'recent' | 'popular' | 'verified';
+
 interface Props {
-  onClick: (option: postSortOption) => void;
-  sortOption: postSortOption;
+  onClick: (option: PostSortOption) => void;
+  sortOption: PostSortOption;
 }
 
 export const PostSortBy = ({ sortOption, onClick }: Props) => {
