@@ -40,12 +40,10 @@
     }
 
     .menuButton {
-      border: 1px solid #d1d5db;
-      background: #fff;
-      color: #4b5563;
-      border-radius: 8px;
-      width: 1.9rem;
-      height: 1.9rem;
+      border: none;
+      background: transparent;
+      color: #000;
+      padding: 0.2rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
