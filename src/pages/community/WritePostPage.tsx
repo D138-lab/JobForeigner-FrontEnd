@@ -8,7 +8,9 @@ import TipTapEditor from '@/components/common/tiptapEditor/TipTapEditor';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import usePostBoardPost from '@/lib/apis/mutations/usePostBoardPost';
 import usePostFileUpload from '@/lib/apis/mutations/usePostFileUpload';
-import usePostFileUploadConfirm from '@/lib/apis/mutations/usePostFileUploadConfirm';
+import usePostFileUploadConfirm, {
+  PostFileUploadConfirmData,
+} from '@/lib/apis/mutations/usePostFileUploadConfirm';
 import { PATH } from '@/lib/constants';
 import styles from './writePostPage.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -57,6 +59,21 @@ export default function WritePostPage() {
     [isAdminUser],
   );
 
+  const extractConfirmedImageFileId = (
+    confirmData: PostFileUploadConfirmData | number | null,
+  ) => {
+    if (typeof confirmData === 'number' && Number.isFinite(confirmData)) {
+      return confirmData;
+    }
+
+    if (!confirmData || typeof confirmData !== 'object') return null;
+
+    const directId = confirmData.imageFileId ?? confirmData.fileId ?? confirmData.id;
+    return typeof directId === 'number' && Number.isFinite(directId)
+      ? directId
+      : null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -96,6 +113,8 @@ export default function WritePostPage() {
     }
 
     try {
+      const uploadedImageFileIds: number[] = [];
+
       for (const file of files) {
         const presignedResponse = await postFileUpload({
           fileType: 'BOARD_POST_IMAGE',
@@ -115,7 +134,7 @@ export default function WritePostPage() {
           throw new Error('PRESIGNED_UPLOAD_FAILED');
         }
 
-        await postFileUploadConfirm({
+        const confirmResponse = await postFileUploadConfirm({
           fileName: file.name,
           objectName: presignedResponse.data.objectName,
           fileSize: file.size,
@@ -123,8 +142,60 @@ export default function WritePostPage() {
           referenceId: myInfo?.memberId ?? 0,
           contentType: file.type || 'application/octet-stream',
         });
+
+        const imageFileId = extractConfirmedImageFileId(confirmResponse.data);
+        if (!imageFileId) {
+          throw new Error('IMAGE_FILE_ID_NOT_FOUND');
+        }
+        uploadedImageFileIds.push(imageFileId);
       }
+
+      const requestBody = {
+        title: normalizedTitle,
+        content: normalizedContent,
+        boardCategoryType,
+        ...(boardCategoryType === 'GENERAL'
+          ? { categoryCode: generalCategoryCode }
+          : {}),
+        tags: normalizedTags,
+        imageFileIds: uploadedImageFileIds,
+      };
+
+      postBoardPost(
+        requestBody,
+        {
+          onSuccess: () => {
+            alert('게시글이 등록되었습니다.');
+            navigate(PATH.COMMUNITY);
+          },
+          onError: error => {
+            const errorData = (
+              error as {
+                response?: {
+                  data?: {
+                    code?: string;
+                    message?: string;
+                    msg?: string;
+                  };
+                };
+              }
+            )?.response?.data;
+
+            const errorMessage =
+              errorData?.message ??
+              errorData?.msg ??
+              '게시글 등록에 실패했습니다. 다시 시도해주세요.';
+
+            alert(errorMessage);
+          },
+        },
+      );
     } catch (error) {
+      if ((error as Error)?.message === 'IMAGE_FILE_ID_NOT_FOUND') {
+        alert('이미지 업로드 확인 응답에서 파일 ID를 찾지 못했습니다.');
+        return;
+      }
+
       const errorData = (
         error as {
           response?: {
@@ -143,47 +214,6 @@ export default function WritePostPage() {
       );
       return;
     }
-
-    const requestBody = {
-      title: normalizedTitle,
-      content: normalizedContent,
-      boardCategoryType,
-      ...(boardCategoryType === 'GENERAL'
-        ? { categoryCode: generalCategoryCode }
-        : {}),
-      tags: normalizedTags,
-      imageFileIds: [],
-    };
-
-    postBoardPost(
-      requestBody,
-      {
-        onSuccess: () => {
-          alert('게시글이 등록되었습니다.');
-          navigate(PATH.COMMUNITY);
-        },
-        onError: error => {
-          const errorData = (
-            error as {
-              response?: {
-                data?: {
-                  code?: string;
-                  message?: string;
-                  msg?: string;
-                };
-              };
-            }
-          )?.response?.data;
-
-          const errorMessage =
-            errorData?.message ??
-            errorData?.msg ??
-            '게시글 등록에 실패했습니다. 다시 시도해주세요.';
-
-          alert(errorMessage);
-        },
-      },
-    );
   };
 
   const handleCancel = () => {

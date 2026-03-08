@@ -10,10 +10,16 @@ export interface PostFileUploadConfirmRequest {
   contentType: string;
 }
 
+export interface PostFileUploadConfirmData {
+  imageFileId?: number;
+  fileId?: number;
+  id?: number;
+}
+
 const postFileUploadConfirm = async (body: PostFileUploadConfirmRequest) => {
   return fetcher.post<{
     success: boolean | string;
-    data: null;
+    data: PostFileUploadConfirmData | number | null;
   }>('/api/v1/files/upload/confirm', body);
 };
 

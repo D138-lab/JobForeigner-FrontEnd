@@ -13,6 +13,9 @@ export interface PostFileUploadResponse {
   presignedUrl: string;
   objectName: string;
   expiryMinutes: number;
+  imageFileId?: number;
+  fileId?: number;
+  id?: number;
 }
 
 const postFileUpload = async (body: PostFileUploadRequest) => {
