@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
 import Select, { Option } from '@/components/common/select/Select';
 import { selectRegionOptions } from '@/components/jobs/DetailSearchForm';
 import { MapComponent } from '@/components/nearby-companies/mapComponent/MapComponent';
+import usePostFavoriteRegion from '@/lib/apis/mutations/usePostFavoriteRegion';
 import useGetMapFavorites from '@/lib/apis/queries/useGetMapFavorites';
 import useGetMapJobPostClusters from '@/lib/apis/queries/useGetMapJobPostClusters';
 import useGetMapSido from '@/lib/apis/queries/useGetMapSido';
@@ -28,6 +30,7 @@ const calcDistanceKm = (
 export default function NearbyCompanies() {
   const [selectedSido, setSelectedSido] = useState<string>('');
   const [selectedRegionCode, setSelectedRegionCode] = useState<string>('');
+  const [favoriteMessage, setFavoriteMessage] = useState('');
   const [currentPosition, setCurrentPosition] = useState<{
     lat: number;
     lng: number;
@@ -36,6 +39,12 @@ export default function NearbyCompanies() {
   const { data: regionsData } = useGetSidoRegions(selectedSido);
   const { data: clusterData } = useGetMapJobPostClusters(selectedSido);
   const { data: favoritesData } = useGetMapFavorites();
+  const {
+    mutate: postFavoriteRegionMutate,
+    isPending: isPostingFavoriteRegion,
+    error: postFavoriteRegionError,
+    reset: resetPostFavoriteRegionError,
+  } = usePostFavoriteRegion();
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -139,6 +148,47 @@ export default function NearbyCompanies() {
       new Set((favoritesData?.data.regions ?? []).map(region => region.regionCode)),
     [favoritesData?.data.regions],
   );
+  const postFavoriteRegionErrorCode = (
+    postFavoriteRegionError as AxiosError<{ code?: string }> | null
+  )?.response?.data?.code;
+  const favoriteErrorMessage = (() => {
+    if (!postFavoriteRegionErrorCode) return '';
+    if (postFavoriteRegionErrorCode === 'C002')
+      return '요청 데이터가 올바르지 않습니다.';
+    if (postFavoriteRegionErrorCode === 'U001')
+      return '사용자를 찾을 수 없습니다.';
+    if (postFavoriteRegionErrorCode === 'M005')
+      return '이미 즐겨찾기에 등록된 지역입니다.';
+    return '즐겨찾기 등록 중 오류가 발생했습니다.';
+  })();
+
+  const handleFavoriteRegion = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    regionCode: string,
+    regionName: string,
+  ) => {
+    event.stopPropagation();
+    setFavoriteMessage('');
+    resetPostFavoriteRegionError();
+
+    if (favoriteRegionCodeSet.has(regionCode)) {
+      setFavoriteMessage('이미 즐겨찾기에 등록된 지역입니다.');
+      return;
+    }
+
+    postFavoriteRegionMutate(
+      {
+        regionCode,
+        regionName,
+        notifyNewJobPost: true,
+      },
+      {
+        onSuccess: () => {
+          setFavoriteMessage('지역 즐겨찾기에 등록되었습니다.');
+        },
+      },
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -168,6 +218,12 @@ export default function NearbyCompanies() {
               즐겨찾기 {favoriteRegionCodeSet.size}
             </span>
           </h2>
+          {favoriteMessage ? (
+            <div className={styles.favoriteSuccess}>{favoriteMessage}</div>
+          ) : null}
+          {favoriteErrorMessage ? (
+            <div className={styles.favoriteError}>{favoriteErrorMessage}</div>
+          ) : null}
           <ul className={styles.statsList}>
             {sortedRegions.map(({ regionCode, regionName, count, distance }, idx) => (
               <li
@@ -182,9 +238,17 @@ export default function NearbyCompanies() {
                     <div>
                     <div className={styles.regionName}>
                       {regionName}
-                      {favoriteRegionCodeSet.has(regionCode) ? (
-                        <span className={styles.favoriteMark}>★</span>
-                      ) : null}
+                      <button
+                        type='button'
+                        className={styles.favoriteMarkButton}
+                        onClick={event =>
+                          handleFavoriteRegion(event, regionCode, regionName)
+                        }
+                        disabled={isPostingFavoriteRegion}
+                        aria-label='지역 즐겨찾기 등록'
+                      >
+                        {favoriteRegionCodeSet.has(regionCode) ? '★' : '☆'}
+                      </button>
                     </div>
                     <div className={styles.distance}>
                       {Number.isFinite(distance)

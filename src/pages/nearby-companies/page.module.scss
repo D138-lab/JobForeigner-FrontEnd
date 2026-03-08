@@ -46,6 +46,18 @@
   padding: 0.2rem 0.5rem;
 }
 
+.favoriteSuccess {
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  color: #0f766e;
+}
+
+.favoriteError {
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  color: #b91c1c;
+}
+
 .statsList {
   list-style: none;
   margin: 0;
@@ -106,6 +118,16 @@
 .favoriteMark {
   color: #f59e0b;
   font-size: 0.78rem;
+}
+
+.favoriteMarkButton {
+  border: none;
+  background: transparent;
+  color: #f59e0b;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
 }
 
 .distance {
