@@ -6,44 +6,5 @@
   "companiesInfo": "Companies",
   "nearBy": "Surrounding",
   "nearByPlaces": "Nearby Places",
-  "community": "Community",
-  "communityPage": {
-    "writePost": "Write Post",
-    "searchPlaceholder": "Search posts",
-    "searchButton": "Search",
-    "tabs": {
-      "all": "All",
-      "general": "General",
-      "market": "Marketplace",
-      "policy": "Policy Curation"
-    },
-    "emptyBySearch": "No posts found with that title.",
-    "emptyByCategory": "No posts in this category.",
-    "popularPostsTitle": "Trending Posts",
-    "topMemberTitle": "🏆 Top Active Members",
-    "announcementTitle": "Notices & Events",
-    "noData": "No data available yet",
-    "topRank": "TOP {{rank}}",
-    "profileImageAlt": "{{name}} profile image",
-    "announceType": {
-      "notice": "Notice",
-      "event": "Event"
-    },
-    "announcements": {
-      "ruleChange": "Community usage rules have been partially revised. Please review them.",
-      "welcomeEvent": "Welcome event for new members is live now! Join and get rewards.",
-      "serverMaintenance": "Server maintenance notice: service will be limited on July 20, 02:00-04:00."
-    },
-    "postAction": {
-      "edit": "Edit",
-      "delete": "Delete",
-      "deleting": "Deleting...",
-      "report": "Report",
-      "block": "Block",
-      "confirmDelete": "Do you want to delete this post?",
-      "deleteSuccess": "The post has been deleted.",
-      "deleteFail": "Failed to delete the post. Please try again.",
-      "likeFail": "Failed to process like. Please try again."
-    }
-  }
+  "community": "Community"
 }
