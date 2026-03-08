@@ -268,6 +268,17 @@
   gap: 0.25rem;
 }
 
+.likeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
 .empty {
   font-size: 0.84rem;
   color: #678195;

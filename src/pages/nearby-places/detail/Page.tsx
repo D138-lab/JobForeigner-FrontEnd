@@ -15,6 +15,7 @@ import useDeletePlaceTip from '@/lib/apis/mutations/useDeletePlaceTip';
 import usePostPlaceTip, {
   PlaceTipType,
 } from '@/lib/apis/mutations/usePostPlaceTip';
+import usePostPlaceTipLike from '@/lib/apis/mutations/usePostPlaceTipLike';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import { PATH } from '@/lib/constants/routes';
 import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
@@ -67,6 +68,12 @@ export default function NearbyPlaceDetailPage() {
     error: deleteTipError,
     reset: resetDeleteTipError,
   } = useDeletePlaceTip();
+  const {
+    mutate: likeTipMutate,
+    isPending: isTipLiking,
+    error: likeTipError,
+    reset: resetLikeTipError,
+  } = usePostPlaceTipLike();
 
   const detail = data?.data;
   const tips = tipsData?.data ?? [];
@@ -74,6 +81,7 @@ export default function NearbyPlaceDetailPage() {
   const typedPostTipError = postTipError as AxiosError<ApiErrorResponse> | null;
   const typedDeleteTipError =
     deleteTipError as AxiosError<ApiErrorResponse> | null;
+  const typedLikeTipError = likeTipError as AxiosError<ApiErrorResponse> | null;
   const isForeignerOnlyTipsError =
     typedTipsError instanceof AxiosError &&
     typedTipsError.response?.status === 403 &&
@@ -86,6 +94,7 @@ export default function NearbyPlaceDetailPage() {
     isForeignerOnlyTipsError || isForeignerOnlyPostError;
   const postTipErrorCode = typedPostTipError?.response?.data?.code;
   const deleteTipErrorCode = typedDeleteTipError?.response?.data?.code;
+  const likeTipErrorCode = typedLikeTipError?.response?.data?.code;
 
   const postTipErrorMessage = (() => {
     if (!postTipErrorCode) return '';
@@ -103,6 +112,14 @@ export default function NearbyPlaceDetailPage() {
       return '해당 팁을 삭제할 권한이 없습니다.';
     if (deleteTipErrorCode === 'M008') return '팁 정보를 찾을 수 없습니다.';
     return '팁 삭제 중 오류가 발생했습니다.';
+  })();
+
+  const likeTipErrorMessage = (() => {
+    if (!likeTipErrorCode) return '';
+    if (likeTipErrorCode === 'M004')
+      return '외국인 회원만 좋아요를 등록할 수 있습니다.';
+    if (likeTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+    return '좋아요 처리 중 오류가 발생했습니다.';
   })();
 
   const isMyTip = (authorNickname: string, tip: { isMine?: boolean; isAuthor?: boolean; canDelete?: boolean }) => {
@@ -126,6 +143,7 @@ export default function NearbyPlaceDetailPage() {
     setTipActionError('');
     resetPostTipError();
     resetDeleteTipError();
+    resetLikeTipError();
 
     postTipMutate(
       {
@@ -151,6 +169,7 @@ export default function NearbyPlaceDetailPage() {
 
     setTipActionError('');
     resetDeleteTipError();
+    resetLikeTipError();
     setActiveTipMenuId(null);
 
     deleteTipMutate(
@@ -161,6 +180,14 @@ export default function NearbyPlaceDetailPage() {
         },
       },
     );
+  };
+
+  const handleLikeTip = (tipId: number) => {
+    setTipActionError('');
+    resetDeleteTipError();
+    resetLikeTipError();
+
+    likeTipMutate({ tipId, placeId: parsedPlaceId });
   };
 
   if (isLoading) {
@@ -290,6 +317,9 @@ export default function NearbyPlaceDetailPage() {
           {deleteTipErrorMessage ? (
             <div className={styles.formError}>{deleteTipErrorMessage}</div>
           ) : null}
+          {likeTipErrorMessage ? (
+            <div className={styles.formError}>{likeTipErrorMessage}</div>
+          ) : null}
         </form>
         {isTipsLoading ? (
           <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
@@ -338,10 +368,15 @@ export default function NearbyPlaceDetailPage() {
                 </div>
                 <p>{tip.content}</p>
                 <div className={styles.tipBottom}>
-                  <div>
+                  <button
+                    type='button'
+                    className={styles.likeButton}
+                    onClick={() => handleLikeTip(tip.id)}
+                    disabled={isTipLiking}
+                  >
                     <ThumbsUp size={14} />
                     <span>{tip.likeCount}</span>
-                  </div>
+                  </button>
                   <span>{new Date(tip.createdAt).toLocaleDateString()}</span>
                 </div>
               </li>
