@@ -33,7 +33,42 @@ export default function DetailPage() {
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
   const post = data?.data;
-  const isMine = !!post && !!myInfo?.memberId && post.memberId === myInfo.memberId;
+  const toNumericId = (...values: unknown[]) => {
+    for (const value of values) {
+      const parsed =
+        typeof value === 'number'
+          ? value
+          : typeof value === 'string'
+            ? Number(value)
+            : NaN;
+      if (Number.isFinite(parsed) && parsed > 0) {
+        return parsed;
+      }
+    }
+    return null;
+  };
+  const normalizeName = (value: unknown) =>
+    typeof value === 'string' ? value.trim().toLowerCase() : '';
+
+  const myMemberId = toNumericId(myInfo?.memberId, (myInfo as any)?.member_id);
+  const myMemberName = normalizeName(myInfo?.name);
+  const postAuthorId = toNumericId(
+    post?.memberId,
+    (post as any)?.member_id,
+    (post as any)?.writerId,
+    (post as any)?.writer_id,
+  );
+  const postAuthorName = normalizeName(
+    post?.memberNickname ??
+      (post as any)?.member_nickname ??
+      (post as any)?.writerName ??
+      (post as any)?.writer_name,
+  );
+  const isMine =
+    (myMemberId !== null &&
+      postAuthorId !== null &&
+      myMemberId === postAuthorId) ||
+    (myMemberName !== '' && postAuthorName !== '' && myMemberName === postAuthorName);
 
   const countryCodeToName: Record<string, string> = {
     KR: 'South Korea',
@@ -65,9 +100,20 @@ export default function DetailPage() {
     comment =>
       ({
         id: comment.commentId,
-        memberId: comment.memberId,
+        memberId: toNumericId(
+          comment.memberId,
+          (comment as any).member_id,
+          (comment as any).writerId,
+          (comment as any).writer_id,
+        ) ?? 0,
         postId: comment.postId,
-        parentId: null,
+        parentId:
+          toNumericId(
+            (comment as any).parentId,
+            (comment as any).parent_id,
+            (comment as any).parentCommentId,
+            (comment as any).parent_comment_id,
+          ) ?? null,
         userName: comment.memberNickname,
         country:
           countryCodeToName[comment.memberCountryCode] ??
@@ -123,7 +169,8 @@ export default function DetailPage() {
 
           <CommentArea
             postId={postId}
-            currentMemberId={myInfo?.memberId}
+            currentMemberId={myMemberId ?? undefined}
+            currentMemberName={myMemberName || undefined}
             numOfComments={totalComments}
             myProfileImgUrl={userImgUrl || DEFAULT_IMAGE_URL}
             comments={comments}

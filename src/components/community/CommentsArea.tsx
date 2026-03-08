@@ -26,6 +26,7 @@ export interface CommentDetailProps {
 interface CommentAreaProps {
   postId: number;
   currentMemberId?: number;
+  currentMemberName?: string;
   numOfComments: number;
   myProfileImgUrl: string;
   comments: CommentDetailProps[];
@@ -34,6 +35,7 @@ interface CommentAreaProps {
 export const CommentArea = ({
   postId,
   currentMemberId,
+  currentMemberName,
   numOfComments,
   myProfileImgUrl,
   comments,
@@ -127,6 +129,7 @@ export const CommentArea = ({
             key={comment.id}
             {...comment}
             currentMemberId={currentMemberId}
+            currentMemberName={currentMemberName}
             onSubmitReply={handleSubmitReply}
             isSubmittingReply={isPending}
           />

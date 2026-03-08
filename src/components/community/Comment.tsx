@@ -7,10 +7,11 @@ import useDeleteBoardPostComment from '@/lib/apis/mutations/useDeleteBoardPostCo
 import useDeleteBoardPostCommentLike from '@/lib/apis/mutations/useDeleteBoardPostCommentLike';
 import usePostBoardPostCommentLike from '@/lib/apis/mutations/usePostBoardPostCommentLike';
 import styles from './comment.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface CommentProps extends CommentDetailProps {
   currentMemberId?: number;
+  currentMemberName?: string;
   onSubmitReply: (content: string) => void;
   isSubmittingReply?: boolean;
 }
@@ -29,6 +30,7 @@ export const Comment = ({
   userName,
   userProfileImgUrl,
   currentMemberId,
+  currentMemberName,
   onSubmitReply,
   isSubmittingReply = false,
 }: CommentProps) => {
@@ -39,18 +41,40 @@ export const Comment = ({
   const { mutate: deleteBoardPostCommentLike, isPending: isUnlikePending } =
     useDeleteBoardPostCommentLike();
   const isReply = parentId !== null;
+  const normalizedCurrentName = currentMemberName?.trim().toLowerCase() ?? '';
+  const normalizedUserName = userName.trim().toLowerCase();
   const isMine =
-    typeof currentMemberId === 'number' && memberId === currentMemberId;
+    (typeof currentMemberId === 'number' && memberId === currentMemberId) ||
+    (normalizedCurrentName !== '' && normalizedCurrentName === normalizedUserName);
   const [likedState, setLikedState] = useState(isLikedByMe);
   const [likeCountState, setLikeCountState] = useState(numOfLiked);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   const [replyText, setReplyText] = useState('');
+  const menuWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLikedState(isLikedByMe);
     setLikeCountState(numOfLiked);
   }, [isLikedByMe, numOfLiked]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        menuWrapRef.current &&
+        !menuWrapRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
 
   const handleDelete = () => {
     if (isPending) return;
@@ -144,13 +168,39 @@ export const Comment = ({
       </div>
       <div className={styles.right}>
         {isReply ? <div className={styles.replyBadge}>↳ 답글</div> : null}
-        <CommentContentBox
-          isVerified={isVerifiedUser}
-          userName={userName}
-          country={country}
-          content={content}
-          postedAt={postedAt}
-        />
+        <div className={styles.commentBox}>
+          {isMine && (
+            <div className={styles.menuWrap} ref={menuWrapRef}>
+              <button
+                type='button'
+                className={styles.menuButton}
+                onClick={() => setIsMenuOpen(prev => !prev)}
+                aria-label='댓글 더보기'
+                disabled={isPending}
+              >
+                <MoreHorizontal size={16} />
+              </button>
+              {isMenuOpen && (
+                <button
+                  type='button'
+                  className={styles.deleteMenuButton}
+                  onClick={handleDelete}
+                  disabled={isPending}
+                >
+                  {isPending ? '삭제 중...' : '삭제하기'}
+                </button>
+              )}
+            </div>
+          )}
+          <CommentContentBox
+            isVerified={isVerifiedUser}
+            userName={userName}
+            country={country}
+            content={content}
+            postedAt={postedAt}
+            hasMenu={isMine}
+          />
+        </div>
         <LikeAndCommentInComment
           isLikedByMe={likedState}
           numOfLikes={likeCountState}
@@ -186,29 +236,6 @@ export const Comment = ({
                 {isSubmittingReply ? '등록 중...' : '답글 등록'}
               </button>
             </div>
-          </div>
-        )}
-        {isMine && (
-          <div className={styles.menuWrap}>
-            <button
-              type='button'
-              className={styles.menuButton}
-              onClick={() => setIsMenuOpen(prev => !prev)}
-              aria-label='댓글 더보기'
-              disabled={isPending}
-            >
-              <MoreHorizontal size={16} />
-            </button>
-            {isMenuOpen && (
-              <button
-                type='button'
-                className={styles.deleteMenuButton}
-                onClick={handleDelete}
-                disabled={isPending}
-              >
-                {isPending ? '삭제 중...' : '삭제하기'}
-              </button>
-            )}
           </div>
         )}
       </div>
