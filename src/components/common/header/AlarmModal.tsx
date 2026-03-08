@@ -4,12 +4,14 @@ import { GetAllNotificationsResponse } from '@/lib/apis/queries/useGetAllNotific
 import styles from './alarmModal.module.scss';
 import useDeleteNotifications from '@/lib/apis/mutations/useDeleteNotifications';
 import usePostNotifications from '@/lib/apis/mutations/usePostNotifications';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   data: GetAllNotificationsResponse[];
 }
 
 const AlarmModal = ({ data }: Props) => {
+  const { t } = useTranslation('common');
   const { mutate: readNotification } = usePostNotifications();
   const { mutate: deleteNotification } = useDeleteNotifications();
 
@@ -17,7 +19,7 @@ const AlarmModal = ({ data }: Props) => {
     <div className={styles.container}>
       <div className={styles.labelBox}>
         <Bell size={15} />
-        <span>알림</span>
+        <span>{t('notifications')}</span>
       </div>
       <div className={styles.alarmList}>
         {data &&
@@ -31,7 +33,7 @@ const AlarmModal = ({ data }: Props) => {
                 <div className={styles.content}>{ele.content}</div>
               </div>
               <div className={styles.isRead}>
-                {ele.read ? '읽음' : '안읽음'}
+                {ele.read ? t('read') : t('unread')}
               </div>
               <Trash
                 size={20}
@@ -42,7 +44,7 @@ const AlarmModal = ({ data }: Props) => {
             </div>
           ))}
         {data.length === 0 ? (
-          <div className={styles.alarmBox}>알림이 없습니다.</div>
+          <div className={styles.alarmBox}>{t('noNotifications')}</div>
         ) : (
           ''
         )}

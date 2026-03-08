@@ -1,16 +1,18 @@
 .wrapper {
   position: absolute;
-  width: 80px;
-  left: -30px;
+  width: 170px;
+  left: -120px;
   background-color: #fff;
   border: 1px solid var(--color-gray-200);
   border-radius: 5px;
+  max-height: 260px;
+  overflow-y: auto;
 }
 
 .item {
   width: 100%;
-  padding: 0.125rem;
-  font-size: 1rem;
+  padding: 0.3rem 0.4rem;
+  font-size: 0.92rem;
   text-align: center;
   cursor: pointer;
 

@@ -23,8 +23,10 @@ import styles from './page.module.scss';
 import Button from '@/components/common/button/Button';
 import useGetResumePreview from '@/lib/apis/queries/useGetResumePreview';
 import { PATH } from '@/lib/constants/routes';
+import { useTranslation } from 'react-i18next';
 
 export default function ResumePreviewPage() {
+  const { t } = useTranslation('pages');
   const { resumeId } = useParams();
   const navigate = useNavigate();
   const resumeRef = useRef<HTMLDivElement>(null);
@@ -50,7 +52,7 @@ export default function ResumePreviewPage() {
   const resumeData = serverData
     ? {
         id: serverData.resumeId,
-        title: serverData.resumeTitle || '새로운 이력서',
+        title: serverData.resumeTitle || t('profile.resumePreview.newResume'),
         createdAt: serverData.createdAt?.slice(0, 10) || '',
         updatedAt: serverData.updatedAt?.slice(0, 10) || '',
         status: 'completed',
@@ -97,7 +99,7 @@ export default function ResumePreviewPage() {
         attachments: [] as any[],
         links:
           serverData.portfolios?.map(p => ({
-            title: p.portfolioTitle || '포트폴리오',
+            title: p.portfolioTitle || t('profile.resumePreview.portfolio'),
             url: p.portfolioUrl,
           })) || [],
       }
@@ -116,7 +118,7 @@ export default function ResumePreviewPage() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      alert('PDF가 다운로드되었습니다.');
+      alert(t('profile.resumePreview.pdfDownloaded'));
     }, 1500);
   };
 
@@ -126,18 +128,21 @@ export default function ResumePreviewPage() {
         <div className={styles.actions}>
           <Button variant='outline' onClick={() => navigate(-1)}>
             <span className={styles.buttonContent}>
-              <ArrowLeft /> 돌아가기
+              <ArrowLeft /> {t('profile.common.goBack')}
             </span>
           </Button>
           <div className={styles.actionButtons}>
             <Button variant='outline' onClick={handlePrint}>
               <span className={styles.buttonContent}>
-                <Printer /> 인쇄하기
+                <Printer /> {t('profile.resumePreview.print')}
               </span>
             </Button>
             <Button onClick={handleDownloadPDF} disabled={isLoading}>
               <span className={styles.buttonContent}>
-                <Download /> {isLoading ? '다운로드 중...' : 'PDF 다운로드'}
+                <Download />{' '}
+                {isLoading
+                  ? t('profile.resumePreview.downloading')
+                  : t('profile.resumePreview.downloadPdf')}
               </span>
             </Button>
           </div>
@@ -147,15 +152,22 @@ export default function ResumePreviewPage() {
           <div className={styles.header}>
             <div className={styles.left}>
               <h1>{resumeData.title}</h1>
-              <p>최종 수정일: {resumeData.updatedAt}</p>
+              <p>
+                {t('profile.resumePreview.updatedAt', {
+                  date: resumeData.updatedAt,
+                })}
+              </p>
             </div>
-            <span className={styles.badge}>작성 완료</span>
+            <span className={styles.badge}>
+              {t('profile.resume.completed')}
+            </span>
           </div>
 
           {/* 기본 정보 */}
           <div>
             <div className={styles.sectionTitle}>
-              <User className={styles.titleIcon} /> <h2>기본 정보</h2>
+              <User className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.basicInfo')}</h2>
             </div>
             <div className={styles.basicGrid}>
               <div className={styles.photoWrapper}>
@@ -172,13 +184,17 @@ export default function ResumePreviewPage() {
               <div className={styles.basicDetails}>
                 <div className={styles.basicInfoColumn}>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>이름</span>
+                    <span className={styles.name}>
+                      {t('profile.resumePreview.fields.name')}
+                    </span>
                     <span className={styles.value}>
                       {resumeData.basicInfo.name}
                     </span>
                   </div>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>이메일</span>
+                    <span className={styles.name}>
+                      {t('profile.resumePreview.fields.email')}
+                    </span>
                     <span className={styles.value}>
                       {resumeData.basicInfo.email}
                     </span>
@@ -187,13 +203,17 @@ export default function ResumePreviewPage() {
 
                 <div className={styles.basicInfoColumn}>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>주소</span>
+                    <span className={styles.name}>
+                      {t('profile.resumePreview.fields.address')}
+                    </span>
                     <span className={styles.value}>
                       {resumeData.basicInfo.address}
                     </span>
                   </div>
                   <div className={styles.basicInfoItem}>
-                    <span className={styles.name}>전화번호</span>
+                    <span className={styles.name}>
+                      {t('profile.resumePreview.fields.phone')}
+                    </span>
                     <span className={styles.value}>
                       {resumeData.basicInfo.phone}
                     </span>
@@ -206,7 +226,8 @@ export default function ResumePreviewPage() {
           {/* 희망 업종 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Briefcase className={styles.titleIcon} /> <h2>희망 업종</h2>
+              <Briefcase className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.desiredJobs')}</h2>
             </div>
             {resumeData.jobs.length > 0 && resumeData.jobs[0] ? (
               <ul className={styles.jobsList}>
@@ -217,14 +238,17 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noSkills}>등록된 희망 업종이 없습니다.</p>
+              <p className={styles.noSkills}>
+                {t('profile.resumePreview.empty.desiredJobs')}
+              </p>
             )}
           </div>
 
           {/* 업무 및 스킬 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Bookmark className={styles.titleIcon} /> <h2>업무 및 스킬</h2>
+              <Bookmark className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.skills')}</h2>
             </div>
             {resumeData.skills.length > 0 ? (
               <ul className={styles.skillsList}>
@@ -235,35 +259,44 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noSkills}>등록된 업무 및 스킬이 없습니다.</p>
+              <p className={styles.noSkills}>
+                {t('profile.resumePreview.empty.skills')}
+              </p>
             )}
           </div>
 
           {/* 희망 근무 조건 */}
           <div className={styles.preferenceSection}>
             <div className={styles.sectionTitle}>
-              <Wallet className={styles.titleIcon} /> <h2>희망 근무 조건</h2>
+              <Wallet className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.preference')}</h2>
             </div>
             {serverData?.jobPreference ? (
               <div className={styles.preferenceList}>
                 <div className={styles.preferenceItem}>
                   <Bookmark className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>고용 형태</span>
+                  <span className={styles.preferenceLabel}>
+                    {t('profile.resumePreview.fields.employmentType')}
+                  </span>
                   <span className={styles.preferenceValue}>
                     {serverData.jobPreference.desiredEmploymentType}
                   </span>
                 </div>
                 <div className={styles.preferenceItem}>
                   <Wallet className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>희망 연봉</span>
+                  <span className={styles.preferenceLabel}>
+                    {t('profile.resumePreview.fields.desiredSalary')}
+                  </span>
                   <span className={styles.preferenceValue}>
                     {serverData.jobPreference.desiredSalary?.toLocaleString()}
-                    만원
+                    {t('profile.resumePreview.unitManwon')}
                   </span>
                 </div>
                 <div className={styles.preferenceItem}>
                   <MapPin className={styles.titleIcon} />
-                  <span className={styles.preferenceLabel}>희망 근무지역</span>
+                  <span className={styles.preferenceLabel}>
+                    {t('profile.resumePreview.fields.desiredLocation')}
+                  </span>
                   <span className={styles.preferenceValue}>
                     {serverData.jobPreference.desiredLocation}
                   </span>
@@ -271,7 +304,7 @@ export default function ResumePreviewPage() {
               </div>
             ) : (
               <p className={styles.noSkills}>
-                등록된 희망 근무 조건이 없습니다.
+                {t('profile.resumePreview.empty.preference')}
               </p>
             )}
           </div>
@@ -279,7 +312,8 @@ export default function ResumePreviewPage() {
           {/* 학력 */}
           <div>
             <div className={styles.sectionTitle}>
-              <GraduationCap className={styles.titleIcon} /> <h2>학력</h2>
+              <GraduationCap className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.education')}</h2>
             </div>
             {resumeData.education.length > 0 ? (
               <ul className={styles.educationList}>
@@ -300,14 +334,17 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noEducation}>등록된 경력이 없습니다.</p>
+              <p className={styles.noEducation}>
+                {t('profile.resumePreview.empty.education')}
+              </p>
             )}
           </div>
 
           {/* 경력 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Building2 className={styles.titleIcon} /> <h2>경력</h2>
+              <Building2 className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.experience')}</h2>
             </div>
             {resumeData.experience.length > 0 ? (
               <ul className={styles.experienceList}>
@@ -330,14 +367,17 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noExperience}>등록된 경력이 없습니다.</p>
+              <p className={styles.noExperience}>
+                {t('profile.resumePreview.empty.experience')}
+              </p>
             )}
           </div>
 
           {/* 자격증 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Certificate className={styles.titleIcon} /> <h2>자격증</h2>
+              <Certificate className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.certificates')}</h2>
             </div>
             <div className={styles.certificationList}>
               {resumeData.certificates.length > 0 ? (
@@ -357,7 +397,7 @@ export default function ResumePreviewPage() {
                 </>
               ) : (
                 <p className={styles.noCertificates}>
-                  등록된 자격증이 없습니다.
+                  {t('profile.resumePreview.empty.certificates')}
                 </p>
               )}
             </div>
@@ -366,7 +406,8 @@ export default function ResumePreviewPage() {
           {/* 활동 및 수상 */}
           <div>
             <div className={styles.sectionTitle}>
-              <Award className={styles.titleIcon} /> <h2>활동 및 수상</h2>
+              <Award className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.awards')}</h2>
             </div>
             {resumeData.awards.length > 0 ? (
               <ul className={styles.awardsList}>
@@ -391,14 +432,17 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noAwards}>등록된 수상 내역이 없습니다.</p>
+              <p className={styles.noAwards}>
+                {t('profile.resumePreview.empty.awards')}
+              </p>
             )}
           </div>
 
           {/* 해외경험 */}
           <div className={styles.expatsSection}>
             <div className={styles.sectionTitle}>
-              <Plane className={styles.titleIcon} /> <h2>해외 경험</h2>
+              <Plane className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.expats')}</h2>
             </div>
             {serverData?.expats && serverData.expats.length > 0 ? (
               <ul className={styles.expatsList}>
@@ -422,7 +466,7 @@ export default function ResumePreviewPage() {
               </ul>
             ) : (
               <p className={styles.noExperience}>
-                등록된 해외 경험이 없습니다.
+                {t('profile.resumePreview.empty.expats')}
               </p>
             )}
           </div>
@@ -430,7 +474,8 @@ export default function ResumePreviewPage() {
           {/* 언어 */}
           <div className={styles.languagesSection}>
             <div className={styles.sectionTitle}>
-              <Globe className={styles.titleIcon} /> <h2>언어</h2>
+              <Globe className={styles.titleIcon} />{' '}
+              <h2>{t('profile.resumePreview.sections.languages')}</h2>
             </div>
             {serverData?.languages && serverData.languages.length > 0 ? (
               <ul className={styles.languagesList}>
@@ -446,7 +491,9 @@ export default function ResumePreviewPage() {
                 ))}
               </ul>
             ) : (
-              <p className={styles.noSkills}>등록된 언어 정보가 없습니다.</p>
+              <p className={styles.noSkills}>
+                {t('profile.resumePreview.empty.languages')}
+              </p>
             )}
           </div>
 
@@ -454,11 +501,13 @@ export default function ResumePreviewPage() {
           <div>
             <div className={styles.sectionTitle}>
               <Paperclip className={styles.titleIcon} />{' '}
-              <h2>첨부 파일 및 링크</h2>
+              <h2>{t('profile.resumePreview.sections.attachments')}</h2>
             </div>
             {resumeData.attachments.length > 0 && (
               <ul className={styles.attachmentsList}>
-                <h3 className={styles.attachmentsTitle}>첨부파일</h3>
+                <h3 className={styles.attachmentsTitle}>
+                  {t('profile.resumePreview.sections.files')}
+                </h3>
                 {resumeData.attachments.map((item, index) => (
                   <li key={index} className={styles.attachmentItem}>
                     <a href={item.url} className={styles.attachmentLink}>
@@ -471,7 +520,9 @@ export default function ResumePreviewPage() {
             )}
             {resumeData.links.length > 0 && (
               <ul className={styles.linksList}>
-                <h3 className={styles.linksTitle}>링크</h3>
+                <h3 className={styles.linksTitle}>
+                  {t('profile.resumePreview.sections.links')}
+                </h3>
                 {resumeData.links.map((item, index) => (
                   <li key={index} className={styles.linkItem}>
                     <a href={item.url} className={styles.linkLink}>

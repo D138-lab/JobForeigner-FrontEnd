@@ -4,6 +4,7 @@ import { Plus, Trash } from 'lucide-react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import InputField from '@/components/common/field/InputField';
 import TextareaField from '@/components/common/field/TextareaField';
+import { useTranslation } from 'react-i18next';
 
 const employment = {
   companyName: '',
@@ -15,6 +16,7 @@ const employment = {
 };
 
 export default function EmploymentInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -24,7 +26,7 @@ export default function EmploymentInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>경력</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.experience')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -32,11 +34,11 @@ export default function EmploymentInfo() {
           onClick={() => append(employment)}
         >
           <Plus className={styles.plusIcon} />
-          경력 추가
+          {t('profile.component.employment.add')}
         </Button>
       </div>
       {!fields.length ? (
-        <p className={styles.appendText}>경력 정보를 추가해주세요</p>
+        <p className={styles.appendText}>{t('profile.component.employment.append')}</p>
       ) : null}
       {fields.map((field, index) => (
         <div key={field.id} className={styles.employmentWrapper}>
@@ -48,16 +50,16 @@ export default function EmploymentInfo() {
               <InputField
                 control={control}
                 name={`employments.${index}.companyName`}
-                label='회사명'
-                placeholder='회사명을 입력하세요'
+                label={t('profile.component.employment.company')}
+                placeholder={t('profile.component.employment.companyPlaceholder')}
                 required={true}
                 maxLength={30}
               />
               <InputField
                 control={control}
                 name={`employments.${index}.departmentName`}
-                label='부서명'
-                placeholder='부서명을 입력하세요'
+                label={t('profile.component.employment.department')}
+                placeholder={t('profile.component.employment.departmentPlaceholder')}
                 required={true}
                 maxLength={30}
               />
@@ -65,8 +67,8 @@ export default function EmploymentInfo() {
             <InputField
               control={control}
               name={`employments.${index}.jobTitle`}
-              label='직위'
-              placeholder='직위를 입력하세요'
+              label={t('profile.component.employment.jobTitle')}
+              placeholder={t('profile.component.employment.jobTitlePlaceholder')}
               required={true}
               maxLength={30}
             />
@@ -74,7 +76,7 @@ export default function EmploymentInfo() {
               <InputField
                 control={control}
                 name={`employments.${index}.startDate`}
-                label='입사일'
+                label={t('profile.component.employment.startDate')}
                 placeholder='YYYY-MM-DD'
                 required={true}
                 type='date'
@@ -82,7 +84,7 @@ export default function EmploymentInfo() {
               <InputField
                 control={control}
                 name={`employments.${index}.endDate`}
-                label='퇴사일'
+                label={t('profile.component.employment.endDate')}
                 placeholder='YYYY-MM-DD'
                 required={true}
                 type='date'
@@ -91,8 +93,8 @@ export default function EmploymentInfo() {
             <TextareaField
               control={control}
               name={`employments.${index}.achievement`}
-              label='주요 성과'
-              placeholder='주요 성과를 입력하세요'
+              label={t('profile.component.employment.achievement')}
+              placeholder={t('profile.component.employment.achievementPlaceholder')}
               maxLength={2000}
             />
           </div>

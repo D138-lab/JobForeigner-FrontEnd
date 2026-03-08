@@ -4,6 +4,7 @@ import Button from '@/components/common/button/Button';
 import { Plus, Trash } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
 import URLInputField from '@/components/common/field/URLInputField';
+import { useTranslation } from 'react-i18next';
 
 const link = {
   title: '',
@@ -11,6 +12,7 @@ const link = {
 };
 
 export default function LinkInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -20,7 +22,9 @@ export default function LinkInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>첨부 파일 및 링크</h2>
+        <h2 className={styles.title}>
+          {t('profile.resumePreview.sections.attachments')}
+        </h2>
         <Button
           type='button'
           variant='outline'
@@ -28,12 +32,12 @@ export default function LinkInfo() {
           onClick={() => append(link)}
         >
           <Plus className={styles.plusIcon} />
-          링크 추가
+          {t('profile.component.link.add')}
         </Button>
       </div>
       {!fields.length ? (
         <p className={styles.appendText}>
-          포트폴리오, 블로그, GitHub 등의 링크를 추가해주세요
+          {t('profile.component.link.append')}
         </p>
       ) : null}
       {fields.map((field, index) => (
@@ -45,8 +49,8 @@ export default function LinkInfo() {
             <InputField
               control={control}
               name={`links.${index}.title`}
-              label='제목'
-              placeholder='에: 포트폴리오, 블로그, github'
+              label={t('communityWrite.labels.title')}
+              placeholder={t('profile.component.link.titlePlaceholder')}
               required={true}
               maxLength={50}
             />

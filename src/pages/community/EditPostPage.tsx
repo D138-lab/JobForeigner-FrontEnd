@@ -9,16 +9,12 @@ import usePatchBoardPost from '@/lib/apis/mutations/usePatchBoardPost';
 import styles from './writePostPage.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type BoardCategoryType = 'GENERAL' | 'MARKET' | 'POLICY' | string;
 
-const boardCategoryTypeLabelMap: Record<string, string> = {
-  GENERAL: '일반 게시글',
-  MARKET: '중고 거래',
-  POLICY: '정책 큐레이션',
-};
-
 export default function EditPostPage() {
+  const { t } = useTranslation('pages');
   const { id } = useParams();
   const postId = Number(id ?? 0);
   const navigate = useNavigate();
@@ -48,6 +44,11 @@ export default function EditPostPage() {
   });
 
   const post = data?.data;
+  const boardCategoryTypeLabelMap: Record<string, string> = {
+    GENERAL: t('communityEdit.categoryLabel.GENERAL'),
+    MARKET: t('communityEdit.categoryLabel.MARKET'),
+    POLICY: t('communityEdit.categoryLabel.POLICY'),
+  };
   const canEdit = !!post && !!myInfo?.memberId && post.memberId === myInfo.memberId;
 
   useEffect(() => {
@@ -75,10 +76,10 @@ export default function EditPostPage() {
 
     if (!myInfo?.memberId || post.memberId !== myInfo.memberId) {
       unauthorizedHandledRef.current = true;
-      alert('게시글 수정 권한이 없습니다.');
+      alert(t('communityEdit.alerts.noPermission'));
       navigate(`/community/${postId}`, { replace: true });
     }
-  }, [isMyInfoPending, myInfo?.memberId, navigate, post, postId]);
+  }, [isMyInfoPending, myInfo?.memberId, navigate, post, postId, t]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,17 +96,17 @@ export default function EditPostPage() {
       .trim();
 
     if (!normalizedTitle) {
-      alert('제목을 입력해주세요.');
+      alert(t('communityEdit.alerts.titleRequired'));
       return;
     }
 
     if (!plainText) {
-      alert('본문을 입력해주세요.');
+      alert(t('communityEdit.alerts.contentRequired'));
       return;
     }
 
     if (files.length > 0) {
-      alert('이미지 업로드 연동 전이라 현재는 이미지 없이 수정됩니다.');
+      alert(t('communityEdit.alerts.imageNotSupported'));
     }
 
     patchBoardPost(
@@ -121,7 +122,7 @@ export default function EditPostPage() {
       },
       {
         onSuccess: () => {
-          alert('게시글이 수정되었습니다.');
+          alert(t('communityEdit.alerts.updateSuccess'));
           navigate(`/community/${postId}`);
         },
         onError: error => {
@@ -139,7 +140,7 @@ export default function EditPostPage() {
           alert(
             errorData?.message ??
               errorData?.msg ??
-              '게시글 수정에 실패했습니다. 다시 시도해주세요.',
+              t('communityEdit.alerts.updateFail'),
           );
         },
       },
@@ -171,7 +172,7 @@ export default function EditPostPage() {
     }
 
     const confirmLeave = window.confirm(
-      '수정 중인 내용이 저장되지 않습니다.\n정말 취소하시겠습니까?',
+      t('communityEdit.confirmLeave'),
     );
 
     if (confirmLeave) {
@@ -186,11 +187,13 @@ export default function EditPostPage() {
   )?.response?.data;
 
   if (isDetailPending) {
-    return <div className={styles.container}>게시글 정보를 불러오는 중입니다.</div>;
+    return <div className={styles.container}>{t('communityEdit.state.loadingPost')}</div>;
   }
 
   if (isMyInfoPending) {
-    return <div className={styles.container}>권한을 확인하는 중입니다.</div>;
+    return (
+      <div className={styles.container}>{t('communityEdit.state.checkingPermission')}</div>
+    );
   }
 
   if (isDetailError || !post) {
@@ -198,7 +201,7 @@ export default function EditPostPage() {
       <div className={styles.container}>
         {detailErrorMessage?.message ??
           detailErrorMessage?.msg ??
-          '게시글 정보를 불러오지 못했습니다.'}
+          t('communityEdit.state.loadFail')}
       </div>
     );
   }
@@ -207,11 +210,11 @@ export default function EditPostPage() {
     <div className={styles.container}>
       <div className={styles.goBack} onClick={handleCancel}>
         <ArrowLeft size={20} />
-        <span>돌아가기</span>
+        <span>{t('communityEdit.labels.back')}</span>
       </div>
 
       <form className={styles.contentArea} onSubmit={handleSubmit}>
-        <div>게시글 유형</div>
+        <div>{t('communityEdit.labels.postType')}</div>
         <Input
           value={
             boardCategoryTypeLabelMap[boardCategoryType] ?? boardCategoryType
@@ -219,9 +222,9 @@ export default function EditPostPage() {
           readOnly
         />
 
-        <div>제목</div>
+        <div>{t('communityEdit.labels.title')}</div>
         <Input
-          placeholder='제목을 입력해주세요.'
+          placeholder={t('communityEdit.placeholder.title')}
           value={postTitle}
           onChange={e => setPostTitle(e.target.value)}
         />
@@ -232,7 +235,7 @@ export default function EditPostPage() {
           tags={tags}
           onChangeTags={setTags}
           maxTags={5}
-          helperText='게시물과 연관된 태그를 입력해주세요. 최대 5개까지 입력 가능합니다.'
+          helperText={t('communityEdit.tagHelper')}
         />
 
         <div className={styles.btnArea}>
@@ -242,14 +245,16 @@ export default function EditPostPage() {
             onClick={handleCancel}
             disabled={isPatchPending}
           >
-            취소
+            {t('communityEdit.buttons.cancel')}
           </button>
           <button
             className={styles.submitBtn}
             type='submit'
             disabled={isPatchPending}
           >
-            {isPatchPending ? '수정 중...' : '수정'}
+            {isPatchPending
+              ? t('communityEdit.buttons.saving')
+              : t('communityEdit.buttons.save')}
           </button>
         </div>
       </form>

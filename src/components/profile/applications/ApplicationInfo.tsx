@@ -4,19 +4,20 @@ import { Application } from '@/lib/type/profile/application';
 import { Ban, Building2, Calendar, ChevronRight, FileText } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '@/components/common/button/Button';
+import { useTranslation } from 'react-i18next';
 
-const parseStatus = (status: string) => {
+const parseStatus = (status: string, t: (key: string) => string) => {
   if (status === 'reviewing') {
-    return '서류 검토중';
+    return t('profile.applications.statusSummary.reviewing');
   }
   if (status === 'interview') {
-    return '면접 예정';
+    return t('profile.applications.statusSummary.interview');
   }
   if (status === 'accepted') {
-    return '채용 완료';
+    return t('profile.component.applicationInfo.hired');
   }
   if (status === 'rejected') {
-    return '불합격';
+    return t('profile.companyApplications.status.rejected');
   }
   return status;
 };
@@ -30,6 +31,7 @@ export default function ApplicationInfo({
   application,
   icon,
 }: ApplicationInfoProps) {
+  const { t } = useTranslation('pages');
   return (
     <Card>
       <div className={styles.applicationInfo}>
@@ -52,7 +54,9 @@ export default function ApplicationInfo({
               <span>•</span>
               <span className='flex items-center'>
                 <Calendar className='w-3 h-3 mr-1' />
-                지원일: {application.appliedAt}
+                {t('profile.component.common.appliedAt', {
+                  date: application.appliedAt,
+                })}
               </span>
               <span>•</span>
               <span className='flex items-center'>
@@ -64,7 +68,7 @@ export default function ApplicationInfo({
           <div className={styles.applicationInfoStatus}>
             <div className={clsx(styles.tag, styles[application.status])}>
               {icon}
-              <span>{parseStatus(application.status)}</span>
+              <span>{parseStatus(application.status, t)}</span>
             </div>
           </div>
         </div>
@@ -73,12 +77,12 @@ export default function ApplicationInfo({
           <Button variant='outline' size='small'>
             <div className={clsx(styles.buttonItem, styles.cancel)}>
               <Ban />
-              지원 취소
+              {t('profile.component.applicationInfo.cancel')}
             </div>
           </Button>
           <Button size='small'>
             <div className={clsx(styles.buttonItem, styles.detail)}>
-              상세보기
+              {t('profile.component.common.detail')}
               <ChevronRight />
             </div>
           </Button>

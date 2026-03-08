@@ -2,18 +2,20 @@ import { GetRecentJobsResponse } from '@/lib/apis/queries/useGetRecentJobs';
 import { History } from 'lucide-react';
 import styles from './recentModal.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: GetRecentJobsResponse[];
 };
 
 const RecentModal = ({ data }: Props) => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.labelBox}>
         <History size={15} />
-        <span>최근 본 공고</span>
+        <span>{t('recentJobs')}</span>
       </div>
       <div className={styles.recentList}>
         {data &&
@@ -35,7 +37,7 @@ const RecentModal = ({ data }: Props) => {
             </div>
           ))}
         {data.length === 0 ? (
-          <div className={styles.recentBox}>최근 본 공고가 없습니다.</div>
+          <div className={styles.recentBox}>{t('noRecentJobs')}</div>
         ) : (
           ''
         )}

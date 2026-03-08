@@ -2,6 +2,7 @@ import { CompanyRatingDto } from '@/lib/apis/queries/useGetCompanyApis';
 import RadarChartComponent from '@/components/companies/RadarChartComponent';
 import RatingInfoBox from '@/components/companies/RatingInfoBox';
 import styles from './ratingInfo.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export type RatingInfoType = {
   subject: string;
@@ -10,10 +11,10 @@ export type RatingInfoType = {
   description: string;
 };
 
-const getLevel = (score: number) => {
-  if (score >= 4) return '평균 이상';
-  if (score < 4 && score >= 3) return '평균';
-  if (score < 3) return '평균 이하';
+const getLevel = (score: number, t: (key: string) => string) => {
+  if (score >= 4) return t('companies.rating.level.high');
+  if (score < 4 && score >= 3) return t('companies.rating.level.mid');
+  if (score < 3) return t('companies.rating.level.low');
 };
 
 const RatingInfo = ({
@@ -23,51 +24,53 @@ const RatingInfo = ({
   averageWelfare,
   averageWorkLifeBalance,
 }: CompanyRatingDto) => {
+  const { t } = useTranslation('pages');
   const data: RatingInfoType[] = [
     {
-      subject: '복지/문화',
+      subject: t('companies.rating.subjects.welfare'),
       score: averageWelfare,
       fullMark: 5,
-      description:
-        getLevel(averageWelfare) + ' 수준의 복지와 문화가 제공됩니다.',
+      description: t('companies.rating.descriptions.welfare', {
+        level: getLevel(averageWelfare, t),
+      }),
     },
     {
-      subject: '연봉',
+      subject: t('companies.rating.subjects.salary'),
       score: averageSalarySatisfaction,
       fullMark: 5,
-      description:
-        getLevel(averageSalarySatisfaction) + ' 수준의 연봉이 지급됩니다.',
+      description: t('companies.rating.descriptions.salary', {
+        level: getLevel(averageSalarySatisfaction, t),
+      }),
     },
     {
-      subject: '워라벨',
+      subject: t('companies.rating.subjects.workLife'),
       score: averageWorkLifeBalance,
       fullMark: 5,
-      description:
-        getLevel(averageWorkLifeBalance) + ' 수준의 워라벨이 유지됩니다.',
+      description: t('companies.rating.descriptions.workLife', {
+        level: getLevel(averageWorkLifeBalance, t),
+      }),
     },
     {
-      subject: '기업 문화',
+      subject: t('companies.rating.subjects.culture'),
       score: averageOrganizationalCulture,
       fullMark: 5,
-      description:
-        '기업 문화는 ' +
-        getLevel(averageOrganizationalCulture) +
-        ' 수준으로, 조직 내 협력과 소통이 중요시됩니다.',
+      description: t('companies.rating.descriptions.culture', {
+        level: getLevel(averageOrganizationalCulture, t),
+      }),
     },
     {
-      subject: '고용 안정성',
+      subject: t('companies.rating.subjects.stability'),
       score: averageJobStability,
       fullMark: 5,
-      description:
-        '고용 안정성은 ' +
-        getLevel(averageJobStability) +
-        ' 수준으로, 직원들의 직무 안정성이 보장됩니다.',
+      description: t('companies.rating.descriptions.stability', {
+        level: getLevel(averageJobStability, t),
+      }),
     },
   ];
   return (
     <div className={styles.container}>
       <RadarChartComponent data={data} />
-      <div className={styles.titleText}>세부 평점 정보</div>
+      <div className={styles.titleText}>{t('companies.rating.title')}</div>
       <div className={styles.ratingInfoBoxContainer}>
         {data.map(ele => (
           <RatingInfoBox

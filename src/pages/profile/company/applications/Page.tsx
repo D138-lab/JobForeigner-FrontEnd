@@ -5,6 +5,7 @@ import ApplicationCard from '@/components/profile/company/applications/Applicati
 import Input from '@/components/common/input/Input';
 import Select from '@/components/common/select/Select';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const applications = [
   {
@@ -115,26 +116,27 @@ const applications = [
 ];
 
 export default function CompanyProfileApplicationsPage() {
+  const { t } = useTranslation('pages');
   const [searchApplication, setSearchApplication] = useState('');
 
   return (
     <div className={styles.container}>
       <main className={styles.page}>
         <div className={styles.title}>
-          <h1>지원서 관리</h1>
+          <h1>{t('profile.companyApplications.title')}</h1>
           <p>
-            채용 공고에 지원한 지원자들의 이력서를 확인하고 관리할 수 있습니다.
+            {t('profile.companyApplications.description')}
           </p>
         </div>
         <div className={styles.statusWrapper}>
           <StatusBox
-            title='전체 지원서'
+            title={t('profile.companyApplications.status.all')}
             number={applications.length}
             icon={<FileText />}
             iconColor='var(--color-sky-800)'
           />
           <StatusBox
-            title='검토중'
+            title={t('profile.companyApplications.status.reviewing')}
             number={
               applications.filter(
                 application => application.status === 'reviewing',
@@ -144,7 +146,7 @@ export default function CompanyProfileApplicationsPage() {
             iconColor='var(--color-blue-600)'
           />
           <StatusBox
-            title='면접 예정'
+            title={t('profile.companyApplications.status.interview')}
             number={
               applications.filter(
                 application => application.status === 'interview',
@@ -154,7 +156,7 @@ export default function CompanyProfileApplicationsPage() {
             iconColor='var(--color-green-600)'
           />
           <StatusBox
-            title='완료'
+            title={t('profile.companyApplications.status.done')}
             number={
               applications.filter(
                 application =>
@@ -171,7 +173,7 @@ export default function CompanyProfileApplicationsPage() {
             <div className={styles.searchWrapper}>
               <Input
                 icon='search'
-                placeholder='지원서 제목 검색'
+                placeholder={t('profile.companyApplications.searchPlaceholder')}
                 value={searchApplication}
                 onChange={e => setSearchApplication(e.target.value)}
               />
@@ -179,19 +181,31 @@ export default function CompanyProfileApplicationsPage() {
             <div className={styles.selects}>
               <Select
                 options={[
-                  { value: 'all', label: '전체' },
-                  { value: 'reviewing', label: '검토중' },
-                  { value: 'interview', label: '면접 예정' },
-                  { value: 'rejected', label: '불합격' },
-                  { value: 'accepted', label: '합격' },
+                  { value: 'all', label: t('profile.filters.all') },
+                  {
+                    value: 'reviewing',
+                    label: t('profile.companyApplications.status.reviewing'),
+                  },
+                  {
+                    value: 'interview',
+                    label: t('profile.companyApplications.status.interview'),
+                  },
+                  {
+                    value: 'rejected',
+                    label: t('profile.companyApplications.status.rejected'),
+                  },
+                  {
+                    value: 'accepted',
+                    label: t('profile.companyApplications.status.accepted'),
+                  },
                 ]}
                 defaultValue='all'
                 name='status'
               />
               <Select
                 options={[
-                  { value: 'newest', label: '최신순' },
-                  { value: 'oldest', label: '오래된순' },
+                  { value: 'newest', label: t('profile.filters.newest') },
+                  { value: 'oldest', label: t('profile.filters.oldest') },
                 ]}
                 defaultValue='newest'
                 name='sort'
@@ -207,7 +221,9 @@ export default function CompanyProfileApplicationsPage() {
           ) : (
             <div className={styles.emptyState}>
               <FileText className={styles.fileTextIcon} />
-              <h3 className={styles.emptyTitle}>등록된 지원서가 없습니다</h3>
+              <h3 className={styles.emptyTitle}>
+                {t('profile.companyApplications.emptyTitle')}
+              </h3>
             </div>
           )}
         </div>

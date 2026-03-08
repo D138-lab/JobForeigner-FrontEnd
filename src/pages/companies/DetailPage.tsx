@@ -7,24 +7,32 @@ import styles from './detailPage.module.scss';
 import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
+  const { t } = useTranslation('pages');
   const location = useLocation();
   const companyId = location.state;
   const { data, isLoading, isError, error } =
     useGetCompanyDetailInfo(companyId);
-  const optionTabs = ['기업정보', '채용', '연봉', '기업평점', '후기'];
-  const [selectedTab, setSelectedTab] = useState(optionTabs[0]);
+  const optionTabs = [
+    { key: 'info', label: t('companies.detail.tabs.info') },
+    { key: 'recruit', label: t('companies.detail.tabs.recruit') },
+    { key: 'salary', label: t('companies.detail.tabs.salary') },
+    { key: 'rating', label: t('companies.detail.tabs.rating') },
+    { key: 'review', label: t('companies.detail.tabs.review') },
+  ];
+  const [selectedTab, setSelectedTab] = useState(optionTabs[0].key);
 
   if (!data) {
-    return <div>해당 기업 정보를 찾을 수 없습니다.</div>;
+    return <div>{t('companies.detail.notFound')}</div>;
   }
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <div>{t('companies.detail.loading')}</div>;
   }
   if (isError) {
     console.error('에러 발생:', error);
-    return <div>기업 정보를 불러오는 중 오류가 발생했습니다.</div>;
+    return <div>{t('companies.detail.loadError')}</div>;
   }
 
   console.log('기업 상세 정보:', data);
@@ -44,18 +52,18 @@ const DetailPage = () => {
       <div className={styles.optionTab}>
         {optionTabs.map(ele => (
           <div
-            onClick={() => setSelectedTab(ele)}
-            key={ele}
+            onClick={() => setSelectedTab(ele.key)}
+            key={ele.key}
             className={`${styles.option} ${
-              selectedTab === ele ? styles.selectedOption : ''
+              selectedTab === ele.key ? styles.selectedOption : ''
             }`}
           >
-            {ele}
+            {ele.label}
           </div>
         ))}
       </div>
       <div className={styles.selectInfo}>
-        {selectedTab === '기업정보' && (
+        {selectedTab === 'info' && (
           <CompanyInfoPage
             companyAddress={companyInfo.address}
             companyName={companyInfo.companyName}
@@ -66,15 +74,21 @@ const DetailPage = () => {
             benefits={companyInfo.welfare}
           />
         )}
-        {selectedTab === '채용' && <RecruitInfo data={jobPost} />}
-        {selectedTab === '연봉' && (
+        {selectedTab === 'recruit' && (
+          <RecruitInfo data={jobPost} />
+        )}
+        {selectedTab === 'salary' && (
           <SalaryInfo
             averageSalary={+salaryInfo.averageSalary}
             monthlySalary={+salaryInfo.monthlySalary}
           />
         )}
-        {selectedTab === '기업평점' && <RatingInfo {...companyRating} />}
-        {selectedTab === '후기' && <ReviewInfo data={review} />}
+        {selectedTab === 'rating' && (
+          <RatingInfo {...companyRating} />
+        )}
+        {selectedTab === 'review' && (
+          <ReviewInfo data={review} />
+        )}
       </div>
     </div>
   );

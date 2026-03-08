@@ -6,46 +6,47 @@ import TextareaField from '@/components/common/field/TextareaField';
 import Button from '@/components/common/button/Button';
 import { Camera, Save } from 'lucide-react';
 import useImageUpload from '@/lib/hooks/useImageUpload';
-
-const industryItems = [
-  {
-    label: 'IT/소프트웨어',
-    value: 'it-dev',
-  },
-  {
-    label: '서비스업',
-    value: 'service',
-  },
-  {
-    label: '제조/생산',
-    value: 'manufacturing',
-  },
-  {
-    label: '교육',
-    value: 'education',
-  },
-  {
-    label: '사무/관리',
-    value: 'office',
-  },
-  {
-    label: '영업/마케팅',
-    value: 'sales',
-  },
-  {
-    label: '디자인',
-    value: 'design',
-  },
-  {
-    label: '기타',
-    value: 'others',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function CompanyProfileEditForm() {
+  const { t } = useTranslation('pages');
   const { control, setValue } = useFormContext();
   const { image, fileInputRef, handleImageUpload, handleUploadClick } =
     useImageUpload(setValue);
+  const industryItems = [
+    {
+      label: t('profile.component.companyEditForm.industry.it'),
+      value: 'it-dev',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.service'),
+      value: 'service',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.manufacturing'),
+      value: 'manufacturing',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.education'),
+      value: 'education',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.office'),
+      value: 'office',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.sales'),
+      value: 'sales',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.design'),
+      value: 'design',
+    },
+    {
+      label: t('profile.component.companyEditForm.industry.others'),
+      value: 'others',
+    },
+  ];
 
   return (
     <div className={styles.formWrapper}>
@@ -73,19 +74,21 @@ export default function CompanyProfileEditForm() {
             <Camera className={styles.icon} />
           </button>
         </div>
-        <p className={styles.caption}>권장 크기: 400x400 픽셀, 최대 2MB</p>
+        <p className={styles.caption}>
+          {t('profile.component.form.imageGuide')}
+        </p>
       </div>
       <div className={styles.twoRow}>
         <InputField
           control={control}
           name='company'
-          label='기업명'
+          label={t('profile.component.companyEditForm.company')}
           required={true}
         />
         <InputField
           control={control}
           name='ceo'
-          label='대표자명'
+          label={t('profile.component.companyInfo.ceo')}
           required={true}
         />
       </div>
@@ -93,13 +96,13 @@ export default function CompanyProfileEditForm() {
         <InputField
           control={control}
           name='businessNumber'
-          label='사업자 등록번호'
+          label={t('profile.component.companyInfo.businessNumber')}
           required={true}
         />
         <SelectField
           control={control}
           name='industry'
-          label='업종'
+          label={t('profile.component.companyEditForm.industry.label')}
           required={true}
           options={industryItems}
         />
@@ -108,20 +111,20 @@ export default function CompanyProfileEditForm() {
         <InputField
           control={control}
           name='foundedYear'
-          label='설립연도'
+          label={t('profile.component.companyInfo.foundedYear')}
           placeholder='2025'
         />
         <InputField
           control={control}
           name='employeeCount'
-          label='직원수'
+          label={t('profile.component.companyInfo.employeeCount')}
           placeholder='100'
         />
       </div>
       <InputField
         control={control}
         name='address'
-        label='주소'
+        label={t('profile.resumePreview.fields.address')}
         required={true}
       />
       <div className={styles.twoRow}>
@@ -129,33 +132,33 @@ export default function CompanyProfileEditForm() {
           control={control}
           type='phone'
           name='phone'
-          label='연락처'
+          label={t('profile.component.companyInfo.contact')}
           required={true}
         />
         <InputField
           control={control}
           name='email'
-          label='이메일'
+          label={t('profile.resumePreview.fields.email')}
           required={true}
         />
       </div>
       <InputField
         control={control}
         name='website'
-        label='웹사이트'
+        label={t('profile.component.companyInfo.website')}
         placeholder='https://'
       />
       <TextareaField
         control={control}
         name='description'
-        label='회사 소개'
-        placeholder='회사에 대한 간단한 소개를 작성해주세요.'
+        label={t('profile.component.companyInfo.intro')}
+        placeholder={t('profile.component.companyEditForm.introPlaceholder')}
       />
       <div className={styles.actions}>
         <Button size='medium'>
           <span className={styles.buttonText}>
             <Save />
-            저장하기
+            {t('profile.component.form.save')}
           </span>
         </Button>
       </div>

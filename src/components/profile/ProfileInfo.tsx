@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import styles from './profileInfo.module.scss';
 import Button from '../common/button/Button';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   name: string;
@@ -16,13 +17,14 @@ export default function ProfileInfo({
   phoneNumber,
   region,
 }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.profileInfo}>
       <div className={styles.profileTopRow}>
         <h2 className={styles.statsItemLabel}>{name}</h2>
         <Link to='/profile/edit'>
           <Button variant='outline' size='medium'>
-            프로필 수정
+            {t('profile.edit.title')}
           </Button>
         </Link>
       </div>

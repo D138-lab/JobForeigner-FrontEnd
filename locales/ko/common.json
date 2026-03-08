@@ -6,5 +6,52 @@
   "companiesInfo": "기업정보",
   "nearBy": "주변기업찾기",
   "nearByPlaces": "주변 장소 찾기",
-  "community": "커뮤니티"
+  "community": "커뮤니티",
+  "logout": "로그아웃",
+  "profile": "프로필",
+  "notifications": "알림",
+  "read": "읽음",
+  "unread": "안읽음",
+  "noNotifications": "알림이 없습니다.",
+  "recentJobs": "최근 본 공고",
+  "noRecentJobs": "최근 본 공고가 없습니다.",
+  "communityPage": {
+    "writePost": "글쓰기",
+    "searchPlaceholder": "게시글 제목 검색",
+    "searchButton": "검색",
+    "tabs": {
+      "all": "전체",
+      "general": "일반 게시글",
+      "market": "중고거래",
+      "policy": "정책 큐레이션"
+    },
+    "emptyBySearch": "검색 결과가 없습니다.",
+    "emptyByCategory": "선택한 카테고리에 게시글이 없습니다.",
+    "popularPostsTitle": "실시간 인기 게시물",
+    "announcementTitle": "공지/이벤트",
+    "announcements": {
+      "ruleChange": "커뮤니티 운영 정책이 변경되었습니다.",
+      "welcomeEvent": "신규 가입자 대상 웰컴 이벤트 진행 중",
+      "serverMaintenance": "서버 점검 안내 (일요일 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "공지",
+      "event": "이벤트"
+    },
+    "topMemberTitle": "인증회원",
+    "profileImageAlt": "{{name}} 프로필 이미지",
+    "topRank": "{{rank}}위",
+    "noData": "데이터가 없습니다.",
+    "postAction": {
+      "edit": "수정",
+      "delete": "삭제",
+      "deleting": "삭제 중...",
+      "report": "신고",
+      "block": "차단",
+      "confirmDelete": "정말 삭제하시겠습니까?",
+      "deleteSuccess": "게시글이 삭제되었습니다.",
+      "deleteFail": "게시글 삭제에 실패했습니다.",
+      "likeFail": "좋아요 처리에 실패했습니다."
+    }
+  }
 }

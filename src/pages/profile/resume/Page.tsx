@@ -8,8 +8,10 @@ import Select from '@/components/common/select/Select';
 import ResumeCard from '@/components/profile/resume/ResumeCard';
 import { Resume } from '@/lib/type/profile/resume';
 import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
+import { useTranslation } from 'react-i18next';
 
 export default function ResumeListPage() {
+  const { t } = useTranslation('pages');
   const [searchTerm, setSearchTerm] = useState('');
 
   const { data: resumeListData, isLoading, error } = useGetResumeList();
@@ -25,7 +27,7 @@ export default function ResumeListPage() {
         title:
           item.resumeTitle ||
           (item.desiredJobs && item.desiredJobs[0]?.desiredJob) ||
-          '이력서',
+          t('profile.resume.resumeFallback'),
         createdAt: item.createdAt?.slice(0, 10) || '',
         updatedAt: item.updatedAt?.slice(0, 10) || '',
         status: 'completed', // TODO: 필요시 조건 분기
@@ -42,14 +44,15 @@ export default function ResumeListPage() {
       {/* 헤더 */}
       <div className={styles.header}>
         <div>
-          <h1 className={styles.headerTitle}>내 이력서</h1>
+          <h1 className={styles.headerTitle}>{t('profile.resume.title')}</h1>
           <p className={styles.headerSubtitle}>
-            작성한 이력서를 관리하고 새 이력서를 작성할 수 있습니다.
+            {t('profile.resume.description')}
           </p>
         </div>
         <Link to='/profile/resume/create'>
           <Button size='medium'>
-            <Plus className={styles.buttonIcon} />새 이력서 작성
+            <Plus className={styles.buttonIcon} />
+            {t('profile.resume.create')}
           </Button>
         </Link>
       </div>
@@ -61,7 +64,7 @@ export default function ResumeListPage() {
           <div className={styles.searchWrapper}>
             <Input
               icon='search'
-              placeholder='이력서 제목 검색'
+              placeholder={t('profile.resume.searchPlaceholder')}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -69,17 +72,17 @@ export default function ResumeListPage() {
           <div className={styles.selects}>
             <Select
               options={[
-                { value: 'all', label: '전체' },
-                { value: 'completed', label: '작성완료' },
-                { value: 'progressing', label: '작성중' },
+                { value: 'all', label: t('profile.filters.all') },
+                { value: 'completed', label: t('profile.resume.completed') },
+                { value: 'progressing', label: t('profile.resume.inProgress') },
               ]}
               defaultValue='all'
               name='status'
             />
             <Select
               options={[
-                { value: 'newest', label: '최신순' },
-                { value: 'oldest', label: '오래된순' },
+                { value: 'newest', label: t('profile.filters.newest') },
+                { value: 'oldest', label: t('profile.filters.oldest') },
               ]}
               defaultValue='newest'
               name='sort'
@@ -97,11 +100,16 @@ export default function ResumeListPage() {
         ) : (
           <div className={styles.emptyList}>
             <FileText className={styles.emptyListIcon} />
-            <h3 className={styles.emptyListTitle}>이력서가 없습니다</h3>
-            <p className={styles.emptyListDesc}>새 이력서를 작성해보세요.</p>
+            <h3 className={styles.emptyListTitle}>
+              {t('profile.resume.emptyTitle')}
+            </h3>
+            <p className={styles.emptyListDesc}>
+              {t('profile.resume.emptyDescription')}
+            </p>
             <Link to='/profile/resume/create'>
               <Button size='medium'>
-                <Plus className={styles.buttonIcon} />새 이력서 작성
+                <Plus className={styles.buttonIcon} />
+                {t('profile.resume.create')}
               </Button>
             </Link>
           </div>

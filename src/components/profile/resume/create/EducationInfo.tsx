@@ -5,18 +5,7 @@ import Button from '@/components/common/button/Button';
 import { Plus } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
 import SelectField from '@/components/common/field/SelectField';
-
-const degreeOptions = [
-  { value: 'BACHELOR', label: '학사' },
-  { value: 'MASTER', label: '석사' },
-  { value: 'DOCTOR', label: '박사' },
-];
-
-const graduationStatusOptions = [
-  { value: 'GRADUATED', label: '졸업' },
-  { value: 'COMPLETED', label: '수료' },
-  { value: 'STUDYING', label: '재학 중' },
-];
+import { useTranslation } from 'react-i18next';
 
 const defaultEducation = {
   educationName: '',
@@ -28,7 +17,19 @@ const defaultEducation = {
 };
 
 export default function EducationInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
+  const degreeOptions = [
+    { value: 'BACHELOR', label: t('profile.component.education.degree.bachelor') },
+    { value: 'MASTER', label: t('profile.component.education.degree.master') },
+    { value: 'DOCTOR', label: t('profile.component.education.degree.doctor') },
+  ];
+
+  const graduationStatusOptions = [
+    { value: 'GRADUATED', label: t('profile.component.education.status.graduated') },
+    { value: 'COMPLETED', label: t('profile.component.education.status.completed') },
+    { value: 'STUDYING', label: t('profile.component.education.status.studying') },
+  ];
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'educations',
@@ -37,7 +38,7 @@ export default function EducationInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>학력</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.education')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -45,12 +46,12 @@ export default function EducationInfo() {
           onClick={() => append(defaultEducation)}
         >
           <Plus className={styles.plusIcon} />
-          학력 추가
+          {t('profile.component.education.add')}
         </Button>
       </div>
 
       {!fields.length && (
-        <p className={styles.appendText}>학력 정보를 추가해주세요</p>
+        <p className={styles.appendText}>{t('profile.component.education.append')}</p>
       )}
 
       {fields.map((field, index) => (
@@ -63,24 +64,24 @@ export default function EducationInfo() {
               <InputField
                 control={control}
                 name={`educations.${index}.educationName`}
-                label='학교명'
-                placeholder='학교명을 입력하세요'
+                label={t('profile.component.education.school')}
+                placeholder={t('profile.component.education.schoolPlaceholder')}
                 required={true}
                 maxLength={30}
               />
               <InputField
                 control={control}
                 name={`educations.${index}.major`}
-                label='전공'
-                placeholder='전공을 입력하세요'
+                label={t('profile.component.education.major')}
+                placeholder={t('profile.component.education.majorPlaceholder')}
                 required={true}
                 maxLength={30}
               />
               <InputField
                 control={control}
                 name={`educations.${index}.yearOfGraduation`}
-                label='졸업 연도'
-                placeholder='예: 2025-02-28'
+                label={t('profile.component.education.year')}
+                placeholder={t('profile.component.education.yearExample')}
                 required={true}
               />
             </div>
@@ -88,14 +89,14 @@ export default function EducationInfo() {
               <SelectField
                 control={control}
                 name={`educations.${index}.degree`}
-                label='학위'
+                label={t('profile.component.education.degree.label')}
                 required={true}
                 options={degreeOptions}
               />
               <SelectField
                 control={control}
                 name={`educations.${index}.graduationStatus`}
-                label='졸업 상태'
+                label={t('profile.component.education.status.label')}
                 required={true}
                 options={graduationStatusOptions}
               />
@@ -104,8 +105,8 @@ export default function EducationInfo() {
             <InputField
               control={control}
               name={`educations.${index}.etc`}
-              label='기타'
-              placeholder='학점, 활동 등 추가 정보'
+              label={t('profile.component.education.etc')}
+              placeholder={t('profile.component.education.etcPlaceholder')}
               required={false}
               maxLength={2000}
             />

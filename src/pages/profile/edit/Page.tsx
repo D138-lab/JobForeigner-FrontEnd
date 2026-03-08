@@ -9,8 +9,10 @@ import { userProfileEditSchema } from '@/lib/schemas/userProfileEditSchema';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useEffect } from 'react';
 import usePatchUserProfileInfo from '@/lib/apis/mutations/usePatchUserProfileInfo';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileEditPage() {
+  const { t } = useTranslation('pages');
   const navigation = useNavigate();
 
   const phoneNumber = useAuthStore(state => state.phoneNumber);
@@ -55,7 +57,7 @@ export default function ProfileEditPage() {
           detailAddress: data.detailAddress,
           zipcode: data.zipcode,
         });
-        alert('프로필 정보가 수정되었습니다');
+        alert(t('profile.edit.alertUpdated'));
         navigation('/profile');
       },
     });
@@ -69,7 +71,7 @@ export default function ProfileEditPage() {
     <div className={styles.container}>
       <main className={styles.page}>
         <div className={styles.title}>
-          <h1>프로필 수정</h1>
+          <h1>{t('profile.edit.title')}</h1>
           <Button
             variant='outline'
             size='medium'
@@ -77,13 +79,13 @@ export default function ProfileEditPage() {
           >
             <span className={styles.buttonContent}>
               <ArrowLeft className={styles.buttonIcon} />
-              돌아가기
+              {t('profile.common.goBack')}
             </span>
           </Button>
         </div>
         <section>
-          <h2>기본 정보</h2>
-          <p>프로필의 기본 정보를 수정할 수 있습니다.</p>
+          <h2>{t('profile.common.basicInfo')}</h2>
+          <p>{t('profile.edit.description')}</p>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
               <UserProfileEditForm />

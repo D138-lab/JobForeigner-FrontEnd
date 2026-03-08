@@ -12,6 +12,7 @@ import styles from './likedCompanyCard.module.scss';
 import { Link } from 'react-router-dom';
 import { Company } from '@/lib/type/profile/bookmark';
 import Button from '@/components/common/button/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   company: Company;
@@ -24,6 +25,7 @@ export default function LikedCompanyCard({
   onToggleNotification,
   onRemoveBookmark,
 }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
@@ -40,7 +42,9 @@ export default function LikedCompanyCard({
               <h3 className={styles.name}>{company.name}</h3>
               {company.activeJobsCount > 0 && (
                 <span className={styles.badge}>
-                  채용중 {company.activeJobsCount}
+                  {t('profile.component.likedCompanyCard.hiring', {
+                    count: company.activeJobsCount,
+                  })}
                 </span>
               )}
             </div>
@@ -60,11 +64,15 @@ export default function LikedCompanyCard({
             </div>
             <div className={styles.buttonGroup}>
               <Link to={`/companies/${company.id}`}>
-                <Button variant='outline'>기업 정보</Button>
+                <Button variant='outline'>
+                  {t('profile.component.likedCompanyCard.companyInfo')}
+                </Button>
               </Link>
               <Link to={`/companies/${company.id}/jobs`}>
                 <Button variant='outline'>
-                  채용 공고 ({company.activeJobsCount})
+                  {t('profile.component.likedCompanyCard.recruitments', {
+                    count: company.activeJobsCount,
+                  })}
                 </Button>
               </Link>
             </div>
@@ -75,7 +83,11 @@ export default function LikedCompanyCard({
             type='button'
             className={styles.iconButton}
             onClick={() => onToggleNotification(company.id)}
-            title={company.isNotificationOn ? '알림 끄기' : '알림 켜기'}
+            title={
+              company.isNotificationOn
+                ? t('profile.component.likedCompanyCard.notificationOff')
+                : t('profile.component.likedCompanyCard.notificationOn')
+            }
           >
             {company.isNotificationOn ? <Bell /> : <BellOff />}
           </button>
@@ -88,8 +100,8 @@ export default function LikedCompanyCard({
                 to={`/companies/${company.id}`}
                 className={styles.dropdownItem}
               >
-                <ExternalLink className={styles.dropdownIcon} /> 기업 페이지로
-                이동
+                <ExternalLink className={styles.dropdownIcon} />{' '}
+                {t('profile.component.likedCompanyCard.goCompanyPage')}
               </Link>
               <button
                 type='button'
@@ -98,11 +110,13 @@ export default function LikedCompanyCard({
               >
                 {company.isNotificationOn ? (
                   <>
-                    <BellOff className={styles.dropdownIcon} /> 알림 끄기
+                    <BellOff className={styles.dropdownIcon} />{' '}
+                    {t('profile.component.likedCompanyCard.notificationOff')}
                   </>
                 ) : (
                   <>
-                    <Bell className={styles.dropdownIcon} /> 알림 켜기
+                    <Bell className={styles.dropdownIcon} />{' '}
+                    {t('profile.component.likedCompanyCard.notificationOn')}
                   </>
                 )}
               </button>
@@ -111,7 +125,8 @@ export default function LikedCompanyCard({
                 className={`${styles.dropdownItem} ${styles.delete}`}
                 onClick={() => onRemoveBookmark(company.id)}
               >
-                <Trash2 className={styles.dropdownIcon} /> 관심 기업 삭제
+                <Trash2 className={styles.dropdownIcon} />{' '}
+                {t('profile.component.likedCompanyCard.delete')}
               </button>
             </div>
           </div>

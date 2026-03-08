@@ -4,21 +4,25 @@ import Button from '@/components/common/button/Button';
 import { Plus, Trash } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
 import SelectField from '@/components/common/field/SelectField';
+import { useTranslation } from 'react-i18next';
 
 const language = {
   language: '',
   proficiency: '',
 };
 
-const proficiencyOptions = [
-  { value: 'BASIC', label: '기초' },
-  { value: 'INTERMEDIATE', label: '중급' },
-  { value: 'ADVANCED', label: '상급' },
-  { value: 'FLUENT', label: '원어민 수준' },
-];
-
 export default function LanguageInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
+  const proficiencyOptions = [
+    { value: 'BASIC', label: t('profile.component.language.basic') },
+    {
+      value: 'INTERMEDIATE',
+      label: t('profile.component.language.intermediate'),
+    },
+    { value: 'ADVANCED', label: t('profile.component.language.advanced') },
+    { value: 'FLUENT', label: t('profile.component.language.fluent') },
+  ];
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'languages',
@@ -27,7 +31,7 @@ export default function LanguageInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>언어</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.languages')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -35,11 +39,11 @@ export default function LanguageInfo() {
           onClick={() => append(language)}
         >
           <Plus className={styles.plusIcon} />
-          언어 추가
+          {t('profile.component.language.add')}
         </Button>
       </div>
       {!fields.length ? (
-        <p className={styles.appendText}>언어 능력을 추가해주세요</p>
+        <p className={styles.appendText}>{t('profile.component.language.append')}</p>
       ) : null}
       {fields.map((field, index) => (
         <div key={field.id} className={styles.itemWrapper}>
@@ -50,15 +54,15 @@ export default function LanguageInfo() {
             <InputField
               control={control}
               name={`languages.${index}.language`}
-              label='언어'
-              placeholder='언어명을 입력하세요'
+              label={t('profile.resumePreview.sections.languages')}
+              placeholder={t('profile.component.language.languagePlaceholder')}
               required={true}
               maxLength={20}
             />
             <SelectField
               control={control}
               name={`languages.${index}.proficiency`}
-              label='능숙도'
+              label={t('profile.component.language.proficiency')}
               options={proficiencyOptions}
               required={true}
             />

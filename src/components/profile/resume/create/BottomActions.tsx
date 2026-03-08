@@ -4,19 +4,19 @@ import Button from '@/components/common/button/Button';
 import { FileDown, Save } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function BottomActions() {
+  const { t } = useTranslation('pages');
   const { watch } = useFormContext();
   const formValues = watch();
 
-  // 중첩 필드 접근 함수 추가
   function getNestedValue(obj: any, path: string) {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
 
   const handleTempSave = () => {
-    // 현재 폼 데이터를 JSON 형태로 출력
-    console.log('임시 저장 데이터 ↓');
+    console.log('Draft form data');
     console.log(JSON.stringify(formValues, null, 2));
   };
 
@@ -48,7 +48,9 @@ export default function BottomActions() {
         <div className={styles.bottomBarRow}>
           <div className={styles.progressSection}>
             <div className={styles.progressLabelRow}>
-              <span className={styles.progressLabel}>작성 진행률</span>
+              <span className={styles.progressLabel}>
+                {t('profile.component.bottomActions.progress')}
+              </span>
               <span className={styles.progressValue}>{progress}%</span>
             </div>
             <Progress value={progress} />
@@ -56,11 +58,15 @@ export default function BottomActions() {
           <div className={styles.buttonGroup}>
             <Button variant='outline' size='medium' onClick={handleTempSave}>
               <FileDown className={styles.buttonIcon} />
-              <span className={styles.buttonText}>임시 저장</span>
+              <span className={styles.buttonText}>
+                {t('profile.component.bottomActions.tempSave')}
+              </span>
             </Button>
             <Button size='medium'>
               <Save className={styles.buttonIcon} />
-              <span className={styles.buttonText}>저장하기</span>
+              <span className={styles.buttonText}>
+                {t('profile.component.form.save')}
+              </span>
             </Button>
           </div>
         </div>

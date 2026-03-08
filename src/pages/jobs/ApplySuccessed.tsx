@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './applySuccessed.module.scss';
 import { CircleCheckBig } from 'lucide-react';
 
 const ApplySuccessed = () => {
+  const { t } = useTranslation('pages');
+
   return (
     <div className={styles.container}>
       <CircleCheckBig className={styles.checkIcon} />
       <div className={styles.textArea}>
-        <div>제출이 완료되었습니다!</div>
-        <div>건승을 빕니다.</div>
+        <div>{t('jobsApply.successTitle')}</div>
+        <div>{t('jobsApply.successSub')}</div>
       </div>
       <div className={styles.btnBox}>
         <div className={styles.goMainBtn}>
-          <Link to='/'>초기 화면으로</Link>
+          <Link to='/'>{t('jobsApply.goMain')}</Link>
         </div>
       </div>
     </div>

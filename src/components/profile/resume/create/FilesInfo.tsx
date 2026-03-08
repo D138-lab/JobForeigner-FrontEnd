@@ -2,6 +2,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import styles from './filesInfo.module.scss';
 import { FileIcon, FileUpIcon, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const fileSizeFormatter = (size: number) => {
   if (size < 1024) {
@@ -17,6 +18,7 @@ const fileSizeFormatter = (size: number) => {
 };
 
 export default function FilesInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { field } = useController({ name: 'files', control });
 
@@ -45,32 +47,32 @@ export default function FilesInfo() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>파일 첨부</h2>
+      <h2 className={styles.title}>{t('profile.resumePreview.sections.files')}</h2>
       <div {...getRootProps()} className={styles.dropzone}>
         <FileUpIcon className={styles.fileUpIcon} />
         <input {...getInputProps()} />
         {isDragActive ? (
           <>
-            <p className={styles.text}>여기에 파일을 놓아 업로드해주세요</p>
+            <p className={styles.text}>{t('profile.component.files.dropActive')}</p>
             <p className={styles.description}>
-              PDF, DOCX, JPG, PNG (최대 100MB)
+              {t('profile.component.files.formatGuide')}
             </p>
           </>
         ) : (
           <>
-            <p className={styles.text}>
-              파일을 드래그하거나 클릭하여 업로드하세요
-            </p>
+            <p className={styles.text}>{t('profile.component.files.dropIdle')}</p>
             <p className={styles.description}>
-              PDF, DOCX, JPG, PNG (최대 100MB)
+              {t('profile.component.files.formatGuide')}
             </p>
           </>
         )}
-        <h3 className={styles.fileSelectTitle}>파일 선택</h3>
+        <h3 className={styles.fileSelectTitle}>{t('profile.component.files.select')}</h3>
       </div>
       <div className={styles.uploadedFiles}>
         {!!uploadedFiles.length && (
-          <h3 className={styles.fileSelectTitle}>업로드된 파일</h3>
+          <h3 className={styles.fileSelectTitle}>
+            {t('profile.component.files.uploaded')}
+          </h3>
         )}
         {uploadedFiles.map((file, index) => (
           <div key={index} className={styles.fileItem}>

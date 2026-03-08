@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "Back to community",
+    "loadingPost": "Loading post details.",
+    "loadPostFail": "Failed to load the post."
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "General Post",
+      "MARKET": "Marketplace",
+      "POLICY": "Policy Curation"
+    },
+    "generalCategories": {
+      "NOTICE": "Notice",
+      "FREE": "Free Board",
+      "QNA": "Q&A",
+      "INFO": "Info Sharing"
+    },
+    "alerts": {
+      "titleRequired": "Please enter a title.",
+      "contentRequired": "Please enter content.",
+      "generalCategoryRequired": "Please select a general post category.",
+      "noticeAdminOnly": "Regular users cannot select Notice.",
+      "createSuccess": "The post has been created.",
+      "createFail": "Failed to create the post. Please try again.",
+      "imageIdMissing": "Could not find file ID in image upload confirmation response.",
+      "imageUploadFail": "Image upload failed. Please try again."
+    },
+    "confirmLeave": "Your changes will not be saved.\nDo you want to cancel?",
+    "labels": {
+      "back": "Back",
+      "postType": "Post Type",
+      "generalCategory": "General Post Category",
+      "title": "Title"
+    },
+    "placeholder": {
+      "title": "Enter a title."
+    },
+    "tagHelper": "Enter tags related to the post. You can add up to 5 tags.",
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "submitting": "Submitting..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "General Post",
+      "MARKET": "Marketplace",
+      "POLICY": "Policy Curation"
+    },
+    "alerts": {
+      "noPermission": "You do not have permission to edit this post.",
+      "titleRequired": "Please enter a title.",
+      "contentRequired": "Please enter content.",
+      "imageNotSupported": "Image update is not connected yet, so this edit will be saved without images.",
+      "updateSuccess": "The post has been updated.",
+      "updateFail": "Failed to update the post. Please try again."
+    },
+    "confirmLeave": "Your changes will not be saved.\nDo you want to cancel?",
+    "state": {
+      "loadingPost": "Loading post details.",
+      "checkingPermission": "Checking permissions.",
+      "loadFail": "Failed to load post details."
+    },
+    "labels": {
+      "back": "Back",
+      "postType": "Post Type",
+      "title": "Title"
+    },
+    "placeholder": {
+      "title": "Enter a title."
+    },
+    "tagHelper": "Enter tags related to the post. You can add up to 5 tags.",
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "Loading...",
+    "loadingShort": "Loading",
+    "empty": "No job posts found.",
+    "error": "An error occurred"
+  },
+  "jobsApply": {
+    "successTitle": "Submission completed!",
+    "successSub": "Wishing you the best.",
+    "failedTitle": "Submission failed!",
+    "failedSub": "Please try again later.",
+    "goMain": "Go to home"
+  },
+  "jobsSelectResume": {
+    "pending": "Requesting",
+    "title": "Select Resume",
+    "subtitle": "Please select a resume to apply with.",
+    "createResume": "Create new resume",
+    "apply": "Apply"
+  },
+  "companies": {
+    "loading": "Loading...",
+    "empty": "No job posts found.",
+    "detail": {
+      "notFound": "Company information not found.",
+      "loading": "Loading...",
+      "loadError": "An error occurred while loading company information.",
+      "tabs": {
+        "info": "Company Info",
+        "recruit": "Recruitment",
+        "salary": "Salary",
+        "rating": "Ratings",
+        "review": "Reviews"
+      }
+    },
+    "info": {
+      "sectionTitle": "Company Information",
+      "type": "Company Type",
+      "employee": "Employees",
+      "address": "Address",
+      "homepage": "Homepage",
+      "intro": "Introduction",
+      "benefits": "Benefits"
+    },
+    "recruit": {
+      "empty": "No data available."
+    },
+    "rating": {
+      "title": "Detailed Rating Information",
+      "level": {
+        "high": "Above average",
+        "mid": "Average",
+        "low": "Below average"
+      },
+      "subjects": {
+        "welfare": "Welfare/Culture",
+        "salary": "Salary",
+        "workLife": "Work-life balance",
+        "culture": "Company culture",
+        "stability": "Job stability"
+      },
+      "descriptions": {
+        "welfare": "Welfare and culture are provided at a {{level}} level.",
+        "salary": "Salary is paid at a {{level}} level.",
+        "workLife": "Work-life balance is maintained at a {{level}} level.",
+        "culture": "Company culture is at a {{level}} level, emphasizing collaboration and communication.",
+        "stability": "Job stability is at a {{level}} level, ensuring employee stability."
+      }
+    },
+    "review": {
+      "title": "Average Reviews"
+    },
+    "salary": {
+      "total": "Annual Salary",
+      "monthly": "Monthly Net Pay",
+      "unitManwon": "10k KRW",
+      "unitWon": "KRW"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "Back",
+      "basicInfo": "Basic Information"
+    },
+    "filters": {
+      "all": "All",
+      "newest": "Newest",
+      "oldest": "Oldest"
+    },
+    "main": {
+      "title": "Profile",
+      "myResume": "My Resumes",
+      "applications": "Applications",
+      "more": "More",
+      "loading": "Loading..."
+    },
+    "resume": {
+      "title": "My Resumes",
+      "description": "Manage your resumes and create a new one.",
+      "create": "Create Resume",
+      "searchPlaceholder": "Search resume title",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "emptyTitle": "No resumes",
+      "emptyDescription": "Create your first resume.",
+      "resumeFallback": "Resume"
+    },
+    "applications": {
+      "title": "Applications",
+      "description": "Check the jobs you applied to and their status.",
+      "searchPlaceholder": "Search resume title",
+      "statusSummary": {
+        "all": "All Applications",
+        "reviewing": "Under Review",
+        "interview": "Interview Scheduled",
+        "done": "Done"
+      }
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "description": "You can edit basic profile information.",
+      "alertUpdated": "Profile information has been updated."
+    },
+    "company": {
+      "title": "Company Information",
+      "description": "You can check basic company information.",
+      "edit": "Edit Information",
+      "registeredRecruitments": "Posted Recruitments",
+      "activeRecruitments": "Active Recruitments"
+    },
+    "companyEdit": {
+      "title": "Edit Company Information",
+      "description": "You can edit basic company information."
+    },
+    "companyRecruitment": {
+      "title": "Manage Recruitments",
+      "description": "Manage posted recruitments and create a new one.",
+      "create": "Create Recruitment",
+      "searchPlaceholder": "Search application title",
+      "emptyTitle": "No recruitments posted",
+      "emptyDescription": "Create a new recruitment post.",
+      "status": {
+        "all": "All Posts",
+        "active": "Active",
+        "expired": "Closed",
+        "applicants": "Applicants"
+      }
+    },
+    "companyApplications": {
+      "title": "Manage Applications",
+      "description": "Review and manage applicant resumes for your recruitments.",
+      "searchPlaceholder": "Search application title",
+      "emptyTitle": "No applications found",
+      "status": {
+        "all": "All Applications",
+        "reviewing": "Under Review",
+        "interview": "Interview Scheduled",
+        "done": "Done",
+        "accepted": "Accepted",
+        "rejected": "Rejected"
+      }
+    },
+    "bookmark": {
+      "title": "Bookmarks",
+      "description": "Manage favorite companies and saved job posts.",
+      "companies": {
+        "searchPlaceholder": "Search by company name or industry",
+        "emptyTitle": "No favorite companies",
+        "emptyDescription": "Click the star icon on a company page to add favorites.",
+        "browse": "Browse Companies"
+      },
+      "jobs": {
+        "searchPlaceholder": "Search by job title or company",
+        "emptyTitle": "No saved job posts",
+        "emptyDescription": "Click the bookmark icon on job posts to save them.",
+        "browse": "View Jobs",
+        "status": {
+          "active": "Active",
+          "expired": "Closed"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "Create Resume",
+      "requiredGuide": "* indicates required fields"
+    },
+    "resumeEdit": {
+      "title": "Edit Resume",
+      "requiredGuide": "* indicates required fields"
+    },
+    "resumePreview": {
+      "newResume": "New Resume",
+      "portfolio": "Portfolio",
+      "pdfDownloaded": "PDF has been downloaded.",
+      "print": "Print",
+      "downloading": "Downloading...",
+      "downloadPdf": "Download PDF",
+      "updatedAt": "Last updated: {{date}}",
+      "unitManwon": "10k KRW",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "address": "Address",
+        "phone": "Phone",
+        "employmentType": "Employment Type",
+        "desiredSalary": "Desired Salary",
+        "desiredLocation": "Preferred Location"
+      },
+      "sections": {
+        "basicInfo": "Basic Information",
+        "desiredJobs": "Desired Jobs",
+        "skills": "Skills",
+        "preference": "Preferred Working Conditions",
+        "education": "Education",
+        "experience": "Experience",
+        "certificates": "Certificates",
+        "awards": "Activities & Awards",
+        "expats": "Overseas Experience",
+        "languages": "Languages",
+        "attachments": "Attachments & Links",
+        "files": "Files",
+        "links": "Links"
+      },
+      "empty": {
+        "desiredJobs": "No desired jobs registered.",
+        "skills": "No skills registered.",
+        "preference": "No preferred working conditions registered.",
+        "education": "No education information registered.",
+        "experience": "No experience registered.",
+        "certificates": "No certificates registered.",
+        "awards": "No awards registered.",
+        "expats": "No overseas experience registered.",
+        "languages": "No language information registered."
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "Applied on: {{date}}",
+        "detail": "View details",
+        "preview": "Preview",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteConfirm": "Are you sure you want to delete?",
+        "add": "Add",
+        "viewPostDetail": "View Job Details",
+        "share": "Share"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "Saved Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "Business Registration Number",
+        "foundedYear": "Founded Year",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "Employees",
+        "contact": "Contact",
+        "website": "Website",
+        "intro": "Company Introduction"
+      },
+      "recruitmentCard": {
+        "createdAt": "Posted: {{date}}",
+        "expiresAt": "Deadline: {{date}}",
+        "applicants": "Applicants: {{count}}",
+        "views": "Views: {{count}}",
+        "viewPost": "View Post",
+        "viewApplicants": "View Applicants ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "Recruitment",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "Download Resume"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "Company Info",
+        "recruitments": "Recruitments ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "Go to company page",
+        "delete": "Remove from favorites"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "Go to post page",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed Address",
+        "zipcode": "Zip Code",
+        "save": "Save"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "Upload Photo"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "Full-time",
+        "contract": "Contract",
+        "intern": "Intern",
+        "any": "Any",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "Add Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "Additional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "Add Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "Add Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "Add Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "Add Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "Add Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "Add Link",
+        "append": "Add links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "Completion Progress",
+        "tempSave": "Save Draft"
+      },
+      "address": {
+        "sido": "Province/City",
+        "sigungu": "District",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "Select File",
+        "uploaded": "Uploaded Files"
+      },
+      "introduction": {
+        "title": "Introduction",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

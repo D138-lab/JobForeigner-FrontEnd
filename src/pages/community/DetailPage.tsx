@@ -11,8 +11,10 @@ import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import useGetBoardPostComments from '@/lib/apis/queries/useGetBoardPostComments';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useTranslation } from 'react-i18next';
 
 export default function DetailPage() {
+  const { t } = useTranslation('pages');
   const params = useParams();
   const location = useLocation();
   const fallbackPostId = location.state?.id;
@@ -132,16 +134,16 @@ export default function DetailPage() {
     <div className={styles.container}>
       <div className={styles.goBack} onClick={() => navigate(-1)}>
         <ArrowLeft size={20} />
-        <span>커뮤니티로 돌아가기</span>
+        <span>{t('communityDetail.backToCommunity')}</span>
       </div>
       <div className={styles.contentArea}>
         <div className={styles.mainContent}>
-          {isPending && <div>게시글 정보를 불러오는 중입니다.</div>}
+          {isPending && <div>{t('communityDetail.loadingPost')}</div>}
           {isError && (
             <div>
               {errorMessage?.message ??
                 errorMessage?.msg ??
-                '게시글을 불러오지 못했습니다.'}
+                t('communityDetail.loadPostFail')}
             </div>
           )}
           {!isPending && !isError && post && (

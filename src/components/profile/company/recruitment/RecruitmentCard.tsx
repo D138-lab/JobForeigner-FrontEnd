@@ -11,8 +11,15 @@ import {
 import styles from './recruitmentCard.module.scss';
 import Button from '@/components/common/button/Button';
 import { CompanyRecruitmentCard } from '@/lib/type/company/company';
+import { useTranslation } from 'react-i18next';
 
-const StatusTag = ({ status }: { status: string }) => {
+const StatusTag = ({
+  status,
+  t,
+}: {
+  status: string;
+  t: (key: string) => string;
+}) => {
   const getIcon = (status: string) => {
     if (status === 'active') {
       return <Clock />;
@@ -25,10 +32,10 @@ const StatusTag = ({ status }: { status: string }) => {
 
   const parseStatus = (status: string) => {
     if (status === 'active') {
-      return '진행중';
+      return t('profile.companyRecruitment.status.active');
     }
     if (status === 'expired') {
-      return '마감';
+      return t('profile.companyRecruitment.status.expired');
     }
     return status;
   };
@@ -62,13 +69,14 @@ interface Props {
 }
 
 export default function RecruitmentCard({ recruitment }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.recruitment}>
       <div className={styles.title}>
         <div className={styles.left}>
           <h2>{recruitment.title}</h2>
           <div>
-            <StatusTag status={recruitment.status} />
+            <StatusTag status={recruitment.status} t={t} />
           </div>
         </div>
         <Trash2 className={styles.deleteIcon} />
@@ -79,16 +87,28 @@ export default function RecruitmentCard({ recruitment }: Props) {
       </div>
       <div className={styles.info}>
         <div>
-          <Calendar /> 등록일: {recruitment.createdAt}
+          <Calendar />{' '}
+          {t('profile.component.recruitmentCard.createdAt', {
+            date: recruitment.createdAt,
+          })}
         </div>
         <div>
-          <Calendar /> 마감일: {recruitment.expiresAt}
+          <Calendar />{' '}
+          {t('profile.component.recruitmentCard.expiresAt', {
+            date: recruitment.expiresAt,
+          })}
         </div>
         <div>
-          <Users /> 지원자: {recruitment.applicantsCount}
+          <Users />{' '}
+          {t('profile.component.recruitmentCard.applicants', {
+            count: recruitment.applicantsCount,
+          })}
         </div>
         <div>
-          <Eye /> 조회수: {recruitment.viewCount}
+          <Eye />{' '}
+          {t('profile.component.recruitmentCard.views', {
+            count: recruitment.viewCount,
+          })}
         </div>
       </div>
       <div className={styles.divider} />
@@ -96,19 +116,21 @@ export default function RecruitmentCard({ recruitment }: Props) {
         <Button variant='outline' size='medium'>
           <span className={styles.buttonContent}>
             <Eye />
-            공고 보기
+            {t('profile.component.recruitmentCard.viewPost')}
           </span>
         </Button>
         <Button variant='outline' size='medium'>
           <span className={styles.buttonContent}>
             <PenSquare />
-            수정하기
+            {t('profile.component.common.edit')}
           </span>
         </Button>
         <Button size='medium'>
           <span className={styles.buttonContent}>
             <Users />
-            지원자 보기 ({recruitment.applicantsCount})
+            {t('profile.component.recruitmentCard.viewApplicants', {
+              count: recruitment.applicantsCount,
+            })}
           </span>
         </Button>
       </div>

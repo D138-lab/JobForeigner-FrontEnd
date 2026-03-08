@@ -11,6 +11,30 @@ const options = [
     label: 'English',
     value: 'en',
   },
+  {
+    label: 'Tiếng Việt',
+    value: 'vi',
+  },
+  {
+    label: '中文',
+    value: 'zh',
+  },
+  {
+    label: 'ไทย',
+    value: 'th',
+  },
+  {
+    label: 'Oʻzbekcha',
+    value: 'uz',
+  },
+  {
+    label: 'Bahasa Indonesia',
+    value: 'id',
+  },
+  {
+    label: 'नेपाली',
+    value: 'ne',
+  },
 ];
 
 const LanguageSwitcher = ({

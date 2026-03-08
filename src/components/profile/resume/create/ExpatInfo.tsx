@@ -3,6 +3,7 @@ import styles from './expatInfo.module.scss';
 import Button from '@/components/common/button/Button';
 import { Plus, Trash } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
+import { useTranslation } from 'react-i18next';
 
 const expat = {
   country: '',
@@ -12,6 +13,7 @@ const expat = {
 };
 
 export default function ExpatInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -21,7 +23,7 @@ export default function ExpatInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>해외 경험</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.expats')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -29,11 +31,11 @@ export default function ExpatInfo() {
           onClick={() => append(expat)}
         >
           <Plus className={styles.plusIcon} />
-          해외 경험 추가
+          {t('profile.component.expat.add')}
         </Button>
       </div>
       {!fields.length ? (
-        <p className={styles.appendText}>해외 경험 정보를 추가해주세요</p>
+        <p className={styles.appendText}>{t('profile.component.expat.append')}</p>
       ) : null}
       {fields.map((field, index) => (
         <div key={field.id} className={styles.itemWrapper}>
@@ -45,16 +47,16 @@ export default function ExpatInfo() {
               <InputField
                 control={control}
                 name={`expats.${index}.country`}
-                label='국가'
-                placeholder='국가명을 입력하세요'
+                label={t('profile.component.expat.country')}
+                placeholder={t('profile.component.expat.countryPlaceholder')}
                 required={true}
                 maxLength={50}
               />
               <InputField
                 control={control}
                 name={`expats.${index}.experience`}
-                label='경험 내용'
-                placeholder='경험 내용을 입력하세요'
+                label={t('profile.component.expat.experience')}
+                placeholder={t('profile.component.expat.experiencePlaceholder')}
                 required={true}
                 maxLength={100}
               />
@@ -63,7 +65,7 @@ export default function ExpatInfo() {
               <InputField
                 control={control}
                 name={`expats.${index}.startDate`}
-                label='시작일'
+                label={t('profile.component.employment.startDate')}
                 placeholder='YYYY-MM-DD'
                 required={true}
                 maxLength={10}
@@ -71,7 +73,7 @@ export default function ExpatInfo() {
               <InputField
                 control={control}
                 name={`expats.${index}.endDate`}
-                label='종료일'
+                label={t('profile.component.employment.endDate')}
                 placeholder='YYYY-MM-DD'
                 required={true}
                 maxLength={10}

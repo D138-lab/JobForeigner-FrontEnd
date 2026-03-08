@@ -23,6 +23,7 @@ import { z } from 'zod';
 import usePatchResume from '@/lib/apis/mutations/usePatchResume';
 import useGetResumePreview from '@/lib/apis/queries/useGetResumePreview';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type ResumeFormType = z.infer<typeof resumeSchema>;
 
@@ -46,6 +47,7 @@ const defaultValues = {
 };
 
 export default function EditResumePage() {
+  const { t } = useTranslation('pages');
   void AddressInfo;
   void IntroductionInfo;
   void FilesInfo;
@@ -121,8 +123,8 @@ export default function EditResumePage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1>이력서 수정</h1>
-        <p>* 표시는 필수 입력 항목입니다</p>
+        <h1>{t('profile.resumeEdit.title')}</h1>
+        <p>{t('profile.resumeEdit.requiredGuide')}</p>
       </div>
       <FormProvider {...formState}>
         <form
