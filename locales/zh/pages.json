@@ -1,81 +1,81 @@
 {
   "communityDetail": {
-    "backToCommunity": "Back to community",
-    "loadingPost": "Loading post details.",
-    "loadPostFail": "Failed to load the post."
+    "backToCommunity": "返回社区",
+    "loadingPost": "正在加载帖子详情。",
+    "loadPostFail": "无法加载帖子。"
   },
   "communityWrite": {
     "postTypes": {
-      "GENERAL": "General Post",
-      "MARKET": "Marketplace",
-      "POLICY": "Policy Curation"
+      "GENERAL": "普通帖子",
+      "MARKET": "二手交易",
+      "POLICY": "政策精选"
     },
     "generalCategories": {
-      "NOTICE": "Notice",
-      "FREE": "Free Board",
-      "QNA": "Q&A",
-      "INFO": "Info Sharing"
+      "NOTICE": "公告",
+      "FREE": "自由讨论",
+      "QNA": "问答",
+      "INFO": "信息分享"
     },
     "alerts": {
-      "titleRequired": "Please enter a title.",
-      "contentRequired": "Please enter content.",
-      "generalCategoryRequired": "Please select a general post category.",
-      "noticeAdminOnly": "Regular users cannot select Notice.",
-      "createSuccess": "The post has been created.",
-      "createFail": "Failed to create the post. Please try again.",
-      "imageIdMissing": "Could not find file ID in image upload confirmation response.",
-      "imageUploadFail": "Image upload failed. Please try again."
+      "titleRequired": "请输入标题。",
+      "contentRequired": "请输入内容。",
+      "generalCategoryRequired": "请选择普通帖子分类。",
+      "noticeAdminOnly": "普通用户不能选择公告。",
+      "createSuccess": "帖子已发布。",
+      "createFail": "发布失败，请重试。",
+      "imageIdMissing": "在图片确认响应中未找到文件ID。",
+      "imageUploadFail": "图片上传失败，请重试。"
     },
-    "confirmLeave": "Your changes will not be saved.\nDo you want to cancel?",
+    "confirmLeave": "正在编辑的内容不会保存。\n确定要取消吗？",
     "labels": {
-      "back": "Back",
-      "postType": "Post Type",
-      "generalCategory": "General Post Category",
-      "title": "Title"
+      "back": "返回",
+      "postType": "帖子类型",
+      "generalCategory": "普通帖子分类",
+      "title": "标题"
     },
     "placeholder": {
-      "title": "Enter a title."
+      "title": "请输入标题。"
     },
-    "tagHelper": "Enter tags related to the post. You can add up to 5 tags.",
+    "tagHelper": "请输入与帖子相关的标签，最多5个。",
     "buttons": {
-      "cancel": "Cancel",
-      "submit": "Submit",
-      "submitting": "Submitting..."
+      "cancel": "取消",
+      "submit": "发布",
+      "submitting": "发布中..."
     }
   },
   "communityEdit": {
     "categoryLabel": {
-      "GENERAL": "General Post",
-      "MARKET": "Marketplace",
-      "POLICY": "Policy Curation"
+      "GENERAL": "普通帖子",
+      "MARKET": "二手交易",
+      "POLICY": "政策精选"
     },
     "alerts": {
-      "noPermission": "You do not have permission to edit this post.",
-      "titleRequired": "Please enter a title.",
-      "contentRequired": "Please enter content.",
-      "imageNotSupported": "Image update is not connected yet, so this edit will be saved without images.",
-      "updateSuccess": "The post has been updated.",
-      "updateFail": "Failed to update the post. Please try again."
+      "noPermission": "您没有编辑该帖子的权限。",
+      "titleRequired": "请输入标题。",
+      "contentRequired": "请输入内容。",
+      "imageNotSupported": "暂不支持图片更新，将在不含图片的情况下保存。",
+      "updateSuccess": "帖子已更新。",
+      "updateFail": "更新失败，请重试。"
     },
-    "confirmLeave": "Your changes will not be saved.\nDo you want to cancel?",
+    "confirmLeave": "修改内容不会保存。\n确定要取消吗？",
     "state": {
-      "loadingPost": "Loading post details.",
-      "checkingPermission": "Checking permissions.",
-      "loadFail": "Failed to load post details."
+      "loadingPost": "正在加载帖子详情。",
+      "checkingPermission": "正在检查权限。",
+      "loadFail": "无法加载帖子信息。"
     },
     "labels": {
-      "back": "Back",
-      "postType": "Post Type",
-      "title": "Title"
+      "back": "返回",
+      "postType": "帖子类型",
+      "title": "标题"
     },
     "placeholder": {
-      "title": "Enter a title."
+      "title": "请输入标题。"
     },
-    "tagHelper": "Enter tags related to the post. You can add up to 5 tags.",
+    "tagHelper": "请输入与帖子相关的标签，最多5个。",
     "buttons": {
-      "cancel": "Cancel",
-      "save": "Save",
-      "saving": "Saving..."
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "保存中..."
     }
   },
   "nearbyPlaces": {
@@ -206,82 +206,82 @@
     "emptyPosts": "No job posts available."
   },
   "jobs": {
-    "loading": "Loading...",
-    "loadingShort": "Loading",
-    "empty": "No job posts found.",
-    "error": "An error occurred"
+    "loading": "加载中...",
+    "loadingShort": "加载中",
+    "empty": "暂无招聘信息。",
+    "error": "发生错误"
   },
   "jobsApply": {
-    "successTitle": "Submission completed!",
-    "successSub": "Wishing you the best.",
-    "failedTitle": "Submission failed!",
-    "failedSub": "Please try again later.",
-    "goMain": "Go to home"
+    "successTitle": "提交成功！",
+    "successSub": "祝你顺利。",
+    "failedTitle": "提交失败！",
+    "failedSub": "请稍后再试。",
+    "goMain": "返回首页"
   },
   "jobsSelectResume": {
-    "pending": "Requesting",
-    "title": "Select Resume",
-    "subtitle": "Please select a resume to apply with.",
-    "createResume": "Create new resume",
-    "apply": "Apply"
+    "pending": "请求中",
+    "title": "选择简历",
+    "subtitle": "请选择用于申请的简历。",
+    "createResume": "新建简历",
+    "apply": "申请"
   },
   "companies": {
-    "loading": "Loading...",
-    "empty": "No job posts found.",
+    "loading": "加载中...",
+    "empty": "暂无招聘信息。",
     "detail": {
-      "notFound": "Company information not found.",
-      "loading": "Loading...",
-      "loadError": "An error occurred while loading company information.",
+      "notFound": "未找到该公司信息。",
+      "loading": "加载中...",
+      "loadError": "加载公司信息时发生错误。",
       "tabs": {
-        "info": "Company Info",
-        "recruit": "Recruitment",
-        "salary": "Salary",
-        "rating": "Ratings",
-        "review": "Reviews"
+        "info": "公司信息",
+        "recruit": "招聘",
+        "salary": "薪资",
+        "rating": "评分",
+        "review": "评价"
       }
     },
     "info": {
-      "sectionTitle": "Company Information",
-      "type": "Company Type",
-      "employee": "Employees",
-      "address": "Address",
-      "homepage": "Homepage",
-      "intro": "Introduction",
-      "benefits": "Benefits"
+      "sectionTitle": "公司信息",
+      "type": "公司类型",
+      "employee": "员工数",
+      "address": "地址",
+      "homepage": "官网",
+      "intro": "公司介绍",
+      "benefits": "福利"
     },
     "recruit": {
-      "empty": "No data available."
+      "empty": "暂无数据。"
     },
     "rating": {
-      "title": "Detailed Rating Information",
+      "title": "详细评分信息",
       "level": {
-        "high": "Above average",
-        "mid": "Average",
-        "low": "Below average"
+        "high": "高于平均",
+        "mid": "平均",
+        "low": "低于平均"
       },
       "subjects": {
-        "welfare": "Welfare/Culture",
-        "salary": "Salary",
-        "workLife": "Work-life balance",
-        "culture": "Company culture",
-        "stability": "Job stability"
+        "welfare": "福利/文化",
+        "salary": "薪资",
+        "workLife": "工作与生活平衡",
+        "culture": "企业文化",
+        "stability": "工作稳定性"
       },
       "descriptions": {
-        "welfare": "Welfare and culture are provided at a {{level}} level.",
-        "salary": "Salary is paid at a {{level}} level.",
-        "workLife": "Work-life balance is maintained at a {{level}} level.",
-        "culture": "Company culture is at a {{level}} level, emphasizing collaboration and communication.",
-        "stability": "Job stability is at a {{level}} level, ensuring employee stability."
+        "welfare": "福利与文化处于{{level}}水平。",
+        "salary": "薪资处于{{level}}水平。",
+        "workLife": "工作与生活平衡处于{{level}}水平。",
+        "culture": "企业文化处于{{level}}水平，重视协作与沟通。",
+        "stability": "工作稳定性处于{{level}}水平，保障员工稳定。"
       }
     },
     "review": {
-      "title": "Average Reviews"
+      "title": "平均评价"
     },
     "salary": {
-      "total": "Annual Salary",
-      "monthly": "Monthly Net Pay",
-      "unitManwon": "10k KRW",
-      "unitWon": "KRW"
+      "total": "年薪",
+      "monthly": "月实发工资",
+      "unitManwon": "万韩元",
+      "unitWon": "韩元"
     }
   },
   "auth": {
@@ -311,171 +311,171 @@
   },
   "profile": {
     "common": {
-      "goBack": "Back",
-      "basicInfo": "Basic Information"
+      "goBack": "返回",
+      "basicInfo": "基本信息"
     },
     "filters": {
-      "all": "All",
-      "newest": "Newest",
-      "oldest": "Oldest"
+      "all": "全部",
+      "newest": "最新",
+      "oldest": "最旧"
     },
     "main": {
-      "title": "Profile",
-      "myResume": "My Resumes",
-      "applications": "Applications",
-      "more": "More",
-      "loading": "Loading..."
+      "title": "个人资料",
+      "myResume": "我的简历",
+      "applications": "申请记录",
+      "more": "更多",
+      "loading": "加载中..."
     },
     "resume": {
-      "title": "My Resumes",
-      "description": "Manage your resumes and create a new one.",
-      "create": "Create Resume",
-      "searchPlaceholder": "Search resume title",
-      "completed": "Completed",
-      "inProgress": "In Progress",
-      "emptyTitle": "No resumes",
-      "emptyDescription": "Create your first resume.",
-      "resumeFallback": "Resume"
+      "title": "我的简历",
+      "description": "管理你的简历并创建新简历。",
+      "create": "创建简历",
+      "searchPlaceholder": "搜索简历标题",
+      "completed": "已完成",
+      "inProgress": "进行中",
+      "emptyTitle": "暂无简历",
+      "emptyDescription": "创建你的第一份简历。",
+      "resumeFallback": "简历"
     },
     "applications": {
-      "title": "Applications",
-      "description": "Check the jobs you applied to and their status.",
-      "searchPlaceholder": "Search resume title",
+      "title": "申请记录",
+      "description": "查看已申请职位及其状态。",
+      "searchPlaceholder": "搜索简历标题",
       "statusSummary": {
-        "all": "All Applications",
-        "reviewing": "Under Review",
-        "interview": "Interview Scheduled",
-        "done": "Done"
+        "all": "全部申请",
+        "reviewing": "审核中",
+        "interview": "已安排面试",
+        "done": "已完成"
       }
     },
     "edit": {
-      "title": "Edit Profile",
-      "description": "You can edit basic profile information.",
-      "alertUpdated": "Profile information has been updated."
+      "title": "编辑资料",
+      "description": "可编辑基本个人信息。",
+      "alertUpdated": "个人信息已更新。"
     },
     "company": {
-      "title": "Company Information",
-      "description": "You can check basic company information.",
-      "edit": "Edit Information",
-      "registeredRecruitments": "Posted Recruitments",
-      "activeRecruitments": "Active Recruitments"
+      "title": "公司信息",
+      "description": "可查看基本公司信息。",
+      "edit": "编辑信息",
+      "registeredRecruitments": "已发布招聘",
+      "activeRecruitments": "招聘中"
     },
     "companyEdit": {
-      "title": "Edit Company Information",
-      "description": "You can edit basic company information."
+      "title": "编辑公司信息",
+      "description": "可编辑基本公司信息。"
     },
     "companyRecruitment": {
-      "title": "Manage Recruitments",
-      "description": "Manage posted recruitments and create a new one.",
-      "create": "Create Recruitment",
-      "searchPlaceholder": "Search application title",
-      "emptyTitle": "No recruitments posted",
-      "emptyDescription": "Create a new recruitment post.",
+      "title": "招聘管理",
+      "description": "管理已发布招聘并创建新招聘。",
+      "create": "创建招聘",
+      "searchPlaceholder": "搜索申请标题",
+      "emptyTitle": "暂无招聘信息",
+      "emptyDescription": "请创建新的招聘信息。",
       "status": {
-        "all": "All Posts",
-        "active": "Active",
-        "expired": "Closed",
-        "applicants": "Applicants"
+        "all": "全部职位",
+        "active": "进行中",
+        "expired": "已关闭",
+        "applicants": "申请者"
       }
     },
     "companyApplications": {
-      "title": "Manage Applications",
-      "description": "Review and manage applicant resumes for your recruitments.",
-      "searchPlaceholder": "Search application title",
-      "emptyTitle": "No applications found",
+      "title": "申请管理",
+      "description": "查看并管理你发布职位的申请。",
+      "searchPlaceholder": "搜索申请标题",
+      "emptyTitle": "暂无申请",
       "status": {
-        "all": "All Applications",
-        "reviewing": "Under Review",
-        "interview": "Interview Scheduled",
-        "done": "Done",
-        "accepted": "Accepted",
-        "rejected": "Rejected"
+        "all": "全部申请",
+        "reviewing": "审核中",
+        "interview": "面试",
+        "done": "已完成",
+        "accepted": "通过",
+        "rejected": "未通过"
       }
     },
     "bookmark": {
-      "title": "Bookmarks",
-      "description": "Manage favorite companies and saved job posts.",
+      "title": "收藏",
+      "description": "管理关注公司和已保存职位。",
       "companies": {
-        "searchPlaceholder": "Search by company name or industry",
-        "emptyTitle": "No favorite companies",
-        "emptyDescription": "Click the star icon on a company page to add favorites.",
-        "browse": "Browse Companies"
+        "searchPlaceholder": "按公司名或行业搜索",
+        "emptyTitle": "暂无关注公司",
+        "emptyDescription": "在公司页面点击星标可加入关注。",
+        "browse": "浏览公司"
       },
       "jobs": {
-        "searchPlaceholder": "Search by job title or company",
-        "emptyTitle": "No saved job posts",
-        "emptyDescription": "Click the bookmark icon on job posts to save them.",
-        "browse": "View Jobs",
+        "searchPlaceholder": "按职位或公司搜索",
+        "emptyTitle": "暂无保存职位",
+        "emptyDescription": "在职位页面点击书签即可保存。",
+        "browse": "查看职位",
         "status": {
-          "active": "Active",
-          "expired": "Closed"
+          "active": "进行中",
+          "expired": "已关闭"
         }
       }
     },
     "resumeCreate": {
-      "title": "Create Resume",
-      "requiredGuide": "* indicates required fields"
+      "title": "创建简历",
+      "requiredGuide": "* 为必填项"
     },
     "resumeEdit": {
-      "title": "Edit Resume",
-      "requiredGuide": "* indicates required fields"
+      "title": "编辑简历",
+      "requiredGuide": "* 为必填项"
     },
     "resumePreview": {
-      "newResume": "New Resume",
-      "portfolio": "Portfolio",
-      "pdfDownloaded": "PDF has been downloaded.",
-      "print": "Print",
-      "downloading": "Downloading...",
-      "downloadPdf": "Download PDF",
-      "updatedAt": "Last updated: {{date}}",
-      "unitManwon": "10k KRW",
+      "newResume": "新简历",
+      "portfolio": "作品集",
+      "pdfDownloaded": "PDF 已下载。",
+      "print": "打印",
+      "downloading": "下载中...",
+      "downloadPdf": "下载 PDF",
+      "updatedAt": "最后更新：{{date}}",
+      "unitManwon": "万韩元",
       "fields": {
-        "name": "Name",
-        "email": "Email",
-        "address": "Address",
-        "phone": "Phone",
-        "employmentType": "Employment Type",
-        "desiredSalary": "Desired Salary",
-        "desiredLocation": "Preferred Location"
+        "name": "姓名",
+        "email": "邮箱",
+        "address": "地址",
+        "phone": "电话",
+        "employmentType": "雇佣类型",
+        "desiredSalary": "期望薪资",
+        "desiredLocation": "期望地区"
       },
       "sections": {
-        "basicInfo": "Basic Information",
-        "desiredJobs": "Desired Jobs",
-        "skills": "Skills",
-        "preference": "Preferred Working Conditions",
-        "education": "Education",
-        "experience": "Experience",
-        "certificates": "Certificates",
-        "awards": "Activities & Awards",
-        "expats": "Overseas Experience",
-        "languages": "Languages",
-        "attachments": "Attachments & Links",
-        "files": "Files",
-        "links": "Links"
+        "basicInfo": "基本信息",
+        "desiredJobs": "期望岗位",
+        "skills": "技能",
+        "preference": "期望工作条件",
+        "education": "教育经历",
+        "experience": "工作经历",
+        "certificates": "证书",
+        "awards": "活动与奖项",
+        "expats": "海外经历",
+        "languages": "语言",
+        "attachments": "附件与链接",
+        "files": "文件",
+        "links": "链接"
       },
       "empty": {
-        "desiredJobs": "No desired jobs registered.",
-        "skills": "No skills registered.",
-        "preference": "No preferred working conditions registered.",
-        "education": "No education information registered.",
-        "experience": "No experience registered.",
-        "certificates": "No certificates registered.",
-        "awards": "No awards registered.",
-        "expats": "No overseas experience registered.",
-        "languages": "No language information registered."
+        "desiredJobs": "暂无期望岗位。",
+        "skills": "暂无技能信息。",
+        "preference": "暂无期望工作条件。",
+        "education": "暂无教育信息。",
+        "experience": "暂无工作经历。",
+        "certificates": "暂无证书。",
+        "awards": "暂无奖项信息。",
+        "expats": "暂无海外经历。",
+        "languages": "暂无语言信息。"
       }
     },
     "component": {
       "common": {
-        "appliedAt": "Applied on: {{date}}",
-        "detail": "View details",
-        "preview": "Preview",
-        "edit": "Edit",
-        "delete": "Delete",
-        "deleteConfirm": "Are you sure you want to delete?",
-        "add": "Add",
+        "appliedAt": "申请日期：{{date}}",
+        "detail": "查看详情",
+        "preview": "预览",
+        "edit": "编辑",
+        "delete": "删除",
+        "deleteConfirm": "确定要删除吗？",
+        "add": "添加",
         "viewPostDetail": "View Job Details",
-        "share": "Share"
+        "share": "分享"
       },
       "resumeList": {
         "count": "{{count}} resumes in total"
@@ -493,50 +493,50 @@
       },
       "bookmarkTabs": {
         "companies": "Favorite Companies",
-        "jobs": "Saved Jobs"
+        "jobs": "保存d Jobs"
       },
       "companyInfo": {
         "ceo": "CEO",
-        "businessNumber": "Business Registration Number",
-        "foundedYear": "Founded Year",
+        "businessNumber": "营业执照号",
+        "foundedYear": "成立年份",
         "foundedYearValue": "{{year}}",
-        "employeeCount": "Employees",
-        "contact": "Contact",
-        "website": "Website",
-        "intro": "Company Introduction"
+        "employeeCount": "员工数",
+        "contact": "联系方式",
+        "website": "网站",
+        "intro": "公司介绍"
       },
       "recruitmentCard": {
-        "createdAt": "Posted: {{date}}",
-        "expiresAt": "Deadline: {{date}}",
-        "applicants": "Applicants: {{count}}",
-        "views": "Views: {{count}}",
-        "viewPost": "View Post",
-        "viewApplicants": "View Applicants ({{count}})"
+        "createdAt": "发布日期：{{date}}",
+        "expiresAt": "截止日期：{{date}}",
+        "applicants": "申请者：{{count}}",
+        "views": "浏览量：{{count}}",
+        "viewPost": "查看帖子",
+        "viewApplicants": "查看申请者（{{count}}）"
       },
       "applicationCard": {
-        "recruitment": "Recruitment",
+        "recruitment": "招聘",
         "profileAlt": "{{name}}'s profile",
-        "downloadResume": "Download Resume"
+        "downloadResume": "下载简历"
       },
       "likedCompanyCard": {
         "hiring": "Hiring {{count}}",
-        "companyInfo": "Company Info",
-        "recruitments": "Recruitments ({{count}})",
+        "companyInfo": "公司信息",
+        "recruitments": "招聘s ({{count}})",
         "notificationOff": "Turn off notifications",
         "notificationOn": "Turn on notifications",
-        "goCompanyPage": "Go to company page",
-        "delete": "Remove from favorites"
+        "goCompanyPage": "前往公司页面",
+        "delete": "从收藏中移除"
       },
       "scrapedRecruitmentCard": {
         "closingIn": "Closes in {{days}} days",
-        "goPostPage": "Go to post page",
+        "goPostPage": "前往帖子页面",
         "deleteScrap": "Remove saved job"
       },
       "form": {
         "imageGuide": "Recommended: 400x400 px, up to 2MB",
-        "detailAddress": "Detailed Address",
-        "zipcode": "Zip Code",
-        "save": "Save"
+        "detailAddress": "Detailed 添加ress",
+        "zipcode": "邮编",
+        "save": "保存"
       },
       "companyEditForm": {
         "company": "Company Name",
@@ -554,7 +554,7 @@
         }
       },
       "basicInfo": {
-        "uploadPhoto": "Upload Photo"
+        "uploadPhoto": "上传照片"
       },
       "jobInfo": {
         "placeholder": "Enter desired job"
@@ -563,15 +563,15 @@
         "placeholder": "Enter your skills"
       },
       "jobPreference": {
-        "fullTime": "Full-time",
-        "contract": "Contract",
-        "intern": "Intern",
-        "any": "Any",
+        "fullTime": "全职",
+        "contract": "合同工",
+        "intern": "实习",
+        "any": "不限",
         "desiredSalaryLabel": "Desired Salary (10k KRW)",
         "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
       },
       "education": {
-        "add": "Add Education",
+        "add": "添加 Education",
         "append": "Please add education information",
         "school": "School",
         "schoolPlaceholder": "Enter school name",
@@ -580,7 +580,7 @@
         "year": "Graduation Date",
         "yearExample": "e.g., 2025-02-28",
         "etc": "Etc.",
-        "etcPlaceholder": "Additional info such as GPA or activities",
+        "etcPlaceholder": "添加itional info such as GPA or activities",
         "degree": {
           "label": "Degree",
           "bachelor": "Bachelor",
@@ -595,7 +595,7 @@
         }
       },
       "employment": {
-        "add": "Add Experience",
+        "add": "添加 Experience",
         "append": "Please add employment information",
         "company": "Company",
         "companyPlaceholder": "Enter company name",
@@ -603,13 +603,13 @@
         "departmentPlaceholder": "Enter department name",
         "jobTitle": "Position",
         "jobTitlePlaceholder": "Enter position",
-        "startDate": "Start Date",
-        "endDate": "End Date",
+        "startDate": "开始日期",
+        "endDate": "结束日期",
         "achievement": "Key Achievements",
         "achievementPlaceholder": "Enter key achievements"
       },
       "awards": {
-        "add": "Add Activity/Award",
+        "add": "添加 Activity/Award",
         "append": "Please add activity/award information",
         "name": "Activity/Award Name",
         "namePlaceholder": "Enter activity or award name",
@@ -621,7 +621,7 @@
         "descriptionPlaceholder": "Describe your activity or award details"
       },
       "certificates": {
-        "add": "Add Certificate",
+        "add": "添加 Certificate",
         "append": "Please add certificate information",
         "name": "Certificate Name",
         "namePlaceholder": "Enter certificate name",
@@ -631,7 +631,7 @@
         "dateExample": "e.g., 2022.05"
       },
       "expat": {
-        "add": "Add Overseas Experience",
+        "add": "添加 Overseas Experience",
         "append": "Please add overseas experience information",
         "country": "Country",
         "countryPlaceholder": "Enter country name",
@@ -639,7 +639,7 @@
         "experiencePlaceholder": "Enter experience details"
       },
       "language": {
-        "add": "Add Language",
+        "add": "添加 Language",
         "append": "Please add language proficiency",
         "languagePlaceholder": "Enter language name",
         "proficiency": "Proficiency",
@@ -649,17 +649,17 @@
         "fluent": "Fluent"
       },
       "link": {
-        "add": "Add Link",
-        "append": "Add links such as portfolio, blog, or GitHub",
+        "add": "添加 Link",
+        "append": "添加 links such as portfolio, blog, or GitHub",
         "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
       },
       "bottomActions": {
-        "progress": "Completion Progress",
-        "tempSave": "Save Draft"
+        "progress": "完成进度",
+        "tempSave": "保存 Draft"
       },
       "address": {
-        "sido": "Province/City",
-        "sigungu": "District",
+        "sido": "省/市",
+        "sigungu": "区",
         "sidoOptions": {
           "seoul": "Seoul",
           "busan": "Busan",
@@ -682,11 +682,11 @@
         "dropActive": "Drop files here to upload",
         "dropIdle": "Drag files or click to upload",
         "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
-        "select": "Select File",
-        "uploaded": "Uploaded Files"
+        "select": "选择文件",
+        "uploaded": "已上传文件"
       },
       "introduction": {
-        "title": "Introduction",
+        "title": "自我介绍",
         "placeholder": "Freely describe your strengths, experience, and goals."
       }
     }
