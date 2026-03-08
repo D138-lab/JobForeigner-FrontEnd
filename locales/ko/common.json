@@ -6,5 +6,44 @@
   "companiesInfo": "기업정보",
   "nearBy": "주변기업찾기",
   "nearByPlaces": "주변 장소 찾기",
-  "community": "커뮤니티"
+  "community": "커뮤니티",
+  "communityPage": {
+    "writePost": "글쓰기",
+    "searchPlaceholder": "게시글 검색",
+    "searchButton": "검색",
+    "tabs": {
+      "all": "전체",
+      "general": "일반 게시글",
+      "market": "중고거래",
+      "policy": "정책 큐레이션"
+    },
+    "emptyBySearch": "검색된 제목의 게시글이 없습니다.",
+    "emptyByCategory": "해당 카테고리에 게시글이 없습니다.",
+    "popularPostsTitle": "실시간 인기 게시글",
+    "topMemberTitle": "🏆 우수 활동 멤버",
+    "announcementTitle": "공지사항 & 이벤트",
+    "noData": "아직 기록된 데이터가 없습니다",
+    "topRank": "TOP {{rank}}",
+    "profileImageAlt": "{{name}} 프로필 사진",
+    "announceType": {
+      "notice": "공지",
+      "event": "이벤트"
+    },
+    "announcements": {
+      "ruleChange": "커뮤니티 이용 규칙이 일부 개정되었습니다. 반드시 확인해주세요.",
+      "welcomeEvent": "신규 가입자 대상 환영 이벤트 진행 중! 참여하고 상품 받아가세요.",
+      "serverMaintenance": "서버 점검 안내: 7월 20일 02:00 ~ 04:00 서비스 이용이 제한됩니다."
+    },
+    "postAction": {
+      "edit": "수정하기",
+      "delete": "삭제하기",
+      "deleting": "삭제 중...",
+      "report": "신고하기",
+      "block": "차단하기",
+      "confirmDelete": "게시글을 삭제하시겠습니까?",
+      "deleteSuccess": "게시글이 삭제되었습니다.",
+      "deleteFail": "게시글 삭제에 실패했습니다. 다시 시도해주세요.",
+      "likeFail": "좋아요 처리에 실패했습니다. 다시 시도해주세요."
+    }
+  }
 }
