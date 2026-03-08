@@ -11,6 +11,7 @@ import { postType } from '@/pages/community/Page';
 import styles from './contentArea.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   postType: postType;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export const ContentArea = ({ postType, setPostType, searchValue }: Props) => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const { data } = useGetBoardPosts(0, 12);
   const { data: myInfo } = useGetMyInfo();
@@ -84,8 +86,8 @@ export const ContentArea = ({ postType, setPostType, searchValue }: Props) => {
           {filteredPosts.length === 0 ? (
             <div className={styles.emptyState}>
               {hasSearchKeyword
-                ? '검색된 제목의 게시글이 없습니다.'
-                : '해당 카테고리에 게시글이 없습니다.'}
+                ? t('communityPage.emptyBySearch')
+                : t('communityPage.emptyByCategory')}
             </div>
           ) : (
             filteredPosts.map(post => (

@@ -8,6 +8,7 @@ import useDeleteBoardPostLike from '@/lib/apis/mutations/useDeleteBoardPostLike'
 import usePostBoardPostLike from '@/lib/apis/mutations/usePostBoardPostLike';
 import styles from './postBox.module.scss';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface PostBoxProps extends ProfileInfoInPostProps {
   id: number;
@@ -41,6 +42,7 @@ export const PostBox = ({
   numOfLike,
   onClick,
 }: PostBoxProps) => {
+  const { t } = useTranslation('common');
   const { mutate: postBoardPostLike, isPending: isLikePending } =
     usePostBoardPostLike();
   const { mutate: deleteBoardPostLike, isPending: isUnlikePending } =
@@ -81,7 +83,7 @@ export const PostBox = ({
       alert(
         errorData?.message ??
           errorData?.msg ??
-          '좋아요 처리에 실패했습니다. 다시 시도해주세요.',
+          t('communityPage.postAction.likeFail'),
       );
     };
 

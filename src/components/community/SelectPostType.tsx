@@ -1,5 +1,6 @@
 import { postType } from '@/pages/community/Page';
 import styles from './selectPostType.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   postType: postType;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const SelectPostType = ({ postType, onClick }: Props) => {
+  const { t } = useTranslation('common');
+
   return (
     <div className={styles.container}>
       <span
@@ -15,7 +18,7 @@ export const SelectPostType = ({ postType, onClick }: Props) => {
           postType === 'all' ? styles.selectedBtn : ''
         }`}
       >
-        전체
+        {t('communityPage.tabs.all')}
       </span>
       <span
         onClick={() => onClick('normal')}
@@ -23,7 +26,7 @@ export const SelectPostType = ({ postType, onClick }: Props) => {
           postType === 'normal' ? styles.selectedBtn : ''
         }`}
       >
-        일반 게시글
+        {t('communityPage.tabs.general')}
       </span>
       <span
         onClick={() => onClick('used')}
@@ -31,7 +34,7 @@ export const SelectPostType = ({ postType, onClick }: Props) => {
           postType === 'used' ? styles.selectedBtn : ''
         }`}
       >
-        중고거래
+        {t('communityPage.tabs.market')}
       </span>
       <span
         onClick={() => onClick('curation')}
@@ -39,7 +42,7 @@ export const SelectPostType = ({ postType, onClick }: Props) => {
           postType === 'curation' ? styles.selectedBtn : ''
         }`}
       >
-        정책 큐레이션
+        {t('communityPage.tabs.policy')}
       </span>
     </div>
   );

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import useDeleteBoardPost from '@/lib/apis/mutations/useDeleteBoardPost';
 import styles from './etcDots.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface EtcDotsProps {
   postId: number;
@@ -58,6 +59,7 @@ interface MiniModalProps {
 }
 
 const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
+  const { t } = useTranslation('common');
   const { mutate: deleteBoardPost, isPending } = useDeleteBoardPost();
   const navigate = useNavigate();
 
@@ -72,11 +74,11 @@ const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
   };
 
   const handleDelete = () => {
-    if (!window.confirm('게시글을 삭제하시겠습니까?')) return;
+    if (!window.confirm(t('communityPage.postAction.confirmDelete'))) return;
 
     deleteBoardPost(postId, {
       onSuccess: () => {
-        alert('게시글이 삭제되었습니다.');
+        alert(t('communityPage.postAction.deleteSuccess'));
         onClose();
         onDeleted?.();
       },
@@ -92,7 +94,7 @@ const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
         alert(
           errorData?.message ??
             errorData?.msg ??
-            '게시글 삭제에 실패했습니다. 다시 시도해주세요.',
+            t('communityPage.postAction.deleteFail'),
         );
       },
     });
@@ -109,22 +111,26 @@ const MiniModal = ({ onClose, postId, isMine, onDeleted }: MiniModalProps) => {
         <>
           <button onClick={handleEdit} disabled={isPending}>
             <SquarePen size={20} />
-            <span>수정하기</span>
+            <span>{t('communityPage.postAction.edit')}</span>
           </button>
           <button onClick={handleDelete} disabled={isPending}>
             <Trash2 size={20} />
-            <span>{isPending ? '삭제 중...' : '삭제하기'}</span>
+            <span>
+              {isPending
+                ? t('communityPage.postAction.deleting')
+                : t('communityPage.postAction.delete')}
+            </span>
           </button>
         </>
       ) : (
         <>
           <button onClick={() => handleReport(postId)}>
             <Flag size={20} />
-            <span>신고하기</span>
+            <span>{t('communityPage.postAction.report')}</span>
           </button>
           <button onClick={handleBlock}>
             <Ban size={20} />
-            <span>차단하기</span>
+            <span>{t('communityPage.postAction.block')}</span>
           </button>
         </>
       )}

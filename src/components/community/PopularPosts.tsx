@@ -1,5 +1,6 @@
 import styles from './popularPosts.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface PopularPostsProps {
   posts: Array<{
@@ -9,17 +10,18 @@ interface PopularPostsProps {
 }
 
 export const PopularPosts = ({ posts }: PopularPostsProps) => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const topPosts = posts.slice(0, 5);
 
   return (
     <div className={styles.container}>
       <div className={styles.titleBox}>
-        <span>실시간 인기 게시글</span>
+        <span>{t('communityPage.popularPostsTitle')}</span>
       </div>
       <div className={styles.posts}>
         {topPosts.length === 0 ? (
-          <div className={styles.emptyState}>아직 기록된 데이터가 없습니다</div>
+          <div className={styles.emptyState}>{t('communityPage.noData')}</div>
         ) : (
           topPosts.map((post, idx) => (
             <button

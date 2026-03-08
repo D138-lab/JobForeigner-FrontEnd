@@ -5,10 +5,12 @@ import styles from './page.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+import { useTranslation } from 'react-i18next';
 
 export type postType = 'all' | 'normal' | 'used' | 'curation';
 
 export default function CommunityPage() {
+  const { t } = useTranslation('common');
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [searchValue, setSearchValue] = useState<string>('');
   const [postType, setPostType] = useState<postType>('all');
@@ -27,7 +29,7 @@ export default function CommunityPage() {
           className={styles.newPostBtn}
           onClick={() => navigate('/community/write')}
         >
-          글쓰기
+          {t('communityPage.writePost')}
         </button>
       </div>
       <SearchPostForm
