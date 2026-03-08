@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface PostBoardPostCommentRequest {
   content: string;
+  parentId?: number;
 }
 
 interface PostBoardPostCommentResponse {
@@ -12,6 +13,7 @@ interface PostBoardPostCommentResponse {
   memberNickname: string;
   memberCountryCode: string;
   postId: number;
+  parentId?: number | null;
   likeCount: number;
   likedByMe: boolean;
   createdAt: string;

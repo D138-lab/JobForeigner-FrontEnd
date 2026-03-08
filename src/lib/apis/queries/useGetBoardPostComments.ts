@@ -8,6 +8,7 @@ export interface BoardPostComment {
   memberNickname: string;
   memberCountryCode: string;
   postId: number;
+  parentId?: number | null;
   likeCount: number;
   likedByMe: boolean;
   createdAt: string;

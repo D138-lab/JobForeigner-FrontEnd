@@ -38,6 +38,46 @@
         color: #374151;
       }
     }
+
+    .replyInputArea {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+
+      textarea {
+        width: 100%;
+        min-height: 70px;
+        resize: none;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 0.65rem;
+        font-size: 0.95rem;
+      }
+
+      .replyBtnRow {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.45rem;
+      }
+
+      .replyCancelBtn {
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        border-radius: 8px;
+        padding: 0.35rem 0.65rem;
+        cursor: pointer;
+      }
+
+      .replySubmitBtn {
+        border: 1px solid var(--color-sky-700);
+        background: var(--color-sky-700);
+        color: #fff;
+        border-radius: 8px;
+        padding: 0.35rem 0.65rem;
+        cursor: pointer;
+      }
+    }
   }
 }
 

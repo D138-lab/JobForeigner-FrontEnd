@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 
 interface CommentProps extends CommentDetailProps {
   currentMemberId?: number;
+  onSubmitReply: (parentId: number, content: string) => void;
+  isSubmittingReply?: boolean;
 }
 
 export const Comment = ({
@@ -26,6 +28,8 @@ export const Comment = ({
   userName,
   userProfileImgUrl,
   currentMemberId,
+  onSubmitReply,
+  isSubmittingReply = false,
 }: CommentProps) => {
   const { mutate: deleteBoardPostComment, isPending } =
     useDeleteBoardPostComment();
@@ -38,6 +42,8 @@ export const Comment = ({
     typeof currentMemberId === 'number' && memberId === currentMemberId;
   const [likedState, setLikedState] = useState(isLikedByMe);
   const [likeCountState, setLikeCountState] = useState(numOfLiked);
+  const [isReplyInputOpen, setIsReplyInputOpen] = useState(false);
+  const [replyText, setReplyText] = useState('');
 
   useEffect(() => {
     setLikedState(isLikedByMe);
@@ -71,6 +77,17 @@ export const Comment = ({
         },
       },
     );
+  };
+
+  const handleReplySubmit = () => {
+    const normalized = replyText.trim();
+    if (!normalized) {
+      alert('답글 내용을 입력해주세요.');
+      return;
+    }
+    onSubmitReply(id, normalized);
+    setReplyText('');
+    setIsReplyInputOpen(false);
   };
 
   const handleLike = () => {
@@ -126,9 +143,40 @@ export const Comment = ({
         <LikeAndCommentInComment
           isLikedByMe={likedState}
           numOfLikes={likeCountState}
-          onClickComment={() => console.log('답글 클릭됨')}
+          onClickComment={() => setIsReplyInputOpen(prev => !prev)}
           onClickLike={handleLike}
         />
+        {isReplyInputOpen && (
+          <div className={styles.replyInputArea}>
+            <textarea
+              value={replyText}
+              onChange={event => setReplyText(event.target.value)}
+              placeholder='답글을 입력하세요'
+              disabled={isSubmittingReply}
+            />
+            <div className={styles.replyBtnRow}>
+              <button
+                type='button'
+                className={styles.replyCancelBtn}
+                onClick={() => {
+                  setReplyText('');
+                  setIsReplyInputOpen(false);
+                }}
+                disabled={isSubmittingReply}
+              >
+                취소
+              </button>
+              <button
+                type='button'
+                className={styles.replySubmitBtn}
+                onClick={handleReplySubmit}
+                disabled={isSubmittingReply}
+              >
+                {isSubmittingReply ? '등록 중...' : '답글 등록'}
+              </button>
+            </div>
+          </div>
+        )}
         {isMine && (
           <button
             type='button'
