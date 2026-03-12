@@ -208,37 +208,54 @@ export default function EditPostPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.goBack} onClick={handleCancel}>
-        <ArrowLeft size={20} />
-        <span>{t('communityEdit.labels.back')}</span>
-      </div>
+      <div className={styles.pageShell}>
+        <button className={styles.goBack} type='button' onClick={handleCancel}>
+          <ArrowLeft size={18} />
+          <span>{t('communityEdit.labels.back')}</span>
+        </button>
 
-      <form className={styles.contentArea} onSubmit={handleSubmit}>
-        <div>{t('communityEdit.labels.postType')}</div>
-        <Input
-          value={
-            boardCategoryTypeLabelMap[boardCategoryType] ?? boardCategoryType
-          }
-          readOnly
-        />
+        <form className={styles.contentArea} onSubmit={handleSubmit}>
+          <div className={styles.hero}>
+            <div className={styles.heroEyebrow}>{t('communityEdit.labels.postType')}</div>
+            <div className={styles.heroTitleField}>
+              <input
+                className={styles.heroTitleInput}
+                placeholder={t('communityEdit.placeholder.title')}
+                value={postTitle}
+                onChange={e => setPostTitle(e.target.value)}
+              />
+            </div>
+          </div>
 
-        <div>{t('communityEdit.labels.title')}</div>
-        <Input
-          placeholder={t('communityEdit.placeholder.title')}
-          value={postTitle}
-          onChange={e => setPostTitle(e.target.value)}
-        />
+          <div className={styles.formCard}>
+            <div className={styles.fieldGroup}>
+              <label className={styles.fieldLabel}>
+                {t('communityEdit.labels.postType')}
+              </label>
+              <Input
+                value={
+                  boardCategoryTypeLabelMap[boardCategoryType] ?? boardCategoryType
+                }
+                readOnly
+              />
+            </div>
 
-        <TipTapEditor value={contentHtml} onChange={setContentHtml} />
-        <ImageInput maxFiles={5} onChangeFiles={setFiles} />
-        <TagInput
-          tags={tags}
-          onChangeTags={setTags}
-          maxTags={5}
-          helperText={t('communityEdit.tagHelper')}
-        />
+            <div className={styles.editorSection}>
+              <TipTapEditor value={contentHtml} onChange={setContentHtml} />
+            </div>
 
-        <div className={styles.btnArea}>
+            <div className={styles.supportSection}>
+              <ImageInput maxFiles={5} onChangeFiles={setFiles} />
+              <TagInput
+                tags={tags}
+                onChangeTags={setTags}
+                maxTags={5}
+                helperText={t('communityEdit.tagHelper')}
+              />
+            </div>
+          </div>
+
+          <div className={styles.btnArea}>
           <button
             className={styles.cancelBtn}
             type='button'
@@ -256,8 +273,9 @@ export default function EditPostPage() {
               ? t('communityEdit.buttons.saving')
               : t('communityEdit.buttons.save')}
           </button>
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
