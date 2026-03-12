@@ -4,4 +4,44 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgb(14 165 233 / 0.08), transparent 22%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 28%);
+}
+
+.adsSection {
+  width: min(1200px, 92%);
+  margin: 0 auto v.$spacing-5;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-3;
+}
+
+.sectionHead {
+  width: min(720px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionEyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-sky-800);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(1.75rem, 2.3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-gray-900);
+}
+
+.sectionDescription {
+  margin: 0;
+  color: var(--color-gray-600);
+  line-height: 1.6;
 }
