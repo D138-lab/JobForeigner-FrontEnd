@@ -5,7 +5,7 @@
 	background-color: #fff;
 	border-radius: v.$radius-medium;
 	position: relative;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	box-shadow: v.$shadow-overlay;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -30,7 +30,7 @@
 	background-color: #fff;
 	max-height: 15rem;
 	overflow-y: auto;
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+	box-shadow: v.$shadow-overlay;
 	z-index: 1000;
 
 	li {

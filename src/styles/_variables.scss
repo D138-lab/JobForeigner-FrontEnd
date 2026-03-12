@@ -8,6 +8,12 @@ $spacing-3: 24px;
 $spacing-4: 32px;
 $spacing-5: 48px;
 
+$shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.06);
+$shadow-card: 0 8px 24px rgba(15, 23, 42, 0.08);
+$shadow-overlay: 0 16px 36px rgba(15, 23, 42, 0.12);
+$shadow-focus: 0 0 0 3px rgba(2, 132, 199, 0.16);
+$shadow-focus-strong: 0 0 0 4px rgba(2, 132, 199, 0.2);
+
 $color-brand-50: #f0f9ff;
 $color-brand-100: #e0f2fe;
 $color-brand-200: #bae6fd;
@@ -42,6 +48,14 @@ $spacing: (
   3: $spacing-3,
   4: $spacing-4,
   5: $spacing-5,
+);
+
+$shadows: (
+  soft: $shadow-soft,
+  card: $shadow-card,
+  overlay: $shadow-overlay,
+  focus: $shadow-focus,
+  focus-strong: $shadow-focus-strong,
 );
 
 $colors: (
@@ -81,6 +95,12 @@ $colors: (
   --spacing-3: #{$spacing-3};
   --spacing-4: #{$spacing-4};
   --spacing-5: #{$spacing-5};
+
+  --shadow-soft: #{$shadow-soft};
+  --shadow-card: #{$shadow-card};
+  --shadow-overlay: #{$shadow-overlay};
+  --shadow-focus: #{$shadow-focus};
+  --shadow-focus-strong: #{$shadow-focus-strong};
 
   --color-brand-50: #{$color-brand-50};
   --color-brand-100: #{$color-brand-100};

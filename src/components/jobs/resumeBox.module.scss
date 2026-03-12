@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   border: 1px solid var(--color-gray-200);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: v.$shadow-card;
   background-color: white;
   border-radius: v.$radius-medium;
   padding: v.$spacing-4 v.$spacing-3;

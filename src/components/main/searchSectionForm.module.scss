@@ -4,8 +4,9 @@ $transition: 0.2s ease-in-out;
 
 .searchBox {
   background-color: #fff;
+  border: 1px solid var(--color-gray-200);
   border-radius: v.$radius-medium;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: v.$shadow-card;
   padding: v.$spacing-2;
 }
 
@@ -20,15 +21,20 @@ $transition: 0.2s ease-in-out;
 }
 
 .searchButton {
-  background-color: var(--color-purple-600);
+  background-color: var(--color-sky-800);
   color: #fff;
   padding: v.$spacing-1 v.$spacing-3;
-  border-radius: v.$radius-small;
+  border-radius: v.$radius-medium;
   border: none;
   cursor: pointer;
-  transition: $transition;
+  transition:
+    background-color $transition,
+    box-shadow $transition,
+    transform $transition;
 
   &:hover {
-    background-color: var(--color-purple-700);
+    background-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
   }
 }

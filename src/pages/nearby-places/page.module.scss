@@ -9,13 +9,22 @@
 }
 
 .searchBox {
-  border: 1px solid #d6e4f0;
+  border: 1px solid var(--color-gray-200);
   border-radius: v.$radius-medium;
   background: #fff;
   display: flex;
   align-items: center;
   gap: v.$spacing-1;
   padding: v.$spacing-1 v.$spacing-2;
+  box-shadow: v.$shadow-soft;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:focus-within {
+    border-color: var(--color-sky-800);
+    box-shadow: v.$shadow-focus;
+  }
 }
 
 .searchIcon {
@@ -27,11 +36,12 @@
   border: 0;
   outline: none;
   font-size: 0.95rem;
+  background: transparent;
 }
 
 .searchButton {
-  border: 1px solid #0c4a6e;
-  background: #0c4a6e;
+  border: 1px solid var(--color-sky-800);
+  background: var(--color-sky-800);
   color: #fff;
   border-radius: v.$radius-medium;
   height: 34px;
@@ -47,6 +57,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    background: var(--color-sky-900);
+    border-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
+  }
 }
 
 .categoryRow {
