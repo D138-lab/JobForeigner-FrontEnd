@@ -4,6 +4,7 @@ import { PopularPosts } from './PopularPosts';
 import { PostBox } from './PostBox';
 import { SelectPostType } from './SelectPostType';
 import { TopMember } from './TopMember';
+import { SquarePen } from 'lucide-react';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPosts from '@/lib/apis/queries/useGetBoardPosts';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
@@ -17,9 +18,15 @@ interface Props {
   postType: postType;
   setPostType: (type: postType) => void;
   searchValue: string;
+  onWritePost: () => void;
 }
 
-export const ContentArea = ({ postType, setPostType, searchValue }: Props) => {
+export const ContentArea = ({
+  postType,
+  setPostType,
+  searchValue,
+  onWritePost,
+}: Props) => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const { data } = useGetBoardPosts(0, 12);
@@ -80,7 +87,13 @@ export const ContentArea = ({ postType, setPostType, searchValue }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <SelectPostType postType={postType} onClick={setPostType} />
+        <div className={styles.headerRow}>
+          <SelectPostType postType={postType} onClick={setPostType} />
+          <button type='button' className={styles.writeButton} onClick={onWritePost}>
+            <SquarePen size={16} />
+            {t('communityPage.writePost')}
+          </button>
+        </div>
         <CustomDivider />
         <div className={styles.posts}>
           {filteredPosts.length === 0 ? (
