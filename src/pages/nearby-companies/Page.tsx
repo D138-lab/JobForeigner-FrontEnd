@@ -305,7 +305,7 @@ export default function NearbyCompanies() {
               >
                 <div className={styles.regionInfo}>
                   <span className={styles.rankBadge}>{idx + 1}</span>
-                    <div>
+                  <div className={styles.regionText}>
                     <div className={styles.regionName}>
                       {regionName}
                       <button
