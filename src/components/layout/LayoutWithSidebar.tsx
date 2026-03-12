@@ -20,15 +20,21 @@ interface Props {
 export default function LayoutWithSidebar({ navItems }: Props) {
   return (
     <RootErrorBoundary>
-      <Header />
-      <div className={styles.container}>
-        <div className={styles.sidebar}>
-          <Sidebar navigation={navItems} />
-        </div>
-        <Outlet />
+      <div className={styles.shell}>
+        <Header />
+        <main className={styles.main}>
+          <div className={styles.container}>
+            <div className={styles.sidebar}>
+              <Sidebar navigation={navItems} />
+            </div>
+            <div className={styles.content}>
+              <Outlet />
+            </div>
+          </div>
+        </main>
+        <Footer />
+        <ScrollRestoration />
       </div>
-      <Footer />
-      <ScrollRestoration />
     </RootErrorBoundary>
   );
 }
