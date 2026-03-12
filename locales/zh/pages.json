@@ -209,7 +209,11 @@
     "loading": "加载中...",
     "loadingShort": "加载中",
     "empty": "暂无招聘信息。",
-    "error": "发生错误"
+    "error": "发生错误",
+    "publishedStatus": {
+      "submitted": "已提交",
+      "published": "已发布"
+    }
   },
   "jobsApply": {
     "successTitle": "提交成功！",

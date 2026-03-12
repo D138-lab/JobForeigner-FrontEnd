@@ -5,8 +5,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: v.$spacing-2;
-  margin: v.$spacing-2;
-  background-color: white;
+  margin: v.$spacing-2 0;
+  align-items: stretch;
 }
 
 @media (max-width: 950px) {

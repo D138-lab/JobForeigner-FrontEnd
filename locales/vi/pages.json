@@ -209,7 +209,11 @@
     "loading": "Đang tải...",
     "loadingShort": "Đang tải",
     "empty": "Không có tin tuyển dụng.",
-    "error": "Đã xảy ra lỗi"
+    "error": "Đã xảy ra lỗi",
+    "publishedStatus": {
+      "submitted": "Đã gửi",
+      "published": "Đã đăng"
+    }
   },
   "jobsApply": {
     "successTitle": "Nộp thành công!",

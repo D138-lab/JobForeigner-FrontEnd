@@ -209,7 +209,11 @@
     "loading": "लोड हुँदै...",
     "loadingShort": "लोड हुँदै",
     "empty": "जागिर पोस्ट फेला परेन।",
-    "error": "त्रुटि भयो"
+    "error": "त्रुटि भयो",
+    "publishedStatus": {
+      "submitted": "पेश गरियो",
+      "published": "प्रकाशित भयो"
+    }
   },
   "jobsApply": {
     "successTitle": "पेश सफल भयो!",

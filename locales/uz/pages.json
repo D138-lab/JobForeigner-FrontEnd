@@ -209,7 +209,11 @@
     "loading": "Yuklanmoqda...",
     "loadingShort": "Yuklanmoqda",
     "empty": "Vakansiyalar topilmadi.",
-    "error": "Xatolik yuz berdi"
+    "error": "Xatolik yuz berdi",
+    "publishedStatus": {
+      "submitted": "Yuborildi",
+      "published": "E'lon qilindi"
+    }
   },
   "jobsApply": {
     "successTitle": "Yuborish muvaffaqiyatli yakunlandi!",

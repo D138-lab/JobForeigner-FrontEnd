@@ -2,9 +2,11 @@ import { DollarSign, MapPin, Star, Timer, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
+import { formatPublished } from '@/lib/utils/formatPublished';
 import styles from './recruitBox.module.scss';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface RecruitInfoType {
   id: number;
@@ -35,6 +37,7 @@ const RecruitBox = ({
   companyName,
   isScrapped,
 }: RecruitInfoType) => {
+  const { t, i18n } = useTranslation('pages');
   const [innerIsScrapped, setInnerIsScrapped] = useState(isScrapped);
   const navigate = useNavigate();
   const expiryDate = new Date(expiryAt);
@@ -43,6 +46,7 @@ const RecruitBox = ({
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const { mutate, isPending } = usePostToggleScarp();
   void isPending;
+  const publishedLabel = formatPublished(published, i18n.language, t);
 
   const handleScrap = () => {
     mutate(id, {
@@ -88,7 +92,10 @@ const RecruitBox = ({
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.titleBlock}>
+          <div className={styles.companyName}>{companyName}</div>
+          <div className={styles.title}>{title}</div>
+        </div>
         <Star
           style={{ width: 20, height: 20, flexShrink: 0 }}
           className={innerIsScrapped ? styles.scraped : styles.noscraped}
@@ -104,8 +111,7 @@ const RecruitBox = ({
         }}
       >
         <div className={styles.subRow}>
-          <div>{companyName}</div>
-          <div>{grade}</div>
+          <div className={styles.grade}>{grade}</div>
           <div className={styles.employmentType}>
             {mappingEmploymentType(employmentType)}
           </div>
@@ -135,7 +141,7 @@ const RecruitBox = ({
         </div>
       </Link>
       <div className={styles.btnBox}>
-        <div className={styles.published}>{published}</div>
+        <div className={styles.published}>{publishedLabel}</div>
         <Button color='#0c4a6e' onClick={handleApply}>
           지원하기
         </Button>

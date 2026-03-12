@@ -209,7 +209,11 @@
     "loading": "Loading...",
     "loadingShort": "Loading",
     "empty": "No job posts found.",
-    "error": "An error occurred"
+    "error": "An error occurred",
+    "publishedStatus": {
+      "submitted": "Submitted",
+      "published": "Published"
+    }
   },
   "jobsApply": {
     "successTitle": "Submission completed!",
