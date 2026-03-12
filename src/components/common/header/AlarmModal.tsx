@@ -24,7 +24,10 @@ const AlarmModal = ({ data }: Props) => {
       <div className={styles.alarmList}>
         {data &&
           data.map(ele => (
-            <div className={styles.alarmBox} key={ele.id}>
+            <div
+              className={`${styles.alarmBox} ${!ele.read ? styles.unread : ''}`}
+              key={ele.id}
+            >
               <div
                 className={styles.textArea}
                 onClick={() => readNotification(ele.id)}
@@ -36,15 +39,14 @@ const AlarmModal = ({ data }: Props) => {
                 {ele.read ? t('read') : t('unread')}
               </div>
               <Trash
-                size={20}
-                color='red'
-                style={{ margin: 'auto 0' }}
+                size={18}
                 onClick={() => deleteNotification(ele.id)}
+                className={styles.deleteIcon}
               />
             </div>
           ))}
         {data.length === 0 ? (
-          <div className={styles.alarmBox}>{t('noNotifications')}</div>
+          <div className={styles.emptyState}>{t('noNotifications')}</div>
         ) : (
           ''
         )}

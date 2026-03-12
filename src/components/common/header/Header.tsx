@@ -97,11 +97,13 @@ export default function Header() {
             <>
               <RecentJobs
                 isModalOn={activeModal === 'recent'}
-                setIsModalOn={() => toggleRecentModal()}
+                onToggle={toggleRecentModal}
+                onClose={() => setActiveModal(null)}
               />
               <AlarmButton
                 isModalOn={activeModal === 'alarm'}
-                setIsModalOn={() => toggleAlarmModal()}
+                onToggle={toggleAlarmModal}
+                onClose={() => setActiveModal(null)}
               />
             </>
           )}

@@ -37,7 +37,7 @@ const RecentModal = ({ data }: Props) => {
             </div>
           ))}
         {data.length === 0 ? (
-          <div className={styles.recentBox}>{t('noRecentJobs')}</div>
+          <div className={styles.emptyState}>{t('noRecentJobs')}</div>
         ) : (
           ''
         )}
