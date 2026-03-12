@@ -78,7 +78,11 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
         {getIcon(icon)}
         <div
           ref={ref}
-          className={clsx(styles.customSelect, icon && styles.isIcon)}
+          className={clsx(
+            styles.customSelect,
+            icon && styles.isIcon,
+            isOpen && styles.isOpen,
+          )}
           onClick={() => setIsOpen(prev => !prev)}
           style={{ width }}
           tabIndex={0}
@@ -91,7 +95,10 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
             {options.map(opt => (
               <li
                 key={opt.value}
-                className={styles.option}
+                className={clsx(
+                  styles.option,
+                  opt.value === selectedValue && styles.selectedOption,
+                )}
                 onClick={() => handleOptionClick(opt.value)}
               >
                 {opt.label}
