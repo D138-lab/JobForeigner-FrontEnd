@@ -7,25 +7,34 @@
 
 .icon {
   position: absolute;
-  left: 0.75rem;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
-  width: 1.25rem;
-  height: 1.25rem;
+  color: var(--color-gray-400);
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
 }
 
 .input {
   width: 100%;
-  padding: v.$spacing-1 v.$spacing-2 v.$spacing-1 v.$spacing-2;
+  min-height: 44px;
+  padding: 10px 14px;
   border: 1px solid var(--color-gray-200);
-  border-radius: v.$radius-small;
-  background: #fff;
+  border-radius: v.$radius-medium;
+  background: rgb(255 255 255 / 0.96);
+  color: var(--color-gray-800);
+  box-shadow: v.$shadow-soft;
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
     background-color 0.18s ease;
   outline: none;
+
+  &:hover {
+    border-color: var(--color-gray-300);
+    background: #ffffff;
+  }
 
   &:focus {
     border-color: var(--color-sky-800);
@@ -33,7 +42,11 @@
   }
 
   &.isIcon {
-    padding-left: 2.5rem;
+    padding-left: 40px;
+  }
+
+  &::placeholder {
+    color: var(--color-gray-400);
   }
 }
 
