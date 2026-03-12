@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .selectWrapper {
   position: relative;
   flex: 1;
@@ -14,9 +16,9 @@
 }
 
 .customSelect {
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  padding: v.$spacing-1 v.$spacing-2 v.$spacing-1 v.$spacing-2;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border-radius: v.$radius-small;
   background-color: #fff;
   cursor: pointer;
   display: flex;
@@ -50,14 +52,14 @@
   list-style: none;
   background-color: #fff;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border-radius: v.$radius-small;
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
 }
 
 .option {
-  padding: 0.75rem 1rem;
+  padding: v.$spacing-1 v.$spacing-2;
   cursor: pointer;
 
   &:hover {

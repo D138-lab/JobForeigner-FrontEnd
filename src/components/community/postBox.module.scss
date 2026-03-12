@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 100%;
   display: flex;
@@ -6,8 +8,8 @@
   align-items: center;
   background-color: #ffffff;
   border: 1px solid var(--color-gray-300);
-  border-radius: 14px;
-  padding: 1.4rem;
+  border-radius: v.$radius-large;
+  padding: v.$spacing-3;
 
   .topArea {
     width: 100%;

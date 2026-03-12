@@ -1,7 +1,9 @@
+@use 'src/styles/variables' as v;
+
 .container {
   background-color: var(--color-gray-50);
   flex: 1;
-  padding: 1rem;
+  padding: v.$spacing-2;
 }
 
 .page {
@@ -15,9 +17,9 @@
 
   section {
     background-color: #fff;
-    border-radius: 0.5rem;
+    border-radius: v.$radius-medium;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    padding: 1.5rem;
+    padding: v.$spacing-3;
 
     h2 {
       font-size: 1.375rem;
@@ -52,7 +54,7 @@
 .buttonContent {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: v.$spacing-2;
   font-size: 1rem;
 
   svg {

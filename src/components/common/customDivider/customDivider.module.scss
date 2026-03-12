@@ -1,5 +1,7 @@
+@use 'src/styles/variables' as v;
+
 .line {
-  margin: 1rem 0;
+  margin: v.$spacing-2 0;
   width: 100%;
   border: 1px solid #ddd;
 }

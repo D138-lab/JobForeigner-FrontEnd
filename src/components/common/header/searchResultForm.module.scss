@@ -1,12 +1,14 @@
+@use 'src/styles/variables' as v;
+
 .container {
   display: flex;
   flex-direction: column;
   gap: 0;
   background-color: white;
-  padding: 0.35rem 0;
+  padding: v.$spacing-1 0;
 
   .companyCard {
-    padding: 0.95rem 1rem;
+    padding: v.$spacing-2 v.$spacing-2;
     cursor: pointer;
     border: none;
     border-bottom: 1px solid var(--color-gray-100);

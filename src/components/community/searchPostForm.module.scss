@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 $transition: 0.2s ease-in-out;
 
 .container {
@@ -7,9 +9,9 @@ $transition: 0.2s ease-in-out;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  padding: 0.7rem;
-  border-radius: 10px;
+  gap: v.$spacing-2;
+  padding: v.$spacing-1;
+  border-radius: v.$radius-medium;
   background-color: #fff;
 
   .inputWrapper {
@@ -24,8 +26,8 @@ $transition: 0.2s ease-in-out;
 .searchButton {
   background-color: var(--color-sky-800);
   color: #fff;
-  padding: 1rem 0.7rem;
-  border-radius: 0.375rem;
+  padding: v.$spacing-2 v.$spacing-1;
+  border-radius: v.$radius-small;
   border: none;
   cursor: pointer;
   transition: $transition;

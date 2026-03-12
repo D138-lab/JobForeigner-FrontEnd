@@ -1,7 +1,9 @@
+@use 'src/styles/variables' as v;
+
 .container {
   display: inline-flex;
   align-items: center;
-  padding: 0.28rem 0.55rem;
+  padding: v.$spacing-1 v.$spacing-1;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;

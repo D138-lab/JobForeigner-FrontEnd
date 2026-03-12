@@ -1,11 +1,13 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 80%;
-  margin: 2rem auto;
+  margin: v.$spacing-4 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: v.$spacing-4;
 
   .unAuthorizedModal {
     position: fixed;

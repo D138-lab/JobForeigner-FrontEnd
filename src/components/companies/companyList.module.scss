@@ -1,5 +1,7 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  margin: 1rem 0;
+  margin: v.$spacing-2 0;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -7,5 +9,5 @@
   align-items: center;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: v.$spacing-4;
 }

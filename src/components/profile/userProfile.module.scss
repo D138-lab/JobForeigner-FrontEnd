@@ -1,20 +1,22 @@
+@use 'src/styles/variables' as v;
+
 .profileCard {
   background-color: #fff;
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profileCardBody {
-  padding: 1.5rem;
+  padding: v.$spacing-3;
 }
 
 .profileRow {
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: v.$spacing-3;
 }
 
 .borderTop {
   border-top: 1px solid #e5e7eb;
-  padding: 1rem 1.5rem;
+  padding: v.$spacing-2 v.$spacing-3;
 }

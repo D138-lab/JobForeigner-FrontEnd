@@ -1,8 +1,10 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  margin: 2rem;
-  padding: 2rem 4rem;
+  margin: v.$spacing-4;
+  padding: v.$spacing-4 v.$spacing-5;
   width: 70%;
-  border-radius: 10px;
+  border-radius: v.$radius-medium;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,7 +16,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1.2rem;
+    gap: v.$spacing-2;
     .duedate {
       font-size: 3em;
       font-weight: bold;
@@ -22,7 +24,7 @@
     .text {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: v.$spacing-1;
       & > :first-child {
         font-weight: bold;
       }
@@ -30,9 +32,9 @@
   }
   .applyBtn {
     background-color: var(--color-purple-700);
-    padding: 0.8rem 2.7rem;
+    padding: v.$spacing-2 v.$spacing-5;
     color: white;
-    border-radius: 8px;
+    border-radius: v.$radius-medium;
     cursor: pointer;
   }
 }

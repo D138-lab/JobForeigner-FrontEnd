@@ -1,12 +1,14 @@
+@use 'src/styles/variables' as v;
+
 .wrapper {
   position: absolute;
   top: calc(100% + 0.75rem);
   right: 0;
   width: 13rem;
-  padding: 0.35rem;
+  padding: v.$spacing-1;
   background-color: #fff;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.875rem;
+  border-radius: v.$radius-large;
   box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
   max-height: 18rem;
   overflow-y: auto;
@@ -15,14 +17,14 @@
 
 .item {
   width: 100%;
-  padding: 0.7rem 0.85rem;
+  padding: v.$spacing-1 v.$spacing-2;
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--color-slate-700);
   text-align: left;
   cursor: pointer;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: v.$radius-medium;
   background: transparent;
   transition:
     background-color 0.18s ease,

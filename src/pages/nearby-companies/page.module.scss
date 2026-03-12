@@ -1,6 +1,8 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: min(1200px, 90%);
-  margin: 4rem auto;
+  margin: v.$spacing-5 auto;
 }
 
 .filterRow {
@@ -10,7 +12,7 @@
 .content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 1rem;
+  gap: v.$spacing-2;
   align-items: start;
 }
 
@@ -20,21 +22,21 @@
 
 .statsArea {
   border: 1px solid #d6e4f0;
-  border-radius: 8px;
+  border-radius: v.$radius-medium;
   background: #fff;
-  padding: 1rem;
+  padding: v.$spacing-2;
   box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
 }
 
 .statsTitle {
-  margin: 0 0 0.75rem;
+  margin: 0 0 v.$spacing-1;
   font-size: 1rem;
   font-weight: 700;
   color: #0f2f4a;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
+  gap: v.$spacing-1;
 }
 
 .favoriteCount {
@@ -43,7 +45,7 @@
   color: #5a7287;
   border: 1px solid #d3e1ec;
   border-radius: 999px;
-  padding: 0.2rem 0.5rem;
+  padding: v.$spacing-1 v.$spacing-1;
 }
 
 .favoriteSuccess {
@@ -64,7 +66,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
   max-height: 600px;
   overflow-y: auto;
 }
@@ -74,8 +76,8 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid #dce8f3;
-  border-radius: 10px;
-  padding: 0.75rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-1;
   font-size: 0.95rem;
   background: #ffffff;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -90,7 +92,7 @@
 .regionInfo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: v.$spacing-1;
 }
 
 .rankBadge {
@@ -112,7 +114,7 @@
   color: #14344f;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: v.$spacing-1;
 }
 
 .favoriteMark {
@@ -137,7 +139,7 @@
   color: #1f4f74;
   font-size: 0.68rem;
   line-height: 1;
-  padding: 0.2rem 0.4rem;
+  padding: v.$spacing-1 v.$spacing-1;
   cursor: pointer;
 }
 
@@ -152,7 +154,7 @@
   background: #fff;
   border: 1px solid #c9d8e6;
   border-radius: 999px;
-  padding: 0.2rem 0.55rem;
+  padding: v.$spacing-1 v.$spacing-1;
 }
 
 .active {
@@ -179,7 +181,7 @@
 }
 
 .postListTitle {
-  margin: 0 0 0.6rem;
+  margin: 0 0 v.$spacing-1;
   font-size: 0.95rem;
   color: #14344f;
 }
@@ -190,15 +192,15 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: v.$spacing-1;
   max-height: 220px;
   overflow-y: auto;
 }
 
 .postItem {
   border: 1px solid #dce8f3;
-  border-radius: 8px;
-  padding: 0.65rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-1;
 }
 
 .postTitle {

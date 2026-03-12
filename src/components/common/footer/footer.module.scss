@@ -1,8 +1,10 @@
+@use 'src/styles/variables' as v;
+
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 3rem 4rem;
+  gap: v.$spacing-4;
+  padding: v.$spacing-5 v.$spacing-5;
   background-color: #ffffff;
   border-top: 2px solid #e5e7eb;
   width: 100%;
@@ -10,7 +12,7 @@
 
 .links {
   display: flex;
-  gap: 4rem;
+  gap: v.$spacing-5;
   font-size: 1.25rem;
   font-weight: bold;
 

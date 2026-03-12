@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .inputWrapper {
   position: relative;
   flex: 1;
@@ -15,9 +17,9 @@
 
 .input {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  padding: v.$spacing-1 v.$spacing-2 v.$spacing-1 v.$spacing-2;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border-radius: v.$radius-small;
   outline: none;
 
   &:focus {

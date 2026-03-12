@@ -1,9 +1,11 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin: 1rem;
+  gap: v.$spacing-2;
+  margin: v.$spacing-2;
   background-color: white;
 }
 

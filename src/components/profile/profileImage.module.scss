@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .profileImageWrapper {
   position: relative;
 }
@@ -20,7 +22,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 0.25rem; /* p-1 */
+  padding: v.$spacing-1; /* p-1 */
   border-radius: 9999px;
   background-color: var(--color-sky-800);
   color: #fff;

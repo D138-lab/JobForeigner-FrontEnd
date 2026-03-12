@@ -1,9 +1,11 @@
+@use 'src/styles/variables' as v;
+
 .container {
 	width: 100%;
 	margin: 0 auto;
-	padding: 1rem;
+	padding: v.$spacing-2;
 	background-color: #fff;
-	border-radius: 8px;
+	border-radius: v.$radius-medium;
 	border: 1px solid var(--color-gray-200);
 
 	h2 {

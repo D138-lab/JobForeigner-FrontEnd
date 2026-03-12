@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 $transition: 0.2s ease-in-out;
 
 .profileInfo {
@@ -25,7 +27,7 @@ $transition: 0.2s ease-in-out;
   margin-top: 1.125rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }
 
 .profileDetailItem {

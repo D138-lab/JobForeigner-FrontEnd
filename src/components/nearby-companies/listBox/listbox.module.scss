@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 100%;
   border: 1px solid var(--color-gray-200);
@@ -6,8 +8,8 @@
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  padding: 2rem;
-  border-radius: 10px;
+  padding: v.$spacing-4;
+  border-radius: v.$radius-medium;
 
   .contentBox {
     width: 100%;
@@ -16,22 +18,22 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
+    gap: v.$spacing-2;
 
     .content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      gap: 0.6rem;
+      gap: v.$spacing-1;
 
       .titleArea {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
-        margin: 0.4rem 0;
+        gap: v.$spacing-2;
+        margin: v.$spacing-1 0;
 
         .company {
           font-size: 2em;
@@ -39,9 +41,9 @@
         }
 
         .recruitStatus {
-          border-radius: 15px;
+          border-radius: v.$radius-large;
           border: 1px solid var(--color-gray-200);
-          padding: 0.4rem 1.2rem;
+          padding: v.$spacing-1 v.$spacing-2;
         }
       }
 
@@ -53,7 +55,7 @@
       .description {
         font-size: 1.2em;
         color: var(--color-gray-600);
-        margin: 1rem 0;
+        margin: v.$spacing-2 0;
       }
 
       .welfares {
@@ -61,12 +63,12 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        gap: 0.4rem;
+        gap: v.$spacing-1;
 
         & > div {
           background-color: var(--color-gray-100);
-          padding: 0.2rem 0.8rem;
-          border-radius: 10px;
+          padding: v.$spacing-1 v.$spacing-2;
+          border-radius: v.$radius-medium;
           font-weight: 600;
         }
       }
@@ -77,7 +79,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      gap: 0.4rem;
+      gap: v.$spacing-1;
       min-width: 140px;
 
       .starBox {
@@ -85,7 +87,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
+        gap: v.$spacing-1;
 
         & > span {
           font-size: 1.2em;
@@ -101,14 +103,14 @@
   }
 
   .bottomBar {
-    padding: 1rem 0;
+    padding: v.$spacing-2 0;
     width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
+    gap: v.$spacing-1;
 
     .buttonArea {
       display: flex;
@@ -116,14 +118,14 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 0.75rem;
+      gap: v.$spacing-1;
 
       button {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: v.$spacing-1;
         min-height: 40px;
-        padding: 0.5rem 0.9rem;
+        padding: v.$spacing-1 v.$spacing-2;
       }
 
       .buttonText {
@@ -135,7 +137,7 @@
 
     > button {
       min-height: 40px;
-      padding: 0.5rem 0.9rem;
+      padding: v.$spacing-1 v.$spacing-2;
     }
   }
 }

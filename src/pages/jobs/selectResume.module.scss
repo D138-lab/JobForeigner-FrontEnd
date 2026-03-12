@@ -1,11 +1,13 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  margin: 2rem auto;
+  margin: v.$spacing-4 auto;
   width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  gap: 0.8rem;
+  gap: v.$spacing-2;
 
   .title {
     font-size: 2em;
@@ -24,7 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: v.$spacing-2;
   }
 
   .btnContainer {
@@ -32,15 +34,15 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: v.$spacing-2;
     justify-content: center;
     align-items: center;
 
     .createResumeBtn {
       width: 100%;
-      padding: 0.6rem 8rem;
+      padding: v.$spacing-1 v.$spacing-5;
       border: 1px solid var(--color-gray-200);
-      border-radius: 8px;
+      border-radius: v.$radius-medium;
       font-size: 1.2em;
       font-weight: bold;
       text-align: center;
@@ -49,8 +51,8 @@
 
     .apply {
       width: 100%;
-      padding: 0.6rem 8rem;
-      border-radius: 8px;
+      padding: v.$spacing-1 v.$spacing-5;
+      border-radius: v.$radius-medium;
       background-color: var(--color-purple-700);
       color: white;
       font-size: 1.2em;

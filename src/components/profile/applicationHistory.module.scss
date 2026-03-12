@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 $transition: 0.2s ease-in-out;
 
 .container {
@@ -27,9 +29,9 @@ $transition: 0.2s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: v.$spacing-2;
   background-color: var(--color-gray-50);
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
 }
 
 .applicationInfo {
@@ -42,9 +44,9 @@ $transition: 0.2s ease-in-out;
 }
 
 .iconWrapper {
-  padding: 0.5rem;
+  padding: v.$spacing-1;
   background-color: var(--color-sky-100);
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
 }
 
 .icon {
@@ -87,7 +89,7 @@ $transition: 0.2s ease-in-out;
 }
 
 .statusBadge {
-  padding: 0.25rem 0.5rem;
+  padding: v.$spacing-1 v.$spacing-1;
   font-size: 0.875rem;
   border-radius: 9999px;
 }

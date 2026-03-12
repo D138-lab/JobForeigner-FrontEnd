@@ -1,7 +1,9 @@
+@use 'src/styles/variables' as v;
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: v.$spacing-2;
   text-align: center;
 }
 

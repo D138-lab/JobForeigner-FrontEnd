@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 100%;
   display: flex;
@@ -26,7 +28,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.8rem;
+    gap: v.$spacing-2;
 
     .inputArea {
       width: 100%;
@@ -36,8 +38,8 @@
         min-height: 80px;
         resize: none;
         font-size: 1rem;
-        padding: 0.8rem;
-        border-radius: 10px;
+        padding: v.$spacing-2;
+        border-radius: v.$radius-medium;
         border: 1px solid #ddd;
         line-height: 1.5;
       }
@@ -57,16 +59,16 @@
 
       .commentBtn {
         cursor: pointer;
-        padding: 0.6rem 1rem;
+        padding: v.$spacing-1 v.$spacing-2;
         border: none;
-        border-radius: 10px;
+        border-radius: v.$radius-medium;
         background-color: var(--color-sky-700);
         color: #fff;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 0.6rem;
+        gap: v.$spacing-1;
       }
     }
   }

@@ -1,14 +1,16 @@
+@use 'src/styles/variables' as v;
+
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: v.$spacing-1;
 }
 
 .title {
@@ -26,5 +28,5 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  padding: 0.5rem;
+  padding: v.$spacing-1;
 }

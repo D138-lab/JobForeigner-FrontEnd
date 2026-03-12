@@ -1,11 +1,13 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  padding: 0.8rem 1rem;
+  padding: v.$spacing-2 v.$spacing-2;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
   user-select: none;
-  gap: 1rem;
+  gap: v.$spacing-2;
   div {
     font-weight: bold;
     font-size: 1.2em;

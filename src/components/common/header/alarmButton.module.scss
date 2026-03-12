@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   position: relative;
   overflow: visible;
@@ -60,7 +62,7 @@
 .numOfAlarm {
   min-width: 1.2rem;
   height: 1.2rem;
-  padding: 0 0.25rem;
+  padding: 0 v.$spacing-1;
   position: absolute;
   top: -0.2rem;
   right: -0.2rem;

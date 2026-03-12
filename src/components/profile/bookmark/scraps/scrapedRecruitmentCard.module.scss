@@ -1,25 +1,27 @@
+@use 'src/styles/variables' as v;
+
 .card {
   background: #fff;
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .cardContent {
   display: flex;
   justify-content: space-between;
-  padding: 1.25rem;
+  padding: v.$spacing-2;
 }
 
 .cardLeft {
   display: flex;
-  gap: 1rem;
+  gap: v.$spacing-2;
 }
 
 .logoWrapper {
   width: 3rem;
   height: 3rem;
   background: #f3f4f6;
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -38,7 +40,7 @@
 .titleRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
   margin-bottom: 0.25rem;
 }
 
@@ -50,9 +52,9 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.125rem 0.375rem;
-  border-radius: 0.375rem;
+  gap: v.$spacing-1;
+  padding: v.$spacing-1 v.$spacing-1;
+  border-radius: v.$radius-small;
   font-size: 0.75rem;
 }
 
@@ -80,7 +82,7 @@
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
   font-size: 0.875rem;
   color: #6b7280;
   margin-bottom: 0.75rem;
@@ -89,7 +91,7 @@
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: v.$spacing-1;
 }
 
 .metaIcon {
@@ -99,21 +101,21 @@
 
 .buttonGroup {
   display: flex;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }
 
 .cardRight {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
   position: relative;
 }
 
 .iconButton {
   background: none;
   border: none;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
+  padding: v.$spacing-1;
+  border-radius: v.$radius-small;
   cursor: pointer;
 }
 
@@ -127,7 +129,7 @@
   right: 0;
   background: #fff;
   border: 1px solid var(--color-gray-300);
-  border-radius: 0.375rem;
+  border-radius: v.$radius-small;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   flex-direction: column;
@@ -141,8 +143,8 @@
 .dropdownItem {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  gap: v.$spacing-1;
+  padding: v.$spacing-1 v.$spacing-2;
   font-size: 0.875rem;
   color: var(--color-gray-900);
   text-decoration: none;

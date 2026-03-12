@@ -1,8 +1,10 @@
+@use 'src/styles/variables' as v;
+
 .tab {
   border: none;
-  border-radius: 0.5rem;
+  border-radius: v.$radius-medium;
   background-color: none;
-  padding: 0.5rem 0.625rem;
+  padding: v.$spacing-1 v.$spacing-1;
   font-size: 1.0625rem;
   font-weight: 500;
   color: var(--color-gray-900);

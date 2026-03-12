@@ -1,5 +1,7 @@
+@use 'src/styles/variables' as v;
+
 .searchSection {
-  padding: 3rem 0;
+  padding: v.$spacing-5 0;
   background-color: #fff;
 }
 

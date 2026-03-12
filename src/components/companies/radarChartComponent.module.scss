@@ -1,6 +1,8 @@
+@use 'src/styles/variables' as v;
+
 .container {
-	margin: 1rem;
-	padding: 1rem;
+	margin: v.$spacing-2;
+	padding: v.$spacing-2;
 	border: 1px solid var(--color-gray-200);
-	border-radius: 10px;
+	border-radius: v.$radius-medium;
 }

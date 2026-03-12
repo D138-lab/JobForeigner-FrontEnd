@@ -1,8 +1,10 @@
+@use 'src/styles/variables' as v;
+
 .container {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: v.$spacing-3;
 
   h2 {
     font-size: 1.5rem;
