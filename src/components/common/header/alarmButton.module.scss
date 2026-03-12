@@ -60,13 +60,12 @@
 }
 
 .numOfAlarm {
-  min-width: 1.2rem;
-  height: 1.2rem;
-  padding: 0 v.$spacing-1;
+  width: 1.35rem;
+  height: 1.35rem;
   position: absolute;
-  top: -0.2rem;
-  right: -0.2rem;
-  font-size: 0.72rem;
+  top: -0.25rem;
+  right: -0.25rem;
+  font-size: 0.62rem;
   font-weight: 700;
   line-height: 1;
   background: linear-gradient(
@@ -83,4 +82,5 @@
   box-shadow: 0 6px 14px rgba(220, 38, 38, 0.25);
   z-index: 2;
   pointer-events: none;
+  letter-spacing: -0.02em;
 }

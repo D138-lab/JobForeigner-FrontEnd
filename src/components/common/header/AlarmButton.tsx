@@ -3,7 +3,7 @@ import { Bell } from 'lucide-react';
 import styles from './alarmButton.module.scss';
 import useGetAllNotifications from '@/lib/apis/queries/useGetAllNotifications';
 import useGetNotifications from '@/lib/apis/queries/useGetNotifications';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 type Props = {
   isModalOn: boolean;
@@ -12,10 +12,18 @@ type Props = {
 };
 
 const AlarmButton = ({ isModalOn, onToggle, onClose }: Props) => {
-  void useState;
-  const { data: numOfNotificatinos, isError, error } = useGetNotifications();
+  const { data: notificationCount } = useGetNotifications();
   const { data: notifications } = useGetAllNotifications();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const unreadCountFromList = useMemo(
+    () => (notifications?.data ?? []).filter(notification => !notification.read).length,
+    [notifications?.data],
+  );
+  const unreadCount =
+    notifications?.data !== undefined
+      ? unreadCountFromList
+      : (notificationCount?.data ?? 0);
+  const badgeLabel = unreadCount > 9 ? '9+' : String(unreadCount);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,19 +40,9 @@ const AlarmButton = ({ isModalOn, onToggle, onClose }: Props) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isModalOn, onClose]);
 
-  if (isError) console.log(error);
   return (
     <div ref={wrapperRef} className={styles.container}>
-      <div
-        className={styles.numOfAlarm}
-        style={
-          !numOfNotificatinos?.data || numOfNotificatinos.data === 0
-            ? { display: 'none' }
-            : undefined
-        }
-      >
-        {numOfNotificatinos?.data}
-      </div>
+      {unreadCount > 0 && <div className={styles.numOfAlarm}>{badgeLabel}</div>}
 
       <button
         type='button'

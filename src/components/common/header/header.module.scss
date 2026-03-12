@@ -53,27 +53,45 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: v.$spacing-1;
+    gap: v.$spacing-2;
   }
 
   .topRight {
-    width: 10rem;
-    height: 3rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     gap: v.$spacing-2;
+    min-width: fit-content;
 
     .profileBox {
-      width: 3rem;
-      height: 3rem;
-      border: 1px solid black;
+      width: 3.25rem;
+      height: 3.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--color-gray-200);
       border-radius: 50%;
+      background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+      box-shadow: v.$shadow-soft;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+
+      &:hover {
+        border-color: var(--color-sky-200);
+        box-shadow: v.$shadow-card;
+        transform: translateY(-1px);
+      }
+
       img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        display: block;
         border-radius: 50%;
         object-fit: cover;
+        object-position: center;
       }
     }
   }
@@ -109,4 +127,55 @@
 
 .active {
   color: var(--color-sky-800);
+}
+
+.logoutButton {
+  min-height: 3rem;
+  padding: 0 v.$spacing-2;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--color-sky-800) 0%,
+    var(--color-sky-900) 100%
+  ) !important;
+  box-shadow: v.$shadow-soft;
+
+  &:hover {
+    border-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+  }
+}
+
+.loginButton {
+  min-height: 3rem;
+  padding: 0 v.$spacing-2;
+  border-radius: 999px;
+  border-color: var(--color-gray-200);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+  color: var(--color-gray-800);
+  box-shadow: v.$shadow-soft;
+
+  &:hover {
+    border-color: var(--color-sky-200);
+    background: white;
+    color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+  }
+}
+
+.signUpButton {
+  min-height: 3rem;
+  padding: 0 v.$spacing-2;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--color-sky-700) 0%,
+    var(--color-sky-900) 100%
+  ) !important;
+  box-shadow: v.$shadow-soft;
+
+  &:hover {
+    box-shadow: v.$shadow-card;
+  }
 }

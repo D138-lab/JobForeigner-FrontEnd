@@ -1,7 +1,11 @@
 {
   "signUp": "Sign up",
   "login": "Login",
+  "search": "Search",
   "searchRecruitment": "Search for job postings",
+  "searchResults": "Results",
+  "employees": "{{count}} employees",
+  "openJobs": "{{count}} openings",
   "recruitmentInfo": "recruitment",
   "companiesInfo": "Companies",
   "nearBy": "Surrounding",

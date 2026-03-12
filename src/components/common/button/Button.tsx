@@ -24,11 +24,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * - 나머지 props: (onClick, children 등) ButtonHTMLAttributes(button 태그의 속성)
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'default', size = 'small', children, color, ...props }, ref) => {
+  (
+    { variant = 'default', size = 'small', children, color, className, ...props },
+    ref,
+  ) => {
     return (
       <button
         ref={ref}
-        className={clsx(styles.button, styles[variant], styles[size])}
+        className={clsx(styles.button, styles[variant], styles[size], className)}
         style={{ backgroundColor: color }}
         {...props}
       >

@@ -1,5 +1,5 @@
 import { fetcher } from '@/lib/fetcher';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface PostNotificationsResponse {
   id: number;
@@ -17,12 +17,19 @@ const postNotifications = async (notificationId: number) => {
 };
 
 const usePostNotifications = () => {
+  const queryClient = useQueryClient();
+
   return {
     ...useMutation({
       mutationKey: ['usePostNotifications'],
       mutationFn: postNotifications,
-      onSuccess: data => {
-        console.log('Post successful:', data);
+      onSuccess: () => {
+        void queryClient.invalidateQueries({
+          queryKey: ['useGetAllNotifications'],
+        });
+        void queryClient.invalidateQueries({
+          queryKey: ['useGetNotifications'],
+        });
       },
       onError: error => {
         console.error('Post failed:', error);
