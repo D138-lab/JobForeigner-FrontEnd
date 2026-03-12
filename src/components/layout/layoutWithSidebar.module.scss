@@ -4,11 +4,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #ffffff;
 }
 
 .main {
   flex: 1;
   display: flex;
+  background: var(--color-gray-50);
 }
 
 .container {

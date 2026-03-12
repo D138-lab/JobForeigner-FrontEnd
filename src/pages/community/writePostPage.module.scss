@@ -6,9 +6,7 @@
   flex-direction: column;
   align-items: center;
   padding: v.$spacing-4 v.$spacing-2 v.$spacing-5;
-  background:
-    radial-gradient(circle at top left, rgb(14 165 233 / 0.08), transparent 28%),
-    linear-gradient(180deg, var(--color-gray-50) 0%, #ffffff 32%);
+  background: var(--color-gray-50);
 }
 
 .pageShell {
