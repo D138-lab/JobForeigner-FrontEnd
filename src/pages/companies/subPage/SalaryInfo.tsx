@@ -1,6 +1,7 @@
 import AnnualHiresChart from '@/components/companies/AnnualHiresChart';
 import SalaryBox from '@/components/companies/SalaryBox';
 import styles from './salaryInfo.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface SalaryInfoProps {
   averageSalary: number;
@@ -8,11 +9,21 @@ interface SalaryInfoProps {
 }
 
 const SalaryInfo = ({ averageSalary, monthlySalary }: SalaryInfoProps) => {
+  const { t } = useTranslation('pages');
+
   return (
     <div className={styles.container}>
       <div className={styles.salaryBoxContainer}>
-        <SalaryBox titleText='전체 연봉' value={averageSalary} scale='만원' />
-        <SalaryBox titleText='월 실수령액' value={monthlySalary} scale='원' />
+        <SalaryBox
+          titleText={t('companies.salary.total')}
+          value={averageSalary}
+          scale={t('companies.salary.unitManwon')}
+        />
+        <SalaryBox
+          titleText={t('companies.salary.monthly')}
+          value={monthlySalary}
+          scale={t('companies.salary.unitWon')}
+        />
       </div>
       <div className={styles.chartContainer}>
         <AnnualHiresChart />

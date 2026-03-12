@@ -7,6 +7,7 @@ import RecruitmentCard from '@/components/profile/company/recruitment/Recruitmen
 import Select from '@/components/common/select/Select';
 import Input from '@/components/common/input/Input';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const recruitments = [
   {
@@ -45,6 +46,7 @@ const recruitments = [
 ];
 
 export default function CompanyProfileRecruitmentPage() {
+  const { t } = useTranslation('pages');
   const [searchRecruitment, setSearchRecruitment] = useState('');
 
   return (
@@ -52,38 +54,39 @@ export default function CompanyProfileRecruitmentPage() {
       <main className={styles.page}>
         <div className={styles.title}>
           <div>
-            <h1>채용 공고 관리</h1>
-            <p>등록한 채용 공고를 관리하고 새 공고를 작성할 수 있습니다.</p>
+            <h1>{t('profile.companyRecruitment.title')}</h1>
+            <p>{t('profile.companyRecruitment.description')}</p>
           </div>
           <Link to='/write-recruitment'>
             <Button size='medium'>
               <span className={styles.buttonContent}>
-                <Plus />새 공고 작성
+                <Plus />
+                {t('profile.companyRecruitment.create')}
               </span>
             </Button>
           </Link>
         </div>
         <div className={styles.statusWrapper}>
           <StatusBox
-            title='전체공고'
+            title={t('profile.companyRecruitment.status.all')}
             number={12}
             icon={<Building2 />}
             iconColor='var(--color-sky-800)'
           />
           <StatusBox
-            title='진행중'
+            title={t('profile.companyRecruitment.status.active')}
             number={5}
             icon={<Clock />}
             iconColor='var(--color-blue-600)'
           />
           <StatusBox
-            title='마감'
+            title={t('profile.companyRecruitment.status.expired')}
             number={7}
             icon={<Ban />}
             iconColor='var(--color-red-600)'
           />
           <StatusBox
-            title='지원자'
+            title={t('profile.companyRecruitment.status.applicants')}
             number={0}
             icon={<Users />}
             iconColor='var(--color-green-600)'
@@ -94,7 +97,7 @@ export default function CompanyProfileRecruitmentPage() {
             <div className={styles.searchWrapper}>
               <Input
                 icon='search'
-                placeholder='지원서 제목 검색'
+                placeholder={t('profile.companyRecruitment.searchPlaceholder')}
                 value={searchRecruitment}
                 onChange={e => setSearchRecruitment(e.target.value)}
               />
@@ -102,17 +105,23 @@ export default function CompanyProfileRecruitmentPage() {
             <div className={styles.selects}>
               <Select
                 options={[
-                  { value: 'all', label: '전체' },
-                  { value: 'active', label: '진행중' },
-                  { value: 'expired', label: '마감' },
+                  { value: 'all', label: t('profile.filters.all') },
+                  {
+                    value: 'active',
+                    label: t('profile.companyRecruitment.status.active'),
+                  },
+                  {
+                    value: 'expired',
+                    label: t('profile.companyRecruitment.status.expired'),
+                  },
                 ]}
                 defaultValue='all'
                 name='status'
               />
               <Select
                 options={[
-                  { value: 'newest', label: '최신순' },
-                  { value: 'oldest', label: '오래된순' },
+                  { value: 'newest', label: t('profile.filters.newest') },
+                  { value: 'oldest', label: t('profile.filters.oldest') },
                 ]}
                 defaultValue='newest'
                 name='sort'
@@ -128,13 +137,16 @@ export default function CompanyProfileRecruitmentPage() {
           ) : (
             <div className={styles.emptyState}>
               <Building2 className={styles.buildingIcon} />
-              <h3 className={styles.emptyTitle}>등록된 채용 공고가 없습니다</h3>
+              <h3 className={styles.emptyTitle}>
+                {t('profile.companyRecruitment.emptyTitle')}
+              </h3>
               <p className={styles.emptyDescription}>
-                새 채용 공고를 작성해보세요.
+                {t('profile.companyRecruitment.emptyDescription')}
               </p>
               <Link to='/write-recruitment'>
                 <Button>
-                  <Plus className={styles.plusIcon} />새 공고 작성
+                  <Plus className={styles.plusIcon} />
+                  {t('profile.companyRecruitment.create')}
                 </Button>
               </Link>
             </div>

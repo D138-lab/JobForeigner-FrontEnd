@@ -4,6 +4,7 @@ import { Briefcase, Clock, PenSquare } from 'lucide-react';
 import CompanyInfo from '@/components/profile/company/CompanyInfo';
 import StatusBox from '@/components/common/statusBox/StatusBox';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const companyData = {
   name: '테크 솔루션즈',
@@ -22,36 +23,37 @@ const companyData = {
 };
 
 export default function CompanyProfilePage() {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.container}>
       <main className={styles.page}>
         <div className={styles.title}>
-          <h1>기업 정보</h1>
+          <h1>{t('profile.company.title')}</h1>
           <Link to='/profile/company/edit'>
             <Button size='medium'>
               <span className={styles.buttonContent}>
                 <PenSquare />
-                정보 수정
+                {t('profile.company.edit')}
               </span>
             </Button>
           </Link>
         </div>
         <section>
-          <h2>기본 정보</h2>
-          <p>기업의 기본 정보를 확인할 수 있습니다.</p>
+          <h2>{t('profile.common.basicInfo')}</h2>
+          <p>{t('profile.company.description')}</p>
           <CompanyInfo companyData={companyData} />
         </section>
         <div className={styles.statusWrapper}>
           <StatusBox
             icon={<Briefcase />}
             iconColor='var(--color-sky-800)'
-            title='등록한 채용공고'
+            title={t('profile.company.registeredRecruitments')}
             number={12}
           />
           <StatusBox
             icon={<Clock />}
             iconColor='var(--color-green-600)'
-            title='진행중인 채용'
+            title={t('profile.company.activeRecruitments')}
             number={5}
           />
         </div>

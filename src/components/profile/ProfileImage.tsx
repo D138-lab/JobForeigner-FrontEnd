@@ -1,17 +1,19 @@
 import { Camera } from 'lucide-react';
 import styles from './profileImage.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   imageUrl?: string;
 }
 
 export default function ProfileImage({ imageUrl }: Props) {
+  const { t } = useTranslation('common');
   return (
     <div className={styles.profileImageWrapper}>
       <div className={styles.profileImageContainer}>
         <img
           src={imageUrl}
-          alt={'프로필 이미지'}
+          alt={t('profile')}
           className={styles.profileImage}
         />
       </div>

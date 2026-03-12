@@ -2,8 +2,10 @@ import { ArrowLeft, Home, SearchIcon } from 'lucide-react';
 import styles from './page.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '@/components/common/button/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function NotFoundPage() {
+  const { t } = useTranslation('pages');
   const navigate = useNavigate();
 
   return (
@@ -14,10 +16,9 @@ export default function NotFoundPage() {
         </div>
         <div className={styles.errorMessage}>
           <h1 className={styles.errorCode}>404</h1>
-          <h2 className={styles.errorTitle}>페이지를 찾을 수 없습니다.</h2>
+          <h2 className={styles.errorTitle}>{t('notFound.title')}</h2>
           <p className={styles.errorDescription}>
-            요청하신 페이지가 존재하지 않거나, 이동되었거나, 일시적으로 사용할
-            수 없습니다.
+            {t('notFound.desc')}
           </p>
         </div>
         <div className={styles.illustration}>
@@ -57,14 +58,14 @@ export default function NotFoundPage() {
           <Button variant="outline" onClick={() => navigate(-1)}>
             <span className={styles.iconButton}>
               <ArrowLeft className={styles.icon} />
-              이전 페이지로
+              {t('notFound.goBack')}
             </span>
           </Button>
           <Link to="/">
             <Button>
               <span className={styles.iconButton}>
                 <Home className={styles.icon} />
-                홈으로 돌아가기
+                {t('notFound.goHome')}
               </span>
             </Button>
           </Link>

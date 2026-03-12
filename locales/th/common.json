@@ -1,0 +1,57 @@
+{
+  "signUp": "สมัครสมาชิก",
+  "login": "เข้าสู่ระบบ",
+  "searchRecruitment": "ค้นหางาน",
+  "recruitmentInfo": "ข้อมูลงาน",
+  "companiesInfo": "ข้อมูลบริษัท",
+  "nearBy": "บริเวณใกล้เคียง",
+  "nearByPlaces": "สถานที่ใกล้เคียง",
+  "community": "ชุมชน",
+  "logout": "ออกจากระบบ",
+  "profile": "โปรไฟล์",
+  "notifications": "การแจ้งเตือน",
+  "read": "อ่านแล้ว",
+  "unread": "ยังไม่อ่าน",
+  "noNotifications": "ไม่มีการแจ้งเตือน",
+  "recentJobs": "งานที่ดูล่าสุด",
+  "noRecentJobs": "ไม่มีงานที่ดูล่าสุด",
+  "communityPage": {
+    "writePost": "เขียนโพสต์",
+    "searchPlaceholder": "ค้นหาจากชื่อโพสต์",
+    "searchButton": "ค้นหา",
+    "tabs": {
+      "all": "ทั้งหมด",
+      "general": "โพสต์ทั่วไป",
+      "market": "ตลาดมือสอง",
+      "policy": "คัดสรรนโยบาย"
+    },
+    "emptyBySearch": "ไม่พบผลการค้นหา",
+    "emptyByCategory": "ไม่มีโพสต์ในหมวดหมู่นี้",
+    "popularPostsTitle": "โพสต์ยอดนิยม",
+    "announcementTitle": "ประกาศ/อีเวนต์",
+    "announcements": {
+      "ruleChange": "นโยบายชุมชนมีการเปลี่ยนแปลง",
+      "welcomeEvent": "กิจกรรมต้อนรับสมาชิกใหม่กำลังดำเนินการ",
+      "serverMaintenance": "ประกาศปิดปรับปรุงเซิร์ฟเวอร์ (อา 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "ประกาศ",
+      "event": "อีเวนต์"
+    },
+    "topMemberTitle": "สมาชิกยืนยันตัวตน",
+    "profileImageAlt": "รูปโปรไฟล์ของ {{name}}",
+    "topRank": "อันดับ {{rank}}",
+    "noData": "ไม่มีข้อมูล",
+    "postAction": {
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "deleting": "กำลังลบ...",
+      "report": "รายงาน",
+      "block": "บล็อก",
+      "confirmDelete": "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?",
+      "deleteSuccess": "ลบโพสต์แล้ว",
+      "deleteFail": "ลบโพสต์ไม่สำเร็จ",
+      "likeFail": "ดำเนินการถูกใจไม่สำเร็จ"
+    }
+  }
+}

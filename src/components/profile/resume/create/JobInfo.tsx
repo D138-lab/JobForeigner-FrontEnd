@@ -4,8 +4,10 @@ import Button from '@/components/common/button/Button';
 import { useFormContext } from 'react-hook-form';
 import { useRef, useState } from 'react';
 import JobTag from './JobTag';
+import { useTranslation } from 'react-i18next';
 
 export default function JobInfo() {
+  const { t } = useTranslation('pages');
   const inputRef = useRef<HTMLInputElement>(null);
   const { watch, setValue } = useFormContext();
   const [inputValue, setInputValue] = useState('');
@@ -37,17 +39,17 @@ export default function JobInfo() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>희망 직종</h2>
+      <h2 className={styles.title}>{t('profile.resumePreview.sections.desiredJobs')}</h2>
       <div className={styles.content}>
         <Input
           ref={inputRef}
-          placeholder='희망 직종을 입력하세요'
+          placeholder={t('profile.component.jobInfo.placeholder')}
           name='jobsInput'
           onChange={onChange}
           value={inputValue}
         />
         <Button type='button' size='medium' onClick={handleAddJob}>
-          추가
+          {t('profile.component.common.add')}
         </Button>
       </div>
       <div className={styles.jobsList}>

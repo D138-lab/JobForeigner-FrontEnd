@@ -55,7 +55,7 @@ export default function SearchForm() {
       <div
         className={`${styles.searched} ${!isModalOn ? styles.inactive : ''}`}
       >
-        {isModalOn && <SearchResultForm content={data?.data.content!} />}
+        {isModalOn && <SearchResultForm content={data?.data.content ?? []} />}
       </div>
     </form>
   );

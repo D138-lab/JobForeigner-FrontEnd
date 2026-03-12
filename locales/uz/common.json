@@ -1,0 +1,57 @@
+{
+  "signUp": "Ro'yxatdan o'tish",
+  "login": "Kirish",
+  "searchRecruitment": "Vakansiyalarni qidirish",
+  "recruitmentInfo": "Vakansiya ma'lumoti",
+  "companiesInfo": "Kompaniya ma'lumoti",
+  "nearBy": "Yaqin atrof",
+  "nearByPlaces": "Yaqin joylar",
+  "community": "Hamjamiyat",
+  "logout": "Chiqish",
+  "profile": "Profil",
+  "notifications": "Bildirishnomalar",
+  "read": "O'qilgan",
+  "unread": "O'qilmagan",
+  "noNotifications": "Bildirishnoma yo'q.",
+  "recentJobs": "Yaqinda ko'rilgan ishlar",
+  "noRecentJobs": "Yaqinda ko'rilgan ishlar yo'q.",
+  "communityPage": {
+    "writePost": "Post yozish",
+    "searchPlaceholder": "Post sarlavhasi bo'yicha qidirish",
+    "searchButton": "Qidirish",
+    "tabs": {
+      "all": "Barchasi",
+      "general": "Umumiy postlar",
+      "market": "Ishlatilgan buyumlar bozori",
+      "policy": "Siyosat saralashi"
+    },
+    "emptyBySearch": "Qidiruv natijasi topilmadi.",
+    "emptyByCategory": "Bu toifada postlar yo'q.",
+    "popularPostsTitle": "Ommabop postlar",
+    "announcementTitle": "E'lon/Tadbir",
+    "announcements": {
+      "ruleChange": "Hamjamiyat qoidalari yangilandi.",
+      "welcomeEvent": "Yangi a'zolar uchun tadbir davom etmoqda.",
+      "serverMaintenance": "Server texnik ishlari (Yak 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "E'lon",
+      "event": "Tadbir"
+    },
+    "topMemberTitle": "Tasdiqlangan a'zolar",
+    "profileImageAlt": "{{name}} profili rasmi",
+    "topRank": "{{rank}}-o'rin",
+    "noData": "Ma'lumot yo'q.",
+    "postAction": {
+      "edit": "Tahrirlash",
+      "delete": "O'chirish",
+      "deleting": "O'chirilmoqda...",
+      "report": "Shikoyat qilish",
+      "block": "Bloklash",
+      "confirmDelete": "Ushbu postni o'chirishni tasdiqlaysizmi?",
+      "deleteSuccess": "Post o'chirildi.",
+      "deleteFail": "Postni o'chirib bo'lmadi.",
+      "likeFail": "Laykni qayta ishlash muvaffaqiyatsiz."
+    }
+  }
+}

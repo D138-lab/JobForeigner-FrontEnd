@@ -1,5 +1,6 @@
 import styles from './companyInfoPage.module.scss';
 import { Building2, Users, MapPin, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   companyName: string;
@@ -19,37 +20,39 @@ const CompanyInfoPage = ({
   description,
   benefits,
 }: Props) => {
+  const { t } = useTranslation('pages');
+
   return (
     <div className={styles.container}>
       <div className={styles.contentArea}>
         <div className={styles.companyInfoSection}>
           <div className={styles.contentSection}>
-            <div className={styles.headText}>기업 정보</div>
+            <div className={styles.headText}>{t('companies.info.sectionTitle')}</div>
             <div className={styles.companyType}>
               <Building2 />
               <div className={styles.content}>
-                <span>기업 유형</span>
+                <span>{t('companies.info.type')}</span>
                 <span>{companyType}</span>
               </div>
             </div>
             <div className={styles.companyEmployee}>
               <Users />
               <div className={styles.content}>
-                <span>직원 수</span>
+                <span>{t('companies.info.employee')}</span>
                 <span>{numOfEmployee}</span>
               </div>
             </div>
             <div className={styles.companyLocation}>
               <MapPin />
               <div className={styles.content}>
-                <span>주소</span>
+                <span>{t('companies.info.address')}</span>
                 <span>{companyAddress}</span>
               </div>
             </div>
             <div className={styles.homePage}>
               <Globe />
               <div className={styles.content}>
-                <span>홈페이지</span>
+                <span>{t('companies.info.homepage')}</span>
                 <span>
                   <a className={styles.link} href={homepageUrl}>
                     {homepageUrl}
@@ -60,11 +63,11 @@ const CompanyInfoPage = ({
           </div>
         </div>
         <div className={styles.companyDescriptionSection}>
-          <div className={styles.headText}>기업 소개</div>
+          <div className={styles.headText}>{t('companies.info.intro')}</div>
           <div>{description}</div>
         </div>
         <div className={styles.companyBenefitsSection}>
-          <div className={styles.headText}>복리후생</div>
+          <div className={styles.headText}>{t('companies.info.benefits')}</div>
           <div>{benefits}</div>
         </div>
       </div>

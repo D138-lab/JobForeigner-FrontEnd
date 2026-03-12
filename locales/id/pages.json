@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "Kembali ke komunitas",
+    "loadingPost": "Memuat detail postingan.",
+    "loadPostFail": "Gagal memuat postingan."
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "Postingan Umum",
+      "MARKET": "Marketplace",
+      "POLICY": "Kurasi Kebijakan"
+    },
+    "generalCategories": {
+      "NOTICE": "Pengumuman",
+      "FREE": "Forum Bebas",
+      "QNA": "Tanya Jawab",
+      "INFO": "Berbagi Informasi"
+    },
+    "alerts": {
+      "titleRequired": "Silakan masukkan judul.",
+      "contentRequired": "Silakan masukkan konten.",
+      "generalCategoryRequired": "Silakan pilih kategori postingan umum.",
+      "noticeAdminOnly": "Pengguna biasa tidak dapat memilih Pengumuman.",
+      "createSuccess": "Postingan berhasil dibuat.",
+      "createFail": "Gagal membuat postingan. Silakan coba lagi.",
+      "imageIdMissing": "ID file tidak ditemukan pada respons konfirmasi unggah gambar.",
+      "imageUploadFail": "Unggah gambar gagal. Silakan coba lagi."
+    },
+    "confirmLeave": "Perubahan tidak akan disimpan.\nApakah Anda ingin membatalkan?",
+    "labels": {
+      "back": "Kembali",
+      "postType": "Tipe Postingan",
+      "generalCategory": "Kategori Postingan Umum",
+      "title": "Judul"
+    },
+    "placeholder": {
+      "title": "Masukkan judul."
+    },
+    "tagHelper": "Masukkan tag yang terkait dengan postingan. Maksimal 5 tag.",
+    "buttons": {
+      "cancel": "Batal",
+      "submit": "Kirim",
+      "submitting": "Mengirim..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "Postingan Umum",
+      "MARKET": "Marketplace",
+      "POLICY": "Kurasi Kebijakan"
+    },
+    "alerts": {
+      "noPermission": "Anda tidak memiliki izin untuk mengedit postingan ini.",
+      "titleRequired": "Silakan masukkan judul.",
+      "contentRequired": "Silakan masukkan konten.",
+      "imageNotSupported": "Pembaruan gambar belum terhubung, sehingga postingan disimpan tanpa gambar.",
+      "updateSuccess": "Postingan berhasil diperbarui.",
+      "updateFail": "Gagal memperbarui postingan. Silakan coba lagi."
+    },
+    "confirmLeave": "Perubahan tidak akan disimpan.\nApakah Anda ingin membatalkan?",
+    "state": {
+      "loadingPost": "Memuat detail postingan.",
+      "checkingPermission": "Memeriksa izin.",
+      "loadFail": "Gagal memuat detail postingan."
+    },
+    "labels": {
+      "back": "Kembali",
+      "postType": "Tipe Postingan",
+      "title": "Judul"
+    },
+    "placeholder": {
+      "title": "Masukkan judul."
+    },
+    "tagHelper": "Masukkan tag yang terkait dengan postingan. Maksimal 5 tag.",
+    "buttons": {
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "Memuat...",
+    "loadingShort": "Memuat",
+    "empty": "Tidak ada lowongan.",
+    "error": "Terjadi kesalahan"
+  },
+  "jobsApply": {
+    "successTitle": "Pengiriman selesai!",
+    "successSub": "Semoga sukses.",
+    "failedTitle": "Pengiriman gagal!",
+    "failedSub": "Silakan coba lagi nanti.",
+    "goMain": "Ke beranda"
+  },
+  "jobsSelectResume": {
+    "pending": "Memproses",
+    "title": "Pilih Resume",
+    "subtitle": "Silakan pilih resume untuk melamar.",
+    "createResume": "Buat resume baru",
+    "apply": "Lamar"
+  },
+  "companies": {
+    "loading": "Memuat...",
+    "empty": "Tidak ada lowongan.",
+    "detail": {
+      "notFound": "Informasi perusahaan tidak ditemukan.",
+      "loading": "Memuat...",
+      "loadError": "Terjadi kesalahan saat memuat informasi perusahaan.",
+      "tabs": {
+        "info": "Info Perusahaan",
+        "recruit": "Rekrutmen",
+        "salary": "Gaji",
+        "rating": "Penilaian",
+        "review": "Ulasan"
+      }
+    },
+    "info": {
+      "sectionTitle": "Informasi Perusahaan",
+      "type": "Tipe Perusahaan",
+      "employee": "Karyawan",
+      "address": "Alamat",
+      "homepage": "Beranda",
+      "intro": "Perkenalan",
+      "benefits": "Benefit"
+    },
+    "recruit": {
+      "empty": "Tidak ada data."
+    },
+    "rating": {
+      "title": "Informasi Penilaian Detail",
+      "level": {
+        "high": "Di atas rata-rata",
+        "mid": "Rata-rata",
+        "low": "Di bawah rata-rata"
+      },
+      "subjects": {
+        "welfare": "Benefit/Budaya",
+        "salary": "Gaji",
+        "workLife": "Keseimbangan kerja-hidup",
+        "culture": "Budaya perusahaan",
+        "stability": "Stabilitas kerja"
+      },
+      "descriptions": {
+        "welfare": "Benefit dan budaya berada pada tingkat {{level}}.",
+        "salary": "Gaji dibayarkan pada tingkat {{level}}.",
+        "workLife": "Keseimbangan kerja-hidup berada pada tingkat {{level}}.",
+        "culture": "Budaya perusahaan berada pada tingkat {{level}}, menekankan kolaborasi dan komunikasi.",
+        "stability": "Stabilitas kerja berada pada tingkat {{level}}, memastikan kestabilan karyawan."
+      }
+    },
+    "review": {
+      "title": "Ulasan Rata-rata"
+    },
+    "salary": {
+      "total": "Gaji Tahunan",
+      "monthly": "Gaji Bersih Bulanan",
+      "unitManwon": "10 ribu KRW",
+      "unitWon": "KRW"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "Kembali",
+      "basicInfo": "Informasi Dasar"
+    },
+    "filters": {
+      "all": "Semua",
+      "newest": "Terbaru",
+      "oldest": "Terlama"
+    },
+    "main": {
+      "title": "Profil",
+      "myResume": "Resume Saya",
+      "applications": "Lamaran",
+      "more": "Lihat Selengkapnya",
+      "loading": "Memuat..."
+    },
+    "resume": {
+      "title": "Resume Saya",
+      "description": "Kelola resume Anda dan buat resume baru.",
+      "create": "Buat Resume",
+      "searchPlaceholder": "Cari judul resume",
+      "completed": "Selesai",
+      "inProgress": "Sedang Dikerjakan",
+      "emptyTitle": "Tidak ada resume",
+      "emptyDescription": "Buat resume pertama Anda.",
+      "resumeFallback": "Resume"
+    },
+    "applications": {
+      "title": "Lamaran",
+      "description": "Periksa lowongan yang Anda lamar dan statusnya.",
+      "searchPlaceholder": "Cari judul resume",
+      "statusSummary": {
+        "all": "Semua Lamaran",
+        "reviewing": "Sedang Ditinjau",
+        "interview": "Jadwal Wawancara",
+        "done": "Selesai"
+      }
+    },
+    "edit": {
+      "title": "Edit Profil",
+      "description": "Anda dapat mengedit informasi profil dasar.",
+      "alertUpdated": "Informasi profil telah diperbarui."
+    },
+    "company": {
+      "title": "Informasi Perusahaan",
+      "description": "Anda dapat melihat informasi dasar perusahaan.",
+      "edit": "Edit Informasi",
+      "registeredRecruitments": "Rekrutmen yang Diposting",
+      "activeRecruitments": "Rekrutmen Aktif"
+    },
+    "companyEdit": {
+      "title": "Edit Informasi Perusahaan",
+      "description": "Anda dapat mengedit informasi dasar perusahaan."
+    },
+    "companyRecruitment": {
+      "title": "Kelola Rekrutmen",
+      "description": "Kelola rekrutmen yang diposting dan buat yang baru.",
+      "create": "Buat Rekrutmen",
+      "searchPlaceholder": "Cari judul lamaran",
+      "emptyTitle": "Belum ada rekrutmen",
+      "emptyDescription": "Buat postingan rekrutmen baru.",
+      "status": {
+        "all": "Semua Postingan",
+        "active": "Aktif",
+        "expired": "Ditutup",
+        "applicants": "Pelamar"
+      }
+    },
+    "companyApplications": {
+      "title": "Kelola Lamaran",
+      "description": "Tinjau dan kelola lamaran untuk rekrutmen Anda.",
+      "searchPlaceholder": "Cari judul lamaran",
+      "emptyTitle": "Tidak ada lamaran",
+      "status": {
+        "all": "Semua Lamaran",
+        "reviewing": "Sedang Ditinjau",
+        "interview": "Wawancara",
+        "done": "Selesai",
+        "accepted": "Diterima",
+        "rejected": "Ditolak"
+      }
+    },
+    "bookmark": {
+      "title": "Bookmark",
+      "description": "Kelola perusahaan favorit dan lowongan tersimpan.",
+      "companies": {
+        "searchPlaceholder": "Cari nama perusahaan atau industri",
+        "emptyTitle": "Tidak ada perusahaan favorit",
+        "emptyDescription": "Klik ikon bintang di halaman perusahaan untuk menambahkan favorit.",
+        "browse": "Lihat Perusahaan"
+      },
+      "jobs": {
+        "searchPlaceholder": "Cari berdasarkan judul pekerjaan atau perusahaan",
+        "emptyTitle": "Tidak ada lowongan tersimpan",
+        "emptyDescription": "Klik ikon bookmark pada lowongan untuk menyimpan.",
+        "browse": "Lihat Lowongan",
+        "status": {
+          "active": "Aktif",
+          "expired": "Ditutup"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "Buat Resume Baru",
+      "requiredGuide": "* menandakan kolom wajib"
+    },
+    "resumeEdit": {
+      "title": "Edit Resume",
+      "requiredGuide": "* menandakan kolom wajib"
+    },
+    "resumePreview": {
+      "newResume": "Resume Baru",
+      "portfolio": "Portofolio",
+      "pdfDownloaded": "PDF telah diunduh.",
+      "print": "Cetak",
+      "downloading": "Mengunduh...",
+      "downloadPdf": "Unduh PDF",
+      "updatedAt": "Terakhir diperbarui: {{date}}",
+      "unitManwon": "10 ribu KRW",
+      "fields": {
+        "name": "Nama",
+        "email": "Email",
+        "address": "Alamat",
+        "phone": "Telepon",
+        "employmentType": "Jenis Pekerjaan",
+        "desiredSalary": "Gaji yang Diinginkan",
+        "desiredLocation": "Lokasi yang Diinginkan"
+      },
+      "sections": {
+        "basicInfo": "Informasi Dasar",
+        "desiredJobs": "Pekerjaan yang Diinginkan",
+        "skills": "Keahlian",
+        "preference": "Kondisi Kerja yang Diinginkan",
+        "education": "Pendidikan",
+        "experience": "Pengalaman",
+        "certificates": "Sertifikat",
+        "awards": "Aktivitas & Penghargaan",
+        "expats": "Pengalaman Luar Negeri",
+        "languages": "Bahasa",
+        "attachments": "Lampiran & Tautan",
+        "files": "File",
+        "links": "Tautan"
+      },
+      "empty": {
+        "desiredJobs": "Belum ada pekerjaan yang diinginkan.",
+        "skills": "Belum ada keahlian.",
+        "preference": "Belum ada kondisi kerja yang diinginkan.",
+        "education": "Belum ada informasi pendidikan.",
+        "experience": "Belum ada pengalaman.",
+        "certificates": "Belum ada sertifikat.",
+        "awards": "Belum ada penghargaan.",
+        "expats": "Belum ada pengalaman luar negeri.",
+        "languages": "Belum ada informasi bahasa."
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "Dilamar pada: {{date}}",
+        "detail": "Lihat detail",
+        "preview": "Pratinjau",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "deleteConfirm": "Apakah Anda yakin ingin menghapus?",
+        "add": "Tambah",
+        "viewPostDetail": "View Job Details",
+        "share": "Bagikan"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "Simpand Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "Nomor Registrasi Bisnis",
+        "foundedYear": "Tahun Berdiri",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "Karyawan",
+        "contact": "Kontak",
+        "website": "Situs Web",
+        "intro": "Perkenalan Perusahaan"
+      },
+      "recruitmentCard": {
+        "createdAt": "Diposting: {{date}}",
+        "expiresAt": "Batas waktu: {{date}}",
+        "applicants": "Pelamar: {{count}}",
+        "views": "Dilihat: {{count}}",
+        "viewPost": "Lihat Postingan",
+        "viewApplicants": "Lihat Pelamar ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "Rekrutmen",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "Unduh Resume"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "Info Perusahaan",
+        "recruitments": "Rekrutmens ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "Ke halaman perusahaan",
+        "delete": "Hapus dari favorit"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "Ke halaman postingan",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed Tambahress",
+        "zipcode": "Kode Pos",
+        "save": "Simpan"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "Unggah Foto"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "Penuh waktu",
+        "contract": "Kontrak",
+        "intern": "Magang",
+        "any": "Apa saja",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "Tambah Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "Tambahitional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "Tambah Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "Tanggal Mulai",
+        "endDate": "Tanggal Selesai",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "Tambah Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "Tambah Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "Tambah Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "Tambah Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "Tambah Link",
+        "append": "Tambah links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "Progres Penyelesaian",
+        "tempSave": "Simpan Draft"
+      },
+      "address": {
+        "sido": "Provinsi/Kota",
+        "sigungu": "Kecamatan",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "Pilih File",
+        "uploaded": "File Terunggah"
+      },
+      "introduction": {
+        "title": "Perkenalan",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

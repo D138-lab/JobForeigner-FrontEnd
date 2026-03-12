@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "समुदायमा फर्कनुहोस्",
+    "loadingPost": "पोस्ट विवरण लोड हुँदैछ।",
+    "loadPostFail": "पोस्ट लोड गर्न सकिएन।"
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "सामान्य पोस्ट",
+      "MARKET": "सेकेन्डह्यान्ड बजार",
+      "POLICY": "नीति क्युरेसन"
+    },
+    "generalCategories": {
+      "NOTICE": "सूचना",
+      "FREE": "फ्री बोर्ड",
+      "QNA": "प्रश्न/उत्तर",
+      "INFO": "जानकारी साझेदारी"
+    },
+    "alerts": {
+      "titleRequired": "कृपया शीर्षक लेख्नुहोस्।",
+      "contentRequired": "कृपया सामग्री लेख्नुहोस्।",
+      "generalCategoryRequired": "कृपया सामान्य पोस्टको श्रेणी छान्नुहोस्।",
+      "noticeAdminOnly": "साधारण प्रयोगकर्ताले सूचना छान्न पाउँदैनन्।",
+      "createSuccess": "पोस्ट सफलतापूर्वक सिर्जना भयो।",
+      "createFail": "पोस्ट सिर्जना गर्न असफल भयो। पुन: प्रयास गर्नुहोस्।",
+      "imageIdMissing": "तस्बिर पुष्टि प्रतिक्रियामा फाइल ID फेला परेन।",
+      "imageUploadFail": "तस्बिर अपलोड असफल भयो। पुन: प्रयास गर्नुहोस्।"
+    },
+    "confirmLeave": "परिवर्तनहरू सुरक्षित हुने छैनन्।\nके रद्द गर्न चाहनुहुन्छ?",
+    "labels": {
+      "back": "फर्कनुहोस्",
+      "postType": "पोस्ट प्रकार",
+      "generalCategory": "सामान्य पोस्ट श्रेणी",
+      "title": "शीर्षक"
+    },
+    "placeholder": {
+      "title": "शीर्षक लेख्नुहोस्।"
+    },
+    "tagHelper": "पोस्टसँग सम्बन्धित ट्याग लेख्नुहोस्। अधिकतम ५ ट्याग।",
+    "buttons": {
+      "cancel": "रद्द गर्नुहोस्",
+      "submit": "पेश गर्नुहोस्",
+      "submitting": "पेश हुँदै..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "सामान्य पोस्ट",
+      "MARKET": "सेकेन्डह्यान्ड बजार",
+      "POLICY": "नीति क्युरेसन"
+    },
+    "alerts": {
+      "noPermission": "तपाईंलाई यो पोस्ट सम्पादन गर्ने अनुमति छैन।",
+      "titleRequired": "कृपया शीर्षक लेख्नुहोस्।",
+      "contentRequired": "कृपया सामग्री लेख्नुहोस्।",
+      "imageNotSupported": "तस्बिर अपडेट सुविधा अझै जडान छैन, त्यसैले तस्बिर बिना सुरक्षित हुन्छ।",
+      "updateSuccess": "पोस्ट सफलतापूर्वक अपडेट भयो।",
+      "updateFail": "पोस्ट अपडेट गर्न असफल भयो। पुन: प्रयास गर्नुहोस्।"
+    },
+    "confirmLeave": "परिवर्तनहरू सुरक्षित हुने छैनन्।\nके रद्द गर्न चाहनुहुन्छ?",
+    "state": {
+      "loadingPost": "पोस्ट विवरण लोड हुँदैछ।",
+      "checkingPermission": "अनुमति जाँच हुँदैछ।",
+      "loadFail": "पोस्ट विवरण लोड गर्न असफल भयो।"
+    },
+    "labels": {
+      "back": "फर्कनुहोस्",
+      "postType": "पोस्ट प्रकार",
+      "title": "शीर्षक"
+    },
+    "placeholder": {
+      "title": "शीर्षक लेख्नुहोस्।"
+    },
+    "tagHelper": "पोस्टसँग सम्बन्धित ट्याग लेख्नुहोस्। अधिकतम ५ ट्याग।",
+    "buttons": {
+      "cancel": "रद्द गर्नुहोस्",
+      "save": "सुरक्षित गर्नुहोस्",
+      "saving": "सुरक्षित हुँदै..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "लोड हुँदै...",
+    "loadingShort": "लोड हुँदै",
+    "empty": "जागिर पोस्ट फेला परेन।",
+    "error": "त्रुटि भयो"
+  },
+  "jobsApply": {
+    "successTitle": "पेश सफल भयो!",
+    "successSub": "तपाईंलाई शुभकामना।",
+    "failedTitle": "पेश असफल भयो!",
+    "failedSub": "कृपया पछि पुन: प्रयास गर्नुहोस्।",
+    "goMain": "होममा जानुहोस्"
+  },
+  "jobsSelectResume": {
+    "pending": "अनुरोध पठाउँदै",
+    "title": "बायोडाटा छनोट",
+    "subtitle": "आवेदनका लागि बायोडाटा छनोट गर्नुहोस्।",
+    "createResume": "नयाँ बायोडाटा बनाउनुहोस्",
+    "apply": "आवेदन गर्नुहोस्"
+  },
+  "companies": {
+    "loading": "लोड हुँदै...",
+    "empty": "जागिर पोस्ट फेला परेन।",
+    "detail": {
+      "notFound": "कम्पनी जानकारी फेला परेन।",
+      "loading": "लोड हुँदै...",
+      "loadError": "कम्पनी जानकारी लोड गर्दा त्रुटि भयो।",
+      "tabs": {
+        "info": "कम्पनी जानकारी",
+        "recruit": "भर्ना",
+        "salary": "तलब",
+        "rating": "मूल्यांकन",
+        "review": "समीक्षा"
+      }
+    },
+    "info": {
+      "sectionTitle": "कम्पनी जानकारी",
+      "type": "कम्पनी प्रकार",
+      "employee": "कर्मचारी",
+      "address": "ठेगाना",
+      "homepage": "होमपेज",
+      "intro": "परिचय",
+      "benefits": "सुविधाहरू"
+    },
+    "recruit": {
+      "empty": "डाटा उपलब्ध छैन।"
+    },
+    "rating": {
+      "title": "विस्तृत मूल्यांकन जानकारी",
+      "level": {
+        "high": "औसतभन्दा माथि",
+        "mid": "औसत",
+        "low": "औसतभन्दा तल"
+      },
+      "subjects": {
+        "welfare": "सुविधा/संस्कृति",
+        "salary": "तलब",
+        "workLife": "काम-जीवन सन्तुलन",
+        "culture": "कम्पनी संस्कृति",
+        "stability": "रोजगारी स्थिरता"
+      },
+      "descriptions": {
+        "welfare": "सुविधा र संस्कृति {{level}} स्तरमा उपलब्ध छ।",
+        "salary": "तलब {{level}} स्तरमा भुक्तानी गरिन्छ।",
+        "workLife": "काम-जीवन सन्तुलन {{level}} स्तरमा कायम छ।",
+        "culture": "कम्पनी संस्कृति {{level}} स्तरमा छ, सहकार्य र सञ्चारलाई महत्त्व दिन्छ।",
+        "stability": "रोजगारी स्थिरता {{level}} स्तरमा छ, कर्मचारीको स्थिरता सुनिश्चित हुन्छ।"
+      }
+    },
+    "review": {
+      "title": "औसत समीक्षा"
+    },
+    "salary": {
+      "total": "वार्षिक तलब",
+      "monthly": "मासिक खुद तलब",
+      "unitManwon": "१० हजार KRW",
+      "unitWon": "KRW"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "फर्कनुहोस्",
+      "basicInfo": "आधारभूत जानकारी"
+    },
+    "filters": {
+      "all": "सबै",
+      "newest": "नयाँ",
+      "oldest": "पुरानो"
+    },
+    "main": {
+      "title": "प्रोफाइल",
+      "myResume": "मेरो बायोडाटा",
+      "applications": "आवेदनहरू",
+      "more": "थप",
+      "loading": "लोड हुँदै..."
+    },
+    "resume": {
+      "title": "मेरो बायोडाटा",
+      "description": "तपाईंको बायोडाटा व्यवस्थापन गर्नुहोस् र नयाँ बनाउनुहोस्।",
+      "create": "नयाँ बायोडाटा बनाउनुहोस्",
+      "searchPlaceholder": "बायोडाटा शीर्षक खोज्नुहोस्",
+      "completed": "पूरा",
+      "inProgress": "प्रगतिमा",
+      "emptyTitle": "बायोडाटा छैन",
+      "emptyDescription": "पहिलो बायोडाटा बनाउनुहोस्।",
+      "resumeFallback": "बायोडाटा"
+    },
+    "applications": {
+      "title": "आवेदनहरू",
+      "description": "तपाईंले आवेदन दिएका काम र तिनको अवस्था हेर्नुहोस्।",
+      "searchPlaceholder": "बायोडाटा शीर्षक खोज्नुहोस्",
+      "statusSummary": {
+        "all": "सबै आवेदन",
+        "reviewing": "समीक्षामा",
+        "interview": "अन्तर्वार्ता तय",
+        "done": "पूरा"
+      }
+    },
+    "edit": {
+      "title": "प्रोफाइल सम्पादन",
+      "description": "तपाईं आधारभूत प्रोफाइल जानकारी सम्पादन गर्न सक्नुहुन्छ।",
+      "alertUpdated": "प्रोफाइल जानकारी अपडेट भयो।"
+    },
+    "company": {
+      "title": "कम्पनी जानकारी",
+      "description": "तपाईं आधारभूत कम्पनी जानकारी हेर्न सक्नुहुन्छ।",
+      "edit": "जानकारी सम्पादन",
+      "registeredRecruitments": "पोस्ट गरिएका भर्ती",
+      "activeRecruitments": "सक्रिय भर्ती"
+    },
+    "companyEdit": {
+      "title": "कम्पनी जानकारी सम्पादन",
+      "description": "तपाईं आधारभूत कम्पनी जानकारी सम्पादन गर्न सक्नुहुन्छ।"
+    },
+    "companyRecruitment": {
+      "title": "भर्ती व्यवस्थापन",
+      "description": "पोस्ट गरिएका भर्तीहरू व्यवस्थापन गर्नुहोस् र नयाँ बनाउनुहोस्।",
+      "create": "भर्ती सिर्जना",
+      "searchPlaceholder": "आवेदन शीर्षक खोज्नुहोस्",
+      "emptyTitle": "भर्ती पोस्ट छैन",
+      "emptyDescription": "नयाँ भर्ती पोस्ट सिर्जना गर्नुहोस्।",
+      "status": {
+        "all": "सबै पोस्ट",
+        "active": "सक्रिय",
+        "expired": "बन्द",
+        "applicants": "आवेदक"
+      }
+    },
+    "companyApplications": {
+      "title": "आवेदन व्यवस्थापन",
+      "description": "तपाईंका भर्तीका लागि आएका आवेदनहरू समीक्षा र व्यवस्थापन गर्नुहोस्।",
+      "searchPlaceholder": "आवेदन शीर्षक खोज्नुहोस्",
+      "emptyTitle": "आवेदन फेला परेन",
+      "status": {
+        "all": "सबै आवेदन",
+        "reviewing": "समीक्षामा",
+        "interview": "अन्तर्वार्ता",
+        "done": "पूरा",
+        "accepted": "स्वीकृत",
+        "rejected": "अस्वीकृत"
+      }
+    },
+    "bookmark": {
+      "title": "बुकमार्क",
+      "description": "मनपर्ने कम्पनी र सेभ गरिएका जागिर पोस्ट व्यवस्थापन गर्नुहोस्।",
+      "companies": {
+        "searchPlaceholder": "कम्पनी नाम वा उद्योगद्वारा खोज्नुहोस्",
+        "emptyTitle": "मनपर्ने कम्पनी छैन",
+        "emptyDescription": "कम्पनी पेजमा स्टार आइकन थिचेर मनपर्नेमा थप्नुहोस्।",
+        "browse": "कम्पनी हेर्नुहोस्"
+      },
+      "jobs": {
+        "searchPlaceholder": "जागिर शीर्षक वा कम्पनीद्वारा खोज्नुहोस्",
+        "emptyTitle": "सेभ गरिएका पोस्ट छैनन्",
+        "emptyDescription": "जागिर पोस्टमा बुकमार्क आइकन थिचेर सेभ गर्नुहोस्।",
+        "browse": "जागिर हेर्नुहोस्",
+        "status": {
+          "active": "सक्रिय",
+          "expired": "बन्द"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "नयाँ बायोडाटा बनाउनुहोस्",
+      "requiredGuide": "* अनिवार्य फिल्ड"
+    },
+    "resumeEdit": {
+      "title": "बायोडाटा सम्पादन",
+      "requiredGuide": "* अनिवार्य फिल्ड"
+    },
+    "resumePreview": {
+      "newResume": "नयाँ बायोडाटा",
+      "portfolio": "पोर्टफोलियो",
+      "pdfDownloaded": "PDF डाउनलोड भयो।",
+      "print": "प्रिन्ट",
+      "downloading": "डाउनलोड हुँदै...",
+      "downloadPdf": "PDF डाउनलोड",
+      "updatedAt": "अन्तिम अपडेट: {{date}}",
+      "unitManwon": "१० हजार KRW",
+      "fields": {
+        "name": "नाम",
+        "email": "इमेल",
+        "address": "ठेगाना",
+        "phone": "फोन",
+        "employmentType": "रोजगारी प्रकार",
+        "desiredSalary": "अपेक्षित तलब",
+        "desiredLocation": "रोजाइको स्थान"
+      },
+      "sections": {
+        "basicInfo": "आधारभूत जानकारी",
+        "desiredJobs": "चाहिएको काम",
+        "skills": "सीप",
+        "preference": "रोजाइका काम सर्तहरू",
+        "education": "शिक्षा",
+        "experience": "अनुभव",
+        "certificates": "प्रमाणपत्र",
+        "awards": "गतिविधि र पुरस्कार",
+        "expats": "विदेश अनुभव",
+        "languages": "भाषा",
+        "attachments": "संलग्न फाइल र लिङ्क",
+        "files": "फाइल",
+        "links": "लिङ्क"
+      },
+      "empty": {
+        "desiredJobs": "चाहिएको काम दर्ता गरिएको छैन।",
+        "skills": "सीप दर्ता गरिएको छैन।",
+        "preference": "रोजाइका सर्तहरू दर्ता गरिएको छैन।",
+        "education": "शिक्षा जानकारी दर्ता गरिएको छैन।",
+        "experience": "अनुभव दर्ता गरिएको छैन।",
+        "certificates": "प्रमाणपत्र दर्ता गरिएको छैन।",
+        "awards": "पुरस्कार दर्ता गरिएको छैन।",
+        "expats": "विदेश अनुभव दर्ता गरिएको छैन।",
+        "languages": "भाषा जानकारी दर्ता गरिएको छैन।"
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "आवेदन मिति: {{date}}",
+        "detail": "विवरण हेर्नुहोस्",
+        "preview": "पूर्वावलोकन",
+        "edit": "सम्पादन",
+        "delete": "मेटाउनुहोस्",
+        "deleteConfirm": "के तपाईं मेटाउन निश्चित हुनुहुन्छ?",
+        "add": "थप्नुहोस्",
+        "viewPostDetail": "View Job Details",
+        "share": "सेयर"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "सेभ गर्नुहोस्d Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "व्यवसाय दर्ता नम्बर",
+        "foundedYear": "स्थापना वर्ष",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "कर्मचारी",
+        "contact": "सम्पर्क",
+        "website": "वेबसाइट",
+        "intro": "कम्पनी परिचय"
+      },
+      "recruitmentCard": {
+        "createdAt": "पोस्ट गरिएको: {{date}}",
+        "expiresAt": "अन्तिम मिति: {{date}}",
+        "applicants": "आवेदक: {{count}}",
+        "views": "हेर्ने संख्या: {{count}}",
+        "viewPost": "पोस्ट हेर्नुहोस्",
+        "viewApplicants": "आवेदक हेर्नुहोस् ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "भर्ती",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "बायोडाटा डाउनलोड"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "कम्पनी जानकारी",
+        "recruitments": "भर्तीs ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "कम्पनी पेजमा जानुहोस्",
+        "delete": "मनपर्नेबाट हटाउनुहोस्"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "पोस्ट पेजमा जानुहोस्",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed थप्नुहोस्ress",
+        "zipcode": "हुलाक कोड",
+        "save": "सेभ गर्नुहोस्"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "फोटो अपलोड"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "पूर्णकालीन",
+        "contract": "करार",
+        "intern": "इन्टर्न",
+        "any": "जुनसुकै",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "थप्नुहोस् Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "थप्नुहोस्itional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "थप्नुहोस् Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "सुरु मिति",
+        "endDate": "अन्त्य मिति",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "थप्नुहोस् Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "थप्नुहोस् Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "थप्नुहोस् Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "थप्नुहोस् Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "थप्नुहोस् Link",
+        "append": "थप्नुहोस् links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "पूरा हुने प्रगति",
+        "tempSave": "सेभ गर्नुहोस् Draft"
+      },
+      "address": {
+        "sido": "प्रदेश/सहर",
+        "sigungu": "जिल्ला/क्षेत्र",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "फाइल छनोट",
+        "uploaded": "अपलोड गरिएका फाइलहरू"
+      },
+      "introduction": {
+        "title": "परिचय",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

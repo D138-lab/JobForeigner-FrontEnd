@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './bookmarkTab.module.scss';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const paths = {
   companies: '/profile/liked-companies',
@@ -8,6 +9,7 @@ const paths = {
 };
 
 export default function BookmarkTabs() {
+  const { t } = useTranslation('pages');
   const { pathname } = useLocation();
 
   return (
@@ -19,7 +21,7 @@ export default function BookmarkTabs() {
             [styles.active]: pathname === paths.companies,
           })}
         >
-          관심 기업
+          {t('profile.component.bookmarkTabs.companies')}
         </Link>
         <Link
           to={paths.jobs}
@@ -27,7 +29,7 @@ export default function BookmarkTabs() {
             [styles.active]: pathname === paths.jobs,
           })}
         >
-          스크랩한 공고
+          {t('profile.component.bookmarkTabs.jobs')}
         </Link>
       </nav>
     </div>

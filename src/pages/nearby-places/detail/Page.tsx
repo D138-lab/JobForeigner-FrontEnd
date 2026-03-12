@@ -23,12 +23,7 @@ import useGetPlaceDetail from '@/lib/apis/queries/useGetPlaceDetail';
 import useGetPlaceTips from '@/lib/apis/queries/useGetPlaceTips';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import styles from './page.module.scss';
-
-const tipTypeLabel: Record<string, string> = {
-  POSITIVE: '긍정',
-  NEUTRAL: '중립',
-  WARNING: '주의',
-};
+import { useTranslation } from 'react-i18next';
 
 interface ApiErrorResponse {
   success: string;
@@ -37,6 +32,7 @@ interface ApiErrorResponse {
 }
 
 export default function NearbyPlaceDetailPage() {
+  const { t } = useTranslation('pages');
   const { placeId } = useParams();
   const parsedPlaceId = Number(placeId);
   const [tipContent, setTipContent] = useState('');
@@ -109,35 +105,40 @@ export default function NearbyPlaceDetailPage() {
   const postTipErrorMessage = (() => {
     if (!postTipErrorCode) return '';
     if (postTipErrorCode === 'M004') return '';
-    if (postTipErrorCode === 'M007') return '이미 등록된 팁입니다.';
+    if (postTipErrorCode === 'M007')
+      return t('nearbyPlaceDetail.errors.tipAlreadyExists');
     if (postTipErrorCode === 'C002')
-      return '요청 데이터가 올바르지 않습니다. 입력값을 확인해주세요.';
-    if (postTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
-    return '팁 등록 중 오류가 발생했습니다.';
+      return t('nearbyPlaceDetail.errors.invalidRequest');
+    if (postTipErrorCode === 'U001')
+      return t('nearbyPlaceDetail.errors.memberNotFound');
+    return t('nearbyPlaceDetail.errors.tipPostFail');
   })();
 
   const deleteTipErrorMessage = (() => {
     if (!deleteTipErrorCode) return '';
     if (deleteTipErrorCode === 'S002')
-      return '해당 팁을 삭제할 권한이 없습니다.';
-    if (deleteTipErrorCode === 'M008') return '팁 정보를 찾을 수 없습니다.';
-    return '팁 삭제 중 오류가 발생했습니다.';
+      return t('nearbyPlaceDetail.errors.deleteDenied');
+    if (deleteTipErrorCode === 'M008')
+      return t('nearbyPlaceDetail.errors.tipNotFound');
+    return t('nearbyPlaceDetail.errors.tipDeleteFail');
   })();
 
   const likeTipErrorMessage = (() => {
     if (!likeTipErrorCode) return '';
     if (likeTipErrorCode === 'M004')
-      return '외국인 회원만 좋아요를 등록할 수 있습니다.';
-    if (likeTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
-    return '좋아요 처리 중 오류가 발생했습니다.';
+      return t('nearbyPlaceDetail.errors.likeForeignerOnly');
+    if (likeTipErrorCode === 'U001')
+      return t('nearbyPlaceDetail.errors.memberNotFound');
+    return t('nearbyPlaceDetail.errors.likeFail');
   })();
 
   const reportTipErrorMessage = (() => {
     if (!reportTipErrorCode) return '';
     if (reportTipErrorCode === 'M004')
-      return '외국인 회원만 신고할 수 있습니다.';
-    if (reportTipErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
-    return '신고 처리 중 오류가 발생했습니다.';
+      return t('nearbyPlaceDetail.errors.reportForeignerOnly');
+    if (reportTipErrorCode === 'U001')
+      return t('nearbyPlaceDetail.errors.memberNotFound');
+    return t('nearbyPlaceDetail.errors.reportFail');
   })();
 
   const isMyTip = (authorNickname: string, tip: { isMine?: boolean; isAuthor?: boolean; canDelete?: boolean }) => {
@@ -152,7 +153,7 @@ export default function NearbyPlaceDetailPage() {
     const normalizedContent = tipContent.trim();
     if (!normalizedContent) {
       setTipSubmitSuccess('');
-      setTipSubmitError('팁 내용을 입력해주세요.');
+      setTipSubmitError(t('nearbyPlaceDetail.messages.tipContentRequired'));
       return;
     }
 
@@ -176,14 +177,14 @@ export default function NearbyPlaceDetailPage() {
       {
         onSuccess: () => {
           setTipContent('');
-          setTipSubmitSuccess('팁이 등록되었습니다.');
+          setTipSubmitSuccess(t('nearbyPlaceDetail.messages.tipCreated'));
         },
       },
     );
   };
 
   const handleDeleteTip = (tipId: number) => {
-    const confirmed = window.confirm('이 팁을 삭제하시겠습니까?');
+    const confirmed = window.confirm(t('nearbyPlaceDetail.messages.deleteConfirm'));
     if (!confirmed) return;
 
     setTipActionError('');
@@ -196,7 +197,7 @@ export default function NearbyPlaceDetailPage() {
       { tipId, placeId: parsedPlaceId },
       {
         onSuccess: () => {
-          setTipSubmitSuccess('팁이 삭제되었습니다.');
+          setTipSubmitSuccess(t('nearbyPlaceDetail.messages.tipDeleted'));
         },
       },
     );
@@ -212,7 +213,7 @@ export default function NearbyPlaceDetailPage() {
   };
 
   const handleReportTip = (tipId: number) => {
-    const confirmed = window.confirm('이 팁을 신고하시겠습니까?');
+    const confirmed = window.confirm(t('nearbyPlaceDetail.messages.reportConfirm'));
     if (!confirmed) return;
 
     setTipActionError('');
@@ -225,34 +226,38 @@ export default function NearbyPlaceDetailPage() {
       { tipId },
       {
         onSuccess: () => {
-          setTipSubmitSuccess('신고가 접수되었습니다.');
+          setTipSubmitSuccess(t('nearbyPlaceDetail.messages.tipReported'));
         },
       },
     );
   };
 
   if (isLoading) {
-    return <div className={styles.stateBox}>장소 상세 정보를 불러오는 중입니다.</div>;
+    return <div className={styles.stateBox}>{t('nearbyPlaceDetail.state.loadingDetail')}</div>;
   }
 
   if (isError || !detail) {
-    return <div className={styles.stateBox}>장소 상세 정보를 불러오지 못했습니다.</div>;
+    return <div className={styles.stateBox}>{t('nearbyPlaceDetail.state.loadDetailFail')}</div>;
   }
 
   return (
     <div className={styles.container}>
       <Link to={PATH.NEARBY_PLACES} className={styles.backLink}>
         <ArrowLeft size={16} />
-        <span>목록으로 돌아가기</span>
+        <span>{t('nearbyPlaceDetail.backToList')}</span>
       </Link>
 
       <div className={styles.headerCard}>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>{detail.name}</h1>
-          {detail.isVerified && <span className={styles.verified}>검증됨</span>}
+          {detail.isVerified && (
+            <span className={styles.verified}>{t('nearbyPlaceDetail.verified')}</span>
+          )}
         </div>
         <div className={styles.subTitle}>{detail.nameEn || detail.subCategory}</div>
-        <p className={styles.description}>{detail.description || '설명 정보가 없습니다.'}</p>
+        <p className={styles.description}>
+          {detail.description || t('nearbyPlaceDetail.descriptionEmpty')}
+        </p>
 
         <div className={styles.infoList}>
           <div>
@@ -261,43 +266,43 @@ export default function NearbyPlaceDetailPage() {
           </div>
           <div>
             <Phone size={15} />
-            <span>{detail.phoneNumber || '전화번호 정보 없음'}</span>
+            <span>{detail.phoneNumber || t('nearbyPlaceDetail.phoneEmpty')}</span>
           </div>
           <div>
             <Clock3 size={15} />
-            <span>{detail.operatingHours || '운영시간 정보 없음'}</span>
+            <span>{detail.operatingHours || t('nearbyPlaceDetail.hoursEmpty')}</span>
           </div>
         </div>
       </div>
 
       <div className={styles.summaryCard}>
-        <h2>팁 요약</h2>
+        <h2>{t('nearbyPlaceDetail.summaryTitle')}</h2>
         <div className={styles.summaryGrid}>
           <div>
-            <span>전체</span>
+            <span>{t('nearbyPlaceDetail.summary.total')}</span>
             <strong>{detail.tipSummary.total}</strong>
           </div>
           <div>
-            <span>긍정</span>
+            <span>{t('nearbyPlaceDetail.summary.positive')}</span>
             <strong>{detail.tipSummary.positive}</strong>
           </div>
           <div>
-            <span>중립</span>
+            <span>{t('nearbyPlaceDetail.summary.neutral')}</span>
             <strong>{detail.tipSummary.neutral}</strong>
           </div>
           <div>
-            <span>주의</span>
+            <span>{t('nearbyPlaceDetail.summary.warning')}</span>
             <strong>{detail.tipSummary.warning}</strong>
           </div>
         </div>
       </div>
 
       <div className={styles.tipsCard}>
-        <h2>사용자 팁</h2>
+        <h2>{t('nearbyPlaceDetail.tipsTitle')}</h2>
         <form className={styles.tipForm} onSubmit={handleSubmitTip}>
           <textarea
             className={styles.tipTextarea}
-            placeholder='이 장소에 도움이 되는 팁을 작성해주세요.'
+            placeholder={t('nearbyPlaceDetail.tipPlaceholder')}
             value={tipContent}
             onChange={event => {
               setTipContent(event.target.value);
@@ -312,16 +317,16 @@ export default function NearbyPlaceDetailPage() {
           <div className={styles.tipFormControlRow}>
             <div className={styles.tipFormOptions}>
               <label className={styles.tipFormLabel}>
-                유형
+                {t('nearbyPlaceDetail.tipTypeLabel')}
                 <select
                   className={styles.tipTypeSelect}
                   value={tipType}
                   onChange={event => setTipType(event.target.value as PlaceTipType)}
                   disabled={isTipPosting || isForeignerOnlyAccessBlocked}
                 >
-                  <option value='POSITIVE'>긍정</option>
-                  <option value='NEUTRAL'>중립</option>
-                  <option value='WARNING'>주의</option>
+                  <option value='POSITIVE'>{t('nearbyPlaceDetail.tipType.POSITIVE')}</option>
+                  <option value='NEUTRAL'>{t('nearbyPlaceDetail.tipType.NEUTRAL')}</option>
+                  <option value='WARNING'>{t('nearbyPlaceDetail.tipType.WARNING')}</option>
                 </select>
               </label>
               <label className={styles.tipFormCheck}>
@@ -331,7 +336,7 @@ export default function NearbyPlaceDetailPage() {
                   onChange={event => setIsAnonymous(event.target.checked)}
                   disabled={isTipPosting || isForeignerOnlyAccessBlocked}
                 />
-                익명으로 등록
+                {t('nearbyPlaceDetail.anonymous')}
               </label>
             </div>
             <Button
@@ -339,7 +344,9 @@ export default function NearbyPlaceDetailPage() {
               color='#0c4a6e'
               disabled={isTipPosting || isForeignerOnlyAccessBlocked}
             >
-              {isTipPosting ? '등록 중...' : '팁 등록'}
+              {isTipPosting
+                ? t('nearbyPlaceDetail.tipCreating')
+                : t('nearbyPlaceDetail.tipCreate')}
             </Button>
           </div>
           {tipSubmitSuccess ? (
@@ -352,7 +359,9 @@ export default function NearbyPlaceDetailPage() {
             <div className={styles.formError}>{postTipErrorMessage}</div>
           ) : null}
           {isForeignerOnlyAccessBlocked ? (
-            <div className={styles.formError}>외국인 회원만 팁 작성 및 조회가 가능합니다.</div>
+            <div className={styles.formError}>
+              {t('nearbyPlaceDetail.errors.foreignerOnlyAccess')}
+            </div>
           ) : null}
           {tipActionError ? <div className={styles.formError}>{tipActionError}</div> : null}
           {deleteTipErrorMessage ? (
@@ -366,20 +375,22 @@ export default function NearbyPlaceDetailPage() {
           ) : null}
         </form>
         {isTipsLoading ? (
-          <div className={styles.empty}>팁 목록을 불러오는 중입니다.</div>
+          <div className={styles.empty}>{t('nearbyPlaceDetail.tipsLoading')}</div>
         ) : isForeignerOnlyTipsError ? (
-          <div className={styles.empty}>외국인 회원만 팁을 조회할 수 있습니다.</div>
+          <div className={styles.empty}>{t('nearbyPlaceDetail.errors.foreignerOnlyView')}</div>
         ) : isTipsError ? (
-          <div className={styles.empty}>팁 목록을 불러오지 못했습니다.</div>
+          <div className={styles.empty}>{t('nearbyPlaceDetail.errors.tipsLoadFail')}</div>
         ) : tips.length === 0 ? (
-          <div className={styles.empty}>등록된 팁이 없습니다.</div>
+          <div className={styles.empty}>{t('nearbyPlaceDetail.tipsEmpty')}</div>
         ) : (
           <ul className={styles.tipList}>
             {tips.map(tip => (
               <li key={tip.id} className={styles.tipItem}>
                 <div className={styles.tipTop}>
                   <span className={styles.tipType}>
-                    {tipTypeLabel[tip.tipType] ?? tip.tipType}
+                    {t(`nearbyPlaceDetail.tipType.${tip.tipType}`, {
+                      defaultValue: tip.tipType,
+                    })}
                   </span>
                   <div className={styles.tipTopRight}>
                     <span className={styles.tipAuthor}>{tip.authorNickname}</span>
@@ -387,7 +398,7 @@ export default function NearbyPlaceDetailPage() {
                       <button
                         type='button'
                         className={styles.tipMenuButton}
-                        aria-label='팁 더보기'
+                        aria-label={t('nearbyPlaceDetail.tipMenuAria')}
                         onClick={() =>
                           setActiveTipMenuId(prev => (prev === tip.id ? null : tip.id))
                         }
@@ -403,7 +414,7 @@ export default function NearbyPlaceDetailPage() {
                             onClick={() => handleDeleteTip(tip.id)}
                             disabled={isTipDeleting}
                           >
-                            삭제
+                            {t('nearbyPlaceDetail.tipDelete')}
                           </button>
                         ) : (
                           <button
@@ -412,7 +423,7 @@ export default function NearbyPlaceDetailPage() {
                             onClick={() => handleReportTip(tip.id)}
                             disabled={isTipReporting}
                           >
-                            신고
+                            {t('nearbyPlaceDetail.tipReport')}
                           </button>
                         )
                       ) : null}

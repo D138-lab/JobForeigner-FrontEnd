@@ -24,6 +24,7 @@ import usePostResume, {
 } from '@/lib/apis/mutations/usePostResume';
 
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 
 type ResumeFormType = z.infer<typeof resumeSchema>;
 
@@ -47,6 +48,7 @@ const defaultValues = {
 };
 
 export default function CreateResumePage() {
+  const { t } = useTranslation('pages');
   void AddressInfo;
   void IntroductionInfo;
   void FilesInfo;
@@ -73,8 +75,8 @@ export default function CreateResumePage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1>새 이력서 작성</h1>
-        <p>* 표시는 필수 입력 항목입니다</p>
+        <h1>{t('profile.resumeCreate.title')}</h1>
+        <p>{t('profile.resumeCreate.requiredGuide')}</p>
       </div>
       <FormProvider {...formState}>
         <form

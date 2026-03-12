@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "Hamjamiyatga qaytish",
+    "loadingPost": "Post tafsilotlari yuklanmoqda.",
+    "loadPostFail": "Postni yuklab bo'lmadi."
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "Umumiy post",
+      "MARKET": "Ishlatilgan buyumlar bozori",
+      "POLICY": "Siyosat saralashi"
+    },
+    "generalCategories": {
+      "NOTICE": "E'lon",
+      "FREE": "Erkin postlar",
+      "QNA": "Savol-javob",
+      "INFO": "Ma'lumot ulashish"
+    },
+    "alerts": {
+      "titleRequired": "Sarlavhani kiriting.",
+      "contentRequired": "Matnni kiriting.",
+      "generalCategoryRequired": "Umumiy post toifasini tanlang.",
+      "noticeAdminOnly": "Oddiy foydalanuvchilar E'lonni tanlay olmaydi.",
+      "createSuccess": "Post yaratildi.",
+      "createFail": "Post yaratishda xatolik. Qayta urinib ko'ring.",
+      "imageIdMissing": "Rasm tasdiqlash javobida fayl ID topilmadi.",
+      "imageUploadFail": "Rasm yuklashda xatolik. Qayta urinib ko'ring."
+    },
+    "confirmLeave": "Kiritilgan ma'lumot saqlanmaydi.\nBekor qilasizmi?",
+    "labels": {
+      "back": "Orqaga",
+      "postType": "Post turi",
+      "generalCategory": "Umumiy post toifasi",
+      "title": "Sarlavha"
+    },
+    "placeholder": {
+      "title": "Sarlavha kiriting."
+    },
+    "tagHelper": "Postga tegishli teglarni kiriting. Eng ko'pi 5 ta.",
+    "buttons": {
+      "cancel": "Bekor qilish",
+      "submit": "Yuborish",
+      "submitting": "Yuborilmoqda..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "Umumiy post",
+      "MARKET": "Ishlatilgan buyumlar bozori",
+      "POLICY": "Siyosat saralashi"
+    },
+    "alerts": {
+      "noPermission": "Bu postni tahrirlash huquqingiz yo'q.",
+      "titleRequired": "Sarlavhani kiriting.",
+      "contentRequired": "Matnni kiriting.",
+      "imageNotSupported": "Rasmni yangilash hozircha ulanmagan, post rasmiz saqlanadi.",
+      "updateSuccess": "Post yangilandi.",
+      "updateFail": "Postni yangilashda xatolik. Qayta urinib ko'ring."
+    },
+    "confirmLeave": "O'zgartirishlar saqlanmaydi.\nBekor qilasizmi?",
+    "state": {
+      "loadingPost": "Post tafsilotlari yuklanmoqda.",
+      "checkingPermission": "Ruxsat tekshirilmoqda.",
+      "loadFail": "Post ma'lumotini yuklab bo'lmadi."
+    },
+    "labels": {
+      "back": "Orqaga",
+      "postType": "Post turi",
+      "title": "Sarlavha"
+    },
+    "placeholder": {
+      "title": "Sarlavha kiriting."
+    },
+    "tagHelper": "Postga tegishli teglarni kiriting. Eng ko'pi 5 ta.",
+    "buttons": {
+      "cancel": "Bekor qilish",
+      "save": "Saqlash",
+      "saving": "Saqlanmoqda..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "Yuklanmoqda...",
+    "loadingShort": "Yuklanmoqda",
+    "empty": "Vakansiyalar topilmadi.",
+    "error": "Xatolik yuz berdi"
+  },
+  "jobsApply": {
+    "successTitle": "Yuborish muvaffaqiyatli yakunlandi!",
+    "successSub": "Omad tilaymiz.",
+    "failedTitle": "Yuborish muvaffaqiyatsiz!",
+    "failedSub": "Iltimos, keyinroq qayta urinib ko'ring.",
+    "goMain": "Bosh sahifaga"
+  },
+  "jobsSelectResume": {
+    "pending": "So'rov yuborilmoqda",
+    "title": "Rezyume tanlash",
+    "subtitle": "Ariza berish uchun rezyumeni tanlang.",
+    "createResume": "Yangi rezyume yaratish",
+    "apply": "Ariza berish"
+  },
+  "companies": {
+    "loading": "Yuklanmoqda...",
+    "empty": "Vakansiyalar topilmadi.",
+    "detail": {
+      "notFound": "Kompaniya ma'lumoti topilmadi.",
+      "loading": "Yuklanmoqda...",
+      "loadError": "Kompaniya ma'lumotini yuklashda xatolik yuz berdi.",
+      "tabs": {
+        "info": "Kompaniya ma'lumoti",
+        "recruit": "Ishga qabul",
+        "salary": "Maosh",
+        "rating": "Baholar",
+        "review": "Sharhlar"
+      }
+    },
+    "info": {
+      "sectionTitle": "Kompaniya ma'lumoti",
+      "type": "Kompaniya turi",
+      "employee": "Xodimlar",
+      "address": "Manzil",
+      "homepage": "Veb-sayt",
+      "intro": "Tanishtiruv",
+      "benefits": "Imtiyozlar"
+    },
+    "recruit": {
+      "empty": "Ma'lumot yo'q."
+    },
+    "rating": {
+      "title": "Batafsil baholash ma'lumoti",
+      "level": {
+        "high": "O'rtachadan yuqori",
+        "mid": "O'rtacha",
+        "low": "O'rtachadan past"
+      },
+      "subjects": {
+        "welfare": "Imtiyoz/Madaniyat",
+        "salary": "Maosh",
+        "workLife": "Ish-hayot muvozanati",
+        "culture": "Kompaniya madaniyati",
+        "stability": "Ish barqarorligi"
+      },
+      "descriptions": {
+        "welfare": "Imtiyoz va madaniyat {{level}} darajada ta'minlanadi.",
+        "salary": "Maosh {{level}} darajada to'lanadi.",
+        "workLife": "Ish-hayot muvozanati {{level}} darajada saqlanadi.",
+        "culture": "Kompaniya madaniyati {{level}} darajada bo'lib, hamkorlik va muloqot muhim.",
+        "stability": "Ish barqarorligi {{level}} darajada, xodimlar barqarorligi ta'minlanadi."
+      }
+    },
+    "review": {
+      "title": "O'rtacha sharhlar"
+    },
+    "salary": {
+      "total": "Yillik maosh",
+      "monthly": "Oylik sof daromad",
+      "unitManwon": "10 ming KRW",
+      "unitWon": "KRW"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "Orqaga",
+      "basicInfo": "Asosiy ma'lumot"
+    },
+    "filters": {
+      "all": "Barchasi",
+      "newest": "Eng yangi",
+      "oldest": "Eng eski"
+    },
+    "main": {
+      "title": "Profil",
+      "myResume": "Mening rezyumelarim",
+      "applications": "Arizalar",
+      "more": "Ko'proq",
+      "loading": "Yuklanmoqda..."
+    },
+    "resume": {
+      "title": "Mening rezyumelarim",
+      "description": "Rezyumelarni boshqaring va yangisini yarating.",
+      "create": "Rezyume yaratish",
+      "searchPlaceholder": "Rezyume sarlavhasini qidirish",
+      "completed": "Yakunlangan",
+      "inProgress": "Jarayonda",
+      "emptyTitle": "Rezyume yo'q",
+      "emptyDescription": "Birinchi rezyumeni yarating.",
+      "resumeFallback": "Rezyume"
+    },
+    "applications": {
+      "title": "Arizalar",
+      "description": "Ariza topshirgan ishlaringiz va holatini tekshiring.",
+      "searchPlaceholder": "Rezyume sarlavhasini qidirish",
+      "statusSummary": {
+        "all": "Barcha arizalar",
+        "reviewing": "Ko'rib chiqilmoqda",
+        "interview": "Suhbat belgilangan",
+        "done": "Yakunlandi"
+      }
+    },
+    "edit": {
+      "title": "Profilni tahrirlash",
+      "description": "Asosiy profil ma'lumotlarini tahrirlashingiz mumkin.",
+      "alertUpdated": "Profil ma'lumoti yangilandi."
+    },
+    "company": {
+      "title": "Kompaniya ma'lumoti",
+      "description": "Asosiy kompaniya ma'lumotlarini ko'rishingiz mumkin.",
+      "edit": "Ma'lumotni tahrirlash",
+      "registeredRecruitments": "Joylangan vakansiyalar",
+      "activeRecruitments": "Faol vakansiyalar"
+    },
+    "companyEdit": {
+      "title": "Kompaniya ma'lumotini tahrirlash",
+      "description": "Asosiy kompaniya ma'lumotlarini tahrirlashingiz mumkin."
+    },
+    "companyRecruitment": {
+      "title": "Vakansiyalarni boshqarish",
+      "description": "Joylangan vakansiyalarni boshqaring va yangisini yarating.",
+      "create": "Vakansiya yaratish",
+      "searchPlaceholder": "Ariza sarlavhasini qidirish",
+      "emptyTitle": "Vakansiya yo'q",
+      "emptyDescription": "Yangi vakansiya yarating.",
+      "status": {
+        "all": "Barcha e'lonlar",
+        "active": "Faol",
+        "expired": "Yopilgan",
+        "applicants": "Nomzodlar"
+      }
+    },
+    "companyApplications": {
+      "title": "Arizalarni boshqarish",
+      "description": "Vakansiyalaringiz bo'yicha arizalarni ko'ring va boshqaring.",
+      "searchPlaceholder": "Ariza sarlavhasini qidirish",
+      "emptyTitle": "Ariza topilmadi",
+      "status": {
+        "all": "Barcha arizalar",
+        "reviewing": "Ko'rib chiqilmoqda",
+        "interview": "Suhbat",
+        "done": "Yakunlandi",
+        "accepted": "Qabul qilindi",
+        "rejected": "Rad etildi"
+      }
+    },
+    "bookmark": {
+      "title": "Xatcho'plar",
+      "description": "Sevimli kompaniyalar va saqlangan ish e'lonlarini boshqaring.",
+      "companies": {
+        "searchPlaceholder": "Kompaniya nomi yoki soha bo'yicha qidirish",
+        "emptyTitle": "Sevimli kompaniyalar yo'q",
+        "emptyDescription": "Kompaniya sahifasida yulduz tugmasini bosib qo'shing.",
+        "browse": "Kompaniyalarni ko'rish"
+      },
+      "jobs": {
+        "searchPlaceholder": "Ish nomi yoki kompaniya bo'yicha qidirish",
+        "emptyTitle": "Saqlangan ishlar yo'q",
+        "emptyDescription": "Ish e'lonida xatcho'p belgisini bosib saqlang.",
+        "browse": "Ishlarni ko'rish",
+        "status": {
+          "active": "Faol",
+          "expired": "Yopilgan"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "Yangi rezyume yaratish",
+      "requiredGuide": "* majburiy maydon"
+    },
+    "resumeEdit": {
+      "title": "Rezyumeni tahrirlash",
+      "requiredGuide": "* majburiy maydon"
+    },
+    "resumePreview": {
+      "newResume": "Yangi rezyume",
+      "portfolio": "Portfolio",
+      "pdfDownloaded": "PDF yuklab olindi.",
+      "print": "Chop etish",
+      "downloading": "Yuklab olinmoqda...",
+      "downloadPdf": "PDF yuklab olish",
+      "updatedAt": "Oxirgi yangilanish: {{date}}",
+      "unitManwon": "10 ming KRW",
+      "fields": {
+        "name": "Ism",
+        "email": "Email",
+        "address": "Manzil",
+        "phone": "Telefon",
+        "employmentType": "Bandlik turi",
+        "desiredSalary": "Kutilayotgan maosh",
+        "desiredLocation": "Afzal hudud"
+      },
+      "sections": {
+        "basicInfo": "Asosiy ma'lumot",
+        "desiredJobs": "Istalgan kasblar",
+        "skills": "Ko'nikmalar",
+        "preference": "Afzal ish sharoitlari",
+        "education": "Ta'lim",
+        "experience": "Tajriba",
+        "certificates": "Sertifikatlar",
+        "awards": "Faoliyat va mukofotlar",
+        "expats": "Xorij tajribasi",
+        "languages": "Tillar",
+        "attachments": "Ilovalar va havolalar",
+        "files": "Fayllar",
+        "links": "Havolalar"
+      },
+      "empty": {
+        "desiredJobs": "Istalgan kasb kiritilmagan.",
+        "skills": "Ko'nikmalar kiritilmagan.",
+        "preference": "Afzal sharoitlar kiritilmagan.",
+        "education": "Ta'lim ma'lumoti kiritilmagan.",
+        "experience": "Tajriba kiritilmagan.",
+        "certificates": "Sertifikatlar kiritilmagan.",
+        "awards": "Mukofotlar kiritilmagan.",
+        "expats": "Xorij tajribasi kiritilmagan.",
+        "languages": "Til ma'lumoti kiritilmagan."
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "Ariza sanasi: {{date}}",
+        "detail": "Batafsil ko'rish",
+        "preview": "Oldindan ko'rish",
+        "edit": "Tahrirlash",
+        "delete": "O'chirish",
+        "deleteConfirm": "Haqiqatan ham o'chirmoqchimisiz?",
+        "add": "Qo'shish",
+        "viewPostDetail": "View Job Details",
+        "share": "Ulashish"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "Saqlashd Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "Biznes ro'yxat raqami",
+        "foundedYear": "Tashkil etilgan yil",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "Xodimlar",
+        "contact": "Aloqa",
+        "website": "Veb-sayt",
+        "intro": "Kompaniya haqida"
+      },
+      "recruitmentCard": {
+        "createdAt": "Joylangan sana: {{date}}",
+        "expiresAt": "Muddat: {{date}}",
+        "applicants": "Nomzodlar: {{count}}",
+        "views": "Ko'rishlar: {{count}}",
+        "viewPost": "Postni ko'rish",
+        "viewApplicants": "Nomzodlarni ko'rish ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "Ishga qabul",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "Rezyumeni yuklab olish"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "Kompaniya ma'lumoti",
+        "recruitments": "Ishga qabuls ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "Kompaniya sahifasiga o'tish",
+        "delete": "Sevimlilardan olib tashlash"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "Post sahifasiga o'tish",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed Qo'shishress",
+        "zipcode": "Pochta indeksi",
+        "save": "Saqlash"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "Rasm yuklash"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "To'liq stavka",
+        "contract": "Shartnoma",
+        "intern": "Stajyor",
+        "any": "Farqi yo'q",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "Qo'shish Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "Qo'shishitional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "Qo'shish Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "Boshlanish sanasi",
+        "endDate": "Tugash sanasi",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "Qo'shish Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "Qo'shish Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "Qo'shish Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "Qo'shish Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "Qo'shish Link",
+        "append": "Qo'shish links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "Bajarilish darajasi",
+        "tempSave": "Saqlash Draft"
+      },
+      "address": {
+        "sido": "Viloyat/Shahar",
+        "sigungu": "Tuman",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "Faylni tanlash",
+        "uploaded": "Yuklangan fayllar"
+      },
+      "introduction": {
+        "title": "Tanishtiruv",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

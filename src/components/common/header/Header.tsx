@@ -63,7 +63,7 @@ export default function Header() {
             <Link to='/profile' className={styles.profileBox}>
               <img
                 src={resolvedProfileImage}
-                alt='프로필'
+                alt={t('profile')}
                 onError={event => {
                   event.currentTarget.src = DEFAULT_IMAGE_URL;
                 }}
@@ -74,7 +74,7 @@ export default function Header() {
               onClick={() => handleLogout()}
               color='#0c4a6e'
             >
-              {t('로그아웃')}
+              {t('logout')}
             </Button>
           </div>
         )}
@@ -97,11 +97,13 @@ export default function Header() {
             <>
               <RecentJobs
                 isModalOn={activeModal === 'recent'}
-                setIsModalOn={() => toggleRecentModal()}
+                onToggle={toggleRecentModal}
+                onClose={() => setActiveModal(null)}
               />
               <AlarmButton
                 isModalOn={activeModal === 'alarm'}
-                setIsModalOn={() => toggleAlarmModal()}
+                onToggle={toggleAlarmModal}
+                onClose={() => setActiveModal(null)}
               />
             </>
           )}

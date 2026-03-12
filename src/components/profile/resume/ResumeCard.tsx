@@ -12,12 +12,14 @@ import {
 import Button from '@/components/common/button/Button';
 import { Link } from 'react-router-dom';
 import useDeleteResume from '@/lib/apis/mutations/useDeleteResume';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   resume: Resume;
 }
 
 export default function ResumeCard({ resume }: Props) {
+  const { t } = useTranslation('pages');
   const { mutate: deleteResume } = useDeleteResume();
   const getStatusBadge = (status: Resume['status']) => {
     switch (status) {
@@ -27,7 +29,7 @@ export default function ResumeCard({ resume }: Props) {
             <Badge className={styles.badge}>
               <CheckCircle2 className={styles.badgeIcon} />
             </Badge>
-            작성완료
+            {t('profile.resume.completed')}
           </div>
         );
       case 'progressing':
@@ -36,7 +38,7 @@ export default function ResumeCard({ resume }: Props) {
             <Badge className={styles.badge}>
               <Clock className={styles.badgeIcon} />
             </Badge>
-            작성중
+            {t('profile.resume.inProgress')}
           </div>
         );
       default:
@@ -46,7 +48,7 @@ export default function ResumeCard({ resume }: Props) {
 
   return (
     <div className={styles.card}>
-      {/* 상단 */}
+      {/* Header */}
       <div className={styles.cardHeader}>
         <div className={styles.leftArea}>
           <div className={styles.iconBg}>
@@ -55,7 +57,9 @@ export default function ResumeCard({ resume }: Props) {
           <div>
             <h3 className={styles.title}>{resume.title}</h3>
             <div className={styles.metaRow}>
-              <span>최종 수정일: {resume.updatedAt}</span>
+              <span>
+                {t('profile.resumePreview.updatedAt', { date: resume.updatedAt })}
+              </span>
               <span>•</span>
               {getStatusBadge(resume.status)}
             </div>
@@ -63,18 +67,18 @@ export default function ResumeCard({ resume }: Props) {
         </div>
       </div>
 
-      {/* 하단 */}
+      {/* Footer */}
       <div className={styles.cardFooter}>
         <Link to={`/profile/resume/${resume.id}`}>
           <Button variant='outline' size='medium'>
             <Eye className={styles.buttonIcon} />
-            미리보기
+            {t('profile.component.common.preview')}
           </Button>
         </Link>
         <Link to={`/profile/resume/${resume.id}/edit`}>
           <Button variant='outline' size='medium'>
             <PenSquare className={styles.buttonIcon} />
-            수정하기
+            {t('profile.component.common.edit')}
           </Button>
         </Link>
 
@@ -83,13 +87,13 @@ export default function ResumeCard({ resume }: Props) {
           size='medium'
           style={{ color: 'var(--color-red-500)' }}
           onClick={() => {
-            if (confirm('정말 삭제하시겠습니까?')) {
+            if (confirm(t('profile.component.common.deleteConfirm'))) {
               deleteResume(resume.id);
             }
           }}
         >
           <Trash2 className={styles.buttonIcon} />
-          삭제하기
+          {t('profile.component.common.delete')}
         </Button>
       </div>
     </div>

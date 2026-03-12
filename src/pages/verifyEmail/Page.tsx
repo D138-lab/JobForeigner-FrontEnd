@@ -12,6 +12,7 @@ import usePostSendEmailVerifyCode from '@/lib/apis/mutations/usePostSendEmailVer
 import usePostVerifyEmail from '@/lib/apis/mutations/usePostVerifyEmail';
 import { ParseErrorMsg } from '@/lib/utils/parse';
 import FormErrorContainer from '@/components/common/form/FormErrorContainer';
+import { useTranslation } from 'react-i18next';
 
 const defaultValues = {
   1: '',
@@ -23,6 +24,7 @@ const defaultValues = {
 };
 
 export default function VerifyEmailPage() {
+  const { t } = useTranslation('pages');
   const location = useLocation();
   const navigate = useNavigate();
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -76,8 +78,8 @@ export default function VerifyEmailPage() {
     <div className={styles.page}>
       <div className={styles.container}>
         <h1>JobForeigner</h1>
-        <h2>이메일 인증</h2>
-        <p>회원가입을 완료하기 위해 이메일 인증이 필요합니다.</p>
+        <h2>{t('auth.verifyEmail.title')}</h2>
+        <p>{t('auth.verifyEmail.desc')}</p>
         <Card>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
@@ -86,12 +88,14 @@ export default function VerifyEmailPage() {
                   <Mail className={styles.mailIcon} />
                 </div>
                 <h2 className={styles.formHeaderTitle}>
-                  인증 코드를 입력하세요
+                  {t('auth.verifyEmail.enterCode')}
                 </h2>
                 <div className={styles.formHeaderDescription}>
-                  <span className={styles.email}>이메일: {email}</span>
+                  <span className={styles.email}>
+                    {t('auth.verifyEmail.email', { email })}
+                  </span>
                   <span className={styles.description}>
-                    위 이메일로 전송된 6자리 인증코드를 입력해주세요.
+                    {t('auth.verifyEmail.codeGuide')}
                   </span>
                 </div>
               </div>
@@ -101,11 +105,11 @@ export default function VerifyEmailPage() {
                   <VerifyCodeInputField submitButtonRef={submitButtonRef} />
                 </div>
                 <div className={styles.resendMail}>
-                  <p>인증 코드를 받지 못하셨나요?</p>
+                  <p>{t('auth.verifyEmail.resendQuestion')}</p>
                   <Button variant='ghost' onClick={handleResend}>
                     <span className={styles.resendMailText}>
                       <RefreshCw />
-                      인증 코드 재전송
+                      {t('auth.verifyEmail.resend')}
                     </span>
                   </Button>
                 </div>
@@ -116,12 +120,14 @@ export default function VerifyEmailPage() {
                   type='submit'
                 >
                   <span className={styles.submitButton}>
-                    {isPending ? '인증 중...' : '인증하기'}
+                    {isPending
+                      ? t('auth.verifyEmail.verifying')
+                      : t('auth.verifyEmail.verify')}
                   </span>
                 </Button>
               </div>
               <div className={styles.cardFooter}>
-                <p>이메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.</p>
+                <p>{t('auth.verifyEmail.spamGuide')}</p>
               </div>
             </form>
           </FormProvider>

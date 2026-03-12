@@ -4,8 +4,10 @@ import { useFormContext } from 'react-hook-form';
 import Button from '@/components/common/button/Button';
 import { Camera, Save } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
+import { useTranslation } from 'react-i18next';
 
 export default function UserProfileEditForm() {
+  const { t } = useTranslation('pages');
   const { control, setValue } = useFormContext();
   const { image, fileInputRef, handleImageUpload, handleUploadClick } =
     useImageUpload(setValue);
@@ -36,19 +38,21 @@ export default function UserProfileEditForm() {
             <Camera className={styles.icon} />
           </button>
         </div>
-        <p className={styles.caption}>권장 크기: 400x400 픽셀, 최대 2MB</p>
+        <p className={styles.caption}>
+          {t('profile.component.form.imageGuide')}
+        </p>
       </div>
       <div className={styles.twoRow}>
         <InputField
           control={control}
           name='email'
-          label='이메일'
+          label={t('profile.resumePreview.fields.email')}
           required={true}
         />
         <InputField
           control={control}
           name='phoneNumber'
-          label='전화번호'
+          label={t('profile.resumePreview.fields.phone')}
           type='phone'
           required={true}
         />
@@ -56,15 +60,19 @@ export default function UserProfileEditForm() {
       <InputField
         control={control}
         name='address'
-        label='주소'
+        label={t('profile.resumePreview.fields.address')}
         required={true}
       />
       <div className={styles.twoRow}>
-        <InputField control={control} name='detailAddress' label='상세주소' />
+        <InputField
+          control={control}
+          name='detailAddress'
+          label={t('profile.component.form.detailAddress')}
+        />
         <InputField
           control={control}
           name='zipcode'
-          label='우편번호'
+          label={t('profile.component.form.zipcode')}
           required={true}
         />
       </div>
@@ -73,7 +81,7 @@ export default function UserProfileEditForm() {
         <Button size='medium'>
           <span className={styles.buttonText}>
             <Save />
-            저장하기
+            {t('profile.component.form.save')}
           </span>
         </Button>
       </div>

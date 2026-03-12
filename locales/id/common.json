@@ -1,0 +1,57 @@
+{
+  "signUp": "Daftar",
+  "login": "Masuk",
+  "searchRecruitment": "Cari lowongan",
+  "recruitmentInfo": "Info lowongan",
+  "companiesInfo": "Info perusahaan",
+  "nearBy": "Sekitar",
+  "nearByPlaces": "Tempat terdekat",
+  "community": "Komunitas",
+  "logout": "Keluar",
+  "profile": "Profil",
+  "notifications": "Notifikasi",
+  "read": "Sudah dibaca",
+  "unread": "Belum dibaca",
+  "noNotifications": "Tidak ada notifikasi.",
+  "recentJobs": "Lowongan yang baru dilihat",
+  "noRecentJobs": "Tidak ada lowongan yang baru dilihat.",
+  "communityPage": {
+    "writePost": "Tulis postingan",
+    "searchPlaceholder": "Cari judul postingan",
+    "searchButton": "Cari",
+    "tabs": {
+      "all": "Semua",
+      "general": "Postingan umum",
+      "market": "Pasar barang bekas",
+      "policy": "Kurasi kebijakan"
+    },
+    "emptyBySearch": "Tidak ada hasil pencarian.",
+    "emptyByCategory": "Tidak ada postingan di kategori ini.",
+    "popularPostsTitle": "Postingan populer",
+    "announcementTitle": "Pengumuman/Acara",
+    "announcements": {
+      "ruleChange": "Kebijakan komunitas telah diperbarui.",
+      "welcomeEvent": "Acara sambutan anggota baru sedang berlangsung.",
+      "serverMaintenance": "Pemberitahuan pemeliharaan server (Min 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "Pengumuman",
+      "event": "Acara"
+    },
+    "topMemberTitle": "Anggota terverifikasi",
+    "profileImageAlt": "Foto profil {{name}}",
+    "topRank": "Peringkat {{rank}}",
+    "noData": "Tidak ada data.",
+    "postAction": {
+      "edit": "Edit",
+      "delete": "Hapus",
+      "deleting": "Menghapus...",
+      "report": "Laporkan",
+      "block": "Blokir",
+      "confirmDelete": "Yakin ingin menghapus postingan ini?",
+      "deleteSuccess": "Postingan dihapus.",
+      "deleteFail": "Gagal menghapus postingan.",
+      "likeFail": "Gagal memproses suka."
+    }
+  }
+}

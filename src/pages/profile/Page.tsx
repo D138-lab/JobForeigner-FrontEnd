@@ -8,8 +8,10 @@ import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useEffect } from 'react';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfilePage() {
+  const { t } = useTranslation('pages');
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const name = useAuthStore(state => state.name);
   const email = useAuthStore(state => state.email);
@@ -53,7 +55,7 @@ export default function ProfilePage() {
   const resumes = (data?.data.content || []).map(item => ({
     id: item.resumeId,
     title: item.resumeTitle,
-    status: '작성완료',
+    status: t('profile.resume.completed'),
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
   }));
@@ -64,21 +66,21 @@ export default function ProfilePage() {
       company: '토스',
       position: '프론트엔드 개발자',
       appliedAt: '2021-08-01',
-      status: '서류 검토중',
+      status: 'reviewing',
     },
     {
       id: 2,
       company: '당근마켓',
       position: '백엔드 개발자',
       appliedAt: '2021-08-01',
-      status: '면접 예정',
+      status: 'interview',
     },
     {
       id: 3,
       company: '네이버',
       position: '디자이너',
       appliedAt: '2021-08-01',
-      status: '탈락',
+      status: 'rejected',
     },
   ];
 
@@ -95,20 +97,20 @@ export default function ProfilePage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <h1>프로필</h1>
+        <h1>{t('profile.main.title')}</h1>
         <UserProfile userInfo={userInfo} />
 
         <section>
           <div className={styles.sectionHeader}>
-            <h2>내 이력서</h2>
+            <h2>{t('profile.main.myResume')}</h2>
             <Link to='/profile/resume' className={styles.sectionHeaderRight}>
-              더보기
+              {t('profile.main.more')}
               <ChevronRight />
             </Link>
           </div>
 
           {isLoading ? (
-            <p>불러오는 중...</p>
+            <p>{t('profile.main.loading')}</p>
           ) : (
             <ResumeList resumes={resumes}>
               <ResumeList.items resumes={resumes} />
@@ -118,12 +120,12 @@ export default function ProfilePage() {
 
         <section>
           <div className={styles.sectionHeader}>
-            <h2>지원 내역</h2>
+            <h2>{t('profile.main.applications')}</h2>
             <Link
               to='/profile/applications'
               className={styles.sectionHeaderRight}
             >
-              더보기
+              {t('profile.main.more')}
               <ChevronRight />
             </Link>
           </div>

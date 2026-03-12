@@ -2,22 +2,25 @@ import React from 'react';
 import { Building2, Calendar, ArrowUpRight } from 'lucide-react';
 import styles from './applicationHistory.module.scss';
 import { ApplicationHistoryType } from '@/lib/type/profile/application';
+import { useTranslation } from 'react-i18next';
 
 interface ApplicationHistoryProps {
   applications: ApplicationHistoryType[];
 }
 
 export function ApplicationHistory({ applications }: ApplicationHistoryProps) {
+  const { t } = useTranslation('pages');
   const recentApplications = [...applications].slice(0, 3);
 
   return (
     <div className={styles.container}>
-      <ApplicationHistory.Header count={applications.length} />
+      <ApplicationHistory.Header count={applications.length} t={t} />
       <ApplicationHistory.List>
         {recentApplications.map(application => (
           <ApplicationHistory.Item
             key={application.id}
             application={application}
+            t={t}
           />
         ))}
       </ApplicationHistory.List>
@@ -27,12 +30,15 @@ export function ApplicationHistory({ applications }: ApplicationHistoryProps) {
 
 type HeaderProps = {
   count: number;
+  t: (key: string, options?: Record<string, any>) => string;
 };
 
-ApplicationHistory.Header = function Header({ count }: HeaderProps) {
+ApplicationHistory.Header = function Header({ count, t }: HeaderProps) {
   return (
     <div className={styles.header}>
-      <p className={styles.headerText}>총 {count}건의 지원 내역</p>
+      <p className={styles.headerText}>
+        {t('profile.component.applicationHistory.count', { count })}
+      </p>
     </div>
   );
 };
@@ -47,9 +53,17 @@ ApplicationHistory.List = function List({ children }: ListProps) {
 
 type ItemProps = {
   application: ApplicationHistoryType;
+  t: (key: string, options?: Record<string, any>) => string;
 };
 
-ApplicationHistory.Item = function Item({ application }: ItemProps) {
+ApplicationHistory.Item = function Item({ application, t }: ItemProps) {
+  const parsedStatus =
+    application.status === 'reviewing'
+      ? t('profile.applications.statusSummary.reviewing')
+      : application.status === 'interview'
+      ? t('profile.applications.statusSummary.interview')
+      : t('profile.companyApplications.status.rejected');
+
   return (
     <div className={styles.applicationItem}>
       <div className={styles.applicationInfo}>
@@ -61,21 +75,23 @@ ApplicationHistory.Item = function Item({ application }: ItemProps) {
           <p className={styles.company}>{application.company}</p>
           <div className={styles.appliedDate}>
             <Calendar className={styles.calendarIcon} />
-            지원일: {application.appliedAt}
+            {t('profile.component.common.appliedAt', {
+              date: application.appliedAt,
+            })}
           </div>
         </div>
       </div>
       <div className={styles.statusActions}>
         <span
           className={`${styles.statusBadge} ${
-            application.status === '서류 검토중'
+            application.status === 'reviewing'
               ? styles.statusReview
-              : application.status === '면접 예정'
+              : application.status === 'interview'
               ? styles.statusInterview
               : styles.statusRejected
           }`}
         >
-          {application.status}
+          {parsedStatus}
         </span>
         <button className={styles.detailButton}>
           <ArrowUpRight className={styles.arrowIcon} />

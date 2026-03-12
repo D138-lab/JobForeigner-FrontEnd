@@ -1,20 +1,40 @@
 .wrapper {
   position: absolute;
-  width: 80px;
-  left: -30px;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: 13rem;
+  padding: 0.35rem;
   background-color: #fff;
   border: 1px solid var(--color-gray-200);
-  border-radius: 5px;
+  border-radius: 0.875rem;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+  max-height: 18rem;
+  overflow-y: auto;
+  z-index: 30;
 }
 
 .item {
   width: 100%;
-  padding: 0.125rem;
-  font-size: 1rem;
-  text-align: center;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-slate-700);
+  text-align: left;
   cursor: pointer;
+  border: none;
+  border-radius: 0.75rem;
+  background: transparent;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
 
   &:hover {
     background-color: var(--color-gray-50);
+    color: var(--color-gray-900);
   }
+}
+
+.active {
+  background: var(--color-sky-50);
+  color: var(--color-sky-900);
 }

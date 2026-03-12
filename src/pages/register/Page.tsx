@@ -17,6 +17,7 @@ import usePostForeignerSignup from '@/lib/apis/mutations/usePoseForeignerSignup'
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PATH } from '@/lib/constants';
+import { useTranslation } from 'react-i18next';
 
 const defaultValues = {
   email: '',
@@ -34,6 +35,7 @@ const defaultValues = {
 };
 
 export default function RegisterPage() {
+  const { t } = useTranslation('pages');
   const navigate = useNavigate();
   const [progress, setProgress] = useState(1);
   const [isCompanyUser, setIsCompanyUser] = useState(false);
@@ -75,13 +77,16 @@ export default function RegisterPage() {
     <div className={styles.page}>
       <div className={styles.container}>
         <h1>JobForeigner</h1>
-        <h2>회원가입</h2>
+        <h2>{t('auth.register.title')}</h2>
         <p>
-          이미 계정이 있으신가요? <Link to='/login'>로그인</Link>
+          {t('auth.register.hasAccount')} <Link to='/login'>{t('auth.register.login')}</Link>
         </p>
         <div className={styles.progressBar}>
           <span>
-            {progress} / {isCompanyUser ? 5 : 4} 단계
+            {t('auth.register.step', {
+              current: progress,
+              total: isCompanyUser ? 5 : 4,
+            })}
           </span>
           <Progress value={isCompanyUser ? progress * 20 : progress * 25} />
         </div>

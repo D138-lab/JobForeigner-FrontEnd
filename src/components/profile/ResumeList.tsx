@@ -3,6 +3,7 @@ import styles from './resumeList.module.scss';
 import clsx from 'clsx';
 import Button from '../common/button/Button';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   resumes: {
@@ -16,14 +17,17 @@ interface Props {
 }
 
 export default function ResumeList({ resumes, children }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.resumeList}>
       <div className={styles.header}>
-        <p className={styles.resumeCount}>총 {resumes.length}개의 이력서</p>
+        <p className={styles.resumeCount}>
+          {t('profile.component.resumeList.count', { count: resumes.length })}
+        </p>
         <Link to='/profile/resume/create'>
           <Button>
             <Plus className={styles.buttonIcon} />
-            <span className={styles.buttonText}>새 이력서 작성</span>
+            <span className={styles.buttonText}>{t('profile.resume.create')}</span>
           </Button>
         </Link>
       </div>
@@ -33,6 +37,7 @@ export default function ResumeList({ resumes, children }: Props) {
 }
 
 ResumeList.items = ({ resumes }: Omit<Props, 'children'>) => {
+  const { t } = useTranslation('pages');
   const sortedResumes = [...resumes];
 
   return (
@@ -45,14 +50,18 @@ ResumeList.items = ({ resumes }: Omit<Props, 'children'>) => {
             </div>
             <div className={styles.text}>
               <h3>{resume.title}</h3>
-              <p>최종 수정일: {resume.updatedAt.slice(0, 10)}</p>
+              <p>
+                {t('profile.resumePreview.updatedAt', {
+                  date: resume.updatedAt.slice(0, 10),
+                })}
+              </p>
             </div>
           </div>
           <div className={styles.actions}>
             <span
               className={clsx(
                 styles.status,
-                resume.status === '작성완료'
+                resume.status === t('profile.resume.completed')
                   ? styles.completed
                   : styles.inProgress,
               )}

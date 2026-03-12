@@ -6,8 +6,10 @@ import { useFormContext } from 'react-hook-form';
 import useImageUpload from '@/lib/hooks/useImageUpload';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function BasicInfo() {
+  const { t } = useTranslation('pages');
   const { control, setValue } = useFormContext();
   const {
     image: uploadedImage,
@@ -32,29 +34,37 @@ export default function BasicInfo() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>기본정보 입력</h2>
+      <h2 className={styles.title}>{t('profile.resumePreview.sections.basicInfo')}</h2>
       <InputField
         control={control}
         name='resumeTitle'
-        label='제목'
+        label={t('communityWrite.labels.title')}
         required={true}
       />
       <div className={styles.content}>
         <div className={styles.textRow}>
           <div className={styles.readonlyField}>
-            <label className={styles.label}>이름</label>
+            <label className={styles.label}>
+              {t('profile.resumePreview.fields.name')}
+            </label>
             <div className={styles.readonlyInput}>{name}</div>
           </div>
           <div className={styles.readonlyField}>
-            <label className={styles.label}>이메일</label>
+            <label className={styles.label}>
+              {t('profile.resumePreview.fields.email')}
+            </label>
             <div className={styles.readonlyInput}>{email}</div>
           </div>
           <div className={styles.readonlyField}>
-            <label className={styles.label}>전화번호</label>
+            <label className={styles.label}>
+              {t('profile.resumePreview.fields.phone')}
+            </label>
             <div className={styles.readonlyInput}>{phoneNumber}</div>
           </div>
           <div className={styles.readonlyField}>
-            <label className={styles.label}>주소</label>
+            <label className={styles.label}>
+              {t('profile.resumePreview.fields.address')}
+            </label>
             <div className={styles.readonlyInput}>
               {address.address}
               {address.detailAddress && ` ${address.detailAddress}`}
@@ -80,7 +90,7 @@ export default function BasicInfo() {
             hidden
           />
           <Button variant='outline' size='large' onClick={handleUploadClick}>
-            사진 업로드
+            {t('profile.component.basicInfo.uploadPhoto')}
           </Button>
         </div>
       </div>

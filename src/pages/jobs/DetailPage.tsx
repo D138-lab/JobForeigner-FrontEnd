@@ -7,8 +7,10 @@ import { useEffect } from 'react';
 import useGetDetailRecruitInfo from '@/lib/apis/queries/useGetDetailRecruitInfo';
 import { useLocation } from 'react-router-dom';
 import usePostRecentJobs from '@/lib/apis/mutations/usePostRecentJobs';
+import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
+  const { t } = useTranslation('pages');
   const location = useLocation();
   const id = location.state.id;
   const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
@@ -20,10 +22,10 @@ const DetailPage = () => {
   }, []);
 
   if (isLoading) {
-    return <div>로딩 중</div>;
+    return <div>{t('jobs.loadingShort')}</div>;
   }
   if (isError) {
-    return <div>에러 발생</div>;
+    return <div>{t('jobs.error')}</div>;
   }
 
   return (

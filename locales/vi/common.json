@@ -1,0 +1,57 @@
+{
+  "signUp": "Đăng ký",
+  "login": "Đăng nhập",
+  "searchRecruitment": "Tìm kiếm tin tuyển dụng",
+  "recruitmentInfo": "Việc làm",
+  "companiesInfo": "Doanh nghiệp",
+  "nearBy": "Khu vực lân cận",
+  "nearByPlaces": "Địa điểm gần đây",
+  "community": "Cộng đồng",
+  "logout": "Đăng xuất",
+  "profile": "Hồ sơ",
+  "notifications": "Thông báo",
+  "read": "Đã đọc",
+  "unread": "Chưa đọc",
+  "noNotifications": "Không có thông báo.",
+  "recentJobs": "Việc đã xem gần đây",
+  "noRecentJobs": "Không có việc đã xem gần đây.",
+  "communityPage": {
+    "writePost": "Viết bài",
+    "searchPlaceholder": "Tìm theo tiêu đề bài viết",
+    "searchButton": "Tìm kiếm",
+    "tabs": {
+      "all": "Tất cả",
+      "general": "Bài viết chung",
+      "market": "Chợ đồ cũ",
+      "policy": "Tổng hợp chính sách"
+    },
+    "emptyBySearch": "Không có kết quả tìm kiếm.",
+    "emptyByCategory": "Không có bài viết trong danh mục này.",
+    "popularPostsTitle": "Bài viết thịnh hành",
+    "announcementTitle": "Thông báo/Sự kiện",
+    "announcements": {
+      "ruleChange": "Chính sách cộng đồng đã được cập nhật.",
+      "welcomeEvent": "Sự kiện chào mừng thành viên mới đang diễn ra.",
+      "serverMaintenance": "Thông báo bảo trì máy chủ (CN 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "Thông báo",
+      "event": "Sự kiện"
+    },
+    "topMemberTitle": "Thành viên đã xác thực",
+    "profileImageAlt": "Ảnh hồ sơ của {{name}}",
+    "topRank": "Hạng {{rank}}",
+    "noData": "Không có dữ liệu.",
+    "postAction": {
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "deleting": "Đang xóa...",
+      "report": "Báo cáo",
+      "block": "Chặn",
+      "confirmDelete": "Bạn có chắc muốn xóa bài viết này không?",
+      "deleteSuccess": "Đã xóa bài viết.",
+      "deleteFail": "Xóa bài viết thất bại.",
+      "likeFail": "Xử lý lượt thích thất bại."
+    }
+  }
+}

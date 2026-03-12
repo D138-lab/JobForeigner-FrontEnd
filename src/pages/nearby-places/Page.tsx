@@ -12,56 +12,24 @@ import useSearchPlaces from '@/lib/apis/queries/useSearchPlaces';
 import { useNavigate } from 'react-router-dom';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-type PlaceCategory =
-  | '할랄 식당'
-  | '국가별 음식점'
-  | '국가별 마트'
-  | '종교 시설'
-  | '외국인 지원센터'
-  | '송금/환전소'
-  | '기타';
-
-interface Place {
-  label: PlaceCategory;
-  code: PlaceCategoryCode;
-}
-
-const categories: Place[] = [
-  { label: '할랄 식당', code: 'HALAL_RESTAURANT' },
-  { label: '국가별 음식점', code: 'ETHNIC_RESTAURANT' },
-  { label: '국가별 마트', code: 'ETHNIC_MART' },
-  { label: '종교 시설', code: 'RELIGIOUS_FACILITY' },
-  { label: '외국인 지원센터', code: 'COMMUNITY_CENTER' },
-  { label: '송금/환전소', code: 'MONEY_TRANSFER' },
-  { label: '기타', code: 'OTHER' },
-];
-
-const categoryLabelByCode: Record<PlaceCategoryCode, PlaceCategory> = {
-  HALAL_RESTAURANT: '할랄 식당',
-  ETHNIC_RESTAURANT: '국가별 음식점',
-  ETHNIC_MART: '국가별 마트',
-  RELIGIOUS_FACILITY: '종교 시설',
-  COMMUNITY_CENTER: '외국인 지원센터',
-  MONEY_TRANSFER: '송금/환전소',
-  OTHER: '기타',
-};
-
-const fallbackCategories: PlaceCategory[] = [
-  '할랄 식당',
-  '국가별 음식점',
-  '국가별 마트',
-  '종교 시설',
-  '외국인 지원센터',
-  '송금/환전소',
-  '기타',
+const categories: PlaceCategoryCode[] = [
+  'HALAL_RESTAURANT',
+  'ETHNIC_RESTAURANT',
+  'ETHNIC_MART',
+  'RELIGIOUS_FACILITY',
+  'COMMUNITY_CENTER',
+  'MONEY_TRANSFER',
+  'OTHER',
 ];
 
 export default function NearbyPlaces() {
+  const { t } = useTranslation('pages');
   const [keywordInput, setKeywordInput] = useState('');
   const [submittedKeyword, setSubmittedKeyword] = useState('');
   const [selectedCategory, setSelectedCategory] =
-    useState<PlaceCategory>('할랄 식당');
+    useState<PlaceCategoryCode>('HALAL_RESTAURANT');
   const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(null);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const [mapLevel, setMapLevel] = useState(5);
@@ -85,13 +53,6 @@ export default function NearbyPlaces() {
     reset: resetDeleteFavoriteError,
   } = useDeleteFavoritePlace();
 
-  const selectedCategoryCode = useMemo(
-    () =>
-      categories.find(category => category.label === selectedCategory)?.code ??
-      'HALAL_RESTAURANT',
-    [selectedCategory],
-  );
-
   const isKeywordMode = submittedKeyword.trim().length > 0;
 
   const {
@@ -103,7 +64,7 @@ export default function NearbyPlaces() {
       lat: currentPosition.lat,
       lng: currentPosition.lng,
       radius: 5000,
-      categories: [selectedCategoryCode],
+      categories: [selectedCategory],
       page: 0,
       size: 50,
     },
@@ -159,9 +120,7 @@ export default function NearbyPlaces() {
 
   const filteredPlaces = useMemo(() => {
     return apiPlaces.filter(place => {
-      const isCategoryMatched =
-        categoryLabelByCode[place.category] === selectedCategory;
-      return isCategoryMatched;
+      return place.category === selectedCategory;
     });
   }, [apiPlaces, selectedCategory]);
   const favoritePlaceIdSet = useMemo(
@@ -177,14 +136,16 @@ export default function NearbyPlaces() {
   )?.response?.data?.code;
   const favoriteErrorMessage = (() => {
     if (postFavoriteErrorCode === 'C002')
-      return '요청 데이터가 올바르지 않습니다.';
-    if (postFavoriteErrorCode === 'U001') return '사용자를 찾을 수 없습니다.';
+      return t('nearbyPlaces.errors.invalidRequest');
+    if (postFavoriteErrorCode === 'U001')
+      return t('nearbyPlaces.errors.memberNotFound');
     if (postFavoriteErrorCode === 'M005')
-      return '이미 즐겨찾기에 등록된 장소입니다.';
+      return t('nearbyPlaces.errors.favoriteAlreadyExists');
     if (deleteFavoriteErrorCode === 'M006')
-      return '해당 즐겨찾기를 찾을 수 없습니다.';
-    if (postFavoriteErrorCode) return '즐겨찾기 등록 중 오류가 발생했습니다.';
-    if (deleteFavoriteErrorCode) return '즐겨찾기 삭제 중 오류가 발생했습니다.';
+      return t('nearbyPlaces.errors.favoriteNotFound');
+    if (postFavoriteErrorCode) return t('nearbyPlaces.errors.favoriteAddFail');
+    if (deleteFavoriteErrorCode)
+      return t('nearbyPlaces.errors.favoriteDeleteFail');
     return '';
   })();
   const isFavoritePending = isPostingFavorite || isDeletingFavorite;
@@ -223,7 +184,7 @@ export default function NearbyPlaces() {
     if (favoritePlaceIdSet.has(placeId)) {
       deleteFavoritePlaceMutate(placeId, {
         onSuccess: () => {
-          setFavoriteMessage('즐겨찾기에서 삭제되었습니다.');
+          setFavoriteMessage(t('nearbyPlaces.messages.favoriteRemoved'));
         },
       });
       return;
@@ -233,7 +194,7 @@ export default function NearbyPlaces() {
       { placeId },
       {
         onSuccess: () => {
-          setFavoriteMessage('즐겨찾기에 등록되었습니다.');
+          setFavoriteMessage(t('nearbyPlaces.messages.favoriteAdded'));
         },
       },
     );
@@ -267,28 +228,28 @@ export default function NearbyPlaces() {
         <input
           value={keywordInput}
           onChange={e => setKeywordInput(e.target.value)}
-          placeholder='장소명 또는 주소로 검색'
+          placeholder={t('nearbyPlaces.searchPlaceholder')}
           className={styles.searchInput}
         />
         <button type='submit' className={styles.searchButton}>
-          검색
+          {t('nearbyPlaces.searchButton')}
         </button>
       </form>
 
       <div className={styles.categoryRow}>
         {categories.map(category => (
           <button
-            key={category.code}
+            key={category}
             type='button'
             className={`${styles.categoryButton} ${
-              selectedCategory === category.label ? styles.activeCategory : ''
+              selectedCategory === category ? styles.activeCategory : ''
             }`}
             onClick={() => {
-              setSelectedCategory(category.label);
+              setSelectedCategory(category);
               setSelectedPlaceId(null);
             }}
           >
-            {category.label}
+            {t(`nearbyPlaces.categories.${category}`)}
           </button>
         ))}
       </div>
@@ -321,7 +282,7 @@ export default function NearbyPlaces() {
                     selectedPlace?.id === place.id ? styles.activePlacePin : ''
                   }`}
                   onClick={() => handleSelectPlace(place.id)}
-                  aria-label={`${place.name} 위치`}
+                  aria-label={t('nearbyPlaces.pinAria', { name: place.name })}
                   title={place.name}
                 />
               </CustomOverlayMap>
@@ -332,7 +293,7 @@ export default function NearbyPlaces() {
               >
                 <div className={styles.overlayCard}>
                   <strong>{selectedPlace.name}</strong>
-                  <span>{categoryLabelByCode[selectedPlace.category]}</span>
+                  <span>{t(`nearbyPlaces.categories.${selectedPlace.category}`)}</span>
                 </div>
               </CustomOverlayMap>
             )}
@@ -342,8 +303,8 @@ export default function NearbyPlaces() {
               type='button'
               className={styles.controlButton}
               onClick={moveToCurrentPosition}
-              title='현재 위치로 이동'
-              aria-label='현재 위치로 이동'
+              title={t('nearbyPlaces.controls.moveCurrent')}
+              aria-label={t('nearbyPlaces.controls.moveCurrent')}
             >
               <LocateFixed size={18} />
             </button>
@@ -351,8 +312,8 @@ export default function NearbyPlaces() {
               type='button'
               className={styles.controlButton}
               onClick={zoomIn}
-              title='지도 확대'
-              aria-label='지도 확대'
+              title={t('nearbyPlaces.controls.zoomIn')}
+              aria-label={t('nearbyPlaces.controls.zoomIn')}
             >
               <Plus size={18} />
             </button>
@@ -360,8 +321,8 @@ export default function NearbyPlaces() {
               type='button'
               className={styles.controlButton}
               onClick={zoomOut}
-              title='지도 축소'
-              aria-label='지도 축소'
+              title={t('nearbyPlaces.controls.zoomOut')}
+              aria-label={t('nearbyPlaces.controls.zoomOut')}
             >
               <Minus size={18} />
             </button>
@@ -370,21 +331,21 @@ export default function NearbyPlaces() {
 
         <aside className={styles.listArea}>
           <h2 className={styles.listTitle}>
-            장소 리스트
+            {t('nearbyPlaces.listTitle')}
             <span className={styles.favoriteCount}>
-              즐겨찾기 {favoritePlaceIdSet.size}
+              {t('nearbyPlaces.favoriteCount', { count: favoritePlaceIdSet.size })}
             </span>
           </h2>
           {isLoading ? (
-            <div className={styles.emptyItem}>장소를 불러오는 중입니다.</div>
+            <div className={styles.emptyItem}>{t('nearbyPlaces.loadingPlaces')}</div>
           ) : isError ? (
-            <div className={styles.emptyItem}>
-              장소 검색에 실패했습니다. 잠시 후 다시 시도해주세요.
-            </div>
+            <div className={styles.emptyItem}>{t('nearbyPlaces.errors.searchFail')}</div>
           ) : selectedPlace ? (
             <div className={styles.detailCard}>
               <h3>{selectedPlace.name}</h3>
-              <p>{selectedPlace.subCategory || '상세 카테고리 정보 없음'}</p>
+              <p>
+                {selectedPlace.subCategory || t('nearbyPlaces.detailNoSubCategory')}
+              </p>
               <div>{selectedPlace.displayAddress}</div>
               <button
                 type='button'
@@ -393,10 +354,10 @@ export default function NearbyPlaces() {
                 disabled={isFavoritePending}
               >
                 {favoritePlaceIdSet.has(selectedPlace.id)
-                  ? '즐겨찾기 해제'
-                  : '즐겨찾기 등록'}
+                  ? t('nearbyPlaces.favoriteUnset')
+                  : t('nearbyPlaces.favoriteSet')}
               </button>
-              <div>팁 {selectedPlace.tipCount}개</div>
+              <div>{t('nearbyPlaces.tipCount', { count: selectedPlace.tipCount })}</div>
             </div>
           ) : null}
           <ul className={styles.placeList}>
@@ -415,17 +376,17 @@ export default function NearbyPlaces() {
                     className={styles.favoriteMark}
                     onClick={event => handleFavoritePlace(event, place.id)}
                     disabled={isFavoritePending}
-                    aria-label='장소 즐겨찾기 등록'
+                    aria-label={t('nearbyPlaces.favoriteAria')}
                   >
                     {favoritePlaceIdSet.has(place.id) ? '★' : '☆'}
                   </button>
                 </strong>
-                <div>{categoryLabelByCode[place.category] || fallbackCategories[6]}</div>
+                <div>{t(`nearbyPlaces.categories.${place.category}`)}</div>
                 <div>{place.displayAddress}</div>
               </li>
             ))}
             {filteredPlaces.length === 0 && (
-              <li className={styles.emptyItem}>조건에 맞는 장소가 없습니다.</li>
+              <li className={styles.emptyItem}>{t('nearbyPlaces.emptyMatched')}</li>
             )}
           </ul>
         </aside>

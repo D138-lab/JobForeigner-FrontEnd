@@ -7,6 +7,7 @@ import Input from '@/components/common/input/Input';
 import { Job } from '@/lib/type/profile/bookmark';
 import ScrapedRecruitmentCard from '@/components/profile/bookmark/scraps/ScrapedRecruitmentCard';
 import Select from '@/components/common/select/Select';
+import { useTranslation } from 'react-i18next';
 
 const bookmarkedJobs: Job[] = [
   {
@@ -67,6 +68,7 @@ const bookmarkedJobs: Job[] = [
 ];
 
 export default function BookmarkedJobsPage() {
+  const { t } = useTranslation('pages');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [statusFilter] = useState<'all' | 'active' | 'expired'>('all');
   const [sortOrder] = useState<'newest' | 'oldest'>('newest');
@@ -93,9 +95,9 @@ export default function BookmarkedJobsPage() {
     <div className={styles.container}>
       <main className={styles.page}>
         <div>
-          <h1 className={styles.pageTitle}>북마크</h1>
+          <h1 className={styles.pageTitle}>{t('profile.bookmark.title')}</h1>
           <p className={styles.pageDescription}>
-            관심 기업과 스크랩한 채용 공고를 관리할 수 있습니다.
+            {t('profile.bookmark.description')}
           </p>
         </div>
         <BookmarkTabs />
@@ -104,7 +106,7 @@ export default function BookmarkedJobsPage() {
           <div className={styles.searchWrapper}>
             <Input
               type='text'
-              placeholder='공고 제목 또는 기업명 검색'
+              placeholder={t('profile.bookmark.jobs.searchPlaceholder')}
               icon='search'
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
@@ -113,16 +115,22 @@ export default function BookmarkedJobsPage() {
           <div className={styles.selectGroup}>
             <Select
               options={[
-                { value: 'all', label: '전체' },
-                { value: 'active', label: '진행중' },
-                { value: 'expired', label: '마감' },
+                { value: 'all', label: t('profile.filters.all') },
+                {
+                  value: 'active',
+                  label: t('profile.bookmark.jobs.status.active'),
+                },
+                {
+                  value: 'expired',
+                  label: t('profile.bookmark.jobs.status.expired'),
+                },
               ]}
               defaultValue='all'
             />
             <Select
               options={[
-                { value: 'newest', label: '최신순' },
-                { value: 'oldest', label: '오래된순' },
+                { value: 'newest', label: t('profile.filters.newest') },
+                { value: 'oldest', label: t('profile.filters.oldest') },
               ]}
               defaultValue='newest'
             />
@@ -142,12 +150,12 @@ export default function BookmarkedJobsPage() {
           ) : (
             <div className={styles.emptyState}>
               <Bookmark className={styles.emptyIcon} />
-              <h3>스크랩한 채용 공고가 없습니다</h3>
-              <p>
-                채용 공고 페이지에서 북마크 아이콘을 클릭하여 스크랩해보세요.
-              </p>
+              <h3>{t('profile.bookmark.jobs.emptyTitle')}</h3>
+              <p>{t('profile.bookmark.jobs.emptyDescription')}</p>
               <Link to='/jobs'>
-                <button className={styles.browseButton}>채용 공고 보기</button>
+                <button className={styles.browseButton}>
+                  {t('profile.bookmark.jobs.browse')}
+                </button>
               </Link>
             </div>
           )}

@@ -1,0 +1,57 @@
+{
+  "signUp": "साइन अप",
+  "login": "लग इन",
+  "searchRecruitment": "रोजगारी खोज्नुहोस्",
+  "recruitmentInfo": "रोजगारी जानकारी",
+  "companiesInfo": "कम्पनी जानकारी",
+  "nearBy": "नजिकै",
+  "nearByPlaces": "नजिकका स्थानहरू",
+  "community": "समुदाय",
+  "logout": "लग आउट",
+  "profile": "प्रोफाइल",
+  "notifications": "सूचना",
+  "read": "पढियो",
+  "unread": "नपढिएको",
+  "noNotifications": "कुनै सूचना छैन।",
+  "recentJobs": "हालै हेरेका जागिरहरू",
+  "noRecentJobs": "हालै हेरेका जागिरहरू छैनन्।",
+  "communityPage": {
+    "writePost": "पोस्ट लेख्नुहोस्",
+    "searchPlaceholder": "पोस्ट शीर्षक खोज्नुहोस्",
+    "searchButton": "खोज्नुहोस्",
+    "tabs": {
+      "all": "सबै",
+      "general": "सामान्य पोस्ट",
+      "market": "पुरानो सामान बजार",
+      "policy": "नीति संकलन"
+    },
+    "emptyBySearch": "खोज परिणाम छैन।",
+    "emptyByCategory": "यो श्रेणीमा पोस्ट छैन।",
+    "popularPostsTitle": "लोकप्रिय पोस्टहरू",
+    "announcementTitle": "सूचना/कार्यक्रम",
+    "announcements": {
+      "ruleChange": "समुदाय नीति अद्यावधिक गरिएको छ।",
+      "welcomeEvent": "नयाँ सदस्य स्वागत कार्यक्रम चलिरहेको छ।",
+      "serverMaintenance": "सर्भर मर्मत सूचना (आइत 02:00~04:00)"
+    },
+    "announceType": {
+      "notice": "सूचना",
+      "event": "कार्यक्रम"
+    },
+    "topMemberTitle": "प्रमाणित सदस्यहरू",
+    "profileImageAlt": "{{name}} को प्रोफाइल तस्वीर",
+    "topRank": "र्याङ्क {{rank}}",
+    "noData": "डाटा छैन।",
+    "postAction": {
+      "edit": "सम्पादन",
+      "delete": "मेटाउनुहोस्",
+      "deleting": "मेटिँदै...",
+      "report": "रिपोर्ट",
+      "block": "ब्लक",
+      "confirmDelete": "के तपाईं यो पोस्ट मेटाउन निश्चित हुनुहुन्छ?",
+      "deleteSuccess": "पोस्ट मेटाइयो।",
+      "deleteFail": "पोस्ट मेटाउन असफल।",
+      "likeFail": "लाइक प्रक्रिया असफल भयो।"
+    }
+  }
+}

@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "กลับไปยังชุมชน",
+    "loadingPost": "กำลังโหลดรายละเอียดโพสต์",
+    "loadPostFail": "ไม่สามารถโหลดโพสต์ได้"
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "โพสต์ทั่วไป",
+      "MARKET": "ตลาดมือสอง",
+      "POLICY": "คัดสรรนโยบาย"
+    },
+    "generalCategories": {
+      "NOTICE": "ประกาศ",
+      "FREE": "กระทู้เสรี",
+      "QNA": "ถาม-ตอบ",
+      "INFO": "แชร์ข้อมูล"
+    },
+    "alerts": {
+      "titleRequired": "กรุณากรอกชื่อเรื่อง",
+      "contentRequired": "กรุณากรอกเนื้อหา",
+      "generalCategoryRequired": "กรุณาเลือกหมวดโพสต์ทั่วไป",
+      "noticeAdminOnly": "ผู้ใช้ทั่วไปไม่สามารถเลือกประกาศได้",
+      "createSuccess": "โพสต์ถูกเผยแพร่แล้ว",
+      "createFail": "เผยแพร่โพสต์ไม่สำเร็จ กรุณาลองอีกครั้ง",
+      "imageIdMissing": "ไม่พบ File ID ในผลตอบกลับยืนยันอัปโหลดภาพ",
+      "imageUploadFail": "อัปโหลดภาพล้มเหลว กรุณาลองอีกครั้ง"
+    },
+    "confirmLeave": "ข้อมูลที่กำลังเขียนจะไม่ถูกบันทึก\nต้องการยกเลิกหรือไม่?",
+    "labels": {
+      "back": "ย้อนกลับ",
+      "postType": "ประเภทโพสต์",
+      "generalCategory": "หมวดโพสต์ทั่วไป",
+      "title": "ชื่อเรื่อง"
+    },
+    "placeholder": {
+      "title": "กรอกชื่อเรื่อง"
+    },
+    "tagHelper": "ใส่แท็กที่เกี่ยวข้องกับโพสต์ได้สูงสุด 5 แท็ก",
+    "buttons": {
+      "cancel": "ยกเลิก",
+      "submit": "โพสต์",
+      "submitting": "กำลังโพสต์..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "โพสต์ทั่วไป",
+      "MARKET": "ตลาดมือสอง",
+      "POLICY": "คัดสรรนโยบาย"
+    },
+    "alerts": {
+      "noPermission": "คุณไม่มีสิทธิ์แก้ไขโพสต์นี้",
+      "titleRequired": "กรุณากรอกชื่อเรื่อง",
+      "contentRequired": "กรุณากรอกเนื้อหา",
+      "imageNotSupported": "ยังไม่รองรับการแก้ไขรูปภาพ จะบันทึกโดยไม่มีรูปภาพ",
+      "updateSuccess": "แก้ไขโพสต์แล้ว",
+      "updateFail": "แก้ไขโพสต์ไม่สำเร็จ กรุณาลองอีกครั้ง"
+    },
+    "confirmLeave": "ข้อมูลที่แก้ไขจะไม่ถูกบันทึก\nต้องการยกเลิกหรือไม่?",
+    "state": {
+      "loadingPost": "กำลังโหลดรายละเอียดโพสต์",
+      "checkingPermission": "กำลังตรวจสอบสิทธิ์",
+      "loadFail": "ไม่สามารถโหลดข้อมูลโพสต์ได้"
+    },
+    "labels": {
+      "back": "ย้อนกลับ",
+      "postType": "ประเภทโพสต์",
+      "title": "ชื่อเรื่อง"
+    },
+    "placeholder": {
+      "title": "กรอกชื่อเรื่อง"
+    },
+    "tagHelper": "ใส่แท็กที่เกี่ยวข้องกับโพสต์ได้สูงสุด 5 แท็ก",
+    "buttons": {
+      "cancel": "ยกเลิก",
+      "save": "บันทึก",
+      "saving": "กำลังบันทึก..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "กำลังโหลด...",
+    "loadingShort": "กำลังโหลด",
+    "empty": "ไม่มีประกาศงาน",
+    "error": "เกิดข้อผิดพลาด"
+  },
+  "jobsApply": {
+    "successTitle": "ส่งข้อมูลสำเร็จ!",
+    "successSub": "ขอให้โชคดี",
+    "failedTitle": "ส่งข้อมูลไม่สำเร็จ!",
+    "failedSub": "กรุณาลองใหม่ภายหลัง",
+    "goMain": "ไปหน้าแรก"
+  },
+  "jobsSelectResume": {
+    "pending": "กำลังส่งคำขอ",
+    "title": "เลือกเรซูเม่",
+    "subtitle": "กรุณาเลือกเรซูเม่เพื่อสมัครงาน",
+    "createResume": "สร้างเรซูเม่ใหม่",
+    "apply": "สมัคร"
+  },
+  "companies": {
+    "loading": "กำลังโหลด...",
+    "empty": "ไม่มีประกาศงาน",
+    "detail": {
+      "notFound": "ไม่พบข้อมูลบริษัท",
+      "loading": "กำลังโหลด...",
+      "loadError": "เกิดข้อผิดพลาดระหว่างโหลดข้อมูลบริษัท",
+      "tabs": {
+        "info": "ข้อมูลบริษัท",
+        "recruit": "รับสมัคร",
+        "salary": "เงินเดือน",
+        "rating": "คะแนน",
+        "review": "รีวิว"
+      }
+    },
+    "info": {
+      "sectionTitle": "ข้อมูลบริษัท",
+      "type": "ประเภทบริษัท",
+      "employee": "จำนวนพนักงาน",
+      "address": "ที่อยู่",
+      "homepage": "เว็บไซต์",
+      "intro": "แนะนำบริษัท",
+      "benefits": "สวัสดิการ"
+    },
+    "recruit": {
+      "empty": "ไม่มีข้อมูล"
+    },
+    "rating": {
+      "title": "ข้อมูลคะแนนโดยละเอียด",
+      "level": {
+        "high": "สูงกว่าค่าเฉลี่ย",
+        "mid": "ค่าเฉลี่ย",
+        "low": "ต่ำกว่าค่าเฉลี่ย"
+      },
+      "subjects": {
+        "welfare": "สวัสดิการ/วัฒนธรรม",
+        "salary": "เงินเดือน",
+        "workLife": "สมดุลงาน-ชีวิต",
+        "culture": "วัฒนธรรมองค์กร",
+        "stability": "ความมั่นคงในการจ้างงาน"
+      },
+      "descriptions": {
+        "welfare": "สวัสดิการและวัฒนธรรมอยู่ในระดับ{{level}}",
+        "salary": "เงินเดือนอยู่ในระดับ{{level}}",
+        "workLife": "สมดุลงาน-ชีวิตอยู่ในระดับ{{level}}",
+        "culture": "วัฒนธรรมองค์กรอยู่ในระดับ{{level}} โดยให้ความสำคัญกับความร่วมมือและการสื่อสาร",
+        "stability": "ความมั่นคงในการจ้างงานอยู่ในระดับ{{level}} ช่วยให้พนักงานมั่นคงในการทำงาน"
+      }
+    },
+    "review": {
+      "title": "รีวิวเฉลี่ย"
+    },
+    "salary": {
+      "total": "เงินเดือนต่อปี",
+      "monthly": "เงินรับสุทธิต่อเดือน",
+      "unitManwon": "หมื่นวอน",
+      "unitWon": "วอน"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "ย้อนกลับ",
+      "basicInfo": "ข้อมูลพื้นฐาน"
+    },
+    "filters": {
+      "all": "ทั้งหมด",
+      "newest": "ล่าสุด",
+      "oldest": "เก่าสุด"
+    },
+    "main": {
+      "title": "โปรไฟล์",
+      "myResume": "เรซูเม่ของฉัน",
+      "applications": "ประวัติการสมัคร",
+      "more": "เพิ่มเติม",
+      "loading": "กำลังโหลด..."
+    },
+    "resume": {
+      "title": "เรซูเม่ของฉัน",
+      "description": "จัดการเรซูเม่และสร้างเรซูเม่ใหม่",
+      "create": "สร้างเรซูเม่",
+      "searchPlaceholder": "ค้นหาชื่อเรซูเม่",
+      "completed": "เสร็จสมบูรณ์",
+      "inProgress": "กำลังเขียน",
+      "emptyTitle": "ไม่มีเรซูเม่",
+      "emptyDescription": "สร้างเรซูเม่แรกของคุณ",
+      "resumeFallback": "เรซูเม่"
+    },
+    "applications": {
+      "title": "ประวัติการสมัคร",
+      "description": "ตรวจสอบงานที่สมัครและสถานะ",
+      "searchPlaceholder": "ค้นหาชื่อเรซูเม่",
+      "statusSummary": {
+        "all": "การสมัครทั้งหมด",
+        "reviewing": "กำลังพิจารณา",
+        "interview": "นัดสัมภาษณ์",
+        "done": "เสร็จสิ้น"
+      }
+    },
+    "edit": {
+      "title": "แก้ไขโปรไฟล์",
+      "description": "คุณสามารถแก้ไขข้อมูลโปรไฟล์พื้นฐานได้",
+      "alertUpdated": "อัปเดตข้อมูลโปรไฟล์แล้ว"
+    },
+    "company": {
+      "title": "ข้อมูลบริษัท",
+      "description": "คุณสามารถดูข้อมูลบริษัทพื้นฐานได้",
+      "edit": "แก้ไขข้อมูล",
+      "registeredRecruitments": "ประกาศรับสมัครที่โพสต์",
+      "activeRecruitments": "กำลังรับสมัคร"
+    },
+    "companyEdit": {
+      "title": "แก้ไขข้อมูลบริษัท",
+      "description": "คุณสามารถแก้ไขข้อมูลบริษัทพื้นฐานได้"
+    },
+    "companyRecruitment": {
+      "title": "จัดการประกาศรับสมัคร",
+      "description": "จัดการประกาศที่โพสต์และสร้างประกาศใหม่",
+      "create": "สร้างประกาศรับสมัคร",
+      "searchPlaceholder": "ค้นหาชื่อใบสมัคร",
+      "emptyTitle": "ยังไม่มีประกาศรับสมัคร",
+      "emptyDescription": "สร้างประกาศรับสมัครใหม่",
+      "status": {
+        "all": "ทั้งหมด",
+        "active": "กำลังรับสมัคร",
+        "expired": "ปิดแล้ว",
+        "applicants": "ผู้สมัคร"
+      }
+    },
+    "companyApplications": {
+      "title": "จัดการใบสมัคร",
+      "description": "ตรวจสอบและจัดการใบสมัครของประกาศรับสมัครของคุณ",
+      "searchPlaceholder": "ค้นหาชื่อใบสมัคร",
+      "emptyTitle": "ไม่พบใบสมัคร",
+      "status": {
+        "all": "ทั้งหมด",
+        "reviewing": "กำลังพิจารณา",
+        "interview": "สัมภาษณ์",
+        "done": "เสร็จสิ้น",
+        "accepted": "ผ่าน",
+        "rejected": "ไม่ผ่าน"
+      }
+    },
+    "bookmark": {
+      "title": "บุ๊กมาร์ก",
+      "description": "จัดการบริษัทที่สนใจและงานที่บันทึกไว้",
+      "companies": {
+        "searchPlaceholder": "ค้นหาตามชื่อบริษัทหรืออุตสาหกรรม",
+        "emptyTitle": "ไม่มีบริษัทที่สนใจ",
+        "emptyDescription": "กดไอคอนดาวในหน้าบริษัทเพื่อเพิ่มเป็นรายการที่สนใจ",
+        "browse": "ดูบริษัท"
+      },
+      "jobs": {
+        "searchPlaceholder": "ค้นหาตามชื่องานหรือบริษัท",
+        "emptyTitle": "ไม่มีงานที่บันทึกไว้",
+        "emptyDescription": "กดไอคอนบุ๊กมาร์กในประกาศงานเพื่อบันทึก",
+        "browse": "ดูงาน",
+        "status": {
+          "active": "กำลังรับสมัคร",
+          "expired": "ปิดแล้ว"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "สร้างเรซูเม่ใหม่",
+      "requiredGuide": "* คือข้อมูลที่จำเป็น"
+    },
+    "resumeEdit": {
+      "title": "แก้ไขเรซูเม่",
+      "requiredGuide": "* คือข้อมูลที่จำเป็น"
+    },
+    "resumePreview": {
+      "newResume": "เรซูเม่ใหม่",
+      "portfolio": "พอร์ตโฟลิโอ",
+      "pdfDownloaded": "ดาวน์โหลด PDF แล้ว",
+      "print": "พิมพ์",
+      "downloading": "กำลังดาวน์โหลด...",
+      "downloadPdf": "ดาวน์โหลด PDF",
+      "updatedAt": "แก้ไขล่าสุด: {{date}}",
+      "unitManwon": "หมื่นวอน",
+      "fields": {
+        "name": "ชื่อ",
+        "email": "อีเมล",
+        "address": "ที่อยู่",
+        "phone": "โทรศัพท์",
+        "employmentType": "ประเภทการจ้างงาน",
+        "desiredSalary": "เงินเดือนที่ต้องการ",
+        "desiredLocation": "พื้นที่ที่ต้องการ"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลพื้นฐาน",
+        "desiredJobs": "ตำแหน่งที่ต้องการ",
+        "skills": "ทักษะ",
+        "preference": "เงื่อนไขการทำงานที่ต้องการ",
+        "education": "การศึกษา",
+        "experience": "ประสบการณ์",
+        "certificates": "ใบรับรอง",
+        "awards": "กิจกรรมและรางวัล",
+        "expats": "ประสบการณ์ต่างประเทศ",
+        "languages": "ภาษา",
+        "attachments": "ไฟล์แนบและลิงก์",
+        "files": "ไฟล์",
+        "links": "ลิงก์"
+      },
+      "empty": {
+        "desiredJobs": "ไม่มีตำแหน่งที่ต้องการ",
+        "skills": "ไม่มีข้อมูลทักษะ",
+        "preference": "ไม่มีเงื่อนไขการทำงานที่ต้องการ",
+        "education": "ไม่มีข้อมูลการศึกษา",
+        "experience": "ไม่มีประสบการณ์",
+        "certificates": "ไม่มีใบรับรอง",
+        "awards": "ไม่มีข้อมูลรางวัล",
+        "expats": "ไม่มีประสบการณ์ต่างประเทศ",
+        "languages": "ไม่มีข้อมูลภาษา"
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "สมัครเมื่อ: {{date}}",
+        "detail": "ดูรายละเอียด",
+        "preview": "ดูตัวอย่าง",
+        "edit": "แก้ไข",
+        "delete": "ลบ",
+        "deleteConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ?",
+        "add": "เพิ่ม",
+        "viewPostDetail": "View Job Details",
+        "share": "แชร์"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "บันทึกd Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "เลขทะเบียนธุรกิจ",
+        "foundedYear": "ปีที่ก่อตั้ง",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "พนักงาน",
+        "contact": "ติดต่อ",
+        "website": "เว็บไซต์",
+        "intro": "แนะนำบริษัท"
+      },
+      "recruitmentCard": {
+        "createdAt": "วันที่ประกาศ: {{date}}",
+        "expiresAt": "วันปิดรับ: {{date}}",
+        "applicants": "ผู้สมัคร: {{count}}",
+        "views": "ยอดดู: {{count}}",
+        "viewPost": "ดูโพสต์",
+        "viewApplicants": "ดูผู้สมัคร ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "รับสมัครงาน",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "ดาวน์โหลดเรซูเม่"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "ข้อมูลบริษัท",
+        "recruitments": "รับสมัครงานs ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "ไปหน้าบริษัท",
+        "delete": "ลบออกจากรายการโปรด"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "ไปหน้าโพสต์",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed เพิ่มress",
+        "zipcode": "รหัสไปรษณีย์",
+        "save": "บันทึก"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "อัปโหลดรูป"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "เต็มเวลา",
+        "contract": "สัญญาจ้าง",
+        "intern": "ฝึกงาน",
+        "any": "ไม่จำกัด",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "เพิ่ม Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "เพิ่มitional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "เพิ่ม Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "วันที่เริ่ม",
+        "endDate": "วันที่สิ้นสุด",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "เพิ่ม Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "เพิ่ม Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "เพิ่ม Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "เพิ่ม Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "เพิ่ม Link",
+        "append": "เพิ่ม links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "ความคืบหน้า",
+        "tempSave": "บันทึก Draft"
+      },
+      "address": {
+        "sido": "จังหวัด/เมือง",
+        "sigungu": "เขต",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "เลือกไฟล์",
+        "uploaded": "ไฟล์ที่อัปโหลดแล้ว"
+      },
+      "introduction": {
+        "title": "แนะนำตัว",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

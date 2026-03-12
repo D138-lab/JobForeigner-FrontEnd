@@ -4,8 +4,10 @@ import Button from '@/components/common/button/Button';
 import SkillTag from './SkillTag';
 import { useFormContext } from 'react-hook-form';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SkillsInfo() {
+  const { t } = useTranslation('pages');
   const inputRef = useRef<HTMLInputElement>(null);
   const { watch, setValue } = useFormContext();
   const [inputValue, setInputValue] = useState('');
@@ -40,17 +42,17 @@ export default function SkillsInfo() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>업무 및 스킬</h2>
+      <h2 className={styles.title}>{t('profile.resumePreview.sections.skills')}</h2>
       <div className={styles.content}>
         <Input
           ref={inputRef}
-          placeholder='보유한 스킬을 입력해주세요'
+          placeholder={t('profile.component.skillsInfo.placeholder')}
           name='skills'
           onChange={onChange}
           value={inputValue}
         />
         <Button type='button' size='medium' onClick={handleAddSkill}>
-          추가
+          {t('profile.component.common.add')}
         </Button>
       </div>
       <div className={styles.skillsList}>

@@ -12,6 +12,7 @@ import useGetRegionJobPosts from '@/lib/apis/queries/useGetRegionJobPosts';
 import useGetSidoRegions from '@/lib/apis/queries/useGetSidoRegions';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const calcDistanceKm = (
   origin: { lat: number; lng: number },
@@ -30,6 +31,7 @@ const calcDistanceKm = (
 };
 
 export default function NearbyCompanies() {
+  const { t } = useTranslation('pages');
   const [selectedSido, setSelectedSido] = useState<string>('');
   const [selectedRegionCode, setSelectedRegionCode] = useState<string>('');
   const [favoriteMessage, setFavoriteMessage] = useState('');
@@ -183,19 +185,21 @@ export default function NearbyCompanies() {
   )?.response?.data?.code;
   const favoriteErrorMessage = (() => {
     if (postFavoriteRegionErrorCode === 'C002')
-      return '요청 데이터가 올바르지 않습니다.';
+      return t('nearbyCompanies.errors.invalidRequest');
     if (postFavoriteRegionErrorCode === 'U001')
-      return '사용자를 찾을 수 없습니다.';
+      return t('nearbyCompanies.errors.memberNotFound');
     if (postFavoriteRegionErrorCode === 'M005')
-      return '이미 즐겨찾기에 등록된 지역입니다.';
+      return t('nearbyCompanies.errors.favoriteAlreadyExists');
     if (deleteFavoriteRegionErrorCode === 'M006')
-      return '해당 즐겨찾기를 찾을 수 없습니다.';
+      return t('nearbyCompanies.errors.favoriteNotFound');
     if (patchFavoriteRegionNotificationErrorCode === 'M006')
-      return '해당 즐겨찾기를 찾을 수 없습니다.';
-    if (postFavoriteRegionErrorCode) return '즐겨찾기 등록 중 오류가 발생했습니다.';
-    if (deleteFavoriteRegionErrorCode) return '즐겨찾기 삭제 중 오류가 발생했습니다.';
+      return t('nearbyCompanies.errors.favoriteNotFound');
+    if (postFavoriteRegionErrorCode)
+      return t('nearbyCompanies.errors.favoriteAddFail');
+    if (deleteFavoriteRegionErrorCode)
+      return t('nearbyCompanies.errors.favoriteDeleteFail');
     if (patchFavoriteRegionNotificationErrorCode)
-      return '알림 설정 변경 중 오류가 발생했습니다.';
+      return t('nearbyCompanies.errors.notificationToggleFail');
     return '';
   })();
   const isFavoriteRegionPending =
@@ -217,7 +221,7 @@ export default function NearbyCompanies() {
     if (favoriteRegionCodeSet.has(regionCode)) {
       deleteFavoriteRegionMutate(regionCode, {
         onSuccess: () => {
-          setFavoriteMessage('지역 즐겨찾기에서 삭제되었습니다.');
+          setFavoriteMessage(t('nearbyCompanies.messages.favoriteRemoved'));
         },
       });
       return;
@@ -231,7 +235,7 @@ export default function NearbyCompanies() {
       },
       {
         onSuccess: () => {
-          setFavoriteMessage('지역 즐겨찾기에 등록되었습니다.');
+          setFavoriteMessage(t('nearbyCompanies.messages.favoriteAdded'));
         },
       },
     );
@@ -249,7 +253,7 @@ export default function NearbyCompanies() {
 
     patchFavoriteRegionNotificationMutate(regionCode, {
       onSuccess: () => {
-        setFavoriteMessage('지역 새 공고 알림 설정이 변경되었습니다.');
+        setFavoriteMessage(t('nearbyCompanies.messages.notificationUpdated'));
       },
     });
   };
@@ -277,9 +281,11 @@ export default function NearbyCompanies() {
         </section>
         <aside className={styles.statsArea}>
           <h2 className={styles.statsTitle}>
-            가까운 지역별 채용공고
+            {t('nearbyCompanies.statsTitle')}
             <span className={styles.favoriteCount}>
-              즐겨찾기 {favoriteRegionCodeSet.size}
+              {t('nearbyCompanies.favoriteCount', {
+                count: favoriteRegionCodeSet.size,
+              })}
             </span>
           </h2>
           {favoriteMessage ? (
@@ -309,7 +315,7 @@ export default function NearbyCompanies() {
                           handleFavoriteRegion(event, regionCode, regionName)
                         }
                         disabled={isFavoriteRegionPending}
-                        aria-label='지역 즐겨찾기 등록'
+                        aria-label={t('nearbyCompanies.favoriteAria')}
                       >
                         {favoriteRegionCodeSet.has(regionCode) ? '★' : '☆'}
                       </button>
@@ -323,32 +329,36 @@ export default function NearbyCompanies() {
                           disabled={isFavoriteRegionPending}
                         >
                           {favoriteRegionMap.get(regionCode)?.notifyNewJobPost
-                            ? '알림 ON'
-                            : '알림 OFF'}
+                            ? t('nearbyCompanies.notificationOn')
+                            : t('nearbyCompanies.notificationOff')}
                         </button>
                       ) : null}
                     </div>
                     <div className={styles.distance}>
                       {Number.isFinite(distance)
                         ? `${distance.toFixed(1)}km`
-                        : '거리 계산 대기'}
+                        : t('nearbyCompanies.distancePending')}
                     </div>
                   </div>
                 </div>
                 <strong className={styles.count}>
-                  {count}건
+                  {t('nearbyCompanies.postCount', { count })}
                 </strong>
               </li>
             ))}
           </ul>
           <div className={styles.postListSection}>
             <h3 className={styles.postListTitle}>
-              {selectedRegionName ? `${selectedRegionName} 채용공고` : '채용공고'}
+              {selectedRegionName
+                ? t('nearbyCompanies.regionPostsTitle', {
+                    regionName: selectedRegionName,
+                  })
+                : t('nearbyCompanies.regionPostsTitleFallback')}
             </h3>
             {isSelectedRegionPostsLoading ? (
-              <p className={styles.postListEmpty}>채용공고를 불러오는 중입니다.</p>
+              <p className={styles.postListEmpty}>{t('nearbyCompanies.loadingPosts')}</p>
             ) : selectedRegionPosts.length === 0 ? (
-              <p className={styles.postListEmpty}>등록된 채용공고가 없습니다.</p>
+              <p className={styles.postListEmpty}>{t('nearbyCompanies.emptyPosts')}</p>
             ) : (
               <ul className={styles.postList}>
                 {selectedRegionPosts.map(post => (

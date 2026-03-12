@@ -23,10 +23,13 @@ export default function LanguageButton() {
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
       <button
+        type='button'
         className={styles.languageButton}
+        aria-label='Change language'
+        aria-expanded={isShow}
         onClick={() => setIsShow(prev => !prev)}
       >
-        <Globe color='#000000' />
+        <Globe size={18} color='currentColor' />
       </button>
       {isShow && <LanguageSwitcher setIsShow={setIsShow} />}
     </div>

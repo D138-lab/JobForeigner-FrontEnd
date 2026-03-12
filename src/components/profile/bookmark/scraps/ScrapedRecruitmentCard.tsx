@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '@/components/common/button/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   job: Job;
@@ -24,6 +25,7 @@ export default function ScrapedRecruitmentCard({
   job,
   onRemoveBookmark,
 }: Props) {
+  const { t } = useTranslation('pages');
   const daysLeft = Math.ceil(
     (new Date(job.expiresAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24),
   );
@@ -32,17 +34,22 @@ export default function ScrapedRecruitmentCard({
     if (job.status === 'active') {
       return daysLeft <= 3 ? (
         <span className={`${styles.badge} ${styles.badgeSoon}`}>
-          <Clock className={styles.metaIcon} /> 마감 {daysLeft}일 전
+          <Clock className={styles.metaIcon} />{' '}
+          {t('profile.component.scrapedRecruitmentCard.closingIn', {
+            days: daysLeft,
+          })}
         </span>
       ) : (
         <span className={`${styles.badge} ${styles.badgeActive}`}>
-          <Clock className={styles.metaIcon} /> 진행중
+          <Clock className={styles.metaIcon} />{' '}
+          {t('profile.bookmark.jobs.status.active')}
         </span>
       );
     }
     return (
       <span className={`${styles.badge} ${styles.badgeExpired}`}>
-        <Ban className={styles.metaIcon} /> 마감
+        <Ban className={styles.metaIcon} />{' '}
+        {t('profile.bookmark.jobs.status.expired')}
       </span>
     );
   };
@@ -79,11 +86,13 @@ export default function ScrapedRecruitmentCard({
             </div>
             <div className={styles.buttonGroup}>
               <Link to={`/jobs/${job.id}`}>
-                <Button variant='outline'>공고 상세보기</Button>
+                <Button variant='outline'>
+                  {t('profile.component.common.viewPostDetail')}
+                </Button>
               </Link>
               {job.status === 'active' && (
                 <Link to={`/jobs/${job.id}/apply`}>
-                  <Button>지원하기</Button>
+                  <Button>{t('jobsSelectResume.apply')}</Button>
                 </Link>
               )}
             </div>
@@ -96,24 +105,27 @@ export default function ScrapedRecruitmentCard({
             </button>
             <div className={styles.dropdownContent}>
               <Link to={`/jobs/${job.id}`} className={styles.dropdownItem}>
-                <ExternalLink className={styles.dropdownIcon} /> 공고 페이지로
-                이동
+                <ExternalLink className={styles.dropdownIcon} />{' '}
+                {t('profile.component.scrapedRecruitmentCard.goPostPage')}
               </Link>
               <Link
                 to={`/companies/${job.company.id}`}
                 className={styles.dropdownItem}
               >
-                <Building2 className={styles.dropdownIcon} /> 기업 정보 보기
+                <Building2 className={styles.dropdownIcon} />{' '}
+                {t('profile.component.likedCompanyCard.companyInfo')}
               </Link>
               <button type='button' className={styles.dropdownItem}>
-                <Share2 className={styles.dropdownIcon} /> 공유하기
+                <Share2 className={styles.dropdownIcon} />{' '}
+                {t('profile.component.common.share')}
               </button>
               <button
                 type='button'
                 className={`${styles.dropdownItem} ${styles.delete}`}
                 onClick={() => onRemoveBookmark(job.id)}
               >
-                <Trash2 className={styles.dropdownIcon} /> 스크랩 삭제
+                <Trash2 className={styles.dropdownIcon} />{' '}
+                {t('profile.component.scrapedRecruitmentCard.deleteScrap')}
               </button>
             </div>
           </div>

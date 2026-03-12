@@ -4,6 +4,7 @@ import Button from '@/components/common/button/Button';
 import { Plus, Trash } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
 import TextareaField from '@/components/common/field/TextareaField';
+import { useTranslation } from 'react-i18next';
 const award = {
   name: '',
   organization: '',
@@ -12,6 +13,7 @@ const award = {
 };
 
 export default function AwardsInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -21,7 +23,7 @@ export default function AwardsInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>활동 및 수상</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.awards')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -29,11 +31,11 @@ export default function AwardsInfo() {
           onClick={() => append(award)}
         >
           <Plus className={styles.plusIcon} />
-          활동/수상 추가
+          {t('profile.component.awards.add')}
         </Button>
       </div>
       {!fields.length ? (
-        <p className={styles.appendText}>활동/수상 정보를 추가해주세요</p>
+        <p className={styles.appendText}>{t('profile.component.awards.append')}</p>
       ) : null}
       {fields.map((field, index) => (
         <div key={field.id} className={styles.awardWrapper}>
@@ -45,16 +47,16 @@ export default function AwardsInfo() {
               <InputField
                 control={control}
                 name={`awards.${index}.name`}
-                label='활동/수상명'
-                placeholder='활동 또는 수상 내역을 입력하세요'
+                label={t('profile.component.awards.name')}
+                placeholder={t('profile.component.awards.namePlaceholder')}
                 required={true}
                 maxLength={50}
               />
               <InputField
                 control={control}
                 name={`awards.${index}.organization`}
-                label='주관 기관'
-                placeholder='주관 기관을 입력하세요'
+                label={t('profile.component.awards.organization')}
+                placeholder={t('profile.component.awards.organizationPlaceholder')}
                 required={true}
                 maxLength={30}
               />
@@ -62,16 +64,16 @@ export default function AwardsInfo() {
             <InputField
               control={control}
               name={`awards.${index}.date`}
-              label='날짜'
-              placeholder='예: 2020.05'
+              label={t('profile.component.awards.date')}
+              placeholder={t('profile.component.awards.dateExample')}
               required={true}
               maxLength={30}
             />
             <TextareaField
               control={control}
               name={`awards.${index}.description`}
-              label='설명'
-              placeholder='활동 내용이나 수상 내역에 대한 설명을 입력하세요'
+              label={t('profile.component.awards.description')}
+              placeholder={t('profile.component.awards.descriptionPlaceholder')}
               maxLength={2000}
             />
           </div>

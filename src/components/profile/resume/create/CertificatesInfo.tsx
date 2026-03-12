@@ -3,6 +3,7 @@ import styles from './certificatesInfo.module.scss';
 import Button from '@/components/common/button/Button';
 import { Plus, Trash } from 'lucide-react';
 import InputField from '@/components/common/field/InputField';
+import { useTranslation } from 'react-i18next';
 
 const certificate = {
   name: '',
@@ -12,6 +13,7 @@ const certificate = {
 };
 
 export default function CertificatesInfo() {
+  const { t } = useTranslation('pages');
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -21,7 +23,7 @@ export default function CertificatesInfo() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>자격증</h2>
+        <h2 className={styles.title}>{t('profile.resumePreview.sections.certificates')}</h2>
         <Button
           type='button'
           variant='outline'
@@ -29,11 +31,13 @@ export default function CertificatesInfo() {
           onClick={() => append(certificate)}
         >
           <Plus className={styles.plusIcon} />
-          자격증 추가
+          {t('profile.component.certificates.add')}
         </Button>
       </div>
       {!fields.length ? (
-        <p className={styles.appendText}>자격증 정보를 추가해주세요</p>
+        <p className={styles.appendText}>
+          {t('profile.component.certificates.append')}
+        </p>
       ) : null}
       {fields.map((field, index) => (
         <div key={field.id} className={styles.certificateWrapper}>
@@ -45,16 +49,18 @@ export default function CertificatesInfo() {
               <InputField
                 control={control}
                 name={`certificates.${index}.name`}
-                label='자격증명'
-                placeholder='자격증명을 입력하세요'
+                label={t('profile.component.certificates.name')}
+                placeholder={t('profile.component.certificates.namePlaceholder')}
                 required={true}
                 maxLength={30}
               />
               <InputField
                 control={control}
                 name={`certificates.${index}.organization`}
-                label='발급 기관'
-                placeholder='발급 기관을 입력하세요'
+                label={t('profile.component.certificates.organization')}
+                placeholder={t(
+                  'profile.component.certificates.organizationPlaceholder',
+                )}
                 required={true}
                 maxLength={30}
               />
@@ -63,16 +69,16 @@ export default function CertificatesInfo() {
               <InputField
                 control={control}
                 name={`certificates.${index}.date`}
-                label='취득일'
-                placeholder='예: 2022.05'
+                label={t('profile.component.certificates.date')}
+                placeholder={t('profile.component.certificates.dateExample')}
                 required={true}
                 maxLength={30}
               />
               {/* <InputField
                 control={control}
                 name={`certificates.${index}.number`}
-                label='자격증 번호'
-                placeholder='자격증 번호를 입력하세요'
+                label='Certificate Number'
+                placeholder='Enter certificate number'
                 required={true}
                 maxLength={30}
               /> */}

@@ -7,8 +7,10 @@ import styles from './page.module.scss';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Page = () => {
+  const { t } = useTranslation('pages');
   const [region, setRegion] = useState('all');
   const [employmentType, setEmploymentType] = useState('all');
   const [searchValue, setSearchValue] = useState<string>('');
@@ -63,7 +65,7 @@ const Page = () => {
         value={searchValue}
         isForCompany={false}
       />
-      {isLoading && <div>로딩 중...</div>}
+      {isLoading && <div>{t('jobs.loading')}</div>}
       {isError && error.message === 'Request failed with status code 401' ? (
         <div className={styles.unAuthorizedModal}>
           <UnAuthorizedModal />
@@ -73,7 +75,7 @@ const Page = () => {
           {data?.data.pageContents?.length ? (
             <RecruitBox data={data?.data} />
           ) : (
-            <div>공고가 없습니다.</div>
+            <div>{t('jobs.empty')}</div>
           )}
         </>
       )}

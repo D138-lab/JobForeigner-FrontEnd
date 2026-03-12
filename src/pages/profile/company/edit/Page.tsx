@@ -6,6 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import CompanyProfileEditForm from '@/components/profile/company/edit/CompanyProfileEditForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { companyProfileEditSchema } from '@/lib/schemas/companyProfileEditSchema';
+import { useTranslation } from 'react-i18next';
 
 const defaultValues = {
   logo: null,
@@ -23,6 +24,7 @@ const defaultValues = {
 };
 
 export default function CompanyProfileEditPage() {
+  const { t } = useTranslation('pages');
   const navigation = useNavigate();
   const formState = useForm({
     defaultValues,
@@ -41,7 +43,7 @@ export default function CompanyProfileEditPage() {
     <div className={styles.container}>
       <main className={styles.page}>
         <div className={styles.title}>
-          <h1>기업 정보 수정</h1>
+          <h1>{t('profile.companyEdit.title')}</h1>
           <Button
             variant='outline'
             size='medium'
@@ -49,13 +51,13 @@ export default function CompanyProfileEditPage() {
           >
             <span className={styles.buttonContent}>
               <ArrowLeft className={styles.buttonIcon} />
-              돌아가기
+              {t('profile.common.goBack')}
             </span>
           </Button>
         </div>
         <section>
-          <h2>기본 정보</h2>
-          <p>기업의 기본 정보를 수정할 수 있습니다.</p>
+          <h2>{t('profile.common.basicInfo')}</h2>
+          <p>{t('profile.companyEdit.description')}</p>
           <FormProvider {...formState}>
             <form onSubmit={formState.handleSubmit(onSubmit, onError)}>
               <CompanyProfileEditForm />

@@ -10,12 +10,14 @@ import {
 } from 'lucide-react';
 import styles from './companyInfo.module.scss';
 import { CompanyProfileInfo } from '@/lib/type/company/company';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   companyData: CompanyProfileInfo;
 }
 
 export default function CompanyInfo({ companyData }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <>
       <div className={styles.topSection}>
@@ -41,7 +43,9 @@ export default function CompanyInfo({ companyData }: Props) {
             <div className={styles.infoItem}>
               <User className={styles.icon} />
               <div>
-                <span className={styles.infoTitle}>대표자명</span>
+                <span className={styles.infoTitle}>
+                  {t('profile.component.companyInfo.ceo')}
+                </span>
                 <span className={styles.infoContent}>{companyData.ceo}</span>
               </div>
             </div>
@@ -49,7 +53,9 @@ export default function CompanyInfo({ companyData }: Props) {
             <div className={styles.infoItem}>
               <FileText className={styles.icon} />
               <div>
-                <span className={styles.infoTitle}>사업자 등록번호</span>
+                <span className={styles.infoTitle}>
+                  {t('profile.component.companyInfo.businessNumber')}
+                </span>
                 <span className={styles.infoContent}>
                   {companyData.businessNumber}
                 </span>
@@ -59,9 +65,13 @@ export default function CompanyInfo({ companyData }: Props) {
             <div className={styles.infoItem}>
               <Calendar className={styles.icon} />
               <div>
-                <span className={styles.infoTitle}>설립연도</span>
+                <span className={styles.infoTitle}>
+                  {t('profile.component.companyInfo.foundedYear')}
+                </span>
                 <span className={styles.infoContent}>
-                  {companyData.foundedYear}년
+                  {t('profile.component.companyInfo.foundedYearValue', {
+                    year: companyData.foundedYear,
+                  })}
                 </span>
               </div>
             </div>
@@ -69,7 +79,9 @@ export default function CompanyInfo({ companyData }: Props) {
             <div className={styles.infoItem}>
               <Users className={styles.icon} />
               <div>
-                <span className={styles.infoTitle}>직원 수</span>
+                <span className={styles.infoTitle}>
+                  {t('profile.component.companyInfo.employeeCount')}
+                </span>
                 <span className={styles.infoContent}>
                   {companyData.employeeCount}
                 </span>
@@ -83,7 +95,9 @@ export default function CompanyInfo({ companyData }: Props) {
         <div className={styles.contactItem}>
           <MapPin className={styles.icon} />
           <div>
-            <span className={styles.contactTitle}>주소</span>
+            <span className={styles.contactTitle}>
+              {t('profile.resumePreview.fields.address')}
+            </span>
             <span className={styles.contactContent}>{companyData.address}</span>
           </div>
         </div>
@@ -91,7 +105,9 @@ export default function CompanyInfo({ companyData }: Props) {
         <div className={styles.contactItem}>
           <Phone className={styles.icon} />
           <div>
-            <span className={styles.contactTitle}>연락처</span>
+            <span className={styles.contactTitle}>
+              {t('profile.component.companyInfo.contact')}
+            </span>
             <span className={styles.contactContent}>{companyData.phone}</span>
           </div>
         </div>
@@ -99,7 +115,9 @@ export default function CompanyInfo({ companyData }: Props) {
         <div className={styles.contactItem}>
           <Mail className={styles.icon} />
           <div>
-            <span className={styles.contactTitle}>이메일</span>
+            <span className={styles.contactTitle}>
+              {t('profile.resumePreview.fields.email')}
+            </span>
             <span className={styles.contactContent}>{companyData.email}</span>
           </div>
         </div>
@@ -107,7 +125,9 @@ export default function CompanyInfo({ companyData }: Props) {
         <div className={styles.contactItem}>
           <Globe className={styles.icon} />
           <div>
-            <span className={styles.contactTitle}>웹사이트</span>
+            <span className={styles.contactTitle}>
+              {t('profile.component.companyInfo.website')}
+            </span>
             <a
               href={companyData.website}
               target='_blank'
@@ -121,7 +141,9 @@ export default function CompanyInfo({ companyData }: Props) {
       </div>
 
       <div className={styles.descriptionSection}>
-        <span className={styles.descriptionTitle}>회사 소개</span>
+        <span className={styles.descriptionTitle}>
+          {t('profile.component.companyInfo.intro')}
+        </span>
         <span className={styles.descriptionContent}>
           {companyData.description}
         </span>

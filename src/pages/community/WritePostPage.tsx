@@ -15,23 +15,13 @@ import { PATH } from '@/lib/constants';
 import styles from './writePostPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type BoardCategoryType = 'GENERAL' | 'MARKET' | 'POLICY';
 type GeneralCategoryCode = 'NOTICE' | 'FREE' | 'QNA' | 'INFO';
 
-const postTypeOptions: Option[] = [
-  { label: '일반 게시글', value: 'GENERAL' },
-  { label: '중고 거래', value: 'MARKET' },
-  { label: '정책 큐레이션', value: 'POLICY' },
-];
-const allGeneralCategoryOptions: Option[] = [
-  { label: '운영 안내/공지', value: 'NOTICE' },
-  { label: '자유 게시글', value: 'FREE' },
-  { label: '질문/답변', value: 'QNA' },
-  { label: '정보 공유', value: 'INFO' },
-];
-
 export default function WritePostPage() {
+  const { t } = useTranslation('pages');
   const navigate = useNavigate();
   const { mutate: postBoardPost, isPending } = usePostBoardPost();
   const { mutateAsync: postFileUpload, isPending: isFileUploadPending } =
@@ -51,6 +41,26 @@ export default function WritePostPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const isSubmitting = isPending || isFileUploadPending || isFileConfirmPending;
+  const postTypeOptions: Option[] = useMemo(
+    () => [
+      { label: t('communityWrite.postTypes.GENERAL'), value: 'GENERAL' },
+      { label: t('communityWrite.postTypes.MARKET'), value: 'MARKET' },
+      { label: t('communityWrite.postTypes.POLICY'), value: 'POLICY' },
+    ],
+    [t],
+  );
+  const allGeneralCategoryOptions: Option[] = useMemo(
+    () => [
+      {
+        label: t('communityWrite.generalCategories.NOTICE'),
+        value: 'NOTICE',
+      },
+      { label: t('communityWrite.generalCategories.FREE'), value: 'FREE' },
+      { label: t('communityWrite.generalCategories.QNA'), value: 'QNA' },
+      { label: t('communityWrite.generalCategories.INFO'), value: 'INFO' },
+    ],
+    [t],
+  );
   const generalCategoryOptions = useMemo(
     () =>
       isAdminUser
@@ -89,17 +99,17 @@ export default function WritePostPage() {
       .trim();
 
     if (!normalizedTitle) {
-      alert('제목을 입력해주세요.');
+      alert(t('communityWrite.alerts.titleRequired'));
       return;
     }
 
     if (!plainText) {
-      alert('본문을 입력해주세요.');
+      alert(t('communityWrite.alerts.contentRequired'));
       return;
     }
 
     if (boardCategoryType === 'GENERAL' && !generalCategoryCode) {
-      alert('일반 게시글 카테고리를 선택해주세요.');
+      alert(t('communityWrite.alerts.generalCategoryRequired'));
       return;
     }
 
@@ -108,7 +118,7 @@ export default function WritePostPage() {
       generalCategoryCode === 'NOTICE' &&
       !isAdminUser
     ) {
-      alert('일반 사용자는 운영 안내/공지를 선택할 수 없습니다.');
+      alert(t('communityWrite.alerts.noticeAdminOnly'));
       return;
     }
 
@@ -165,7 +175,7 @@ export default function WritePostPage() {
         requestBody,
         {
           onSuccess: () => {
-            alert('게시글이 등록되었습니다.');
+            alert(t('communityWrite.alerts.createSuccess'));
             navigate(PATH.COMMUNITY);
           },
           onError: error => {
@@ -184,7 +194,7 @@ export default function WritePostPage() {
             const errorMessage =
               errorData?.message ??
               errorData?.msg ??
-              '게시글 등록에 실패했습니다. 다시 시도해주세요.';
+              t('communityWrite.alerts.createFail');
 
             alert(errorMessage);
           },
@@ -192,7 +202,7 @@ export default function WritePostPage() {
       );
     } catch (error) {
       if ((error as Error)?.message === 'IMAGE_FILE_ID_NOT_FOUND') {
-        alert('이미지 업로드 확인 응답에서 파일 ID를 찾지 못했습니다.');
+        alert(t('communityWrite.alerts.imageIdMissing'));
         return;
       }
 
@@ -210,7 +220,7 @@ export default function WritePostPage() {
       alert(
         errorData?.message ??
           errorData?.msg ??
-          '이미지 업로드에 실패했습니다. 다시 시도해주세요.',
+          t('communityWrite.alerts.imageUploadFail'),
       );
       return;
     }
@@ -232,7 +242,7 @@ export default function WritePostPage() {
     }
 
     const confirmLeave = window.confirm(
-      '작성 중인 내용이 저장되지 않습니다.\n정말 취소하시겠습니까?',
+      t('communityWrite.confirmLeave'),
     );
 
     if (confirmLeave) {
@@ -244,11 +254,11 @@ export default function WritePostPage() {
     <div className={styles.container}>
       <div className={styles.goBack} onClick={handleCancel}>
         <ArrowLeft size={20} />
-        <span>돌아가기</span>
+        <span>{t('communityWrite.labels.back')}</span>
       </div>
 
       <form className={styles.contentArea} onSubmit={handleSubmit}>
-        <div>게시글 유형</div>
+        <div>{t('communityWrite.labels.postType')}</div>
         <Select
           options={postTypeOptions}
           value={boardCategoryType}
@@ -262,7 +272,7 @@ export default function WritePostPage() {
         />
         {boardCategoryType === 'GENERAL' ? (
           <>
-            <div>일반 게시글 카테고리</div>
+            <div>{t('communityWrite.labels.generalCategory')}</div>
             <Select
               options={generalCategoryOptions}
               value={generalCategoryCode}
@@ -271,9 +281,9 @@ export default function WritePostPage() {
           </>
         ) : null}
 
-        <div>제목</div>
+        <div>{t('communityWrite.labels.title')}</div>
         <Input
-          placeholder='제목을 입력해주세요.'
+          placeholder={t('communityWrite.placeholder.title')}
           value={postTitle}
           onChange={e => setPostTitle(e.target.value)}
         />
@@ -284,7 +294,7 @@ export default function WritePostPage() {
           tags={tags}
           onChangeTags={setTags}
           maxTags={5}
-          helperText='게시물과 연관된 태그를 입력해주세요. 최대 5개까지 입력 가능합니다.'
+          helperText={t('communityWrite.tagHelper')}
         />
 
         <div className={styles.btnArea}>
@@ -294,14 +304,16 @@ export default function WritePostPage() {
             onClick={handleCancel}
             disabled={isSubmitting}
           >
-            취소
+            {t('communityWrite.buttons.cancel')}
           </button>
           <button
             className={styles.submitBtn}
             type='submit'
             disabled={isSubmitting}
           >
-            {isSubmitting ? '등록 중...' : '등록'}
+            {isSubmitting
+              ? t('communityWrite.buttons.submitting')
+              : t('communityWrite.buttons.submit')}
           </button>
         </div>
       </form>

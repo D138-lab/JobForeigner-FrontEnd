@@ -1,6 +1,7 @@
 import { Application } from '@/lib/type/profile/application';
 import clsx from 'clsx';
 import styles from './applicationsTabs.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface ApplicationsTabsProps {
   applications: Application[];
@@ -22,6 +23,7 @@ export default function ApplicationsTabs({
   selectedApplications,
   setSelectedApplications,
 }: ApplicationsTabsProps) {
+  const { t } = useTranslation('pages');
   return (
     <>
       <button
@@ -36,7 +38,7 @@ export default function ApplicationsTabs({
           })
         }
       >
-        전체 ({applications.length})
+        {t('profile.applications.statusSummary.all')} ({applications.length})
       </button>
       <button
         className={clsx(
@@ -50,7 +52,7 @@ export default function ApplicationsTabs({
           })
         }
       >
-        서류 검토중 ({reviewing.length})
+        {t('profile.applications.statusSummary.reviewing')} ({reviewing.length})
       </button>
       <button
         className={clsx(
@@ -64,7 +66,8 @@ export default function ApplicationsTabs({
           })
         }
       >
-        면접 예정 ({interviewing.length})
+        {t('profile.applications.statusSummary.interview')} (
+        {interviewing.length})
       </button>
       <button
         className={clsx(
@@ -78,7 +81,7 @@ export default function ApplicationsTabs({
           })
         }
       >
-        완료 ({accepted.length})
+        {t('profile.applications.statusSummary.done')} ({accepted.length})
       </button>
     </>
   );

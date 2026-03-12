@@ -13,21 +13,22 @@ import {
 } from 'lucide-react';
 import Input from '@/components/common/input/Input';
 import Select from '@/components/common/select/Select';
+import { useTranslation } from 'react-i18next';
 
-function getIcon(title: string) {
-  if (title === '전체 지원' || title === 'all') {
+function getIcon(status: string) {
+  if (status === 'all') {
     return <FileTextIcon />;
   }
-  if (title === '서류 검토중' || title === 'reviewing') {
+  if (status === 'reviewing') {
     return <Clock />;
   }
-  if (title === '면접 예정' || title === 'interview') {
+  if (status === 'interview') {
     return <CalendarClock />;
   }
-  if (title === '완료' || title === 'accepted') {
+  if (status === 'accepted') {
     return <CheckCircle2 />;
   }
-  if (title === '완료' || title === 'rejected') {
+  if (status === 'rejected') {
     return <XCircle />;
   }
   return null;
@@ -117,6 +118,7 @@ const applications: Application[] = [
 ];
 
 export default function ApplicationsPage() {
+  const { t } = useTranslation('pages');
   const [searchApplication, setSearchApplication] = useState('');
   const [selectedApplications, setSelectedApplications] = useState<{
     status: string;
@@ -140,25 +142,29 @@ export default function ApplicationsPage() {
   const statusBoxes = [
     {
       id: 1,
-      title: '전체 지원',
+      title: t('profile.applications.statusSummary.all'),
+      status: 'all',
       color: 'var(--color-sky-800)',
       number: applications.length,
     },
     {
       id: 2,
-      title: '서류 검토중',
+      title: t('profile.applications.statusSummary.reviewing'),
+      status: 'reviewing',
       color: 'var(--color-blue-600)',
       number: reviewing.length,
     },
     {
       id: 3,
-      title: '면접 예정',
+      title: t('profile.applications.statusSummary.interview'),
+      status: 'interview',
       color: 'var(--color-green-600)',
       number: interviewing.length,
     },
     {
       id: 4,
-      title: '완료',
+      title: t('profile.applications.statusSummary.done'),
+      status: 'accepted',
       color: 'var(--color-green-600)',
       number: accepted.length,
     },
@@ -167,17 +173,18 @@ export default function ApplicationsPage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <h1 className={styles.pageTitle}>지원 내역</h1>
+        <h1 className={styles.pageTitle}>{t('profile.applications.title')}</h1>
         <p className={styles.pageDescription}>
-          지원한 채용 공고와 진행 상태를 확인할 수 있습니다.
+          {t('profile.applications.description')}
         </p>
         <div className={styles.statusBoxes}>
           {statusBoxes.map(statusBox => (
             <StatusBox
-              icon={getIcon(statusBox.title)}
+              icon={getIcon(statusBox.status)}
               iconColor={statusBox.color}
               key={statusBox.id}
-              {...statusBox}
+              title={statusBox.title}
+              number={statusBox.number}
             />
           ))}
         </div>
@@ -186,7 +193,7 @@ export default function ApplicationsPage() {
             <div className={styles.searchWrapper}>
               <Input
                 icon='search'
-                placeholder='이력서 제목 검색'
+                placeholder={t('profile.applications.searchPlaceholder')}
                 value={searchApplication}
                 onChange={e => setSearchApplication(e.target.value)}
               />
@@ -194,17 +201,23 @@ export default function ApplicationsPage() {
             <div className={styles.selects}>
               <Select
                 options={[
-                  { value: 'all', label: '전체' },
-                  { value: 'completed', label: '작성완료' },
-                  { value: 'progressing', label: '작성중' },
+                  { value: 'all', label: t('profile.filters.all') },
+                  {
+                    value: 'completed',
+                    label: t('profile.resume.completed'),
+                  },
+                  {
+                    value: 'progressing',
+                    label: t('profile.resume.inProgress'),
+                  },
                 ]}
                 defaultValue='all'
                 name='status'
               />
               <Select
                 options={[
-                  { value: 'newest', label: '최신순' },
-                  { value: 'oldest', label: '오래된순' },
+                  { value: 'newest', label: t('profile.filters.newest') },
+                  { value: 'oldest', label: t('profile.filters.oldest') },
                 ]}
                 defaultValue='newest'
                 name='sort'

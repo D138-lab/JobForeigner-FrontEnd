@@ -9,6 +9,7 @@ import { ParseErrorMsg } from '@/lib/utils/parse';
 import styles from './page.module.scss';
 import { useAuth } from '@/lib/hooks/auth/useAuth';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const defaultValues = {
   email: '',
@@ -16,6 +17,7 @@ const defaultValues = {
 };
 
 export default function LoginPage() {
+  const { t } = useTranslation('pages');
   const navigate = useNavigate();
   const formState = useForm({
     defaultValues,
@@ -48,9 +50,9 @@ export default function LoginPage() {
     <div className={styles.page}>
       <div className={styles.container}>
         <img src='/logo.png' alt='logo' className={styles.logoImg} />
-        <h2>로그인</h2>
+        <h2>{t('auth.login.title')}</h2>
         <p>
-          아직 계정이 없으신가요? <Link to='/register'>회원가입</Link>
+          {t('auth.login.noAccount')} <Link to='/register'>{t('auth.login.signUp')}</Link>
         </p>
         <Card>
           <FormProvider {...formState}>

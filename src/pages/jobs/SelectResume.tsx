@@ -5,8 +5,10 @@ import styles from './selectResume.module.scss';
 import useGetResumeList from '@/lib/apis/queries/useGetResumeList';
 import usePostApplyRecruit from '@/lib/apis/mutations/usePostApplyRecruit';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const SelectResume = () => {
+  const { t } = useTranslation('pages');
   const { data, isPending, isError, error } = useGetResumeList();
   const { mutate } = usePostApplyRecruit();
   const locate = useLocation();
@@ -14,7 +16,7 @@ const SelectResume = () => {
   const navigator = useNavigate();
   const jobPostId = locate.state.recruitId;
 
-  if (isPending) return <div>요청 중</div>;
+  if (isPending) return <div>{t('jobsSelectResume.pending')}</div>;
   if (isError) return <div>{error.message}</div>;
   console.log('이력서 : ', data);
 
@@ -29,8 +31,8 @@ const SelectResume = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>이력서 선택</div>
-      <div className={styles.subtitle}>지원할 이력서를 선택해주세요.</div>
+      <div className={styles.title}>{t('jobsSelectResume.title')}</div>
+      <div className={styles.subtitle}>{t('jobsSelectResume.subtitle')}</div>
       <div className={styles.resumeLists}>
         {data.data!.content.map(resume => (
           <ResumeBox
@@ -43,10 +45,10 @@ const SelectResume = () => {
       </div>
       <div className={styles.btnContainer}>
         <div className={styles.createResumeBtn}>
-          <Link to='/create-resume'>새 이력서 작성하기</Link>
+          <Link to='/create-resume'>{t('jobsSelectResume.createResume')}</Link>
         </div>
         <div className={styles.apply} onClick={() => handleApply(selected)}>
-          지원하기
+          {t('jobsSelectResume.apply')}
         </div>
       </div>
     </div>

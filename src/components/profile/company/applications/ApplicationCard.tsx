@@ -14,8 +14,9 @@ import styles from './applicationCard.module.scss';
 import Button from '@/components/common/button/Button';
 import { Link } from 'react-router-dom';
 import { CompanyApplicationCard } from '@/lib/type/company/company';
+import { useTranslation } from 'react-i18next';
 
-const StatusTag = (status: string) => {
+const StatusTag = (status: string, t: (key: string) => string) => {
   const getIcon = (status: string) => {
     if (status === 'reviewing') {
       return <Clock />;
@@ -34,16 +35,16 @@ const StatusTag = (status: string) => {
 
   const parseStatus = (status: string) => {
     if (status === 'reviewing') {
-      return '검토중';
+      return t('profile.companyApplications.status.reviewing');
     }
     if (status === 'interview') {
-      return '면접 예정';
+      return t('profile.companyApplications.status.interview');
     }
     if (status === 'rejected') {
-      return '불합격';
+      return t('profile.companyApplications.status.rejected');
     }
     if (status === 'accepted') {
-      return '합격';
+      return t('profile.companyApplications.status.accepted');
     }
     return status;
   };
@@ -83,12 +84,13 @@ interface Props {
 }
 
 export default function ApplicationCard({ application }: Props) {
+  const { t } = useTranslation('pages');
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>
           <div className={styles.recruitmentTitle}>
-            <span>채용 공고</span>
+            <span>{t('profile.component.applicationCard.recruitment')}</span>
             <h3>{application.jobTitle}</h3>
           </div>
           <div className={styles.subTitle}>
@@ -102,16 +104,20 @@ export default function ApplicationCard({ application }: Props) {
             </span>
             <span>
               <Calendar />
-              마감일:&nbsp;{application.jobInfo.expiresAt}
+              {t('profile.component.recruitmentCard.expiresAt', {
+                date: application.jobInfo.expiresAt,
+              })}
             </span>
           </div>
         </div>
         <div className={styles.headerActions}>
           {/**
-           * TODO: 링크 추가
+           * TODO: add link target.
            */}
           <Link to={`./applications/${application.id}`}>
-            <Button variant='outline'>공고 보기</Button>
+            <Button variant='outline'>
+              {t('profile.component.recruitmentCard.viewPost')}
+            </Button>
           </Link>
         </div>
       </div>
@@ -120,20 +126,25 @@ export default function ApplicationCard({ application }: Props) {
           <div className={styles.imageWrapper}>
             <img
               src={application.applicant.photo}
-              alt={`${application.applicant.name}의 프로필`}
+              alt={t('profile.component.applicationCard.profileAlt', {
+                name: application.applicant.name,
+              })}
             />
           </div>
         </div>
         <div className={styles.profileInfo}>
           <div className={styles.name}>
             {application.applicant.name}
-            {StatusTag(application.status)}
+            {StatusTag(application.status, t)}
           </div>
           <div className={styles.resume}>{application.resumeTitle}</div>
           <div className={styles.applicationInfo}>
             <span>
               <Calendar />
-              &nbsp;지원일: {application.appliedAt}
+              &nbsp;
+              {t('profile.component.common.appliedAt', {
+                date: application.appliedAt,
+              })}
             </span>
             <span>
               <Mail />
@@ -149,13 +160,13 @@ export default function ApplicationCard({ application }: Props) {
       <div className={styles.actions}>
         <Button variant='outline'>
           <span>
-            <Download /> 이력서 다운로드
+            <Download /> {t('profile.component.applicationCard.downloadResume')}
           </span>
         </Button>
         <Link to={`./application/${application.id}`}>
           <Button>
             <span>
-              <Eye /> 상세보기
+              <Eye /> {t('profile.component.common.detail')}
             </span>
           </Button>
         </Link>

@@ -1,0 +1,700 @@
+{
+  "communityDetail": {
+    "backToCommunity": "Quay lại cộng đồng",
+    "loadingPost": "Đang tải chi tiết bài viết.",
+    "loadPostFail": "Không thể tải bài viết."
+  },
+  "communityWrite": {
+    "postTypes": {
+      "GENERAL": "Bài viết chung",
+      "MARKET": "Chợ đồ cũ",
+      "POLICY": "Tổng hợp chính sách"
+    },
+    "generalCategories": {
+      "NOTICE": "Thông báo",
+      "FREE": "Tự do",
+      "QNA": "Hỏi & Đáp",
+      "INFO": "Chia sẻ thông tin"
+    },
+    "alerts": {
+      "titleRequired": "Vui lòng nhập tiêu đề.",
+      "contentRequired": "Vui lòng nhập nội dung.",
+      "generalCategoryRequired": "Vui lòng chọn danh mục bài viết chung.",
+      "noticeAdminOnly": "Người dùng thường không thể chọn Thông báo.",
+      "createSuccess": "Đã đăng bài viết.",
+      "createFail": "Đăng bài viết thất bại. Vui lòng thử lại.",
+      "imageIdMissing": "Không tìm thấy ID tệp trong phản hồi xác nhận tải ảnh.",
+      "imageUploadFail": "Tải ảnh thất bại. Vui lòng thử lại."
+    },
+    "confirmLeave": "Nội dung đang viết sẽ không được lưu.\nBạn có muốn hủy không?",
+    "labels": {
+      "back": "Quay lại",
+      "postType": "Loại bài viết",
+      "generalCategory": "Danh mục bài viết chung",
+      "title": "Tiêu đề"
+    },
+    "placeholder": {
+      "title": "Nhập tiêu đề."
+    },
+    "tagHelper": "Nhập thẻ liên quan đến bài viết. Có thể nhập tối đa 5 thẻ.",
+    "buttons": {
+      "cancel": "Hủy",
+      "submit": "Đăng",
+      "submitting": "Đang đăng..."
+    }
+  },
+  "communityEdit": {
+    "categoryLabel": {
+      "GENERAL": "Bài viết chung",
+      "MARKET": "Chợ đồ cũ",
+      "POLICY": "Tổng hợp chính sách"
+    },
+    "alerts": {
+      "noPermission": "Bạn không có quyền chỉnh sửa bài viết này.",
+      "titleRequired": "Vui lòng nhập tiêu đề.",
+      "contentRequired": "Vui lòng nhập nội dung.",
+      "imageNotSupported": "Chưa hỗ trợ cập nhật ảnh, bài sẽ được lưu không kèm ảnh.",
+      "updateSuccess": "Bài viết đã được cập nhật.",
+      "updateFail": "Cập nhật bài viết thất bại. Vui lòng thử lại."
+    },
+    "confirmLeave": "Nội dung chỉnh sửa sẽ không được lưu.\nBạn có muốn hủy không?",
+    "state": {
+      "loadingPost": "Đang tải chi tiết bài viết.",
+      "checkingPermission": "Đang kiểm tra quyền.",
+      "loadFail": "Không thể tải thông tin bài viết."
+    },
+    "labels": {
+      "back": "Quay lại",
+      "postType": "Loại bài viết",
+      "title": "Tiêu đề"
+    },
+    "placeholder": {
+      "title": "Nhập tiêu đề."
+    },
+    "tagHelper": "Nhập thẻ liên quan đến bài viết. Có thể nhập tối đa 5 thẻ.",
+    "buttons": {
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saving": "Đang lưu..."
+    }
+  },
+  "nearbyPlaces": {
+    "categories": {
+      "HALAL_RESTAURANT": "Halal Restaurant",
+      "ETHNIC_RESTAURANT": "Ethnic Restaurant",
+      "ETHNIC_MART": "Ethnic Market",
+      "RELIGIOUS_FACILITY": "Religious Facility",
+      "COMMUNITY_CENTER": "Foreigner Support Center",
+      "MONEY_TRANSFER": "Money Transfer/Exchange",
+      "OTHER": "Other"
+    },
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This place is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "searchFail": "Failed to search places. Please try again later."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from favorites.",
+      "favoriteAdded": "Added to favorites."
+    },
+    "searchPlaceholder": "Search by place name or address",
+    "searchButton": "Search",
+    "pinAria": "{{name}} location",
+    "controls": {
+      "moveCurrent": "Move to current location",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    },
+    "listTitle": "Place List",
+    "favoriteCount": "Favorites {{count}}",
+    "loadingPlaces": "Loading places.",
+    "detailNoSubCategory": "No detailed category info",
+    "favoriteUnset": "Remove favorite",
+    "favoriteSet": "Add favorite",
+    "tipCount": "Tips {{count}}",
+    "favoriteAria": "Add place favorite",
+    "emptyMatched": "No places match the conditions.",
+    "distancePending": "Distance pending"
+  },
+  "nearbyPlaceDetail": {
+    "tipType": {
+      "POSITIVE": "Positive",
+      "NEUTRAL": "Neutral",
+      "WARNING": "Warning"
+    },
+    "errors": {
+      "tipAlreadyExists": "This tip already exists.",
+      "invalidRequest": "Invalid request data. Please check your input.",
+      "memberNotFound": "Member not found.",
+      "tipPostFail": "An error occurred while posting tip.",
+      "deleteDenied": "You do not have permission to delete this tip.",
+      "tipNotFound": "Tip not found.",
+      "tipDeleteFail": "An error occurred while deleting tip.",
+      "likeForeignerOnly": "Only foreign members can like tips.",
+      "likeFail": "An error occurred while processing like.",
+      "reportForeignerOnly": "Only foreign members can report tips.",
+      "reportFail": "An error occurred while reporting.",
+      "foreignerOnlyAccess": "Only foreign members can view and write tips.",
+      "foreignerOnlyView": "Only foreign members can view tips.",
+      "tipsLoadFail": "Failed to load tips."
+    },
+    "messages": {
+      "tipContentRequired": "Please enter tip content.",
+      "tipCreated": "Tip has been created.",
+      "tipDeleted": "Tip has been deleted.",
+      "tipReported": "Report has been submitted.",
+      "deleteConfirm": "Do you want to delete this tip?",
+      "reportConfirm": "Do you want to report this tip?"
+    },
+    "state": {
+      "loadingDetail": "Loading place details.",
+      "loadDetailFail": "Failed to load place details."
+    },
+    "backToList": "Back to list",
+    "verified": "Verified",
+    "descriptionEmpty": "No description available.",
+    "phoneEmpty": "No phone number",
+    "hoursEmpty": "No operating hours",
+    "summaryTitle": "Tip Summary",
+    "summary": {
+      "total": "Total",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "warning": "Warning"
+    },
+    "tipsTitle": "User Tips",
+    "tipPlaceholder": "Write a helpful tip for this place.",
+    "tipTypeLabel": "Type",
+    "anonymous": "Post anonymously",
+    "tipCreate": "Post Tip",
+    "tipCreating": "Posting...",
+    "tipMenuAria": "Tip menu",
+    "tipDelete": "Delete",
+    "tipReport": "Report",
+    "tipsLoading": "Loading tips.",
+    "tipsEmpty": "No tips have been posted."
+  },
+  "nearbyCompanies": {
+    "errors": {
+      "invalidRequest": "Invalid request data.",
+      "memberNotFound": "Member not found.",
+      "favoriteAlreadyExists": "This region is already in favorites.",
+      "favoriteNotFound": "Favorite not found.",
+      "favoriteAddFail": "An error occurred while adding favorite.",
+      "favoriteDeleteFail": "An error occurred while deleting favorite.",
+      "notificationToggleFail": "An error occurred while updating notification settings."
+    },
+    "messages": {
+      "favoriteRemoved": "Removed from region favorites.",
+      "favoriteAdded": "Added to region favorites.",
+      "notificationUpdated": "Region new-post notification setting has been changed."
+    },
+    "statsTitle": "Nearby job posts by region",
+    "favoriteCount": "Favorites {{count}}",
+    "favoriteAria": "Add region favorite",
+    "notificationOn": "Notify ON",
+    "notificationOff": "Notify OFF",
+    "distancePending": "Distance pending",
+    "postCount": "{{count}} posts",
+    "regionPostsTitle": "{{regionName}} job posts",
+    "regionPostsTitleFallback": "Job posts",
+    "loadingPosts": "Loading job posts.",
+    "emptyPosts": "No job posts available."
+  },
+  "jobs": {
+    "loading": "Đang tải...",
+    "loadingShort": "Đang tải",
+    "empty": "Không có tin tuyển dụng.",
+    "error": "Đã xảy ra lỗi"
+  },
+  "jobsApply": {
+    "successTitle": "Nộp thành công!",
+    "successSub": "Chúc bạn may mắn.",
+    "failedTitle": "Nộp thất bại!",
+    "failedSub": "Vui lòng thử lại sau.",
+    "goMain": "Về trang chủ"
+  },
+  "jobsSelectResume": {
+    "pending": "Đang gửi yêu cầu",
+    "title": "Chọn CV",
+    "subtitle": "Vui lòng chọn CV để ứng tuyển.",
+    "createResume": "Tạo CV mới",
+    "apply": "Ứng tuyển"
+  },
+  "companies": {
+    "loading": "Đang tải...",
+    "empty": "Không có tin tuyển dụng.",
+    "detail": {
+      "notFound": "Không tìm thấy thông tin công ty.",
+      "loading": "Đang tải...",
+      "loadError": "Đã xảy ra lỗi khi tải thông tin công ty.",
+      "tabs": {
+        "info": "Thông tin công ty",
+        "recruit": "Tuyển dụng",
+        "salary": "Lương",
+        "rating": "Đánh giá",
+        "review": "Nhận xét"
+      }
+    },
+    "info": {
+      "sectionTitle": "Thông tin công ty",
+      "type": "Loại hình công ty",
+      "employee": "Số nhân viên",
+      "address": "Địa chỉ",
+      "homepage": "Trang chủ",
+      "intro": "Giới thiệu",
+      "benefits": "Phúc lợi"
+    },
+    "recruit": {
+      "empty": "Không có dữ liệu."
+    },
+    "rating": {
+      "title": "Thông tin điểm đánh giá chi tiết",
+      "level": {
+        "high": "Trên trung bình",
+        "mid": "Trung bình",
+        "low": "Dưới trung bình"
+      },
+      "subjects": {
+        "welfare": "Phúc lợi/Văn hóa",
+        "salary": "Mức lương",
+        "workLife": "Cân bằng công việc-cuộc sống",
+        "culture": "Văn hóa công ty",
+        "stability": "Ổn định việc làm"
+      },
+      "descriptions": {
+        "welfare": "Phúc lợi và văn hóa ở mức {{level}}.",
+        "salary": "Mức lương được chi trả ở mức {{level}}.",
+        "workLife": "Cân bằng công việc-cuộc sống ở mức {{level}}.",
+        "culture": "Văn hóa công ty ở mức {{level}}, đề cao hợp tác và giao tiếp.",
+        "stability": "Độ ổn định việc làm ở mức {{level}}, đảm bảo sự ổn định cho nhân viên."
+      }
+    },
+    "review": {
+      "title": "Đánh giá trung bình"
+    },
+    "salary": {
+      "total": "Lương năm",
+      "monthly": "Lương thực nhận hàng tháng",
+      "unitManwon": "10 nghìn KRW",
+      "unitWon": "KRW"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account yet?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "step": "Step {{current}} / {{total}}"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "desc": "Email verification is required to complete sign-up.",
+      "enterCode": "Enter verification code",
+      "email": "Email: {{email}}",
+      "codeGuide": "Please enter the 6-digit code sent to the email above.",
+      "resendQuestion": "Didn't receive the verification code?",
+      "resend": "Resend verification code",
+      "verifying": "Verifying...",
+      "verify": "Verify",
+      "spamGuide": "If you didn't receive the email, please check your spam folder."
+    }
+  },
+  "profile": {
+    "common": {
+      "goBack": "Quay lại",
+      "basicInfo": "Thông tin cơ bản"
+    },
+    "filters": {
+      "all": "Tất cả",
+      "newest": "Mới nhất",
+      "oldest": "Cũ nhất"
+    },
+    "main": {
+      "title": "Hồ sơ",
+      "myResume": "CV của tôi",
+      "applications": "Đơn ứng tuyển",
+      "more": "Xem thêm",
+      "loading": "Đang tải..."
+    },
+    "resume": {
+      "title": "CV của tôi",
+      "description": "Quản lý CV và tạo CV mới.",
+      "create": "Tạo CV",
+      "searchPlaceholder": "Tìm theo tiêu đề CV",
+      "completed": "Hoàn thành",
+      "inProgress": "Đang soạn",
+      "emptyTitle": "Không có CV",
+      "emptyDescription": "Hãy tạo CV đầu tiên của bạn.",
+      "resumeFallback": "CV"
+    },
+    "applications": {
+      "title": "Đơn ứng tuyển",
+      "description": "Xem các việc đã ứng tuyển và trạng thái.",
+      "searchPlaceholder": "Tìm theo tiêu đề CV",
+      "statusSummary": {
+        "all": "Tất cả đơn",
+        "reviewing": "Đang xem xét",
+        "interview": "Đã lên lịch phỏng vấn",
+        "done": "Hoàn tất"
+      }
+    },
+    "edit": {
+      "title": "Chỉnh sửa hồ sơ",
+      "description": "Bạn có thể chỉnh sửa thông tin hồ sơ cơ bản.",
+      "alertUpdated": "Thông tin hồ sơ đã được cập nhật."
+    },
+    "company": {
+      "title": "Thông tin doanh nghiệp",
+      "description": "Bạn có thể xem thông tin doanh nghiệp cơ bản.",
+      "edit": "Chỉnh sửa thông tin",
+      "registeredRecruitments": "Tin tuyển dụng đã đăng",
+      "activeRecruitments": "Đang tuyển"
+    },
+    "companyEdit": {
+      "title": "Chỉnh sửa thông tin doanh nghiệp",
+      "description": "Bạn có thể chỉnh sửa thông tin doanh nghiệp cơ bản."
+    },
+    "companyRecruitment": {
+      "title": "Quản lý tuyển dụng",
+      "description": "Quản lý các tin tuyển dụng đã đăng và tạo tin mới.",
+      "create": "Tạo tin tuyển dụng",
+      "searchPlaceholder": "Tìm tiêu đề hồ sơ ứng tuyển",
+      "emptyTitle": "Chưa có tin tuyển dụng",
+      "emptyDescription": "Hãy tạo tin tuyển dụng mới.",
+      "status": {
+        "all": "Tất cả tin",
+        "active": "Đang tuyển",
+        "expired": "Đã đóng",
+        "applicants": "Ứng viên"
+      }
+    },
+    "companyApplications": {
+      "title": "Quản lý hồ sơ ứng tuyển",
+      "description": "Xem và quản lý hồ sơ ứng tuyển cho các tin tuyển dụng của bạn.",
+      "searchPlaceholder": "Tìm tiêu đề hồ sơ ứng tuyển",
+      "emptyTitle": "Không có hồ sơ ứng tuyển",
+      "status": {
+        "all": "Tất cả đơn",
+        "reviewing": "Đang xem xét",
+        "interview": "Phỏng vấn",
+        "done": "Hoàn tất",
+        "accepted": "Đạt",
+        "rejected": "Không đạt"
+      }
+    },
+    "bookmark": {
+      "title": "Đánh dấu",
+      "description": "Quản lý doanh nghiệp yêu thích và tin tuyển dụng đã lưu.",
+      "companies": {
+        "searchPlaceholder": "Tìm theo tên doanh nghiệp hoặc ngành",
+        "emptyTitle": "Không có doanh nghiệp yêu thích",
+        "emptyDescription": "Nhấn biểu tượng sao ở trang doanh nghiệp để thêm yêu thích.",
+        "browse": "Xem doanh nghiệp"
+      },
+      "jobs": {
+        "searchPlaceholder": "Tìm theo tiêu đề công việc hoặc doanh nghiệp",
+        "emptyTitle": "Không có tin đã lưu",
+        "emptyDescription": "Nhấn biểu tượng lưu ở tin tuyển dụng để lưu lại.",
+        "browse": "Xem việc làm",
+        "status": {
+          "active": "Đang tuyển",
+          "expired": "Đã đóng"
+        }
+      }
+    },
+    "resumeCreate": {
+      "title": "Tạo CV mới",
+      "requiredGuide": "* là trường bắt buộc"
+    },
+    "resumeEdit": {
+      "title": "Chỉnh sửa CV",
+      "requiredGuide": "* là trường bắt buộc"
+    },
+    "resumePreview": {
+      "newResume": "CV mới",
+      "portfolio": "Hồ sơ năng lực",
+      "pdfDownloaded": "Đã tải xuống PDF.",
+      "print": "In",
+      "downloading": "Đang tải xuống...",
+      "downloadPdf": "Tải PDF",
+      "updatedAt": "Cập nhật lần cuối: {{date}}",
+      "unitManwon": "10 nghìn KRW",
+      "fields": {
+        "name": "Tên",
+        "email": "Email",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "employmentType": "Loại hình làm việc",
+        "desiredSalary": "Mức lương mong muốn",
+        "desiredLocation": "Khu vực mong muốn"
+      },
+      "sections": {
+        "basicInfo": "Thông tin cơ bản",
+        "desiredJobs": "Ngành nghề mong muốn",
+        "skills": "Kỹ năng",
+        "preference": "Điều kiện làm việc mong muốn",
+        "education": "Học vấn",
+        "experience": "Kinh nghiệm",
+        "certificates": "Chứng chỉ",
+        "awards": "Hoạt động & Giải thưởng",
+        "expats": "Kinh nghiệm nước ngoài",
+        "languages": "Ngôn ngữ",
+        "attachments": "Tệp đính kèm & Liên kết",
+        "files": "Tệp",
+        "links": "Liên kết"
+      },
+      "empty": {
+        "desiredJobs": "Chưa có ngành nghề mong muốn.",
+        "skills": "Chưa có kỹ năng.",
+        "preference": "Chưa có điều kiện làm việc mong muốn.",
+        "education": "Chưa có thông tin học vấn.",
+        "experience": "Chưa có kinh nghiệm.",
+        "certificates": "Chưa có chứng chỉ.",
+        "awards": "Chưa có giải thưởng.",
+        "expats": "Chưa có kinh nghiệm nước ngoài.",
+        "languages": "Chưa có thông tin ngôn ngữ."
+      }
+    },
+    "component": {
+      "common": {
+        "appliedAt": "Ngày ứng tuyển: {{date}}",
+        "detail": "Xem chi tiết",
+        "preview": "Xem trước",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "deleteConfirm": "Bạn có chắc muốn xóa không?",
+        "add": "Thêm",
+        "viewPostDetail": "View Job Details",
+        "share": "Chia sẻ"
+      },
+      "resumeList": {
+        "count": "{{count}} resumes in total"
+      },
+      "applicationHistory": {
+        "count": "{{count}} applications in total"
+      },
+      "profileBottom": {
+        "applied": "Applied",
+        "favoriteCompanies": "Favorite Companies"
+      },
+      "applicationInfo": {
+        "hired": "Hired",
+        "cancel": "Cancel Application"
+      },
+      "bookmarkTabs": {
+        "companies": "Favorite Companies",
+        "jobs": "Lưud Jobs"
+      },
+      "companyInfo": {
+        "ceo": "CEO",
+        "businessNumber": "Mã số doanh nghiệp",
+        "foundedYear": "Năm thành lập",
+        "foundedYearValue": "{{year}}",
+        "employeeCount": "Nhân viên",
+        "contact": "Liên hệ",
+        "website": "Website",
+        "intro": "Giới thiệu doanh nghiệp"
+      },
+      "recruitmentCard": {
+        "createdAt": "Ngày đăng: {{date}}",
+        "expiresAt": "Hạn: {{date}}",
+        "applicants": "Ứng viên: {{count}}",
+        "views": "Lượt xem: {{count}}",
+        "viewPost": "Xem bài đăng",
+        "viewApplicants": "Xem ứng viên ({{count}})"
+      },
+      "applicationCard": {
+        "recruitment": "Tuyển dụng",
+        "profileAlt": "{{name}}'s profile",
+        "downloadResume": "Tải CV"
+      },
+      "likedCompanyCard": {
+        "hiring": "Hiring {{count}}",
+        "companyInfo": "Thông tin doanh nghiệp",
+        "recruitments": "Tuyển dụngs ({{count}})",
+        "notificationOff": "Turn off notifications",
+        "notificationOn": "Turn on notifications",
+        "goCompanyPage": "Đi tới trang doanh nghiệp",
+        "delete": "Xóa khỏi yêu thích"
+      },
+      "scrapedRecruitmentCard": {
+        "closingIn": "Closes in {{days}} days",
+        "goPostPage": "Đi tới trang bài đăng",
+        "deleteScrap": "Remove saved job"
+      },
+      "form": {
+        "imageGuide": "Recommended: 400x400 px, up to 2MB",
+        "detailAddress": "Detailed Thêmress",
+        "zipcode": "Mã bưu chính",
+        "save": "Lưu"
+      },
+      "companyEditForm": {
+        "company": "Company Name",
+        "introPlaceholder": "Write a short introduction about the company.",
+        "industry": {
+          "label": "Industry",
+          "it": "IT/Software",
+          "service": "Service",
+          "manufacturing": "Manufacturing/Production",
+          "education": "Education",
+          "office": "Office/Administration",
+          "sales": "Sales/Marketing",
+          "design": "Design",
+          "others": "Others"
+        }
+      },
+      "basicInfo": {
+        "uploadPhoto": "Tải ảnh lên"
+      },
+      "jobInfo": {
+        "placeholder": "Enter desired job"
+      },
+      "skillsInfo": {
+        "placeholder": "Enter your skills"
+      },
+      "jobPreference": {
+        "fullTime": "Toàn thời gian",
+        "contract": "Hợp đồng",
+        "intern": "Thực tập",
+        "any": "Không yêu cầu",
+        "desiredSalaryLabel": "Desired Salary (10k KRW)",
+        "desiredLocationExample": "e.g., Gangnam-gu, Seoul"
+      },
+      "education": {
+        "add": "Thêm Education",
+        "append": "Please add education information",
+        "school": "School",
+        "schoolPlaceholder": "Enter school name",
+        "major": "Major",
+        "majorPlaceholder": "Enter major",
+        "year": "Graduation Date",
+        "yearExample": "e.g., 2025-02-28",
+        "etc": "Etc.",
+        "etcPlaceholder": "Thêmitional info such as GPA or activities",
+        "degree": {
+          "label": "Degree",
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctor": "Doctorate"
+        },
+        "status": {
+          "label": "Graduation Status",
+          "graduated": "Graduated",
+          "completed": "Completed",
+          "studying": "Enrolled"
+        }
+      },
+      "employment": {
+        "add": "Thêm Experience",
+        "append": "Please add employment information",
+        "company": "Company",
+        "companyPlaceholder": "Enter company name",
+        "department": "Department",
+        "departmentPlaceholder": "Enter department name",
+        "jobTitle": "Position",
+        "jobTitlePlaceholder": "Enter position",
+        "startDate": "Ngày bắt đầu",
+        "endDate": "Ngày kết thúc",
+        "achievement": "Key Achievements",
+        "achievementPlaceholder": "Enter key achievements"
+      },
+      "awards": {
+        "add": "Thêm Activity/Award",
+        "append": "Please add activity/award information",
+        "name": "Activity/Award Name",
+        "namePlaceholder": "Enter activity or award name",
+        "organization": "Organizer",
+        "organizationPlaceholder": "Enter organizer",
+        "date": "Date",
+        "dateExample": "e.g., 2020.05",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your activity or award details"
+      },
+      "certificates": {
+        "add": "Thêm Certificate",
+        "append": "Please add certificate information",
+        "name": "Certificate Name",
+        "namePlaceholder": "Enter certificate name",
+        "organization": "Issuing Organization",
+        "organizationPlaceholder": "Enter issuing organization",
+        "date": "Acquisition Date",
+        "dateExample": "e.g., 2022.05"
+      },
+      "expat": {
+        "add": "Thêm Overseas Experience",
+        "append": "Please add overseas experience information",
+        "country": "Country",
+        "countryPlaceholder": "Enter country name",
+        "experience": "Experience",
+        "experiencePlaceholder": "Enter experience details"
+      },
+      "language": {
+        "add": "Thêm Language",
+        "append": "Please add language proficiency",
+        "languagePlaceholder": "Enter language name",
+        "proficiency": "Proficiency",
+        "basic": "Basic",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced",
+        "fluent": "Fluent"
+      },
+      "link": {
+        "add": "Thêm Link",
+        "append": "Thêm links such as portfolio, blog, or GitHub",
+        "titlePlaceholder": "e.g., Portfolio, Blog, GitHub"
+      },
+      "bottomActions": {
+        "progress": "Tiến độ hoàn thành",
+        "tempSave": "Lưu Draft"
+      },
+      "address": {
+        "sido": "Tỉnh/Thành phố",
+        "sigungu": "Quận/Huyện",
+        "sidoOptions": {
+          "seoul": "Seoul",
+          "busan": "Busan",
+          "daegu": "Daegu",
+          "incheon": "Incheon",
+          "gwangju": "Gwangju",
+          "daejeon": "Daejeon",
+          "ulsan": "Ulsan"
+        },
+        "sigunguOptions": {
+          "gangnam": "Gangnam-gu",
+          "gangbuk": "Gangbuk-gu",
+          "gangdong": "Gangdong-gu",
+          "gangseo": "Gangseo-gu",
+          "mapo": "Mapo-gu",
+          "seodaemun": "Seodaemun-gu"
+        }
+      },
+      "files": {
+        "dropActive": "Drop files here to upload",
+        "dropIdle": "Drag files or click to upload",
+        "formatGuide": "PDF, DOCX, JPG, PNG (up to 100MB)",
+        "select": "Chọn tệp",
+        "uploaded": "Tệp đã tải lên"
+      },
+      "introduction": {
+        "title": "Giới thiệu",
+        "placeholder": "Freely describe your strengths, experience, and goals."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found.",
+    "desc": "The page you requested does not exist, has moved, or is temporarily unavailable.",
+    "goBack": "Go back",
+    "goHome": "Back to home"
+  }
+}

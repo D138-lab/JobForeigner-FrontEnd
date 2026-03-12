@@ -11,6 +11,30 @@ const options = [
     label: 'English',
     value: 'en',
   },
+  {
+    label: 'Tiếng Việt',
+    value: 'vi',
+  },
+  {
+    label: '中文',
+    value: 'zh',
+  },
+  {
+    label: 'ไทย',
+    value: 'th',
+  },
+  {
+    label: 'Oʻzbekcha',
+    value: 'uz',
+  },
+  {
+    label: 'Bahasa Indonesia',
+    value: 'id',
+  },
+  {
+    label: 'नेपाली',
+    value: 'ne',
+  },
 ];
 
 const LanguageSwitcher = ({
@@ -19,6 +43,7 @@ const LanguageSwitcher = ({
   setIsShow: Dispatch<SetStateAction<boolean>>;
 }) => {
   const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
 
   const handleChange = (value: string) => {
     i18n.changeLanguage(value);
@@ -28,13 +53,16 @@ const LanguageSwitcher = ({
   return (
     <div className={styles.wrapper}>
       {options.map((option: { label: string; value: string }) => (
-        <div
+        <button
+          type='button'
           key={option.value}
-          className={styles.item}
+          className={`${styles.item} ${
+            currentLanguage.startsWith(option.value) ? styles.active : ''
+          }`}
           onClick={() => handleChange(option.value)}
         >
           {option.label}
-        </div>
+        </button>
       ))}
     </div>
   );

@@ -7,6 +7,7 @@ import LikedCompanyCard from '@/components/profile/bookmark/liked-companies/Like
 import BookmarkTabs from '@/components/profile/bookmark/BookmarkTab';
 import Input from '@/components/common/input/Input';
 import Select from '@/components/common/select/Select';
+import { useTranslation } from 'react-i18next';
 
 const bookmarkedCompanies: Company[] = [
   {
@@ -67,6 +68,7 @@ const bookmarkedCompanies: Company[] = [
 ];
 
 export default function BookmarkedCompaniesPage() {
+  const { t } = useTranslation('pages');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [sortOrder] = useState<'newest' | 'oldest'>('newest');
 
@@ -96,9 +98,9 @@ export default function BookmarkedCompaniesPage() {
     <div className={styles.container}>
       <main className={styles.page}>
         <div>
-          <h1 className={styles.pageTitle}>북마크</h1>
+          <h1 className={styles.pageTitle}>{t('profile.bookmark.title')}</h1>
           <p className={styles.pageDescription}>
-            관심 기업과 스크랩한 채용 공고를 관리할 수 있습니다.
+            {t('profile.bookmark.description')}
           </p>
         </div>
         <BookmarkTabs />
@@ -106,15 +108,15 @@ export default function BookmarkedCompaniesPage() {
           <div className={styles.searchWrapper}>
             <Input
               icon='search'
-              placeholder='기업명 또는 업종 검색'
+              placeholder={t('profile.bookmark.companies.searchPlaceholder')}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
           <Select
             options={[
-              { value: 'newest', label: '최신순' },
-              { value: 'oldest', label: '오래된순' },
+              { value: 'newest', label: t('profile.filters.newest') },
+              { value: 'oldest', label: t('profile.filters.oldest') },
             ]}
             defaultValue='newest'
           />
@@ -133,13 +135,14 @@ export default function BookmarkedCompaniesPage() {
           ) : (
             <div className={styles.emptyState}>
               <Star className={styles.emptyIcon} />
-              <h3>관심 기업이 없습니다</h3>
+              <h3>{t('profile.bookmark.companies.emptyTitle')}</h3>
               <p>
-                기업 페이지에서 별표 아이콘을 클릭하여 관심 기업으로
-                등록해보세요.
+                {t('profile.bookmark.companies.emptyDescription')}
               </p>
               <Link to='/companies'>
-                <button className={styles.browseButton}>기업 둘러보기</button>
+                <button className={styles.browseButton}>
+                  {t('profile.bookmark.companies.browse')}
+                </button>
               </Link>
             </div>
           )}
