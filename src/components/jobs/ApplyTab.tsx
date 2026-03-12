@@ -1,3 +1,4 @@
+import { Clock3 } from 'lucide-react';
 import styles from './applyTab.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,7 +34,7 @@ const ApplyTab = ({ recruitId, expiryAt }: ApplyProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.deadline}>
-        <div className={styles.duedate}>D-{dDay}</div>
+        {dDay >= 0 ? <div className={styles.duedate}>D-{dDay}</div> : null}
         <div className={styles.text}>
           <div>{getTitle()}</div>
           <div>{getSubtitle()}</div>
@@ -41,6 +42,7 @@ const ApplyTab = ({ recruitId, expiryAt }: ApplyProps) => {
       </div>
       {dDay >= 0 && (
         <div className={styles.applyBtn} onClick={handleApply}>
+          <Clock3 size={16} />
           지원하기
         </div>
       )}

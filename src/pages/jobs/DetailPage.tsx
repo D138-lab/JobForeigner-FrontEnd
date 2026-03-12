@@ -15,7 +15,6 @@ const DetailPage = () => {
   const id = location.state.id;
   const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
   const { mutate } = usePostRecentJobs();
-  console.log(data);
 
   useEffect(() => {
     mutate(id);
@@ -30,21 +29,35 @@ const DetailPage = () => {
 
   return (
     <div className={styles.container}>
-      <DetailInfoBox
-        {...data!.data}
-        expiryAt={data!.data.expiryAt.toLocaleString()}
-      />
-      <AdvertiseRecruitBox />
-      <div
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data!.data.description),
-        }}
-      ></div>
-      <ApplyTab
-        key={data?.data.id}
-        recruitId={data?.data.id!}
-        expiryAt={data?.data.expiryAt!}
-      />
+      <div className={styles.pageShell}>
+        <DetailInfoBox
+          {...data!.data}
+          expiryAt={data!.data.expiryAt.toLocaleString()}
+        />
+
+        <div className={styles.contentGrid}>
+          <section className={styles.descriptionSection}>
+            <div className={styles.sectionEyebrow}>Job Overview</div>
+            <h2 className={styles.sectionTitle}>{data!.data.title}</h2>
+            <div
+              className={styles.descriptionContent}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data!.data.description),
+              }}
+            />
+          </section>
+
+          <aside className={styles.sideColumn}>
+            <AdvertiseRecruitBox />
+          </aside>
+        </div>
+
+        <ApplyTab
+          key={data?.data.id}
+          recruitId={data?.data.id!}
+          expiryAt={data?.data.expiryAt!}
+        />
+      </div>
     </div>
   );
 };

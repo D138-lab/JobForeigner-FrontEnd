@@ -14,12 +14,12 @@ const ScrapButton = ({ id, initial }: { id: number; initial: boolean }) => {
 
   return (
     <Button
-      color='#0c4a6e'
+      variant={scrapped ? 'outline' : 'default'}
+      size='medium'
       onClick={handleClick}
       disabled={isPending}
       style={{
-        backgroundColor: scrapped ? 'white' : 'var(--color-sky-800)',
-        color: scrapped ? 'black' : 'white',
+        minWidth: 180,
       }}
     >
       {scrapped ? '스크랩 취소' : '스크랩하기'}

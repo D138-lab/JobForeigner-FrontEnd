@@ -7,6 +7,7 @@ interface GetDetailRecruitResponse {
   companyId: number;
   companyName: string;
   description: string;
+  regionType?: string;
   location: string;
   employmentType: string;
   salary: string;

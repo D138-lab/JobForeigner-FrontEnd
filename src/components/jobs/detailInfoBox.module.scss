@@ -1,26 +1,39 @@
 @use 'src/styles/variables' as v;
 
 .container {
-  width: 70%;
-  margin: v.$spacing-4 v.$spacing-2;
+  width: 100%;
+  padding: v.$spacing-4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: v.$spacing-2;
+  gap: v.$spacing-3;
+  border: 1px solid var(--color-gray-200);
+  border-radius: v.$radius-large;
+  background: linear-gradient(135deg, #ffffff 0%, rgb(248 250 252 / 0.96) 100%);
+  box-shadow: v.$shadow-card;
 }
 
 .topBox {
-  width: 70%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
+  gap: v.$spacing-3;
+}
 
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.logoBox {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: v.$radius-large;
+  border: 1px solid rgb(14 165 233 / 0.18);
+  background: rgb(14 165 233 / 0.08);
+  color: var(--color-sky-900);
+
+  svg {
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -28,71 +41,95 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: v.$spacing-2;
+  gap: v.$spacing-3;
+
+  .badgeRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .companyBadge,
+  .published {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .companyBadge {
+    border: 1px solid rgb(14 165 233 / 0.2);
+    background: rgb(14 165 233 / 0.08);
+    color: var(--color-sky-900);
+  }
+
+  .published {
+    border: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+    color: var(--color-gray-600);
+  }
+
   .title {
-    font-size: 2em;
-    font-weight: bold;
+    font-size: clamp(1.9rem, 2.7vw, 2.6rem);
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--color-gray-900);
   }
 }
 
 .recruitInfo {
   width: 100%;
   display: flex;
-  gap: v.$spacing-3;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: v.$spacing-1;
+  gap: v.$spacing-2;
 
-  div {
+  .firstFloor,
+  .secondFloor {
     display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
+    flex-wrap: wrap;
     width: 100%;
-    gap: v.$spacing-1;
+    gap: 12px;
   }
-}
 
-.scores {
-  display: flex;
-  flex-direction: column;
-  gap: v.$spacing-1;
-  .rate {
-    font-size: 1.6em;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  .firstFloor > div,
+  .secondFloor > div {
+    display: inline-flex;
     align-items: center;
-    gap: v.$spacing-1;
-    .starIcon {
-      fill: var(--color-yellow-300);
-    }
-  }
-  .review {
-    font-size: 1.2em;
+    gap: 8px;
+    padding: 10px 12px;
+    min-height: 42px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: v.$radius-medium;
+    background: #ffffff;
+    color: var(--color-gray-700);
+    box-shadow: v.$shadow-soft;
   }
 }
 
 .buttons {
-  width: 70%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: v.$spacing-2;
-  div {
-    border: 1px solid var(--color-gray-200);
-    padding: v.$spacing-2 v.$spacing-5;
-    border-radius: v.$radius-medium;
-    text-align: center;
-  }
+
   & > button {
-    width: 100%;
-    background-color: white;
-    color: black;
-    border: 1px solid var(--color-gray-200);
-    border-radius: v.$radius-medium;
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: v.$spacing-3;
+  }
+
+  .topBox {
+    flex-direction: column-reverse;
+  }
+
+  .logoBox {
+    width: 60px;
+    height: 60px;
   }
 }
