@@ -9,41 +9,27 @@ interface Props {
 
 export const SelectPostType = ({ postType, onClick }: Props) => {
   const { t } = useTranslation('common');
+  const items: { key: postType; label: string }[] = [
+    { key: 'all', label: t('communityPage.tabs.all') },
+    { key: 'normal', label: t('communityPage.tabs.general') },
+    { key: 'used', label: t('communityPage.tabs.market') },
+    { key: 'curation', label: t('communityPage.tabs.policy') },
+  ];
 
   return (
     <div className={styles.container}>
-      <span
-        onClick={() => onClick('all')}
-        className={`${styles.btn} ${
-          postType === 'all' ? styles.selectedBtn : ''
-        }`}
-      >
-        {t('communityPage.tabs.all')}
-      </span>
-      <span
-        onClick={() => onClick('normal')}
-        className={`${styles.btn} ${
-          postType === 'normal' ? styles.selectedBtn : ''
-        }`}
-      >
-        {t('communityPage.tabs.general')}
-      </span>
-      <span
-        onClick={() => onClick('used')}
-        className={`${styles.btn} ${
-          postType === 'used' ? styles.selectedBtn : ''
-        }`}
-      >
-        {t('communityPage.tabs.market')}
-      </span>
-      <span
-        onClick={() => onClick('curation')}
-        className={`${styles.btn} ${
-          postType === 'curation' ? styles.selectedBtn : ''
-        }`}
-      >
-        {t('communityPage.tabs.policy')}
-      </span>
+      {items.map(item => (
+        <button
+          key={item.key}
+          type='button'
+          onClick={() => onClick(item.key)}
+          className={`${styles.btn} ${
+            postType === item.key ? styles.selectedBtn : ''
+          }`}
+        >
+          {item.label}
+        </button>
+      ))}
     </div>
   );
 };
