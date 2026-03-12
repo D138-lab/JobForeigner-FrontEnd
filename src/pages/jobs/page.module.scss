@@ -1,7 +1,7 @@
 @use 'src/styles/variables' as v;
 
 .container {
-  width: 80%;
+  width: min(1240px, 92%);
   margin: v.$spacing-4 auto;
   display: flex;
   flex-direction: column;

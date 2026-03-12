@@ -1,8 +1,8 @@
 @use 'src/styles/variables' as v;
 
 .container {
-  width: min(1200px, 90%);
-  margin: v.$spacing-5 auto;
+  width: min(1240px, 92%);
+  margin: v.$spacing-4 auto v.$spacing-5;
 }
 
 .filterRow {
