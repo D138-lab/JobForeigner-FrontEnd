@@ -209,7 +209,11 @@
     "loading": "로딩 중...",
     "loadingShort": "로딩 중",
     "empty": "공고가 없습니다.",
-    "error": "에러 발생"
+    "error": "에러 발생",
+    "publishedStatus": {
+      "submitted": "제출됨",
+      "published": "게시됨"
+    }
   },
   "jobsApply": {
     "successTitle": "제출이 완료되었습니다!",

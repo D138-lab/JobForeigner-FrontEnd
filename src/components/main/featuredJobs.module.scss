@@ -1,7 +1,9 @@
+@use 'src/styles/variables' as v;
+
 $transition: 0.2s ease-in-out;
 
 .featuredJobsSection {
-  padding: 3rem 2rem;
+  padding: v.$spacing-5 v.$spacing-4;
   background-color: #fff;
 }
 
@@ -9,10 +11,10 @@ $transition: 0.2s ease-in-out;
   width: 100%;
   max-width: 96rem;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 v.$spacing-2;
 
   @media (min-width: 768px) {
-    padding: 0 1.5rem;
+    padding: 0 v.$spacing-3;
   }
 }
 
@@ -57,7 +59,7 @@ $transition: 0.2s ease-in-out;
 .featuredJobsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: v.$spacing-3;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

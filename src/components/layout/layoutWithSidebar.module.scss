@@ -1,6 +1,23 @@
+@use 'src/styles/variables' as v;
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  background: var(--color-gray-50);
+}
+
 .container {
   display: flex;
   flex: 1;
+  width: min(1400px, 100%);
+  margin: 0 auto;
 }
 
 .sidebar {
@@ -9,4 +26,9 @@
   top: 4.75rem;
   left: 0;
   height: calc(100vh - 5rem);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
 }

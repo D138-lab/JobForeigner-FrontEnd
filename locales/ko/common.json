@@ -1,7 +1,11 @@
 {
   "signUp": "회원가입",
   "login": "로그인",
+  "search": "검색",
   "searchRecruitment": "채용 공고 검색하기",
+  "searchResults": "검색 결과",
+  "employees": "직원 {{count}}명",
+  "openJobs": "공고 {{count}}개",
   "recruitmentInfo": "채용정보",
   "companiesInfo": "기업정보",
   "nearBy": "주변기업찾기",

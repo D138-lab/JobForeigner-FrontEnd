@@ -1,19 +1,34 @@
+@use 'src/styles/variables' as v;
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  text-align: center;
+  gap: v.$spacing-2;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statsGrid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: v.$spacing-2;
+  border: 1px solid var(--color-gray-200);
+  border-radius: v.$radius-medium;
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
 }
 
 .statsItemLabel {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--color-gray-500);
 }
 
 .statsItemValue {
-  margin-top: 0.25rem;
-  font-size: 1.375rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--color-gray-900);
 }

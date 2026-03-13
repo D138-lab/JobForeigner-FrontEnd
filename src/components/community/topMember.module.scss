@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: 100%;
   display: flex;
@@ -6,9 +8,9 @@
   align-items: start;
   background-color: #ffffff;
   border: 1px solid var(--color-gray-300);
-  border-radius: 14px;
-  padding: 1.4rem;
-  gap: 1.4rem;
+  border-radius: v.$radius-large;
+  padding: v.$spacing-3;
+  gap: v.$spacing-3;
 
   .title {
     font-size: 1.4em;
@@ -21,14 +23,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 0.4rem;
+    gap: v.$spacing-1;
 
     .emptyState {
       width: 100%;
       text-align: left;
       color: #6b7280;
       font-size: 0.95rem;
-      padding: 0.4rem 0;
+      padding: v.$spacing-1 0;
     }
 
     .item {
@@ -43,7 +45,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
+        gap: v.$spacing-1;
 
         .profileImg {
           width: 2.6rem;

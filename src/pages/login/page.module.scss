@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .page {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
   height: 100%;
   background-color: var(--color-gray-50);
   text-align: center;
-  padding: 4rem 0;
+  padding: v.$spacing-5 0;
 }
 
 .container {

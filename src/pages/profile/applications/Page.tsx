@@ -9,6 +9,7 @@ import {
   CalendarClock,
   CheckCircle2,
   Clock,
+  Sparkles,
   XCircle,
 } from 'lucide-react';
 import Input from '@/components/common/input/Input';
@@ -173,10 +174,18 @@ export default function ApplicationsPage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <h1 className={styles.pageTitle}>{t('profile.applications.title')}</h1>
-        <p className={styles.pageDescription}>
-          {t('profile.applications.description')}
-        </p>
+        <div className={styles.pageHeader}>
+          <div className={styles.headerText}>
+            <span className={styles.eyebrow}>
+              <Sparkles size={14} />
+              {t('profile.applications.title')}
+            </span>
+            <h1 className={styles.pageTitle}>{t('profile.applications.title')}</h1>
+            <p className={styles.pageDescription}>
+              {t('profile.applications.description')}
+            </p>
+          </div>
+        </div>
         <div className={styles.statusBoxes}>
           {statusBoxes.map(statusBox => (
             <StatusBox

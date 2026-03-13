@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bookmark } from 'lucide-react';
+import { Bookmark, Sparkles } from 'lucide-react';
 import styles from './page.module.scss';
 import BookmarkTabs from '@/components/profile/bookmark/BookmarkTab';
 import Input from '@/components/common/input/Input';
@@ -94,11 +94,17 @@ export default function BookmarkedJobsPage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <div>
+        <div className={styles.pageHeader}>
+          <div className={styles.headerText}>
+            <span className={styles.eyebrow}>
+              <Sparkles size={14} />
+              {t('profile.bookmark.title')}
+            </span>
           <h1 className={styles.pageTitle}>{t('profile.bookmark.title')}</h1>
           <p className={styles.pageDescription}>
             {t('profile.bookmark.description')}
           </p>
+          </div>
         </div>
         <BookmarkTabs />
         {/* 검색 및 필터 */}

@@ -7,8 +7,6 @@ type Props = {
 };
 
 const RecruitsBox = ({ data }: Props) => {
-  console.log(data);
-
   return (
     <div className={styles.container}>
       {data.pageContents.map(recruit => (

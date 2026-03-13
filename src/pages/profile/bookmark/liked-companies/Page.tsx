@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
+import { Sparkles, Star } from 'lucide-react';
 import styles from './page.module.scss';
 import { Company } from '@/lib/type/profile/bookmark';
 import LikedCompanyCard from '@/components/profile/bookmark/liked-companies/LikedCompanyCard';
@@ -97,11 +97,17 @@ export default function BookmarkedCompaniesPage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <div>
+        <div className={styles.pageHeader}>
+          <div className={styles.headerText}>
+            <span className={styles.eyebrow}>
+              <Sparkles size={14} />
+              {t('profile.bookmark.title')}
+            </span>
           <h1 className={styles.pageTitle}>{t('profile.bookmark.title')}</h1>
           <p className={styles.pageDescription}>
             {t('profile.bookmark.description')}
           </p>
+          </div>
         </div>
         <BookmarkTabs />
         <div className={styles.filters}>

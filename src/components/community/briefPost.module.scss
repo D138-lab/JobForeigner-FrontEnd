@@ -1,20 +1,26 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  padding-top: 1.2rem;
+  padding-top: 0.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  gap: 0.8rem;
+  gap: v.$spacing-2;
 
   .title {
-    font-size: 1.4em;
-    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-gray-900);
   }
 
   .content {
     font-size: 0.95rem;
-    color: #666;
+    line-height: 1.7;
+    color: var(--color-gray-600);
 
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -25,8 +31,19 @@
   .tagsBox {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    gap: 0.4rem;
-    color: #666;
+    flex-wrap: wrap;
+    gap: v.$spacing-1;
+    color: var(--color-gray-600);
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--color-gray-200);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
   }
 }

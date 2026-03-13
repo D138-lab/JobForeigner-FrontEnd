@@ -1,22 +1,23 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  width: 80%;
-  margin: 2rem auto;
+  width: min(1240px, 92%);
+  margin: v.$spacing-4 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: v.$spacing-4;
 
   .unAuthorizedModal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(15, 23, 42, 0.42);
+    backdrop-filter: blur(6px);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: v.$spacing-2;
   }
 }

@@ -1,19 +1,42 @@
+@use 'src/styles/variables' as v;
+
 .container {
   width: min(1240px, 92%);
-  margin: 2rem auto 3rem;
+  margin: v.$spacing-4 auto v.$spacing-5;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: v.$spacing-2;
+
+  .unAuthorizedModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.42);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: v.$spacing-2;
+  }
 }
 
 .searchBox {
-  border: 1px solid #d6e4f0;
-  border-radius: 12px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: v.$radius-medium;
   background: #fff;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.8rem;
+  gap: v.$spacing-1;
+  padding: v.$spacing-1 v.$spacing-2;
+  box-shadow: v.$shadow-soft;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:focus-within {
+    border-color: var(--color-sky-800);
+    box-shadow: v.$shadow-focus;
+  }
 }
 
 .searchIcon {
@@ -25,16 +48,17 @@
   border: 0;
   outline: none;
   font-size: 0.95rem;
+  background: transparent;
 }
 
 .searchButton {
-  border: 1px solid #0c4a6e;
-  background: #0c4a6e;
+  border: 1px solid var(--color-sky-800);
+  background: var(--color-sky-800);
   color: #fff;
-  border-radius: 8px;
+  border-radius: v.$radius-medium;
   height: 34px;
   min-width: 56px;
-  padding: 0 0.9rem;
+  padding: 0 v.$spacing-2;
   font-size: 0.84rem;
   font-weight: 700;
   line-height: 1;
@@ -45,12 +69,24 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    background: var(--color-sky-900);
+    border-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
+  }
 }
 
 .categoryRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }
 
 .favoriteSuccess {
@@ -67,7 +103,7 @@
   border: 1px solid #cad7e2;
   background: #fff;
   border-radius: 999px;
-  padding: 0.45rem 0.9rem;
+  padding: v.$spacing-1 v.$spacing-2;
   font-size: 0.88rem;
   color: #29475e;
   cursor: pointer;
@@ -82,14 +118,14 @@
 .content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 1rem;
+  gap: v.$spacing-2;
 }
 
 .mapArea {
   position: relative;
   border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 0.6rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-1;
   background: #fff;
 }
 
@@ -99,7 +135,7 @@
   bottom: 1.05rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: v.$spacing-1;
   z-index: 4;
 }
 
@@ -109,7 +145,7 @@
   border: 1px solid #c9d8e6;
   background: rgba(255, 255, 255, 0.96);
   color: #12344e;
-  border-radius: 10px;
+  border-radius: v.$radius-medium;
   box-shadow: 0 3px 10px rgba(20, 52, 79, 0.16);
   display: inline-flex;
   align-items: center;
@@ -118,14 +154,14 @@
 }
 
 .overlayCard {
-  border-radius: 10px;
+  border-radius: v.$radius-medium;
   border: 1px solid #c9d8e6;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 5px 14px rgba(17, 52, 77, 0.2);
-  padding: 0.5rem 0.7rem;
+  padding: v.$spacing-1 v.$spacing-1;
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: v.$spacing-1;
 }
 
 .overlayCard strong {
@@ -164,8 +200,8 @@
 
 .listArea {
   border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 0.9rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-2;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -173,13 +209,13 @@
 }
 
 .listTitle {
-  margin: 0 0 0.55rem;
+  margin: 0 0 v.$spacing-1;
   font-size: 1rem;
   color: #14344f;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
+  gap: v.$spacing-1;
 }
 
 .favoriteCount {
@@ -188,13 +224,13 @@
   color: #5a7287;
   border: 1px solid #d3e1ec;
   border-radius: 999px;
-  padding: 0.2rem 0.5rem;
+  padding: v.$spacing-1 v.$spacing-1;
 }
 
 .detailCard {
   border: 1px solid #dce8f3;
-  border-radius: 10px;
-  padding: 0.7rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-1;
   margin-bottom: 0.65rem;
   background: #fdfefe;
 }
@@ -205,7 +241,7 @@
 }
 
 .detailCard p {
-  margin: 0.35rem 0 0.45rem;
+  margin: v.$spacing-1 0 v.$spacing-1;
   color: #556d82;
   font-size: 0.82rem;
 }
@@ -221,7 +257,7 @@
   background: #fff;
   color: #0c4a6e;
   border-radius: 999px;
-  padding: 0.2rem 0.55rem;
+  padding: v.$spacing-1 v.$spacing-1;
   font-size: 0.74rem;
   cursor: pointer;
 }
@@ -232,21 +268,21 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: v.$spacing-1;
   overflow-y: auto;
 }
 
 .placeItem {
   border: 1px solid #dce8f3;
-  border-radius: 10px;
-  padding: 0.65rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-1;
   cursor: pointer;
 }
 
 .placeItem strong {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: v.$spacing-1;
   font-size: 0.87rem;
   color: #173a57;
   margin-bottom: 0.2rem;
@@ -273,8 +309,8 @@
 
 .emptyItem {
   border: 1px dashed #ccd9e5;
-  border-radius: 10px;
-  padding: 0.8rem;
+  border-radius: v.$radius-medium;
+  padding: v.$spacing-2;
   color: #6b8092;
   font-size: 0.82rem;
 }

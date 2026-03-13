@@ -209,7 +209,11 @@
     "loading": "Memuat...",
     "loadingShort": "Memuat",
     "empty": "Tidak ada lowongan.",
-    "error": "Terjadi kesalahan"
+    "error": "Terjadi kesalahan",
+    "publishedStatus": {
+      "submitted": "Terkirim",
+      "published": "Dipublikasikan"
+    }
   },
   "jobsApply": {
     "successTitle": "Pengiriman selesai!",

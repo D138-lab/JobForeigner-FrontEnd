@@ -209,7 +209,11 @@
     "loading": "กำลังโหลด...",
     "loadingShort": "กำลังโหลด",
     "empty": "ไม่มีประกาศงาน",
-    "error": "เกิดข้อผิดพลาด"
+    "error": "เกิดข้อผิดพลาด",
+    "publishedStatus": {
+      "submitted": "ส่งแล้ว",
+      "published": "เผยแพร่แล้ว"
+    }
   },
   "jobsApply": {
     "successTitle": "ส่งข้อมูลสำเร็จ!",

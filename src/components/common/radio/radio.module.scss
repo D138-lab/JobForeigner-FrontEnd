@@ -1,10 +1,12 @@
+@use 'src/styles/variables' as v;
+
 $primary: var(--color-sky-800);
 $background: #ffffff;
 $ring: var(--color-sky-800);
 
 .radioGroup {
   display: grid;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }
 
 .radioItem {

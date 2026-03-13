@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 
 const categories: PlaceCategoryCode[] = [
   'HALAL_RESTAURANT',
@@ -26,6 +28,7 @@ const categories: PlaceCategoryCode[] = [
 
 export default function NearbyPlaces() {
   const { t } = useTranslation('pages');
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [keywordInput, setKeywordInput] = useState('');
   const [submittedKeyword, setSubmittedKeyword] = useState('');
   const [selectedCategory, setSelectedCategory] =
@@ -39,7 +42,7 @@ export default function NearbyPlaces() {
     lng: 126.978,
   });
   const navigate = useNavigate();
-  const { data: favoritesData } = useGetMapFavorites();
+  const { data: favoritesData, error: favoritesError } = useGetMapFavorites();
   const {
     mutate: postFavoritePlaceMutate,
     isPending: isPostingFavorite,
@@ -59,6 +62,7 @@ export default function NearbyPlaces() {
     data: placesData,
     isLoading: isPlacesLoading,
     isError: isPlacesError,
+    error: placesError,
   } = useGetPlaces(
     {
       lat: currentPosition.lat,
@@ -75,6 +79,7 @@ export default function NearbyPlaces() {
     data: searchedPlacesData,
     isLoading: isSearchedPlacesLoading,
     isError: isSearchedPlacesError,
+    error: searchedPlacesError,
   } = useSearchPlaces(
     submittedKeyword,
     0,
@@ -149,6 +154,11 @@ export default function NearbyPlaces() {
     return '';
   })();
   const isFavoritePending = isPostingFavorite || isDeletingFavorite;
+  const isUnauthorized =
+    !isLoggedIn ||
+    [favoritesError, placesError, searchedPlacesError].some(
+      error => error?.message === 'Request failed with status code 401',
+    );
 
   const selectedPlace = useMemo(
     () =>
@@ -223,6 +233,11 @@ export default function NearbyPlaces() {
 
   return (
     <div className={styles.container}>
+      {isUnauthorized && (
+        <div className={styles.unAuthorizedModal}>
+          <UnAuthorizedModal />
+        </div>
+      )}
       <form className={styles.searchBox} onSubmit={handleSubmitSearch}>
         <Search size={18} className={styles.searchIcon} />
         <input

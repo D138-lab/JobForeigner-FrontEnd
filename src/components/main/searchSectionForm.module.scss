@@ -1,16 +1,19 @@
+@use 'src/styles/variables' as v;
+
 $transition: 0.2s ease-in-out;
 
 .searchBox {
   background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: v.$radius-medium;
+  box-shadow: v.$shadow-card;
+  padding: v.$spacing-2;
 }
 
 .searchBoxRow {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: v.$spacing-2;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -18,15 +21,20 @@ $transition: 0.2s ease-in-out;
 }
 
 .searchButton {
-  background-color: var(--color-purple-600);
+  background-color: var(--color-sky-800);
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+  padding: v.$spacing-1 v.$spacing-3;
+  border-radius: v.$radius-medium;
   border: none;
   cursor: pointer;
-  transition: $transition;
+  transition:
+    background-color $transition,
+    box-shadow $transition,
+    transform $transition;
 
   &:hover {
-    background-color: var(--color-purple-700);
+    background-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
   }
 }

@@ -29,7 +29,16 @@ export default function MainPage() {
   return (
     <main className={styles.page}>
       <LongAdvertisementBanner data={dummyAds} />
-      <CompanyAdsBox data={companyDummyAds} />
+      <section className={styles.adsSection}>
+        <div className={styles.sectionHead}>
+          <span className={styles.sectionEyebrow}>Featured Companies</span>
+          <h2 className={styles.sectionTitle}>눈에 띄는 기업 광고</h2>
+          <p className={styles.sectionDescription}>
+            지금 주목할 만한 기업과 브랜드를 한눈에 둘러보세요.
+          </p>
+        </div>
+        <CompanyAdsBox data={companyDummyAds} />
+      </section>
     </main>
   );
 }

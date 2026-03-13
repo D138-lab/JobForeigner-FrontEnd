@@ -4,15 +4,20 @@ import Footer from '../common/footer/Footer';
 import RootErrorBoundary from '@/components/error/RootErrorBoundary';
 import { QueryClientProvider } from '@/lib/QueryClientProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import styles from './layout.module.scss';
 
 export default function Layout() {
   return (
     <QueryClientProvider>
       <RootErrorBoundary>
-        <Header />
-        <Outlet />
-        <Footer />
-        <ScrollRestoration />
+        <div className={styles.shell}>
+          <Header />
+          <main className={styles.content}>
+            <Outlet />
+          </main>
+          <Footer />
+          <ScrollRestoration />
+        </div>
       </RootErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

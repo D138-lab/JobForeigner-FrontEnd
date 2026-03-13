@@ -122,7 +122,7 @@ export const PostBox = ({
         <div onClick={e => e.stopPropagation()}>
           <LikeAndComments
             onLikeClick={handleLike}
-            onCommentClick={() => console.log('댓글 눌림')}
+            onCommentClick={() => undefined}
             isLiked={likedState}
             numOfComment={numOfComment}
             numOfLike={likeCountState}

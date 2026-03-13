@@ -23,7 +23,7 @@ export default function ProfileInfo({
       <div className={styles.profileTopRow}>
         <h2 className={styles.statsItemLabel}>{name}</h2>
         <Link to='/profile/edit'>
-          <Button variant='outline' size='medium'>
+          <Button variant='outline' size='medium' className={styles.editButton}>
             {t('profile.edit.title')}
           </Button>
         </Link>

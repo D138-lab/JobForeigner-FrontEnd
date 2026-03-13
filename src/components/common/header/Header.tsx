@@ -52,10 +52,14 @@ export default function Header() {
         {!isLoggedIn ? (
           <div className={styles.userBox}>
             <Link to='/login'>
-              <Button variant='outline'>{t('login')}</Button>
+              <Button variant='outline' className={styles.loginButton}>
+                {t('login')}
+              </Button>
             </Link>
             <Link to='/register'>
-              <Button color='#0c4a6e'>{t('signUp')}</Button>
+              <Button className={styles.signUpButton} color='#0c4a6e'>
+                {t('signUp')}
+              </Button>
             </Link>
           </div>
         ) : (
@@ -71,6 +75,7 @@ export default function Header() {
             </Link>
             <Button
               variant='default'
+              className={styles.logoutButton}
               onClick={() => handleLogout()}
               color='#0c4a6e'
             >

@@ -1,6 +1,8 @@
+@use 'src/styles/variables' as v;
+
 .container {
   display: flex;
-  gap: 14px;
+  gap: v.$spacing-2;
 }
 
 .inputBox {
@@ -9,7 +11,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: v.$radius-medium;
   background: #fff;
   /* Outer focus ring placeholder (visible when :focus-within) */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
@@ -21,7 +23,7 @@
   text-align: center;
   font-size: 28px;
   line-height: 56px;
-  border-radius: 8px;
+  border-radius: v.$radius-medium;
   border: 2px solid transparent;
   outline: none;
   background: #fff;

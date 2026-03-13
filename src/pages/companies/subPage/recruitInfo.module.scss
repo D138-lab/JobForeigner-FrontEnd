@@ -1,11 +1,13 @@
+@use 'src/styles/variables' as v;
+
 .container {
-	margin: 1rem 0 5rem 0;
+	margin: v.$spacing-2 0 v.$spacing-5 0;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: start;
 	justify-content: center;
-	gap: 1rem;
+	gap: v.$spacing-2;
 }
 
 .recruitInfo {
@@ -14,5 +16,5 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 1rem;
+	gap: v.$spacing-2;
 }

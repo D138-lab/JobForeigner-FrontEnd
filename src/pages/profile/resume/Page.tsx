@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './page.module.scss';
 import { Link } from 'react-router-dom';
 import Button from '@/components/common/button/Button';
-import { FileText, Plus } from 'lucide-react';
+import { FileText, Plus, Sparkles } from 'lucide-react';
 import Input from '@/components/common/input/Input';
 import Select from '@/components/common/select/Select';
 import ResumeCard from '@/components/profile/resume/ResumeCard';
@@ -15,10 +15,7 @@ export default function ResumeListPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const { data: resumeListData, isLoading, error } = useGetResumeList();
-
-  console.log('이력서 목록 API 응답:', resumeListData);
-  console.log('로딩 상태:', isLoading);
-  console.log('에러 상태:', error);
+  void error;
 
   const resumeList: Resume[] =
     resumeListData?.data?.content?.map(
@@ -43,7 +40,11 @@ export default function ResumeListPage() {
     <div className={styles.pageContainer}>
       {/* 헤더 */}
       <div className={styles.header}>
-        <div>
+        <div className={styles.headerText}>
+          <span className={styles.eyebrow}>
+            <Sparkles size={14} />
+            {t('profile.resume.title')}
+          </span>
           <h1 className={styles.headerTitle}>{t('profile.resume.title')}</h1>
           <p className={styles.headerSubtitle}>
             {t('profile.resume.description')}
@@ -93,7 +94,13 @@ export default function ResumeListPage() {
 
       {/* 이력서 목록 */}
       <div className={styles.resumeList}>
-        {filteredResumes.length > 0 ? (
+        {isLoading ? (
+          <div className={styles.emptyList}>
+            <h3 className={styles.emptyListTitle}>
+              {t('profile.main.loading')}
+            </h3>
+          </div>
+        ) : filteredResumes.length > 0 ? (
           filteredResumes.map(resume => (
             <ResumeCard key={resume.id} resume={resume} />
           ))

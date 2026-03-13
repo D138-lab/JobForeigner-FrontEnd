@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
 	display: flex;
 	flex-direction: column;
@@ -5,7 +7,7 @@
 }
 
 .titleText {
-	margin: 1rem;
+	margin: v.$spacing-2;
 	width: 100%;
 	font-size: 1.6em;
 	font-weight: bold;

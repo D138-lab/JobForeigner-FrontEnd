@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .textareaWrapper {
   position: relative;
   flex: 1;
@@ -15,16 +17,21 @@
 
 .textarea {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  padding: v.$spacing-1 v.$spacing-2 v.$spacing-1 v.$spacing-2;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border-radius: v.$radius-small;
+  background: #fff;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
   outline: none;
   min-height: 100px;
   resize: vertical;
 
   &:focus {
     border-color: var(--color-sky-800);
-    box-shadow: 0 0 0 2px rgba(var(--color-sky-800), 0.3);
+    box-shadow: v.$shadow-focus;
   }
 
   &.isIcon {

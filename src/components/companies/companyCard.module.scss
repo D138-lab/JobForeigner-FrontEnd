@@ -1,13 +1,15 @@
+@use 'src/styles/variables' as v;
+
 .container {
-  padding: 1rem 1.6rem;
+  padding: v.$spacing-2 v.$spacing-3;
   height: 17rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  gap: 1rem;
+  border-radius: v.$radius-medium;
+  box-shadow: v.$shadow-card;
+  gap: v.$spacing-2;
   background-color: white;
 }
 
@@ -16,12 +18,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem;
-  margin: 0.2rem;
+  gap: v.$spacing-1;
+  margin: v.$spacing-1;
   img {
     width: 3rem;
     height: auto;
-    border-radius: 8px;
+    border-radius: v.$radius-medium;
   }
 }
 
@@ -51,6 +53,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.6rem;
-  margin: 0.2rem;
+  gap: v.$spacing-1;
+  margin: v.$spacing-1;
 }

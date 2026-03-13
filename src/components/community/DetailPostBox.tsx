@@ -119,7 +119,7 @@ export const DetailPostBox = ({
       <CustomDivider />
       <LikeAndComments
         isLiked={likedState}
-        onCommentClick={() => console.log('댓글 눌림')}
+        onCommentClick={() => undefined}
         onLikeClick={handleLike}
         numOfComment={numOfComment}
         numOfLike={likeCountState}

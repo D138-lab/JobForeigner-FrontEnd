@@ -1,4 +1,4 @@
-import Input from '../common/input/Input';
+import { Search } from 'lucide-react';
 import styles from './searchPostForm.module.scss';
 import { useTranslation } from 'react-i18next';
 
@@ -17,15 +17,13 @@ export const SearchPostForm = ({ searchValue, onChangeSearchValue }: Props) => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <div className={styles.inputWrapper}>
-        <Input
-          value={searchValue}
-          icon='search'
-          placeholder={t('communityPage.searchPlaceholder')}
-          onChange={e => onChangeSearchValue(e.currentTarget.value)}
-        />
-      </div>
-
+      <Search size={18} className={styles.searchIcon} />
+      <input
+        value={searchValue}
+        onChange={e => onChangeSearchValue(e.currentTarget.value)}
+        placeholder={t('communityPage.searchPlaceholder')}
+        className={styles.searchInput}
+      />
       <button type='submit' className={styles.searchButton}>
         {t('communityPage.searchButton')}
       </button>

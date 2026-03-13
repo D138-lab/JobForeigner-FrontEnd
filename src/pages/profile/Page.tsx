@@ -1,7 +1,7 @@
 import { ResumeList, UserProfile } from '@/components/profile';
 
 import { ApplicationHistory } from '@/components/profile/ApplicationHistory';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, FileText, LayoutDashboard, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import styles from './page.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
@@ -97,12 +97,27 @@ export default function ProfilePage() {
   return (
     <div className={styles.container}>
       <main className={styles.page}>
-        <h1>{t('profile.main.title')}</h1>
+        <div className={styles.pageHeader}>
+          <div className={styles.pageHeaderText}>
+            <span className={styles.eyebrow}>
+              <LayoutDashboard size={14} />
+              {t('profile.main.title')}
+            </span>
+            <h1>{t('profile.main.title')}</h1>
+          </div>
+        </div>
         <UserProfile userInfo={userInfo} />
 
-        <section>
+        <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2>{t('profile.main.myResume')}</h2>
+            <div className={styles.sectionTitleWrap}>
+              <div className={styles.sectionIcon}>
+                <FileText size={18} />
+              </div>
+              <div>
+                <h2>{t('profile.main.myResume')}</h2>
+              </div>
+            </div>
             <Link to='/profile/resume' className={styles.sectionHeaderRight}>
               {t('profile.main.more')}
               <ChevronRight />
@@ -118,9 +133,16 @@ export default function ProfilePage() {
           )}
         </section>
 
-        <section>
+        <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2>{t('profile.main.applications')}</h2>
+            <div className={styles.sectionTitleWrap}>
+              <div className={styles.sectionIcon}>
+                <Send size={18} />
+              </div>
+              <div>
+                <h2>{t('profile.main.applications')}</h2>
+              </div>
+            </div>
             <Link
               to='/profile/applications'
               className={styles.sectionHeaderRight}

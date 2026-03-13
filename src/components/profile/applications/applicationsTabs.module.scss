@@ -1,14 +1,27 @@
+@use 'src/styles/variables' as v;
+
 .tab {
-  border: none;
-  border-radius: 0.5rem;
-  background-color: none;
-  padding: 0.5rem 0.625rem;
-  font-size: 1.0625rem;
-  font-weight: 500;
-  color: var(--color-gray-900);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-color: transparent;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-gray-600);
   cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+
+  &:hover {
+    background: var(--color-gray-50);
+    color: var(--color-gray-900);
+  }
 
   &.active {
-    background-color: #fff;
+    background-color: var(--color-sky-50);
+    border-color: var(--color-sky-200);
+    color: var(--color-sky-900);
   }
 }

@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .selectWrapper {
   position: relative;
   flex: 1;
@@ -5,62 +7,108 @@
 
 .icon {
   position: absolute;
-  left: 0.75rem;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--color-gray-400);
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
 }
 
 .customSelect {
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  min-height: 44px;
+  padding: 10px 14px;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: #fff;
+  border-radius: v.$radius-medium;
+  background-color: rgb(255 255 255 / 0.96);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: v.$spacing-1;
+  color: var(--color-gray-800);
+  box-shadow: v.$shadow-soft;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
 
   &:focus,
   &:active {
     border-color: var(--color-sky-800);
-    box-shadow: 0 0 0 2px rgba(var(--color-sky-800), 0.3);
+    box-shadow: v.$shadow-focus;
+  }
+
+  &:hover {
+    border-color: var(--color-gray-300);
+    background-color: #ffffff;
   }
 
   &.isIcon {
-    padding-left: 2.5rem;
+    padding-left: 40px;
   }
 
   .arrow {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     color: var(--color-gray-400);
+    flex-shrink: 0;
+    transition:
+      transform 0.18s ease,
+      color 0.18s ease;
+  }
+}
+
+.isOpen {
+  border-color: rgb(14 165 233 / 0.35);
+  box-shadow: v.$shadow-focus;
+
+  .arrow {
+    transform: rotate(180deg);
+    color: var(--color-sky-800);
   }
 }
 
 .optionsList {
   position: absolute;
-  top: calc(100% + 0.25rem);
+  top: calc(100% + 8px);
   left: 0;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 8px;
   list-style: none;
-  background-color: #fff;
+  background-color: rgb(255 255 255 / 0.98);
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  max-height: 200px;
+  border-radius: v.$radius-medium;
+  box-shadow: v.$shadow-overlay;
+  max-height: 240px;
   overflow-y: auto;
   z-index: 1000;
+  backdrop-filter: blur(12px);
 }
 
 .option {
-  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 10px 12px;
+  border-radius: v.$radius-small;
   cursor: pointer;
+  color: var(--color-gray-700);
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
 
   &:hover {
-    background-color: #f3f4f6;
+    background-color: var(--color-gray-50);
+    color: var(--color-gray-900);
   }
+}
+
+.selectedOption {
+  background: rgb(14 165 233 / 0.08);
+  color: var(--color-sky-900);
+  font-weight: 600;
 }

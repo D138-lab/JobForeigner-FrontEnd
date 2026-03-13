@@ -1,51 +1,67 @@
+@use 'src/styles/variables' as v;
+
 /* 버튼 전체 공통 스타일 */
 .button {
-  display: inline-flex; /* tailwind: inline-flex */
-  align-items: center; /* items-center */
-  justify-content: center; /* justify-center */
-  padding: 0.5rem 1rem; /* px-4 py-2 */
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500; /* font-medium */
-  border-radius: 0.375rem; /* rounded-md */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: v.$radius-medium;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  outline: none; /* focus:outline-none */
+  transition:
+    background-color 0.18s ease-in-out,
+    color 0.18s ease-in-out,
+    border-color 0.18s ease-in-out,
+    box-shadow 0.18s ease-in-out,
+    transform 0.18s ease-in-out;
+  outline: none;
+  box-shadow: v.$shadow-soft;
 
-  /* focus:ring-2 focus:ring-offset-2 focus:ring-sky-800 */
   &:focus {
-    box-shadow: 0 0 0 2px rgba(128, 90, 213, 0.3); /* 보라색 포커스 효과 */
+    box-shadow: v.$shadow-focus;
   }
 
   &.medium {
-    padding: 0.75rem 1.5rem; /* px-6 py-4 */
+    min-height: 44px;
+    padding: 12px 18px;
     font-size: 1rem; /* text-base */
   }
 
   &.large {
-    padding: 1rem 2rem; /* px-8 py-6 */
+    min-height: 48px;
+    padding: 14px 22px;
     font-size: 1.125rem; /* text-lg */
   }
 }
 
 /* 기본(default) 스타일 */
 .default {
-  background-color: var(--color-sky-800); /* bg-sky-800 */
+  background-color: var(--color-sky-800);
   color: #fff;
   border: none;
 
   &:hover {
-    background-color: var(--color-sky-900); /* hover:bg-sky-900 */
+    background-color: var(--color-sky-900);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
   }
 }
 
 /* 테두리(Outline) 스타일 */
 .outline {
   background-color: #fff;
-  border: 1px solid var(--color-gray-200); /* border-gray-200 */
-  color: #111827; /* text-gray-900 */
+  border: 1px solid var(--color-gray-200);
+  color: #111827;
 
   &:hover {
-    background-color: var(--color-gray-50); /* hover:bg-gray-50 */
+    background-color: var(--color-gray-50);
+    border-color: var(--color-gray-300);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
   }
 }
 
@@ -53,6 +69,7 @@
   background-color: transparent;
   color: var(--color-sky-800);
   border: none;
+  box-shadow: none;
 
   &:hover {
     background-color: var(--color-gray-100);

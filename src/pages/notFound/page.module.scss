@@ -1,3 +1,5 @@
+@use 'src/styles/variables' as v;
+
 .container {
   min-height: 100vh;
   background-color: var(--color-gray-50);
@@ -5,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
+  padding: 0 v.$spacing-2;
 }
 
 .wrapper {
@@ -60,7 +62,7 @@
 }
 
 .illustration {
-  padding: 2rem 0;
+  padding: v.$spacing-4 0;
   svg {
     margin: 0 auto;
     display: block;
@@ -73,7 +75,7 @@
 
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: v.$spacing-2;
 
   @media (min-width: 640px) {
     flex-direction: row;
@@ -83,5 +85,5 @@
 .iconButton {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: v.$spacing-1;
 }

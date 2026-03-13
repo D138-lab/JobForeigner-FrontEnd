@@ -11,8 +11,10 @@ import {
 
 import Button from '../common/button/Button';
 import ScrapButton from '../recruitment/ScrapButton';
+import { formatPublished } from '@/lib/utils/formatPublished';
 import styles from './detailInfoBox.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface DetailRecruitResponse {
   id: number;
@@ -20,6 +22,7 @@ interface DetailRecruitResponse {
   companyId: number;
   companyName: string;
   description: string;
+  regionType?: string;
   location: string;
   employmentType: string;
   salary: string;
@@ -35,38 +38,76 @@ const DetailInfoBox = ({
   title,
   companyId,
   companyName,
+  regionType,
   location,
   employmentType,
   salary,
   career,
+  published,
   grade,
   isScrapped,
   expiryAt,
 }: DetailRecruitResponse) => {
+  const { t, i18n } = useTranslation('pages');
   const navigate = useNavigate();
   const dueDate = new Date(expiryAt);
   const now = new Date();
   const diffTime = dueDate.getTime() - now.getTime();
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const publishedLabel = formatPublished(published, i18n.language, t);
+  const mappingRegion = (region?: string): string => {
+    if (!region) return '';
+
+    const regionMap: Record<string, string> = {
+      ALL: '전체',
+      SEOUL: '서울',
+      BUSAN: '부산',
+      DAEGU: '대구',
+      INCHEON: '인천',
+      GWANGJU: '광주',
+      DAEJEON: '대전',
+      ULSAN: '울산',
+      SEJONG: '세종',
+      GYEONGGI: '경기',
+      GANGWON: '강원',
+      CHUNGBUK: '충북',
+      CHUNGNAM: '충남',
+      JEONBUK: '전북',
+      JEONNAM: '전남',
+      GYEONGBUK: '경북',
+      GYEONGNAM: '경남',
+      JEJU: '제주',
+    };
+
+    return regionMap[region.toUpperCase()] ?? region;
+  };
+  const mappingEmploymentType = (empType: string) => {
+    if (empType === 'FULL_TIME') return '정규직';
+    if (empType === 'INTERN') return '인턴';
+    if (empType === 'CONTRACT') return '계약직';
+
+    return empType;
+  };
+  const displayRegion = mappingRegion(regionType) || location;
 
   return (
     <div className={styles.container}>
       <div className={styles.topBox}>
         <div className={styles.recruitInfoBox}>
+          <div className={styles.badgeRow}>
+            <div className={styles.companyBadge}>{companyName}</div>
+            <div className={styles.published}>{publishedLabel}</div>
+          </div>
           <div className={styles.title}>{title}</div>
           <div className={styles.recruitInfo}>
             <div className={styles.firstFloor}>
               <div>
                 <MapPin width={15} />
-                {location}
-              </div>
-              <div>
-                <UsersRound width={15} />
-                1000+
+                {displayRegion}
               </div>
               <div>
                 <Briefcase width={15} />
-                {employmentType}
+                {mappingEmploymentType(employmentType)}
               </div>
               <div>
                 <Building2 width={15} />
@@ -87,19 +128,29 @@ const DetailInfoBox = ({
                 {salary}
               </div>
               <div>
+                <UsersRound width={15} />
+                1000+
+              </div>
+              <div>
                 <Clock width={15} />
                 {`D-${dDay}`}
               </div>
             </div>
           </div>
         </div>
-        <img src='/' alt='채용공고 이미지' />
+        <div className={styles.logoBox}>
+          <Building2 />
+        </div>
       </div>
 
       <div className={styles.buttons}>
         <ScrapButton id={id} initial={isScrapped} />
 
-        <Button onClick={() => navigate(`/companies/${companyId}`)}>
+        <Button
+          variant='outline'
+          size='medium'
+          onClick={() => navigate(`/companies/${companyId}`)}
+        >
           기업 정보 보러가기
         </Button>
       </div>

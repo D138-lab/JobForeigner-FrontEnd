@@ -20,24 +20,24 @@ const LongAdvertisementBanner = ({ data }: Props) => {
     <div className={styles.container}>
       <Swiper
         modules={[EffectCoverflow, Autoplay]}
-        effect='coverflow'
+        effect='slide'
         grabCursor={true}
         centeredSlides={true}
-        slidesPerView='auto'
+        slidesPerView={1}
         loop={true}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 1.5,
-          slideShadows: true,
-        }}
         className={styles.slider}
       >
         {data.map((d, idx) => (
           <SwiperSlide key={idx} className={styles.adBox}>
             <img src={d.imgUrl} alt={d.adName} />
+            <div className={styles.overlay}>
+              <span className={styles.badge}>Highlights</span>
+              <div className={styles.content}>
+                <h2>{d.adName}</h2>
+                <p>지금 확인하면 놓치기 쉬운 혜택과 기회를 빠르게 찾을 수 있어요.</p>
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
