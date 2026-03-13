@@ -1,22 +1,30 @@
 @use 'src/styles/variables' as v;
 
 .profileCard {
-  background-color: #fff;
-  border-radius: v.$radius-medium;
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+  border: 1px solid var(--color-gray-200);
+  border-radius: v.$radius-large;
   box-shadow: v.$shadow-soft;
+  overflow: hidden;
 }
 
 .profileCardBody {
-  padding: v.$spacing-3;
+  padding: v.$spacing-4;
 }
 
 .profileRow {
   display: flex;
   align-items: flex-start;
   gap: v.$spacing-3;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .borderTop {
-  border-top: 1px solid #e5e7eb;
-  padding: v.$spacing-2 v.$spacing-3;
+  border-top: 1px solid var(--color-gray-200);
+  padding: v.$spacing-3 v.$spacing-4;
+  background: white;
 }

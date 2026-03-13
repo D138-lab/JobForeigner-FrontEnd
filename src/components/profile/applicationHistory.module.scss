@@ -3,9 +3,9 @@
 $transition: 0.2s ease-in-out;
 
 .container {
-  > * + * {
-    margin-top: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-2;
 }
 
 .header {
@@ -15,61 +15,84 @@ $transition: 0.2s ease-in-out;
 }
 
 .headerText {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--color-gray-500);
 }
 
 .applicationList {
-  > * + * {
-    margin-top: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-2;
 }
 
 .applicationItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: v.$spacing-2;
   padding: v.$spacing-2;
-  background-color: var(--color-gray-50);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+  border: 1px solid var(--color-gray-200);
   border-radius: v.$radius-medium;
+  transition:
+    border-color $transition,
+    box-shadow $transition,
+    transform $transition;
+
+  &:hover {
+    border-color: var(--color-sky-200);
+    box-shadow: v.$shadow-soft;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .applicationInfo {
   display: flex;
   align-items: center;
-
-  > * + * {
-    margin-left: 1rem;
-  }
+  gap: v.$spacing-2;
+  min-width: 0;
 }
 
 .iconWrapper {
-  padding: v.$spacing-1;
-  background-color: var(--color-sky-100);
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-sky-50);
   border-radius: v.$radius-medium;
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.35rem;
+  height: 1.35rem;
   color: var(--color-sky-800);
 }
 
 .position {
+  margin: 0 0 0.25rem;
   font-weight: 500;
   color: var(--color-gray-900);
 }
 
 .company {
-  font-size: 1rem;
+  margin: 0;
+  font-size: 0.95rem;
   color: var(--color-gray-500);
 }
 
 .appliedDate {
   display: flex;
   align-items: center;
-  margin-top: 0.25rem;
-  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   color: var(--color-gray-500);
 }
 
@@ -82,15 +105,17 @@ $transition: 0.2s ease-in-out;
 .statusActions {
   display: flex;
   align-items: center;
+  gap: v.$spacing-2;
 
-  > * + * {
-    margin-left: 1rem;
+  @media (max-width: 768px) {
+    justify-content: space-between;
   }
 }
 
 .statusBadge {
-  padding: v.$spacing-1 v.$spacing-1;
-  font-size: 0.875rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
   border-radius: 9999px;
 }
 
@@ -110,13 +135,27 @@ $transition: 0.2s ease-in-out;
 }
 
 .detailButton {
-  background: none;
-  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
   cursor: pointer;
-  transition: $transition;
+  color: var(--color-gray-500);
+  transition:
+    border-color $transition,
+    color $transition,
+    box-shadow $transition,
+    transform $transition;
 
   &:hover {
     color: var(--color-sky-800);
+    border-color: var(--color-sky-200);
+    box-shadow: v.$shadow-soft;
+    transform: translateY(-1px);
   }
 }
 
