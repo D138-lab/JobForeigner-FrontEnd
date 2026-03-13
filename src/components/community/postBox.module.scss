@@ -6,10 +6,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid var(--color-gray-300);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+  border: 1px solid var(--color-gray-200);
   border-radius: v.$radius-large;
   padding: v.$spacing-3;
+  box-shadow: v.$shadow-soft;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    border-color: var(--color-sky-200);
+    box-shadow: v.$shadow-card;
+    transform: translateY(-1px);
+  }
 
   .topArea {
     width: 100%;
@@ -21,9 +32,11 @@
 
   .middleArea {
     width: 100%;
+    padding: v.$spacing-1 0;
   }
 
   .bottomArea {
     width: 100%;
+    padding-top: v.$spacing-1;
   }
 }
