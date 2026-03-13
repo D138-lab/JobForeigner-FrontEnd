@@ -13,6 +13,8 @@ import useGetSidoRegions from '@/lib/apis/queries/useGetSidoRegions';
 import styles from './page.module.scss';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
+import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 
 const calcDistanceKm = (
   origin: { lat: number; lng: number },
@@ -32,6 +34,7 @@ const calcDistanceKm = (
 
 export default function NearbyCompanies() {
   const { t } = useTranslation('pages');
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [selectedSido, setSelectedSido] = useState<string>('');
   const [selectedRegionCode, setSelectedRegionCode] = useState<string>('');
   const [favoriteMessage, setFavoriteMessage] = useState('');
@@ -39,10 +42,10 @@ export default function NearbyCompanies() {
     lat: number;
     lng: number;
   } | null>(null);
-  const { data: sidoData } = useGetMapSido();
-  const { data: regionsData } = useGetSidoRegions(selectedSido);
-  const { data: clusterData } = useGetMapJobPostClusters(selectedSido);
-  const { data: favoritesData } = useGetMapFavorites();
+  const { data: sidoData, error: sidoError } = useGetMapSido();
+  const { data: regionsData, error: regionsError } = useGetSidoRegions(selectedSido);
+  const { data: clusterData, error: clusterError } = useGetMapJobPostClusters(selectedSido);
+  const { data: favoritesData, error: favoritesError } = useGetMapFavorites();
   const {
     mutate: postFavoriteRegionMutate,
     isPending: isPostingFavoriteRegion,
@@ -139,8 +142,11 @@ export default function NearbyCompanies() {
     }
   }, [selectedRegionCode, sortedRegions]);
 
-  const { data: selectedRegionPostData, isLoading: isSelectedRegionPostsLoading } =
-    useGetRegionJobPosts(selectedRegionCode, !!selectedRegionCode);
+  const {
+    data: selectedRegionPostData,
+    isLoading: isSelectedRegionPostsLoading,
+    error: selectedRegionPostsError,
+  } = useGetRegionJobPosts(selectedRegionCode, !!selectedRegionCode);
 
   const selectedRegionPosts = selectedRegionPostData?.data ?? [];
 
@@ -206,6 +212,15 @@ export default function NearbyCompanies() {
     isPostingFavoriteRegion ||
     isDeletingFavoriteRegion ||
     isPatchingFavoriteRegionNotification;
+  const isUnauthorized =
+    !isLoggedIn ||
+    [
+      sidoError,
+      regionsError,
+      clusterError,
+      favoritesError,
+      selectedRegionPostsError,
+    ].some(error => error?.message === 'Request failed with status code 401');
 
   const handleFavoriteRegion = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -260,6 +275,11 @@ export default function NearbyCompanies() {
 
   return (
     <div className={styles.container}>
+      {isUnauthorized && (
+        <div className={styles.unAuthorizedModal}>
+          <UnAuthorizedModal />
+        </div>
+      )}
       <div className={styles.filterRow}>
         <Select
           name='region'

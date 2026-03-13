@@ -10,9 +10,11 @@ import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModa
 import styles from './page.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 
 export default function CompaniesPage() {
   const { t } = useTranslation('pages');
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const [region, setRegion] = useState<string>('ALL');
   const [industryType, setIndustryType] = useState<string>('ALL');
   const [searchValue, setSearchValue] = useState<string>('');
@@ -24,6 +26,8 @@ export default function CompaniesPage() {
     region,
     industryType,
   );
+  const isUnauthorized =
+    !isLoggedIn || error?.message === 'Request failed with status code 401';
 
   useEffect(() => {
     queryClient.prefetchQuery({
@@ -65,6 +69,11 @@ export default function CompaniesPage() {
 
   return (
     <div className={styles.container}>
+      {isUnauthorized && (
+        <div className={styles.unAuthorizedModal}>
+          <UnAuthorizedModal />
+        </div>
+      )}
       <DetailSearchForm
         onClick={refetch}
         region={region}
@@ -73,10 +82,8 @@ export default function CompaniesPage() {
         isForCompany={true}
       />
       {isLoading && <div>{t('companies.loading')}</div>}
-      {isError && error.message === 'Request failed with status code 401' ? (
-        <div className={styles.unAuthorizedModal}>
-          <UnAuthorizedModal />
-        </div>
+      {isError && !isUnauthorized ? (
+        <div>{error.message}</div>
       ) : data?.data.pageContents?.length ? (
         <CompanyLists data={data?.data} />
       ) : (
