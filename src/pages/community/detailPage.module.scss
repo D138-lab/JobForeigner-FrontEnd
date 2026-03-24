@@ -42,7 +42,8 @@
     }
 
     .mainContent {
-      width: min(100%, 52rem);
+      flex: 1 1 0;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -51,6 +52,7 @@
     }
     .subContent {
       width: min(100%, 22rem);
+      flex: 0 0 22rem;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -58,6 +60,7 @@
 
       @media (max-width: 1024px) {
         width: 100%;
+        flex: none;
       }
     }
   }
