@@ -1,6 +1,5 @@
 import { Comment } from './Comment';
 import { InputComment } from './InputComment';
-import { MessageCircle } from 'lucide-react';
 import usePostBoardPostComment from '@/lib/apis/mutations/usePostBoardPostComment';
 import styles from './commentsArea.module.scss';
 import { useState } from 'react';
@@ -113,7 +112,6 @@ export const CommentArea = ({
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <MessageCircle size={30} />
         <span>댓글 {numOfComments}개</span>
       </div>
       <InputComment
