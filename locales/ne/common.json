@@ -27,6 +27,13 @@
     },
     "emptyBySearch": "खोज परिणाम छैन।",
     "emptyByCategory": "यो श्रेणीमा पोस्ट छैन।",
+    "recommendedPostsTitle": "Recommended for You",
+    "recommendedPostsDescription": "Posts selected from your recent like history.",
+    "loadingRecommendations": "Loading recommended posts.",
+    "recommendationsError": "Failed to load recommended posts.",
+    "noRecommendations": "No recommended posts yet.",
+    "recommendationScore": "Score {{score}}",
+    "recommendationStats": "Likes {{likeCount}} · Comments {{commentCount}}",
     "popularPostsTitle": "लोकप्रिय पोस्टहरू",
     "announcementTitle": "सूचना/कार्यक्रम",
     "announcements": {

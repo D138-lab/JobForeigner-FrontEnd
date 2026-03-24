@@ -27,6 +27,13 @@
     },
     "emptyBySearch": "Tidak ada hasil pencarian.",
     "emptyByCategory": "Tidak ada postingan di kategori ini.",
+    "recommendedPostsTitle": "Recommended for You",
+    "recommendedPostsDescription": "Posts selected from your recent like history.",
+    "loadingRecommendations": "Loading recommended posts.",
+    "recommendationsError": "Failed to load recommended posts.",
+    "noRecommendations": "No recommended posts yet.",
+    "recommendationScore": "Score {{score}}",
+    "recommendationStats": "Likes {{likeCount}} · Comments {{commentCount}}",
     "popularPostsTitle": "Postingan populer",
     "announcementTitle": "Pengumuman/Acara",
     "announcements": {

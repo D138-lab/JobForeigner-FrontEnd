@@ -23,6 +23,9 @@ const useDeleteBoardPostLike = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['useGetBoardPosts'] });
       queryClient.invalidateQueries({ queryKey: ['useGetBoardPostDetail'] });
+      queryClient.invalidateQueries({
+        queryKey: ['useGetRecommendedBoardPosts'],
+      });
     },
   });
 };

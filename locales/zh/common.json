@@ -27,6 +27,13 @@
     },
     "emptyBySearch": "没有搜索结果。",
     "emptyByCategory": "该分类下暂无帖子。",
+    "recommendedPostsTitle": "Recommended for You",
+    "recommendedPostsDescription": "Posts selected from your recent like history.",
+    "loadingRecommendations": "Loading recommended posts.",
+    "recommendationsError": "Failed to load recommended posts.",
+    "noRecommendations": "No recommended posts yet.",
+    "recommendationScore": "Score {{score}}",
+    "recommendationStats": "Likes {{likeCount}} · Comments {{commentCount}}",
     "popularPostsTitle": "热门帖子",
     "announcementTitle": "公告/活动",
     "announcements": {

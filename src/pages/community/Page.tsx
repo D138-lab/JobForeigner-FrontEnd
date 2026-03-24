@@ -1,4 +1,5 @@
 import { ContentArea } from '@/components/community/ContentArea';
+import { RecommendedPosts } from '@/components/community/RecommendedPosts';
 import { SearchPostForm } from '@/components/community/SearchPostForm';
 import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 import styles from './page.module.scss';
@@ -26,6 +27,7 @@ export default function CommunityPage() {
         searchValue={searchValue}
         onChangeSearchValue={value => setSearchValue(value)}
       />
+      <RecommendedPosts enabled={isLoggedIn} />
       <ContentArea
         postType={postType}
         setPostType={setPostType}

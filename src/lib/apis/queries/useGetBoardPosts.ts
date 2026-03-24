@@ -22,13 +22,13 @@ export interface BoardPostSummary {
   createdAt: string;
 }
 
-export interface GetBoardPostsResponse {
+export interface BoardPostsPageResponse<T = BoardPostSummary> {
   pageNumber: number;
   pageSize: number;
   totalElements: number;
   totalPages: number;
   pageSort: string;
-  pageContents: BoardPostSummary[];
+  pageContents: T[];
 }
 
 export const getBoardPosts = async ({
@@ -50,7 +50,7 @@ export const getBoardPosts = async ({
 
   const response = await fetcher.get<{
     success: boolean | string;
-    data: GetBoardPostsResponse;
+    data: BoardPostsPageResponse;
   }>(`/api/v1/board-posts?${params.toString()}`);
 
   return response;

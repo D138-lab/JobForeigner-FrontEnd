@@ -31,6 +31,13 @@
     },
     "emptyBySearch": "검색 결과가 없습니다.",
     "emptyByCategory": "선택한 카테고리에 게시글이 없습니다.",
+    "recommendedPostsTitle": "회원님을 위한 추천 게시글",
+    "recommendedPostsDescription": "좋아요 이력을 바탕으로 관심 있을 만한 글을 모았습니다.",
+    "loadingRecommendations": "추천 게시글을 불러오는 중입니다.",
+    "recommendationsError": "추천 게시글을 불러오지 못했습니다.",
+    "noRecommendations": "아직 추천할 게시글이 없습니다.",
+    "recommendationScore": "추천 {{score}}",
+    "recommendationStats": "좋아요 {{likeCount}} · 댓글 {{commentCount}}",
     "popularPostsTitle": "실시간 인기 게시물",
     "announcementTitle": "공지/이벤트",
     "announcements": {

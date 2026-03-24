@@ -27,6 +27,13 @@
     },
     "emptyBySearch": "Qidiruv natijasi topilmadi.",
     "emptyByCategory": "Bu toifada postlar yo'q.",
+    "recommendedPostsTitle": "Recommended for You",
+    "recommendedPostsDescription": "Posts selected from your recent like history.",
+    "loadingRecommendations": "Loading recommended posts.",
+    "recommendationsError": "Failed to load recommended posts.",
+    "noRecommendations": "No recommended posts yet.",
+    "recommendationScore": "Score {{score}}",
+    "recommendationStats": "Likes {{likeCount}} · Comments {{commentCount}}",
     "popularPostsTitle": "Ommabop postlar",
     "announcementTitle": "E'lon/Tadbir",
     "announcements": {
