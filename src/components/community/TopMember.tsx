@@ -23,17 +23,20 @@ export const TopMember = ({ people }: TopMemberProps) => {
         ) : (
           topPeople.map((person, idx) => (
             <div key={idx} className={styles.item}>
+              <span className={styles.rankBadge}>{idx + 1}</span>
               <div className={styles.profile}>
                 <img
                   className={styles.profileImg}
                   src={person.profileImgUrl}
                   alt={t('communityPage.profileImageAlt', { name: person.name })}
                 />
-                <span className={styles.name}>{person.name}</span>
+                <div className={styles.texts}>
+                  <span className={styles.name}>{person.name}</span>
+                  <span className={styles.rank}>
+                    {t('communityPage.topRank', { rank: idx + 1 })}
+                  </span>
+                </div>
               </div>
-              <span className={styles.rank}>
-                {t('communityPage.topRank', { rank: idx + 1 })}
-              </span>
             </div>
           ))
         )}

@@ -11,10 +11,16 @@
   border-radius: v.$radius-large;
   padding: v.$spacing-3;
   gap: v.$spacing-3;
+  box-shadow: v.$shadow-soft;
 
   .title {
-    font-size: 1.4em;
-    font-weight: 700;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-gray-900);
+    letter-spacing: -0.02em;
+    padding-bottom: v.$spacing-2;
+    border-bottom: 1px solid var(--color-gray-200);
   }
 
   .dataList {

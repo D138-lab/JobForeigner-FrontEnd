@@ -11,10 +11,16 @@
   border-radius: v.$radius-large;
   padding: v.$spacing-3;
   gap: v.$spacing-3;
+  box-shadow: v.$shadow-soft;
 
   .title {
-    font-size: 1.4em;
-    font-weight: 700;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-gray-900);
+    letter-spacing: -0.02em;
+    padding-bottom: v.$spacing-2;
+    border-bottom: 1px solid var(--color-gray-200);
   }
 
   .bar {
@@ -38,13 +44,32 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: v.$spacing-1;
+      padding: 0.8rem 0.9rem;
+      border-radius: v.$radius-medium;
+      background: #f8fafc;
+      border: 1px solid transparent;
+
+      .rankBadge {
+        width: 1.9rem;
+        height: 1.9rem;
+        flex: 0 0 1.9rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #eaf4ff;
+        color: var(--color-sky-800);
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
 
       .profile {
+        min-width: 0;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
         gap: v.$spacing-1;
 
         .profileImg {
@@ -52,17 +77,30 @@
           height: 2.6rem;
           border-radius: 50%;
           object-fit: cover;
-          margin-right: 0.8rem;
-        }
-
-        .name {
-          font-weight: 600;
-          font-size: 1.2em;
+          border: 1px solid var(--color-gray-200);
         }
       }
+
+      .texts {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .name {
+        font-weight: 700;
+        font-size: 0.96rem;
+        color: var(--color-gray-900);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .rank {
-        font-weight: 800;
-        color: var(--color-sky-900);
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--color-gray-600);
       }
     }
   }
