@@ -152,7 +152,7 @@
   padding: 0 v.$spacing-2;
   border-radius: 999px;
   border-color: var(--color-gray-200);
-  background: linear-gradient(180deg, #ffffff 0%, var(--color-gray-50) 100%);
+  background: #ffffff;
   color: var(--color-gray-800);
   box-shadow: v.$shadow-soft;
 
@@ -168,14 +168,11 @@
   min-height: 3rem;
   padding: 0 v.$spacing-2;
   border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    var(--color-sky-700) 0%,
-    var(--color-sky-900) 100%
-  ) !important;
+  background: var(--color-sky-900) !important;
   box-shadow: v.$shadow-soft;
 
   &:hover {
+    background: var(--color-sky-800) !important;
     box-shadow: v.$shadow-card;
   }
 }

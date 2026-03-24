@@ -57,7 +57,7 @@ export default function Header() {
               </Button>
             </Link>
             <Link to='/register'>
-              <Button className={styles.signUpButton} color='#0c4a6e'>
+              <Button className={styles.signUpButton}>
                 {t('signUp')}
               </Button>
             </Link>
