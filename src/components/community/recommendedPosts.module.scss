@@ -105,14 +105,14 @@
 
   .category {
     padding: 0.28rem 0.6rem;
-    background: rgba(2, 132, 199, 0.1);
-    color: #0369a1;
+    background: var(--color-sky-50);
+    color: var(--color-sky-900);
   }
 
   .score {
     padding: 0.28rem 0.6rem;
-    background: rgba(245, 158, 11, 0.14);
-    color: #b45309;
+    background: rgba(14, 116, 144, 0.1);
+    color: var(--color-sky-800);
   }
 
   .meta {
@@ -163,8 +163,8 @@
 
   .tags span {
     padding: 0.26rem 0.58rem;
-    background: #eef2ff;
-    color: #4338ca;
+    background: var(--color-sky-50);
+    color: var(--color-sky-800);
   }
 
   .footer {

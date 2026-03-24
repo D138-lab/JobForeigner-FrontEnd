@@ -38,11 +38,11 @@
 }
 
 .notice {
-  color: #dc2626;
-  background: #fef2f2;
+  color: var(--color-sky-900);
+  background: var(--color-sky-50);
 }
 
 .event {
-  color: #2563eb;
-  background: #eff6ff;
+  color: var(--color-sky-800);
+  background: rgba(14, 116, 144, 0.1);
 }
