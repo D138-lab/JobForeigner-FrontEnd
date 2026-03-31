@@ -3,6 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
 import { formatPublished } from '@/lib/utils/formatPublished';
+import {
+  getEmploymentTypeLabel,
+  getRegionLabel,
+  translateJobMetaText,
+} from '@/lib/utils/jobMeta';
 import styles from './recruitBox.module.scss';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
@@ -58,37 +63,6 @@ const RecruitBox = ({
     navigate('/select-resume', { state: { recruitId: id } });
   };
 
-  const mappingEmploymentType = (empType: string) => {
-    if (empType === 'FULL_TIME') return '정규직';
-    if (empType === 'INTERN') return '인턴';
-    if (empType === 'CONTRACT') return '계약직';
-  };
-
-  const mappingRegion = (region: string): string => {
-    const regionMap: Record<string, string> = {
-      ALL: '전체',
-      SEOUL: '서울',
-      BUSAN: '부산',
-      DAEGU: '대구',
-      INCHEON: '인천',
-      GWANGJU: '광주',
-      DAEJEON: '대전',
-      ULSAN: '울산',
-      SEJONG: '세종',
-      GYEONGGI: '경기',
-      GANGWON: '강원',
-      CHUNGBUK: '충북',
-      CHUNGNAM: '충남',
-      JEONBUK: '전북',
-      JEONNAM: '전남',
-      GYEONGBUK: '경북',
-      GYEONGNAM: '경남',
-      JEJU: '제주',
-    };
-
-    return regionMap[region.toUpperCase()] ?? region;
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
@@ -113,21 +87,21 @@ const RecruitBox = ({
         <div className={styles.subRow}>
           <div className={styles.grade}>{grade}</div>
           <div className={styles.employmentType}>
-            {mappingEmploymentType(employmentType)}
+            {getEmploymentTypeLabel(employmentType, i18n.language)}
           </div>
         </div>
         <div className={styles.datailInfo}>
           <div className={styles.locationBox}>
             <MapPin size={15} className={styles.icon} />
-            <span>{mappingRegion(regionType)}</span>
+            <span>{getRegionLabel(regionType, i18n.language)}</span>
           </div>
           <div className={styles.salaryBox}>
             <DollarSign size={15} className={styles.icon} />
-            <span>{salary}</span>
+            <span>{translateJobMetaText(salary, i18n.language)}</span>
           </div>
           <div>
             <User size={15} className={styles.icon} />
-            <span>{career}</span>
+            <span>{translateJobMetaText(career, i18n.language)}</span>
           </div>
           <div>
             <Timer size={15} className={styles.icon} />

@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface GetDetailRecruitResponse {
+export interface GetDetailRecruitResponse {
   id: number;
   title: string;
   companyId: number;

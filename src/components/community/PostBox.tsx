@@ -21,6 +21,7 @@ export interface PostBoxProps extends ProfileInfoInPostProps {
   numOfLike: number;
   numOfComment: number;
   isLiked: boolean;
+  isTranslating?: boolean;
   onClick?: () => void;
 }
 
@@ -40,6 +41,7 @@ export const PostBox = ({
   isLiked,
   numOfComment,
   numOfLike,
+  isTranslating = false,
   onClick,
 }: PostBoxProps) => {
   const { t } = useTranslation('common');
@@ -110,6 +112,9 @@ export const PostBox = ({
         </div>
       </div>
       <div className={styles.middleArea}>
+        {isTranslating ? (
+          <div className={styles.translationStatus}>번역 중...</div>
+        ) : null}
         <BriefPost
           category={category}
           title={title}

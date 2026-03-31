@@ -2,6 +2,8 @@ import AdvertiseRecruitBox from '@/components/jobs/AdvertiseRecruitBox';
 import ApplyTab from '@/components/jobs/ApplyTab';
 import DOMPurify from 'dompurify';
 import DetailInfoBox from '@/components/jobs/DetailInfoBox';
+import useGetTranslatedJobPost from '@/lib/apis/queries/useGetTranslatedJobPost';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './detailPage.module.scss';
 import { useEffect } from 'react';
 import useGetDetailRecruitInfo from '@/lib/apis/queries/useGetDetailRecruitInfo';
@@ -10,10 +12,16 @@ import usePostRecentJobs from '@/lib/apis/mutations/usePostRecentJobs';
 import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
-  const { t } = useTranslation('pages');
+  const { t, i18n } = useTranslation('pages');
   const location = useLocation();
   const id = location.state.id;
   const { data, isLoading, isError } = useGetDetailRecruitInfo(id);
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const { data: translatedData } = useGetTranslatedJobPost(
+    id,
+    translationLanguage,
+    !!translationLanguage,
+  );
   const { mutate } = usePostRecentJobs();
 
   useEffect(() => {
@@ -27,22 +35,24 @@ const DetailPage = () => {
     return <div>{t('jobs.error')}</div>;
   }
 
+  const recruitData = translatedData?.data ?? data!.data;
+
   return (
     <div className={styles.container}>
       <div className={styles.pageShell}>
         <DetailInfoBox
-          {...data!.data}
-          expiryAt={data!.data.expiryAt.toLocaleString()}
+          {...recruitData}
+          expiryAt={recruitData.expiryAt.toLocaleString()}
         />
 
         <div className={styles.contentGrid}>
           <section className={styles.descriptionSection}>
             <div className={styles.sectionEyebrow}>Job Overview</div>
-            <h2 className={styles.sectionTitle}>{data!.data.title}</h2>
+            <h2 className={styles.sectionTitle}>{recruitData.title}</h2>
             <div
               className={styles.descriptionContent}
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(data!.data.description),
+                __html: DOMPurify.sanitize(recruitData.description),
               }}
             />
           </section>
@@ -53,9 +63,9 @@ const DetailPage = () => {
         </div>
 
         <ApplyTab
-          key={data?.data.id}
-          recruitId={data?.data.id!}
-          expiryAt={data?.data.expiryAt!}
+          key={recruitData.id}
+          recruitId={recruitData.id}
+          expiryAt={recruitData.expiryAt}
         />
       </div>
     </div>

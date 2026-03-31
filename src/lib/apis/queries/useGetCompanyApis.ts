@@ -19,7 +19,7 @@ export interface GetAllCompanyInfoResponse {
   pageContents: CompanyType[];
 }
 
-interface CompanyInfoDto {
+export interface CompanyInfoDto {
   companyId: number;
   companyName: string;
   employeeCount: number;
@@ -71,7 +71,7 @@ export interface ReviewDto {
   reviewerName: string;
 }
 
-interface GetCompanyDetailInfoResponse {
+export interface GetCompanyDetailInfoResponse {
   companyInfoDto: CompanyInfoDto;
   jobPostDto: JobPostDto[];
   salaryInfoDto: SalaryInfoDto;

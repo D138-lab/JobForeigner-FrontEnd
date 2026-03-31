@@ -35,6 +35,18 @@
     padding: v.$spacing-1 0;
   }
 
+  .translationStatus {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background-color: var(--color-sky-50);
+    color: var(--color-sky-800);
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
   .bottomArea {
     width: 100%;
     padding-top: v.$spacing-1;

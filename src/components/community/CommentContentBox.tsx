@@ -9,6 +9,9 @@ interface CommentContentBoxProps {
   isVerified: boolean;
   postedAt: Date;
   content: string;
+  onClickTranslate?: () => void;
+  translationLabel?: string;
+  showTranslateAction?: boolean;
   hasMenu?: boolean;
 }
 
@@ -18,6 +21,9 @@ export const CommentContentBox = ({
   isVerified,
   postedAt,
   content,
+  onClickTranslate,
+  translationLabel,
+  showTranslateAction = false,
   hasMenu = false,
 }: CommentContentBoxProps) => {
   return (
@@ -33,6 +39,15 @@ export const CommentContentBox = ({
         <span className={styles.postedAt}>{timeAgo(postedAt)}</span>
       </div>
       <div className={styles.content}>{content}</div>
+      {showTranslateAction && onClickTranslate && translationLabel ? (
+        <button
+          type='button'
+          className={styles.translateButton}
+          onClick={onClickTranslate}
+        >
+          {translationLabel}
+        </button>
+      ) : null}
     </div>
   );
 };

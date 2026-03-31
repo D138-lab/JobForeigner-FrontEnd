@@ -3,6 +3,8 @@ import RatingInfo from './subPage/RatingInfo';
 import RecruitInfo from './subPage/RecruitInfo';
 import ReviewInfo from './subPage/ReviewInfo';
 import SalaryInfo from './subPage/SalaryInfo';
+import useGetTranslatedCompany from '@/lib/apis/queries/useGetTranslatedCompany';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './detailPage.module.scss';
 import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
 import { useLocation } from 'react-router-dom';
@@ -10,11 +12,17 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
-  const { t } = useTranslation('pages');
+  const { t, i18n } = useTranslation('pages');
   const location = useLocation();
   const companyId = location.state;
   const { data, isLoading, isError, error } =
     useGetCompanyDetailInfo(companyId);
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const { data: translatedData } = useGetTranslatedCompany(
+    companyId,
+    translationLanguage,
+    !!translationLanguage,
+  );
   const optionTabs = [
     { key: 'info', label: t('companies.detail.tabs.info') },
     { key: 'recruit', label: t('companies.detail.tabs.recruit') },
@@ -37,16 +45,17 @@ const DetailPage = () => {
 
   console.log('기업 상세 정보:', data);
 
-  const companyInfo = data.data.companyInfoDto;
-  const jobPost = data.data.jobPostDto;
-  const salaryInfo = data.data.salaryInfoDto;
-  const companyRating = data.data.companyRatingDto;
-  const review = data.data.reviewDto;
+  const companyData = translatedData?.data ?? data.data;
+  const companyInfo = companyData.companyInfoDto;
+  const jobPost = companyData.jobPostDto;
+  const salaryInfo = companyData.salaryInfoDto;
+  const companyRating = companyData.companyRatingDto;
+  const review = companyData.reviewDto;
 
   return (
     <div className={styles.container}>
       <div className={styles.infoTitle}>
-        <img src={data.data.imageUrl} alt={companyInfo.companyName} />
+        <img src={companyData.imageUrl} alt={companyInfo.companyName} />
         <div className={styles.companyName}>{companyInfo.companyName}</div>
       </div>
       <div className={styles.optionTab}>
