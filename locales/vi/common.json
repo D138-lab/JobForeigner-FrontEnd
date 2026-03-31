@@ -27,6 +27,13 @@
     },
     "emptyBySearch": "Không có kết quả tìm kiếm.",
     "emptyByCategory": "Không có bài viết trong danh mục này.",
+    "recommendedPostsTitle": "Recommended for You",
+    "recommendedPostsDescription": "Posts selected from your recent like history.",
+    "loadingRecommendations": "Loading recommended posts.",
+    "recommendationsError": "Failed to load recommended posts.",
+    "noRecommendations": "No recommended posts yet.",
+    "recommendationScore": "Score {{score}}",
+    "recommendationStats": "Likes {{likeCount}} · Comments {{commentCount}}",
     "popularPostsTitle": "Bài viết thịnh hành",
     "announcementTitle": "Thông báo/Sự kiện",
     "announcements": {

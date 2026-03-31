@@ -17,7 +17,7 @@ export const PopularPosts = ({ posts }: PopularPostsProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.titleBox}>
-        <span>{t('communityPage.popularPostsTitle')}</span>
+        <span className={styles.title}>{t('communityPage.popularPostsTitle')}</span>
       </div>
       <div className={styles.posts}>
         {topPosts.length === 0 ? (
@@ -34,8 +34,8 @@ export const PopularPosts = ({ posts }: PopularPostsProps) => {
                 })
               }
             >
-              <span>{idx + 1}</span>
-              {post.title}
+              <span className={styles.rank}>{idx + 1}</span>
+              <span className={styles.postTitle}>{post.title}</span>
             </button>
           ))
         )}

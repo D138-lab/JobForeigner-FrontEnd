@@ -37,8 +37,8 @@ $transition: 0.2s ease-in-out;
 }
 
 .searchButton {
-  border: 1px solid var(--color-sky-800);
-  background: var(--color-sky-800);
+  border: 1px solid var(--color-sky-900);
+  background: var(--color-sky-900);
   color: #fff;
   border-radius: v.$radius-medium;
   height: 34px;
@@ -60,8 +60,8 @@ $transition: 0.2s ease-in-out;
     transform $transition;
 
   &:hover {
-    background: var(--color-sky-900);
-    border-color: var(--color-sky-900);
+    background: var(--color-sky-800);
+    border-color: var(--color-sky-800);
     box-shadow: v.$shadow-card;
     transform: translateY(-1px);
   }
