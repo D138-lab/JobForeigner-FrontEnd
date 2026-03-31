@@ -7,6 +7,7 @@ import LanguageButton from './LanguageButton';
 import { title as Logo } from '@/lib/constants/serviceName';
 import RecentJobs from './RecentJobs';
 import SearchForm from './SearchForm';
+import useDeleteSignOut from '@/lib/apis/mutations/useDeleteSignOut';
 import { headerNavItems } from '@/lib/constants/navItems';
 import styles from './header.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
@@ -19,6 +20,7 @@ export default function Header() {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const logout = useAuthStore(state => state.logout);
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
+  const { mutate: signOut } = useDeleteSignOut();
   const resolvedProfileImage =
     typeof userImgUrl === 'string' && userImgUrl.trim() !== ''
       ? userImgUrl
@@ -28,8 +30,13 @@ export default function Header() {
   );
 
   const handleLogout = () => {
-    logout();
-    localStorage.removeItem('accessToken');
+    signOut(undefined, {
+      onSettled: () => {
+        logout();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      },
+    });
   };
 
   const toggleRecentModal = () => {

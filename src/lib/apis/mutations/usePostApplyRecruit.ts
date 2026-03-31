@@ -11,7 +11,7 @@ const postApplyRecruit = async ({
   jobPostId,
 }: postApplyRecruitProps) => {
   return await fetcher.post(
-    `/api/v1/job-posts/jobPost/${resumeId}/${jobPostId}/apply`,
+    `/api/v1/job-posts/${resumeId}/${jobPostId}/apply`,
   );
 };
 
