@@ -1,4 +1,6 @@
 import { Briefcase, Calendar } from 'lucide-react';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { JobPostDto } from '@/lib/apis/queries/useGetCompanyApis';
 import styles from './recruitList.module.scss';
@@ -15,9 +17,20 @@ export const RecruitList = ({
   expiryAt,
   onClick,
 }: RecruitListProps) => {
-  const deadline = new Date(expiryAt);
+  const { i18n } = useTranslation();
+  const deadline = useMemo(() => new Date(expiryAt), [expiryAt]);
+  const deadlineText = useMemo(
+    () =>
+      deadline.toLocaleDateString(i18n.language, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }),
+    [deadline, i18n.language],
+  );
+
   return (
-    <div className={styles.container} onClick={onClick}>
+    <button type='button' className={styles.container} onClick={onClick}>
       <div className={styles.topInfo}>
         <div className={styles.empolyeeType}>{employmentType}</div>
         <div className={styles.region}>{location}</div>
@@ -25,14 +38,14 @@ export const RecruitList = ({
       <div className={styles.title}>{title}</div>
       <div className={styles.bottomInfo}>
         <div className={styles.teamName}>
-          <Briefcase width='1.4rem' />
+          <Briefcase width='1rem' />
           <span>{career}</span>
         </div>
         <div className={styles.deadline}>
-          <Calendar width='1.4rem' />
-          <span>{`${deadline.getFullYear()}.${deadline.getMonth()}.${deadline.getDate()}`}</span>
+          <Calendar width='1rem' />
+          <span>{deadlineText}</span>
         </div>
       </div>
-    </div>
+    </button>
   );
 };

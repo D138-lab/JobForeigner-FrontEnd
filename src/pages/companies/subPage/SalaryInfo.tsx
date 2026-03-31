@@ -13,6 +13,9 @@ const SalaryInfo = ({ averageSalary, monthlySalary }: SalaryInfoProps) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.title}>{t('companies.detail.tabs.salary')}</div>
+      </div>
       <div className={styles.salaryBoxContainer}>
         <SalaryBox
           titleText={t('companies.salary.total')}

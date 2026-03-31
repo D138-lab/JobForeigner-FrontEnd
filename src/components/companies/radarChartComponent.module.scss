@@ -1,8 +1,9 @@
 @use 'src/styles/variables' as v;
 
 .container {
-	margin: v.$spacing-2;
-	padding: v.$spacing-2;
-	border: 1px solid var(--color-gray-200);
-	border-radius: v.$radius-medium;
+  padding: v.$spacing-3;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 1.5rem;
+  background-color: white;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
 }

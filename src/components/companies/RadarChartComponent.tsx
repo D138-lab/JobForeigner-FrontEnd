@@ -25,9 +25,9 @@ const RadarChartComponent = ({ data }: Props) => {
           <Radar
             name='평점'
             dataKey='score'
-            stroke='#8884d8'
-            fill='#8884d8'
-            fillOpacity={0.6}
+            stroke='var(--color-sky-800)'
+            fill='var(--color-sky-700)'
+            fillOpacity={0.22}
           />
         </RechartsRadarChart>
       </ResponsiveContainer>

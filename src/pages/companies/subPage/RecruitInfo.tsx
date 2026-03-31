@@ -11,11 +11,16 @@ type Props = {
 const RecruitInfo = ({ data }: Props) => {
   const { t } = useTranslation('pages');
   const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.title}>{t('companies.detail.tabs.recruit')}</div>
+        <div className={styles.count}>{data.length}</div>
+      </div>
       <div className={styles.recruitInfo}>
         {data.length === 0 ? (
-          <div>{t('companies.recruit.empty')}</div>
+          <div className={styles.empty}>{t('companies.recruit.empty')}</div>
         ) : (
           data.map((recruit, index) => (
             <RecruitList

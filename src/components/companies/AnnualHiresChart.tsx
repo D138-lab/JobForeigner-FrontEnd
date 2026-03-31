@@ -29,13 +29,13 @@ const AnnualHiresChart = () => {
           margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
           barCategoryGap='30%'
         >
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='year' />
-          <YAxis domain={[0, 'dataMax + 20']} />
+          <CartesianGrid stroke='var(--color-gray-200)' strokeDasharray='3 3' />
+          <XAxis dataKey='year' stroke='var(--color-gray-500)' />
+          <YAxis domain={[0, 'dataMax + 20']} stroke='var(--color-gray-500)' />
           <Tooltip />
           <Legend />
-          <Bar dataKey='resignations' fill='#d3d3d3' name='퇴사자' />
-          <Bar dataKey='hires' fill='#0c4a6e' name='입사자' />
+          <Bar dataKey='resignations' fill='var(--color-gray-300)' name='퇴사자' />
+          <Bar dataKey='hires' fill='var(--color-sky-800)' name='입사자' />
         </BarChart>
       </ResponsiveContainer>
     </div>

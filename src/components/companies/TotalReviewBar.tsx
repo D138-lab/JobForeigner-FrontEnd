@@ -25,6 +25,7 @@ const TotalReviewBar = (data: ReviewDto) => {
     let sum =
       data.jobStability +
       data.organizationalCulture +
+      data.welfare +
       data.salarySatisfaction +
       data.workLifeBalance;
     sum /= 5;
@@ -35,11 +36,11 @@ const TotalReviewBar = (data: ReviewDto) => {
       <div className={styles.topBox}>
         <div className={styles.userInfo}>
           <div className={styles.name}>{data.reviewerName}</div>
-          <div className={styles.reviewId}>리뷰ID : {data.ratingId}</div>
+          <div className={styles.reviewId}>#{data.ratingId}</div>
         </div>
         <div className={styles.ratingInfo}>
           <div className={styles.scoreRow}>
-            <Star size={20} color='gold' fill='gold' />
+            <Star size={18} className={styles.starIcon} fill='currentColor' />
             <div className={styles.score}>{meanOfScore(data)}/5</div>
           </div>
           <div className={styles.scoreLabel}>종합 평점</div>
@@ -49,11 +50,11 @@ const TotalReviewBar = (data: ReviewDto) => {
       <div className={styles.reviewBox}>
         <div className={styles.specificBar}>
           <div className={styles.titleBox}>
-            <Shield size={18} color='green' />
+            <Shield size={18} className={styles.metricIcon} />
             <div>직업 안정성</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='gold' fill='gold' />
+            <Star size={16} className={styles.starIcon} fill='currentColor' />
             <span>{data.jobStability}</span>
           </div>
         </div>
@@ -61,11 +62,11 @@ const TotalReviewBar = (data: ReviewDto) => {
 
         <div className={styles.specificBar}>
           <div className={styles.titleBox}>
-            <Users size={18} color='blue' />
+            <Users size={18} className={styles.metricIcon} />
             <div>조직 문화</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='gold' fill='gold' />
+            <Star size={16} className={styles.starIcon} fill='currentColor' />
             <span>{data.organizationalCulture}</span>
           </div>
         </div>
@@ -73,11 +74,11 @@ const TotalReviewBar = (data: ReviewDto) => {
 
         <div className={styles.specificBar}>
           <div className={styles.titleBox}>
-            <DollarSign size={18} color='green' />
+            <DollarSign size={18} className={styles.metricIcon} />
             <div>급여 만족도</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='gold' fill='gold' />
+            <Star size={16} className={styles.starIcon} fill='currentColor' />
             <span>{data.salarySatisfaction}</span>
           </div>
         </div>
@@ -85,11 +86,11 @@ const TotalReviewBar = (data: ReviewDto) => {
 
         <div className={styles.specificBar}>
           <div className={styles.titleBox}>
-            <Gift size={18} color='purple' />
+            <Gift size={18} className={styles.metricIcon} />
             <div>복지</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='gold' fill='gold' />
+            <Star size={16} className={styles.starIcon} fill='currentColor' />
             <span>{data.welfare}</span>
           </div>
         </div>
@@ -97,11 +98,11 @@ const TotalReviewBar = (data: ReviewDto) => {
 
         <div className={styles.specificBar}>
           <div className={styles.titleBox}>
-            <Clock size={18} color='orange' />
+            <Clock size={18} className={styles.metricIcon} />
             <div>워라벨</div>
           </div>
           <div className={styles.ratingBox}>
-            <Star size={18} color='gold' fill='gold' />
+            <Star size={16} className={styles.starIcon} fill='currentColor' />
             <span>{data.workLifeBalance}</span>
           </div>
         </div>
