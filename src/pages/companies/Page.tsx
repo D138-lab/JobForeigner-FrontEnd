@@ -30,6 +30,8 @@ export default function CompaniesPage() {
     !isLoggedIn || error?.message === 'Request failed with status code 401';
 
   useEffect(() => {
+    if (!isLoggedIn) return;
+
     queryClient.prefetchQuery({
       queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
       queryFn: () =>
@@ -37,13 +39,15 @@ export default function CompaniesPage() {
           queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
         }),
     });
-  }, []);
+  }, [industryType, isLoggedIn, queryClient, region, searchValue]);
 
   const refetch = async (
     newSearchValue: string,
     newRegion: string,
     newIndustryType: string,
   ) => {
+    if (!isLoggedIn) return;
+
     setSearchValue(newSearchValue);
     setRegion(newRegion);
     setIndustryType(newIndustryType);

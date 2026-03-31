@@ -7,21 +7,23 @@ import useGetTranslatedCompany from '@/lib/apis/queries/useGetTranslatedCompany'
 import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './detailPage.module.scss';
 import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
   const { t, i18n } = useTranslation('pages');
+  const params = useParams();
   const location = useLocation();
-  const companyId = location.state;
+  const fallbackCompanyId = location.state;
+  const companyId = Number(params.id ?? fallbackCompanyId ?? 0);
   const { data, isLoading, isError, error } =
     useGetCompanyDetailInfo(companyId);
   const translationLanguage = resolveTranslationLanguage(i18n.language);
   const { data: translatedData } = useGetTranslatedCompany(
     companyId,
     translationLanguage,
-    !!translationLanguage,
+    !!translationLanguage && Number.isFinite(companyId) && companyId > 0,
   );
   const optionTabs = [
     { key: 'info', label: t('companies.detail.tabs.info') },
@@ -32,15 +34,15 @@ const DetailPage = () => {
   ];
   const [selectedTab, setSelectedTab] = useState(optionTabs[0].key);
 
-  if (!data) {
-    return <div>{t('companies.detail.notFound')}</div>;
-  }
   if (isLoading) {
     return <div>{t('companies.detail.loading')}</div>;
   }
   if (isError) {
     console.error('에러 발생:', error);
     return <div>{t('companies.detail.loadError')}</div>;
+  }
+  if (!data || !Number.isFinite(companyId) || companyId <= 0) {
+    return <div>{t('companies.detail.notFound')}</div>;
   }
 
   console.log('기업 상세 정보:', data);
