@@ -9,6 +9,7 @@ import { RelatedPosts } from '@/components/community/RelatedPosts';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import useGetBoardPostComments from '@/lib/apis/queries/useGetBoardPostComments';
+import useGetRelatedBoardPosts from '@/lib/apis/queries/useGetRelatedBoardPosts';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useTranslation } from 'react-i18next';
@@ -31,6 +32,12 @@ export default function DetailPage() {
     [],
     Number.isFinite(postId) && postId > 0,
   );
+  const {
+    data: relatedPostsData,
+    isPending: isRelatedPostsPending,
+    isError: isRelatedPostsError,
+    error: relatedPostsError,
+  } = useGetRelatedBoardPosts(postId, 5, Number.isFinite(postId) && postId > 0);
   const { data: myInfo } = useGetMyInfo();
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
@@ -95,6 +102,11 @@ export default function DetailPage() {
 
   const errorMessage = (
     error as {
+      response?: { data?: { message?: string; msg?: string } };
+    }
+  )?.response?.data;
+  const relatedPostsErrorMessage = (
+    relatedPostsError as {
       response?: { data?: { message?: string; msg?: string } };
     }
   )?.response?.data;
@@ -179,7 +191,14 @@ export default function DetailPage() {
           />
         </div>
         <div className={styles.subContent}>
-          <RelatedPosts />
+          <RelatedPosts
+            posts={relatedPostsData?.data ?? []}
+            isPending={isRelatedPostsPending}
+            isError={isRelatedPostsError}
+            errorMessage={
+              relatedPostsErrorMessage?.message ?? relatedPostsErrorMessage?.msg
+            }
+          />
         </div>
       </div>
     </div>
