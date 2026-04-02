@@ -21,39 +21,41 @@
 .userInfo {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 .name {
   color: var(--color-gray-900);
   font-size: 1.2rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .reviewId {
   display: inline-flex;
   width: fit-content;
-  padding: 0.35rem 0.7rem;
+  align-items: center;
+  padding: 0.4rem 0.78rem;
   border-radius: 999px;
-  background-color: white;
-  color: var(--color-sky-800);
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
   font-size: 0.78rem;
   font-weight: 700;
 }
 
 .starIcon {
-  color: var(--color-sky-700);
+  color: #f4b400;
 }
 
 .metricIcon {
-  color: var(--color-gray-600);
+  color: var(--color-sky-800);
 }
 
 .ratingInfo {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.3rem;
+  gap: 0.45rem;
 }
 
 .scoreRow {
@@ -62,55 +64,92 @@
   gap: 0.4rem;
 }
 
+.scoreBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: transparent;
+}
+
 .score {
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--color-gray-900);
+  letter-spacing: -0.03em;
 }
 
 .scoreLabel {
-  color: var(--color-gray-500);
-  font-size: 0.8rem;
+  color: var(--color-gray-600);
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
 .reviewBox {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: v.$spacing-2;
+  gap: 0.95rem;
+}
+
+.reviewCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.1rem 1rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 1.2rem;
+  background-color: white;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.03);
 }
 
 .specificBar {
   display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .titleBox {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.7rem;
 
   div {
     color: var(--color-gray-900);
     font-size: 1rem;
     font-weight: 700;
+    letter-spacing: -0.01em;
   }
+}
+
+.metricIconWrap {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
 }
 
 .ratingBox {
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.55rem;
+  flex-shrink: 0;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 999px;
-  background-color: white;
-  color: var(--color-sky-800);
+  border: 1px solid var(--color-gray-200);
+  background-color: var(--color-gray-50);
+  color: var(--color-sky-900);
 
   span {
     font-weight: 800;
@@ -118,13 +157,20 @@
 }
 
 .comment {
+  min-height: 3rem;
   color: var(--color-gray-700);
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  word-break: keep-all;
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-gray-50);
 }
 
 @media (max-width: 768px) {
   .topBox {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .ratingInfo {
@@ -133,5 +179,14 @@
 
   .reviewBox {
     grid-template-columns: 1fr;
+  }
+
+  .specificBar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ratingBox {
+    align-self: flex-start;
   }
 }
