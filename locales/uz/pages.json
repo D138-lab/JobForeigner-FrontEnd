@@ -210,6 +210,9 @@
     "loadingShort": "Yuklanmoqda",
     "empty": "Vakansiyalar topilmadi.",
     "error": "Xatolik yuz berdi",
+    "searchPlaceholder": "Ish nomi yoki kompaniya bo'yicha qidirish",
+    "searchButton": "Qidirish",
+    "apply": "Ariza berish",
     "publishedStatus": {
       "submitted": "Yuborildi",
       "published": "E'lon qilindi"

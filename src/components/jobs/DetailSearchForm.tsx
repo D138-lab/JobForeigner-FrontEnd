@@ -77,7 +77,7 @@ export default function DetailSearchForm({
   employmentType,
   isForCompany,
 }: Props) {
-  const { i18n } = useTranslation('pages');
+  const { t, i18n } = useTranslation('pages');
   const [innerValue, setInnerValue] = useState<string>(value);
   const [innerRegion, setInnerRegion] = useState<string>(region);
   const [innerEmploymentType, setInnerEmploymentType] =
@@ -94,7 +94,11 @@ export default function DetailSearchForm({
         <Input
           value={innerValue}
           icon='search'
-          placeholder='기업명을 입력하세요.'
+          placeholder={
+            isForCompany
+              ? t('companiesPage.searchPlaceholder')
+              : t('jobs.searchPlaceholder')
+          }
           onChange={e => setInnerValue(e.currentTarget.value)}
         />
         <Select
@@ -129,7 +133,7 @@ export default function DetailSearchForm({
         )}
 
         <button type='submit' className={styles.searchButton}>
-          검색
+          {t('jobs.searchButton')}
         </button>
       </div>
     </form>

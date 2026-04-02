@@ -54,15 +54,14 @@ const RecruitBox = ({
   const { mutate, isPending } = usePostToggleScarp();
   void isPending;
   const publishedLabel = formatPublished(published, i18n.language, t);
-  const displayRegion = i18n.language.toLowerCase().startsWith('ko')
-    ? getRegionLabel(originalRegionType ?? regionType, i18n.language)
-    : regionType;
-  const displayEmploymentType = i18n.language.toLowerCase().startsWith('ko')
-    ? getEmploymentTypeLabel(
-        originalEmploymentType ?? employmentType,
-        i18n.language,
-      )
-    : employmentType;
+  const displayRegion = getRegionLabel(
+    originalRegionType ?? regionType,
+    i18n.language,
+  );
+  const displayEmploymentType = getEmploymentTypeLabel(
+    originalEmploymentType ?? employmentType,
+    i18n.language,
+  );
 
   const handleScrap = () => {
     mutate(id, {
@@ -129,7 +128,7 @@ const RecruitBox = ({
       <div className={styles.btnBox}>
         <div className={styles.published}>{publishedLabel}</div>
         <Button color='#0c4a6e' onClick={handleApply}>
-          지원하기
+          {t('jobs.apply')}
         </Button>
       </div>
     </div>

@@ -60,5 +60,9 @@
       "deleteFail": "删除帖子失败。",
       "likeFail": "点赞处理失败。"
     }
+  },
+  "select": {
+    "placeholder": "选择选项",
+    "ariaLabel": "选择选项"
   }
 }

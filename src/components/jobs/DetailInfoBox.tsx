@@ -12,6 +12,7 @@ import {
 import Button from '../common/button/Button';
 import ScrapButton from '../recruitment/ScrapButton';
 import { formatPublished } from '@/lib/utils/formatPublished';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import styles from './detailInfoBox.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -23,8 +24,10 @@ interface DetailRecruitResponse {
   companyName: string;
   description: string;
   regionType?: string;
+  originalRegionType?: string;
   location: string;
   employmentType: string;
+  originalEmploymentType?: string;
   salary: string;
   career: string;
   published: string;
@@ -39,8 +42,10 @@ const DetailInfoBox = ({
   companyId,
   companyName,
   regionType,
+  originalRegionType,
   location,
   employmentType,
+  originalEmploymentType,
   salary,
   career,
   published,
@@ -55,7 +60,14 @@ const DetailInfoBox = ({
   const diffTime = dueDate.getTime() - now.getTime();
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const publishedLabel = formatPublished(published, i18n.language, t);
-  const displayRegion = regionType || location;
+  const displayRegion = getRegionLabel(
+    originalRegionType ?? regionType ?? location,
+    i18n.language,
+  );
+  const displayEmploymentType = getEmploymentTypeLabel(
+    originalEmploymentType ?? employmentType,
+    i18n.language,
+  );
 
   return (
     <div className={styles.container}>
@@ -74,7 +86,7 @@ const DetailInfoBox = ({
               </div>
               <div>
                 <Briefcase width={15} />
-                {employmentType}
+                {displayEmploymentType}
               </div>
               <div>
                 <Building2 width={15} />

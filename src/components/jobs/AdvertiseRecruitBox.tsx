@@ -1,9 +1,12 @@
 import { ArrowUpRight, BriefcaseBusiness, MapPin, Timer } from 'lucide-react';
 import useGetRecommendedJobPosts from '@/lib/apis/queries/useGetRecommendedJobPosts';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './advertiseRecruitBox.module.scss';
 
 const AdvertiseRecruitBox = () => {
+  const { i18n } = useTranslation('pages');
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetRecommendedJobPosts(0, 4);
   const posts = data?.data.pageContents ?? [];
@@ -64,11 +67,11 @@ const AdvertiseRecruitBox = () => {
               <div className={styles.metaRow}>
                 <span>
                   <MapPin size={14} />
-                  {post.regionType}
+                  {getRegionLabel(post.regionType, i18n.language)}
                 </span>
                 <span>
                   <BriefcaseBusiness size={14} />
-                  {post.employmentType}
+                  {getEmploymentTypeLabel(post.employmentType, i18n.language)}
                 </span>
                 <span>
                   <Timer size={14} />

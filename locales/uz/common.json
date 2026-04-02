@@ -60,5 +60,9 @@
       "deleteFail": "Postni o'chirib bo'lmadi.",
       "likeFail": "Laykni qayta ishlash muvaffaqiyatsiz."
     }
+  },
+  "select": {
+    "placeholder": "Variantni tanlang",
+    "ariaLabel": "Variantni tanlang"
   }
 }

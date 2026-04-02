@@ -210,6 +210,9 @@
     "loadingShort": "加载中",
     "empty": "暂无招聘信息。",
     "error": "发生错误",
+    "searchPlaceholder": "按职位或公司搜索",
+    "searchButton": "搜索",
+    "apply": "申请",
     "publishedStatus": {
       "submitted": "已提交",
       "published": "已发布"

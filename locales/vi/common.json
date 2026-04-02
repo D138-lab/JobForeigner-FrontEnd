@@ -60,5 +60,9 @@
       "deleteFail": "Xóa bài viết thất bại.",
       "likeFail": "Xử lý lượt thích thất bại."
     }
+  },
+  "select": {
+    "placeholder": "Chọn tùy chọn",
+    "ariaLabel": "Chọn tùy chọn"
   }
 }

@@ -210,6 +210,9 @@
     "loadingShort": "Đang tải",
     "empty": "Không có tin tuyển dụng.",
     "error": "Đã xảy ra lỗi",
+    "searchPlaceholder": "Tìm theo tiêu đề công việc hoặc doanh nghiệp",
+    "searchButton": "Tìm kiếm",
+    "apply": "Ứng tuyển",
     "publishedStatus": {
       "submitted": "Đã gửi",
       "published": "Đã đăng"

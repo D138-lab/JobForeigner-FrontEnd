@@ -42,6 +42,8 @@ const DetailPage = () => {
       <div className={styles.pageShell}>
         <DetailInfoBox
           {...recruitData}
+          originalRegionType={data?.data.regionType}
+          originalEmploymentType={data?.data.employmentType}
           expiryAt={recruitData.expiryAt.toLocaleString()}
         />
 

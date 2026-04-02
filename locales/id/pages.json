@@ -210,6 +210,9 @@
     "loadingShort": "Memuat",
     "empty": "Tidak ada lowongan.",
     "error": "Terjadi kesalahan",
+    "searchPlaceholder": "Cari berdasarkan judul pekerjaan atau perusahaan",
+    "searchButton": "Cari",
+    "apply": "Lamar",
     "publishedStatus": {
       "submitted": "Terkirim",
       "published": "Dipublikasikan"

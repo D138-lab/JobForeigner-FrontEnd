@@ -60,5 +60,9 @@
       "deleteFail": "Gagal menghapus postingan.",
       "likeFail": "Gagal memproses suka."
     }
+  },
+  "select": {
+    "placeholder": "Pilih opsi",
+    "ariaLabel": "Pilih opsi"
   }
 }
