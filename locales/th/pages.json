@@ -232,6 +232,10 @@
     "createResume": "สร้างเรซูเม่ใหม่",
     "apply": "สมัคร"
   },
+  "companiesPage": {
+    "searchPlaceholder": "ค้นหาตามชื่อบริษัทหรืออุตสาหกรรม",
+    "searchButton": "ค้นหา"
+  },
   "companies": {
     "loading": "กำลังโหลด...",
     "empty": "ไม่มีประกาศงาน",

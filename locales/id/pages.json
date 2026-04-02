@@ -232,6 +232,10 @@
     "createResume": "Buat resume baru",
     "apply": "Lamar"
   },
+  "companiesPage": {
+    "searchPlaceholder": "Cari nama perusahaan atau industri",
+    "searchButton": "Cari"
+  },
   "companies": {
     "loading": "Memuat...",
     "empty": "Tidak ada lowongan.",

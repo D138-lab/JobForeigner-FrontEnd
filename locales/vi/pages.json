@@ -232,6 +232,10 @@
     "createResume": "Tạo CV mới",
     "apply": "Ứng tuyển"
   },
+  "companiesPage": {
+    "searchPlaceholder": "Tìm theo tên doanh nghiệp hoặc ngành",
+    "searchButton": "Tìm kiếm"
+  },
   "companies": {
     "loading": "Đang tải...",
     "empty": "Không có tin tuyển dụng.",

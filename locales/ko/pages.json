@@ -232,6 +232,10 @@
     "createResume": "새 이력서 작성하기",
     "apply": "지원하기"
   },
+  "companiesPage": {
+    "searchPlaceholder": "기업명 또는 업종 검색",
+    "searchButton": "검색"
+  },
   "companies": {
     "loading": "로딩 중..",
     "empty": "공고가 없습니다.",

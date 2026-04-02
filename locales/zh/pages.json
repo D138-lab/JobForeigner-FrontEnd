@@ -232,6 +232,10 @@
     "createResume": "新建简历",
     "apply": "申请"
   },
+  "companiesPage": {
+    "searchPlaceholder": "按公司名或行业搜索",
+    "searchButton": "搜索"
+  },
   "companies": {
     "loading": "加载中...",
     "empty": "暂无招聘信息。",

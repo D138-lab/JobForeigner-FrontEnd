@@ -1,6 +1,10 @@
 import Input from '../common/input/Input';
 import Select from '../common/select/Select';
-import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
+import {
+  getEmploymentTypeLabel,
+  getIndustryLabel,
+  getRegionLabel,
+} from '@/lib/utils/jobMeta';
 import styles from './detailSearchForm.module.scss';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -126,14 +130,19 @@ export default function DetailSearchForm({
           <Select
             name='job'
             icon='brief-case'
-            options={selectIndustryOptions}
+            options={selectIndustryOptions.map(option => ({
+              ...option,
+              label: getIndustryLabel(option.value, i18n.language),
+            }))}
             value={innerEmploymentType}
             onChange={setInnerEmploymentType}
           />
         )}
 
         <button type='submit' className={styles.searchButton}>
-          {t('jobs.searchButton')}
+          {isForCompany
+            ? t('companiesPage.searchButton')
+            : t('jobs.searchButton')}
         </button>
       </div>
     </form>

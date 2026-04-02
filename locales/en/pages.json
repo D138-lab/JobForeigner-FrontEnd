@@ -232,6 +232,10 @@
     "createResume": "Create new resume",
     "apply": "Apply"
   },
+  "companiesPage": {
+    "searchPlaceholder": "Search by company name or industry",
+    "searchButton": "Search"
+  },
   "companies": {
     "loading": "Loading...",
     "empty": "No job posts found.",

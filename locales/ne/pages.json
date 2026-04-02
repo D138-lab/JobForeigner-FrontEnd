@@ -232,6 +232,10 @@
     "createResume": "नयाँ बायोडाटा बनाउनुहोस्",
     "apply": "आवेदन गर्नुहोस्"
   },
+  "companiesPage": {
+    "searchPlaceholder": "कम्पनी नाम वा उद्योगद्वारा खोज्नुहोस्",
+    "searchButton": "खोज्नुहोस्"
+  },
   "companies": {
     "loading": "लोड हुँदै...",
     "empty": "जागिर पोस्ट फेला परेन।",

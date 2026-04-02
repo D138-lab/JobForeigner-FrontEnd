@@ -232,6 +232,10 @@
     "createResume": "Yangi rezyume yaratish",
     "apply": "Ariza berish"
   },
+  "companiesPage": {
+    "searchPlaceholder": "Kompaniya nomi yoki soha bo'yicha qidirish",
+    "searchButton": "Qidirish"
+  },
   "companies": {
     "loading": "Yuklanmoqda...",
     "empty": "Vakansiyalar topilmadi.",
