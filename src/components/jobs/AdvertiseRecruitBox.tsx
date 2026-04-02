@@ -1,20 +1,23 @@
 import { ArrowUpRight, BriefcaseBusiness, MapPin, Timer } from 'lucide-react';
 import useGetRecommendedJobPosts from '@/lib/apis/queries/useGetRecommendedJobPosts';
-import {
-  formatJobExpiryLabel,
-  getEmploymentTypeLabel,
-  getRegionLabel,
-  translateJobMetaText,
-} from '@/lib/utils/jobMeta';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import styles from './advertiseRecruitBox.module.scss';
 
 const AdvertiseRecruitBox = () => {
-  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetRecommendedJobPosts(0, 4);
   const posts = data?.data.pageContents ?? [];
+  const displayPosts = posts.map(post => {
+    const expiryDate = new Date(post.expiryAt);
+    const expiryLabel = Number.isNaN(expiryDate.getTime())
+      ? post.expiryAt
+      : `${expiryDate.getFullYear()}.${expiryDate.getMonth() + 1}.${expiryDate.getDate()}`;
+
+    return {
+      ...post,
+      expiryLabel,
+    };
+  });
   const errorMessage = (
     error as {
       response?: { data?: { message?: string; msg?: string } };
@@ -40,7 +43,7 @@ const AdvertiseRecruitBox = () => {
         <div className={styles.emptyState}>추천 공고가 없습니다.</div>
       ) : (
         <div className={styles.list}>
-          {posts.map(post => (
+          {displayPosts.map(post => (
             <button
               key={post.id}
               type='button'
@@ -61,21 +64,19 @@ const AdvertiseRecruitBox = () => {
               <div className={styles.metaRow}>
                 <span>
                   <MapPin size={14} />
-                  {getRegionLabel(post.regionType, i18n.language)}
+                  {post.regionType}
                 </span>
                 <span>
                   <BriefcaseBusiness size={14} />
-                  {getEmploymentTypeLabel(post.employmentType, i18n.language)}
+                  {post.employmentType}
                 </span>
                 <span>
                   <Timer size={14} />
-                  {formatJobExpiryLabel(post.expiryAt, i18n.language)}
+                  {post.expiryLabel}
                 </span>
               </div>
               <div className={styles.bottomRow}>
-                <span className={styles.salary}>
-                  {translateJobMetaText(post.salary, i18n.language)}
-                </span>
+                <span className={styles.salary}>{post.salary}</span>
                 <span className={styles.score}>
                   추천도 {post.recommendationScore.toFixed(1)}
                 </span>

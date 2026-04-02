@@ -12,11 +12,6 @@ import {
 import Button from '../common/button/Button';
 import ScrapButton from '../recruitment/ScrapButton';
 import { formatPublished } from '@/lib/utils/formatPublished';
-import {
-  getEmploymentTypeLabel,
-  getRegionLabel,
-  translateJobMetaText,
-} from '@/lib/utils/jobMeta';
 import styles from './detailInfoBox.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -60,9 +55,7 @@ const DetailInfoBox = ({
   const diffTime = dueDate.getTime() - now.getTime();
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const publishedLabel = formatPublished(published, i18n.language, t);
-  const displayRegion = regionType
-    ? getRegionLabel(regionType, i18n.language)
-    : translateJobMetaText(location, i18n.language);
+  const displayRegion = regionType || location;
 
   return (
     <div className={styles.container}>
@@ -81,7 +74,7 @@ const DetailInfoBox = ({
               </div>
               <div>
                 <Briefcase width={15} />
-                {getEmploymentTypeLabel(employmentType, i18n.language)}
+                {employmentType}
               </div>
               <div>
                 <Building2 width={15} />
@@ -91,15 +84,15 @@ const DetailInfoBox = ({
             <div className={styles.secondFloor}>
               <div>
                 <Contact width={15} />
-                {translateJobMetaText(career, i18n.language)}
+                {career}
               </div>
               <div>
                 <GraduationCap width={15} />
-                {translateJobMetaText(grade, i18n.language)}
+                {grade}
               </div>
               <div>
                 <DollarSign width={15} />
-                {translateJobMetaText(salary, i18n.language)}
+                {salary}
               </div>
               <div>
                 <UsersRound width={15} />

@@ -3,11 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
 import { formatPublished } from '@/lib/utils/formatPublished';
-import {
-  getEmploymentTypeLabel,
-  getRegionLabel,
-  translateJobMetaText,
-} from '@/lib/utils/jobMeta';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import styles from './recruitBox.module.scss';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
@@ -18,7 +14,9 @@ export interface RecruitInfoType {
   title: string;
   description: string;
   regionType: string;
+  originalRegionType?: string;
   employmentType: string;
+  originalEmploymentType?: string;
   salary: string;
   career: string;
   published: string;
@@ -27,13 +25,16 @@ export interface RecruitInfoType {
   companyName: string;
   imageList: string[];
   isScrapped: boolean;
+  isTranslating?: boolean;
 }
 
 const RecruitBox = ({
   id,
   title,
   regionType,
+  originalRegionType,
   employmentType,
+  originalEmploymentType,
   salary,
   career,
   published,
@@ -41,6 +42,7 @@ const RecruitBox = ({
   grade,
   companyName,
   isScrapped,
+  isTranslating = false,
 }: RecruitInfoType) => {
   const { t, i18n } = useTranslation('pages');
   const [innerIsScrapped, setInnerIsScrapped] = useState(isScrapped);
@@ -52,6 +54,15 @@ const RecruitBox = ({
   const { mutate, isPending } = usePostToggleScarp();
   void isPending;
   const publishedLabel = formatPublished(published, i18n.language, t);
+  const displayRegion = i18n.language.toLowerCase().startsWith('ko')
+    ? getRegionLabel(originalRegionType ?? regionType, i18n.language)
+    : regionType;
+  const displayEmploymentType = i18n.language.toLowerCase().startsWith('ko')
+    ? getEmploymentTypeLabel(
+        originalEmploymentType ?? employmentType,
+        i18n.language,
+      )
+    : employmentType;
 
   const handleScrap = () => {
     mutate(id, {
@@ -68,6 +79,9 @@ const RecruitBox = ({
       <div className={styles.topBar}>
         <div className={styles.titleBlock}>
           <div className={styles.companyName}>{companyName}</div>
+          {isTranslating ? (
+            <div className={styles.translationStatus}>번역 중...</div>
+          ) : null}
           <div className={styles.title}>{title}</div>
         </div>
         <Star
@@ -86,22 +100,20 @@ const RecruitBox = ({
       >
         <div className={styles.subRow}>
           <div className={styles.grade}>{grade}</div>
-          <div className={styles.employmentType}>
-            {getEmploymentTypeLabel(employmentType, i18n.language)}
-          </div>
+          <div className={styles.employmentType}>{displayEmploymentType}</div>
         </div>
         <div className={styles.datailInfo}>
           <div className={styles.locationBox}>
             <MapPin size={15} className={styles.icon} />
-            <span>{getRegionLabel(regionType, i18n.language)}</span>
+            <span>{displayRegion}</span>
           </div>
           <div className={styles.salaryBox}>
             <DollarSign size={15} className={styles.icon} />
-            <span>{translateJobMetaText(salary, i18n.language)}</span>
+            <span>{salary}</span>
           </div>
           <div>
             <User size={15} className={styles.icon} />
-            <span>{translateJobMetaText(career, i18n.language)}</span>
+            <span>{career}</span>
           </div>
           <div>
             <Timer size={15} className={styles.icon} />

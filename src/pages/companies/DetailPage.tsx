@@ -9,7 +9,7 @@ import styles from './detailPage.module.scss';
 import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
 import { useLocation, useParams } from 'react-router-dom';
 import { Globe, MapPin, Users } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
@@ -52,11 +52,10 @@ const DetailPage = () => {
   const salaryInfo = companyData.salaryInfoDto;
   const companyRating = companyData.companyRatingDto;
   const review = companyData.reviewDto;
-  const formattedEmployeeCount = useMemo(
-    () => new Intl.NumberFormat(i18n.language).format(companyInfo.employeeCount),
-    [companyInfo.employeeCount, i18n.language],
+  const formattedEmployeeCount = new Intl.NumberFormat(i18n.language).format(
+    companyInfo.employeeCount,
   );
-  const companyDomain = useMemo(() => {
+  const companyDomain = (() => {
     if (!companyInfo.url) return null;
 
     try {
@@ -64,7 +63,7 @@ const DetailPage = () => {
     } catch {
       return companyInfo.url;
     }
-  }, [companyInfo.url]);
+  })();
 
   return (
     <div className={styles.container}>

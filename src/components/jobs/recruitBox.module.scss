@@ -44,6 +44,18 @@
       letter-spacing: 0.03em;
     }
 
+    .translationStatus {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background-color: var(--color-sky-50);
+      color: var(--color-sky-800);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
     .title {
       font-size: 1.2rem;
       line-height: 1.4;
