@@ -83,6 +83,9 @@ const CompanyLists = ({ data }: Props) => {
               translatedCompaniesMap.get(ele.companyId)?.description ??
               ele.description
             }
+            address={
+              translatedCompaniesMap.get(ele.companyId)?.address ?? ele.address
+            }
             category={translatedCompaniesMap.get(ele.companyId)?.category}
             ceoName={translatedCompaniesMap.get(ele.companyId)?.ceoName}
             homepageUrl={translatedCompaniesMap.get(ele.companyId)?.url}
