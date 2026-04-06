@@ -2,7 +2,6 @@ import { DollarSign, MapPin, Star, Timer, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
-import { formatPublished } from '@/lib/utils/formatPublished';
 import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import styles from './recruitBox.module.scss';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
@@ -37,7 +36,6 @@ const RecruitBox = ({
   originalEmploymentType,
   salary,
   career,
-  published,
   expiryAt,
   grade,
   companyName,
@@ -53,7 +51,6 @@ const RecruitBox = ({
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const { mutate, isPending } = usePostToggleScarp();
   void isPending;
-  const publishedLabel = formatPublished(published, i18n.language, t);
   const displayRegion = getRegionLabel(
     originalRegionType ?? regionType,
     i18n.language,
@@ -126,7 +123,6 @@ const RecruitBox = ({
         </div>
       </Link>
       <div className={styles.btnBox}>
-        <div className={styles.published}>{publishedLabel}</div>
         <Button color='#0c4a6e' onClick={handleApply}>
           {t('jobs.apply')}
         </Button>
