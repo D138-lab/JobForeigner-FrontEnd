@@ -210,6 +210,9 @@
     "loadingShort": "Loading",
     "empty": "No job posts found.",
     "error": "An error occurred",
+    "searchPlaceholder": "Search by job title or company",
+    "searchButton": "Search",
+    "apply": "Apply",
     "publishedStatus": {
       "submitted": "Submitted",
       "published": "Published"
@@ -228,6 +231,10 @@
     "subtitle": "Please select a resume to apply with.",
     "createResume": "Create new resume",
     "apply": "Apply"
+  },
+  "companiesPage": {
+    "searchPlaceholder": "Search by company name or industry",
+    "searchButton": "Search"
   },
   "companies": {
     "loading": "Loading...",

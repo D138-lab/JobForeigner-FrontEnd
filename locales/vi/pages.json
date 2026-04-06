@@ -210,6 +210,9 @@
     "loadingShort": "Đang tải",
     "empty": "Không có tin tuyển dụng.",
     "error": "Đã xảy ra lỗi",
+    "searchPlaceholder": "Tìm theo tiêu đề công việc hoặc doanh nghiệp",
+    "searchButton": "Tìm kiếm",
+    "apply": "Ứng tuyển",
     "publishedStatus": {
       "submitted": "Đã gửi",
       "published": "Đã đăng"
@@ -228,6 +231,10 @@
     "subtitle": "Vui lòng chọn CV để ứng tuyển.",
     "createResume": "Tạo CV mới",
     "apply": "Ứng tuyển"
+  },
+  "companiesPage": {
+    "searchPlaceholder": "Tìm theo tên doanh nghiệp hoặc ngành",
+    "searchButton": "Tìm kiếm"
   },
   "companies": {
     "loading": "Đang tải...",

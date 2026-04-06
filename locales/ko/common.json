@@ -64,5 +64,9 @@
       "deleteFail": "게시글 삭제에 실패했습니다.",
       "likeFail": "좋아요 처리에 실패했습니다."
     }
+  },
+  "select": {
+    "placeholder": "옵션 선택",
+    "ariaLabel": "옵션 선택"
   }
 }

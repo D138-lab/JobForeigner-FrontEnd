@@ -19,7 +19,7 @@ export interface GetAllCompanyInfoResponse {
   pageContents: CompanyType[];
 }
 
-interface CompanyInfoDto {
+export interface CompanyInfoDto {
   companyId: number;
   companyName: string;
   employeeCount: number;
@@ -71,7 +71,7 @@ export interface ReviewDto {
   reviewerName: string;
 }
 
-interface GetCompanyDetailInfoResponse {
+export interface GetCompanyDetailInfoResponse {
   companyInfoDto: CompanyInfoDto;
   jobPostDto: JobPostDto[];
   salaryInfoDto: SalaryInfoDto;
@@ -88,6 +88,8 @@ export const getAllCompanyInfo = async ({
   const [, companyName = '', region = 'ALL', industryType = 'ALL'] = queryKey;
 
   const params = new URLSearchParams();
+  params.append('page', '0');
+  params.append('size', '12');
 
   if (companyName.trim() !== '') {
     params.append('companyName', companyName);
@@ -98,18 +100,41 @@ export const getAllCompanyInfo = async ({
   }
 
   if (industryType.toUpperCase() !== 'ALL' && industryType.trim() !== '') {
-    params.append('industryType', industryType);
+    params.append('category', industryType);
   }
 
   const queryString = params.toString();
   const url = `/api/v1/companies${queryString ? `?${queryString}` : ''}`;
 
-  const response = await fetcher.get<{
-    success: boolean;
-    data: GetAllCompanyInfoResponse;
-  }>(url);
+  console.log('[companies] list request', {
+    companyName,
+    region,
+    industryType,
+    url,
+    accessTokenExists: !!window.localStorage.getItem('accessToken'),
+  });
 
-  return response;
+  try {
+    const response = await fetcher.get<{
+      success: boolean;
+      data: GetAllCompanyInfoResponse;
+    }>(url);
+
+    console.log('[companies] list response', {
+      url,
+      pageSize: response.data?.pageSize,
+      totalElements: response.data?.totalElements,
+    });
+
+    return response;
+  } catch (error) {
+    console.error('[companies] list error', {
+      url,
+      error,
+      response: (error as { response?: unknown }).response,
+    });
+    throw error;
+  }
 };
 
 export const useGetAllCompanyInfo = (
@@ -130,11 +155,34 @@ export const useGetCompanyDetailInfo = (companyId: number) => {
     ...useQuery({
       queryKey: ['useGetCompanyDetailInfo', companyId],
       queryFn: async () => {
-        const res = await fetcher.get<{
-          success: boolean;
-          data: GetCompanyDetailInfoResponse;
-        }>(`api/v1/companies/${companyId}`);
-        return res;
+        const url = `/api/v1/companies/${companyId}`;
+        console.log('[companies] detail request', {
+          companyId,
+          url,
+          accessTokenExists: !!window.localStorage.getItem('accessToken'),
+        });
+
+        try {
+          const res = await fetcher.get<{
+            success: boolean;
+            data: GetCompanyDetailInfoResponse;
+          }>(url);
+
+          console.log('[companies] detail response', {
+            companyId,
+            companyName: res.data?.companyInfoDto?.companyName,
+          });
+
+          return res;
+        } catch (error) {
+          console.error('[companies] detail error', {
+            companyId,
+            url,
+            error,
+            response: (error as { response?: unknown }).response,
+          });
+          throw error;
+        }
       },
     }),
   };

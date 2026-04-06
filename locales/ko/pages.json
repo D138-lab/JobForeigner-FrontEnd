@@ -210,6 +210,9 @@
     "loadingShort": "로딩 중",
     "empty": "공고가 없습니다.",
     "error": "에러 발생",
+    "searchPlaceholder": "공고 제목 또는 기업명 검색",
+    "searchButton": "검색",
+    "apply": "지원하기",
     "publishedStatus": {
       "submitted": "제출됨",
       "published": "게시됨"
@@ -228,6 +231,10 @@
     "subtitle": "지원할 이력서를 선택해주세요.",
     "createResume": "새 이력서 작성하기",
     "apply": "지원하기"
+  },
+  "companiesPage": {
+    "searchPlaceholder": "기업명 또는 업종 검색",
+    "searchButton": "검색"
   },
   "companies": {
     "loading": "로딩 중..",

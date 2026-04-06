@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.scss';
 import StatusBox from '@/components/common/statusBox/StatusBox';
 import { Application } from '@/lib/type/profile/application';
 import ApplicationsTabs from '@/components/profile/applications/ApplicationsTabs';
 import ApplicationInfo from '@/components/profile/applications/ApplicationInfo';
+import useGetJobPostApplications from '@/lib/apis/queries/useGetJobPostApplications';
+import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import {
   FileTextIcon,
   CalendarClock,
@@ -35,98 +37,31 @@ function getIcon(status: string) {
   return null;
 }
 
-const applications: Application[] = [
-  {
-    id: 1,
-    company: '토스',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '서울 강남구',
-    appliedAt: '2021-08-01',
-    status: 'reviewing',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-  {
-    id: 2,
-    company: '당근마켓',
-    title: '백엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '서울 강남구',
-    appliedAt: '2021-08-01',
-    status: 'interview',
-    resumeTitle: '백엔드 개발자 이력서',
-  },
-  {
-    id: 3,
-    company: '네이버',
-    title: '디자이너',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '경기 성남',
-    appliedAt: '2021-08-01',
-    status: 'rejected',
-    resumeTitle: '디자이너 이력서',
-  },
-  {
-    id: 4,
-    company: '카카오',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '서울 강남구',
-    appliedAt: '2021-08-01',
-    status: 'accepted',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-  {
-    id: 5,
-    company: '라인',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '도쿄 신주쿠',
-    appliedAt: '2021-08-01',
-    status: 'interview',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-  {
-    id: 6,
-    company: '우아한 형제들',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '경기 성남',
-    appliedAt: '2021-08-01',
-    status: 'reviewing',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-  {
-    id: 7,
-    company: '쿠팡',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '서울 강남구',
-    appliedAt: '2021-08-01',
-    status: 'interview',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-  {
-    id: 8,
-    company: '다쏘시스템',
-    title: '프론트엔드 개발자',
-    logo: 'https://toss.im/assets/images/toss-logo.png',
-    location: '대구 중구',
-    appliedAt: '2021-08-01',
-    status: 'reviewing',
-    resumeTitle: '프론트엔드 개발자 이력서',
-  },
-];
-
 export default function ApplicationsPage() {
   const { t } = useTranslation('pages');
+  const { data, isLoading, isError, error } = useGetJobPostApplications();
   const [searchApplication, setSearchApplication] = useState('');
+  const applications: Application[] = (data?.data ?? []).map(application => ({
+    id: application.jobPostId,
+    company: application.companyName,
+    title: application.title,
+    logo: DEFAULT_IMAGE_URL,
+    location: application.address,
+    appliedAt: application.applicationDate,
+    status:
+      application.applicationStatus === 'APPLIED'
+        ? 'reviewing'
+        : application.applicationStatus === 'ACCEPTED'
+          ? 'accepted'
+          : 'rejected',
+    resumeTitle: application.resumeName,
+  }));
   const [selectedApplications, setSelectedApplications] = useState<{
     status: string;
     applications: Application[];
   }>({
     status: 'all',
-    applications: applications,
+    applications,
   });
 
   const reviewing = applications.filter(
@@ -136,8 +71,27 @@ export default function ApplicationsPage() {
     application => application.status === 'interview',
   );
   const accepted = applications.filter(
+    application => application.status === 'accepted',
+  );
+  useEffect(() => {
+    setSelectedApplications(prev => {
+      if (prev.status === 'reviewing') {
+        return { status: prev.status, applications: reviewing };
+      }
+      if (prev.status === 'interview') {
+        return { status: prev.status, applications: interviewing };
+      }
+      if (prev.status === 'accepted') {
+        return { status: prev.status, applications: accepted };
+      }
+
+      return { status: 'all', applications };
+    });
+  }, [accepted, applications, interviewing, reviewing]);
+  const searchedApplications = selectedApplications.applications.filter(
     application =>
-      application.status === 'accepted' || application.status === 'rejected',
+      application.title.toLowerCase().includes(searchApplication.toLowerCase()) ||
+      application.company.toLowerCase().includes(searchApplication.toLowerCase()),
   );
 
   const statusBoxes = [
@@ -234,8 +188,15 @@ export default function ApplicationsPage() {
             </div>
           </div>
         </div>
+        {isLoading ? <div>{t('jobs.loading')}</div> : null}
+        {isError ? (
+          <div>
+            {(error as { message?: string }).message ??
+              t('profile.applications.description')}
+          </div>
+        ) : null}
 
-        <div className={styles.tabs}>
+        {!isLoading && !isError ? <div className={styles.tabs}>
           <ApplicationsTabs
             applications={applications}
             reviewing={reviewing}
@@ -244,16 +205,20 @@ export default function ApplicationsPage() {
             selectedApplications={selectedApplications}
             setSelectedApplications={setSelectedApplications}
           />
-        </div>
-        <div className={styles.applications}>
-          {selectedApplications.applications.map(application => (
-            <ApplicationInfo
-              key={application.id}
-              application={application}
-              icon={getIcon(application.status)}
-            />
-          ))}
-        </div>
+        </div> : null}
+        {!isLoading && !isError ? <div className={styles.applications}>
+          {searchedApplications.length === 0 ? (
+            <div>{t('jobs.empty')}</div>
+          ) : (
+            searchedApplications.map(application => (
+              <ApplicationInfo
+                key={application.id}
+                application={application}
+                icon={getIcon(application.status)}
+              />
+            ))
+          )}
+        </div> : null}
       </main>
     </div>
   );

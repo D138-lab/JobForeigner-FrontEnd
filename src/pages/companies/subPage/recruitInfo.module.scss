@@ -1,20 +1,49 @@
 @use 'src/styles/variables' as v;
 
 .container {
-	margin: v.$spacing-2 0 v.$spacing-5 0;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	justify-content: center;
-	gap: v.$spacing-2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-3;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+}
+
+.count {
+  display: inline-flex;
+  min-width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 .recruitInfo {
-	display: flex;
-	width: 100%;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: v.$spacing-2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: v.$spacing-2;
+}
+
+.empty {
+  padding: v.$spacing-4;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 1.25rem;
+  color: var(--color-gray-600);
+  text-align: center;
 }

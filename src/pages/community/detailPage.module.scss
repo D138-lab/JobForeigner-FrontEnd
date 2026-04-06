@@ -49,6 +49,17 @@
       justify-content: center;
       align-items: center;
       gap: v.$spacing-3;
+
+      .translationBanner {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--color-sky-200);
+        border-radius: v.$radius-medium;
+        background-color: var(--color-sky-50);
+        color: var(--color-sky-900);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
     }
     .subContent {
       width: min(100%, 22rem);

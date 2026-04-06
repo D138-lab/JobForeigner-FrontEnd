@@ -2,7 +2,11 @@ import {
   CompanyType,
   GetAllCompanyInfoResponse,
 } from '@/lib/apis/queries/useGetCompanyApis';
-import { useEffect, useState } from 'react';
+import { getTranslatedCompany } from '@/lib/apis/queries/useGetTranslatedCompany';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
+import { useEffect, useMemo, useState } from 'react';
+import { useQueries } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import CompanyCard from './CompanyCard';
 import { Link } from 'react-router-dom';
@@ -13,15 +17,52 @@ type Props = {
 };
 
 const CompanyLists = ({ data }: Props) => {
+  const { i18n } = useTranslation();
   const [companies, setCompanies] = useState<CompanyType[]>();
   if (!data) return <div>데이터 없음</div>;
 
   useEffect(() => {
     if (data) {
-      console.log(data.pageContents);
       setCompanies(data.pageContents);
     }
   }, [data]);
+
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const translationQueries = useQueries({
+    queries: (companies ?? []).map(company => ({
+      queryKey: [
+        'useGetTranslatedCompany',
+        company.companyId,
+        translationLanguage ?? '',
+      ] as [string, number, string],
+      queryFn: getTranslatedCompany,
+      enabled: !!translationLanguage,
+      staleTime: 1000 * 60 * 60 * 24,
+    })),
+  });
+  const translatedCompaniesMap = useMemo(
+    () =>
+      new Map(
+        (companies ?? []).map((company, index) => [
+          company.companyId,
+          translationQueries[index]?.data?.data.companyInfoDto,
+        ]),
+      ),
+    [companies, translationQueries],
+  );
+  const translationPendingMap = useMemo(
+    () =>
+      new Map(
+        (companies ?? []).map((company, index) => [
+          company.companyId,
+          !!translationLanguage &&
+            !!translationQueries[index] &&
+            translationQueries[index].isFetching &&
+            !translationQueries[index].data,
+        ]),
+      ),
+    [companies, translationLanguage, translationQueries],
+  );
 
   return (
     <div className={styles.container}>
@@ -34,8 +75,21 @@ const CompanyLists = ({ data }: Props) => {
           <CompanyCard
             key={ele.companyId}
             {...ele}
-            companyId={ele.companyId}
-            companyType='기본타입'
+            companyName={
+              translatedCompaniesMap.get(ele.companyId)?.companyName ??
+              ele.companyName
+            }
+            description={
+              translatedCompaniesMap.get(ele.companyId)?.description ??
+              ele.description
+            }
+            address={
+              translatedCompaniesMap.get(ele.companyId)?.address ?? ele.address
+            }
+            category={translatedCompaniesMap.get(ele.companyId)?.category}
+            ceoName={translatedCompaniesMap.get(ele.companyId)?.ceoName}
+            homepageUrl={translatedCompaniesMap.get(ele.companyId)?.url}
+            isTranslating={translationPendingMap.get(ele.companyId) ?? false}
           />
         </Link>
       ))}

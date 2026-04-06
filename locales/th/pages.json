@@ -210,6 +210,9 @@
     "loadingShort": "กำลังโหลด",
     "empty": "ไม่มีประกาศงาน",
     "error": "เกิดข้อผิดพลาด",
+    "searchPlaceholder": "ค้นหาตามตำแหน่งงานหรือบริษัท",
+    "searchButton": "ค้นหา",
+    "apply": "สมัคร",
     "publishedStatus": {
       "submitted": "ส่งแล้ว",
       "published": "เผยแพร่แล้ว"
@@ -228,6 +231,10 @@
     "subtitle": "กรุณาเลือกเรซูเม่เพื่อสมัครงาน",
     "createResume": "สร้างเรซูเม่ใหม่",
     "apply": "สมัคร"
+  },
+  "companiesPage": {
+    "searchPlaceholder": "ค้นหาตามชื่อบริษัทหรืออุตสาหกรรม",
+    "searchButton": "ค้นหา"
   },
   "companies": {
     "loading": "กำลังโหลด...",

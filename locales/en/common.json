@@ -64,5 +64,9 @@
       "deleteFail": "Failed to delete post.",
       "likeFail": "Failed to process like."
     }
+  },
+  "select": {
+    "placeholder": "Select option",
+    "ariaLabel": "Select option"
   }
 }

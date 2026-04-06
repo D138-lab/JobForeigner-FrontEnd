@@ -12,6 +12,7 @@ import {
 import Button from '../common/button/Button';
 import ScrapButton from '../recruitment/ScrapButton';
 import { formatPublished } from '@/lib/utils/formatPublished';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import styles from './detailInfoBox.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -23,8 +24,10 @@ interface DetailRecruitResponse {
   companyName: string;
   description: string;
   regionType?: string;
+  originalRegionType?: string;
   location: string;
   employmentType: string;
+  originalEmploymentType?: string;
   salary: string;
   career: string;
   published: string;
@@ -39,8 +42,10 @@ const DetailInfoBox = ({
   companyId,
   companyName,
   regionType,
+  originalRegionType,
   location,
   employmentType,
+  originalEmploymentType,
   salary,
   career,
   published,
@@ -55,40 +60,14 @@ const DetailInfoBox = ({
   const diffTime = dueDate.getTime() - now.getTime();
   const dDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const publishedLabel = formatPublished(published, i18n.language, t);
-  const mappingRegion = (region?: string): string => {
-    if (!region) return '';
-
-    const regionMap: Record<string, string> = {
-      ALL: '전체',
-      SEOUL: '서울',
-      BUSAN: '부산',
-      DAEGU: '대구',
-      INCHEON: '인천',
-      GWANGJU: '광주',
-      DAEJEON: '대전',
-      ULSAN: '울산',
-      SEJONG: '세종',
-      GYEONGGI: '경기',
-      GANGWON: '강원',
-      CHUNGBUK: '충북',
-      CHUNGNAM: '충남',
-      JEONBUK: '전북',
-      JEONNAM: '전남',
-      GYEONGBUK: '경북',
-      GYEONGNAM: '경남',
-      JEJU: '제주',
-    };
-
-    return regionMap[region.toUpperCase()] ?? region;
-  };
-  const mappingEmploymentType = (empType: string) => {
-    if (empType === 'FULL_TIME') return '정규직';
-    if (empType === 'INTERN') return '인턴';
-    if (empType === 'CONTRACT') return '계약직';
-
-    return empType;
-  };
-  const displayRegion = mappingRegion(regionType) || location;
+  const displayRegion = getRegionLabel(
+    originalRegionType ?? regionType ?? location,
+    i18n.language,
+  );
+  const displayEmploymentType = getEmploymentTypeLabel(
+    originalEmploymentType ?? employmentType,
+    i18n.language,
+  );
 
   return (
     <div className={styles.container}>
@@ -107,7 +86,7 @@ const DetailInfoBox = ({
               </div>
               <div>
                 <Briefcase width={15} />
-                {mappingEmploymentType(employmentType)}
+                {displayEmploymentType}
               </div>
               <div>
                 <Building2 width={15} />

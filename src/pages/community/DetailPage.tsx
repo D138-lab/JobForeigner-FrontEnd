@@ -10,12 +10,14 @@ import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPostDetail from '@/lib/apis/queries/useGetBoardPostDetail';
 import useGetBoardPostComments from '@/lib/apis/queries/useGetBoardPostComments';
 import useGetRelatedBoardPosts from '@/lib/apis/queries/useGetRelatedBoardPosts';
+import useGetTranslatedBoardPost from '@/lib/apis/queries/useGetTranslatedBoardPost';
 import styles from './detailPage.module.scss';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import { useTranslation } from 'react-i18next';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 
 export default function DetailPage() {
-  const { t } = useTranslation('pages');
+  const { t, i18n } = useTranslation('pages');
   const params = useParams();
   const location = useLocation();
   const fallbackPostId = location.state?.id;
@@ -38,10 +40,16 @@ export default function DetailPage() {
     isError: isRelatedPostsError,
     error: relatedPostsError,
   } = useGetRelatedBoardPosts(postId, 5, Number.isFinite(postId) && postId > 0);
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const { data: translatedPostData } = useGetTranslatedBoardPost(
+    postId,
+    translationLanguage,
+    Number.isFinite(postId) && postId > 0 && !!translationLanguage,
+  );
   const { data: myInfo } = useGetMyInfo();
 
   const userImgUrl = useAuthStore(state => state.profileImageUrl);
-  const post = data?.data;
+  const post = translatedPostData?.data ?? data?.data;
   const toNumericId = (...values: unknown[]) => {
     for (const value of values) {
       const parsed =
@@ -141,6 +149,8 @@ export default function DetailPage() {
       }) as CommentDetailProps,
   );
   const totalComments = commentsData?.data.totalElements ?? comments.length;
+  const isPostTranslationPending =
+    !!translationLanguage && !!data?.data && !translatedPostData?.data;
 
   return (
     <div className={styles.container}>
@@ -150,6 +160,11 @@ export default function DetailPage() {
       </div>
       <div className={styles.contentArea}>
         <div className={styles.mainContent}>
+          {isPostTranslationPending && (
+            <div className={styles.translationBanner}>
+              번역본을 불러오는 중입니다.
+            </div>
+          )}
           {isPending && <div>{t('communityDetail.loadingPost')}</div>}
           {isError && (
             <div>

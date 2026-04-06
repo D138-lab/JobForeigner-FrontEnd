@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 
-interface GetDetailRecruitResponse {
+export interface GetDetailRecruitResponse {
   id: number;
   title: string;
   companyId: number;
@@ -24,7 +24,7 @@ const useGetDetailRecruitInfo = (id: string) => {
       queryKey: ['getDetailRecruitInfo', id],
       queryFn: () =>
         fetcher.get<{ success: boolean; data: GetDetailRecruitResponse }>(
-          `https://jb.d138.patulus.com:8080/api/v1/job-posts/${id}`,
+          `/api/v1/job-posts/${id}`,
         ),
     }),
   };

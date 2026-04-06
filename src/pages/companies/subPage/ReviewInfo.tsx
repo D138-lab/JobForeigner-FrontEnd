@@ -9,17 +9,22 @@ type Props = {
 
 const ReviewInfo = ({ data }: Props) => {
   const { t } = useTranslation('pages');
-  console.log(data);
+
   return (
     <div className={styles.container}>
-      <div className={styles.titleText}>{t('companies.review.title')}</div>
-      <div className={styles.ratingInfoBoxContainer}></div>
-
-      <div>
-        {data.map(ele => (
-          <TotalReviewBar key={ele.ratingId} {...ele} />
-        ))}
+      <div className={styles.header}>
+        <div className={styles.titleText}>{t('companies.review.title')}</div>
+        <div className={styles.count}>{data.length}</div>
       </div>
+      {data.length === 0 ? (
+        <div className={styles.empty}>-</div>
+      ) : (
+        <div className={styles.reviewList}>
+          {data.map(ele => (
+            <TotalReviewBar key={ele.ratingId} {...ele} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

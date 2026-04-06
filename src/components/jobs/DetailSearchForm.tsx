@@ -1,7 +1,13 @@
 import Input from '../common/input/Input';
 import Select from '../common/select/Select';
+import {
+  getEmploymentTypeLabel,
+  getIndustryLabel,
+  getRegionLabel,
+} from '@/lib/utils/jobMeta';
 import styles from './detailSearchForm.module.scss';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const selectRegionOptions = [
   { value: 'ALL', label: '전체' },
@@ -75,6 +81,7 @@ export default function DetailSearchForm({
   employmentType,
   isForCompany,
 }: Props) {
+  const { t, i18n } = useTranslation('pages');
   const [innerValue, setInnerValue] = useState<string>(value);
   const [innerRegion, setInnerRegion] = useState<string>(region);
   const [innerEmploymentType, setInnerEmploymentType] =
@@ -91,13 +98,20 @@ export default function DetailSearchForm({
         <Input
           value={innerValue}
           icon='search'
-          placeholder='기업명을 입력하세요.'
+          placeholder={
+            isForCompany
+              ? t('companiesPage.searchPlaceholder')
+              : t('jobs.searchPlaceholder')
+          }
           onChange={e => setInnerValue(e.currentTarget.value)}
         />
         <Select
           name='region'
           icon='map-pin'
-          options={selectRegionOptions}
+          options={selectRegionOptions.map(option => ({
+            ...option,
+            label: getRegionLabel(option.value, i18n.language),
+          }))}
           value={innerRegion}
           onChange={setInnerRegion}
         />
@@ -105,7 +119,10 @@ export default function DetailSearchForm({
           <Select
             name='job'
             icon='brief-case'
-            options={selectJobOptions}
+            options={selectJobOptions.map(option => ({
+              ...option,
+              label: getEmploymentTypeLabel(option.value, i18n.language),
+            }))}
             value={innerEmploymentType}
             onChange={setInnerEmploymentType}
           />
@@ -113,14 +130,19 @@ export default function DetailSearchForm({
           <Select
             name='job'
             icon='brief-case'
-            options={selectIndustryOptions}
+            options={selectIndustryOptions.map(option => ({
+              ...option,
+              label: getIndustryLabel(option.value, i18n.language),
+            }))}
             value={innerEmploymentType}
             onChange={setInnerEmploymentType}
           />
         )}
 
         <button type='submit' className={styles.searchButton}>
-          검색
+          {isForCompany
+            ? t('companiesPage.searchButton')
+            : t('jobs.searchButton')}
         </button>
       </div>
     </form>

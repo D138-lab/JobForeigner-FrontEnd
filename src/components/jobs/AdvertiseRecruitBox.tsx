@@ -1,55 +1,31 @@
 import { ArrowUpRight, BriefcaseBusiness, MapPin, Timer } from 'lucide-react';
 import useGetRecommendedJobPosts from '@/lib/apis/queries/useGetRecommendedJobPosts';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './advertiseRecruitBox.module.scss';
 
 const AdvertiseRecruitBox = () => {
+  const { i18n } = useTranslation('pages');
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetRecommendedJobPosts(0, 4);
   const posts = data?.data.pageContents ?? [];
+  const displayPosts = posts.map(post => {
+    const expiryDate = new Date(post.expiryAt);
+    const expiryLabel = Number.isNaN(expiryDate.getTime())
+      ? post.expiryAt
+      : `${expiryDate.getFullYear()}.${expiryDate.getMonth() + 1}.${expiryDate.getDate()}`;
+
+    return {
+      ...post,
+      expiryLabel,
+    };
+  });
   const errorMessage = (
     error as {
       response?: { data?: { message?: string; msg?: string } };
     }
   )?.response?.data;
-
-  const mapEmploymentType = (employmentType: string) => {
-    if (employmentType === 'FULL_TIME') return '정규직';
-    if (employmentType === 'INTERN') return '인턴';
-    if (employmentType === 'CONTRACT') return '계약직';
-    return employmentType;
-  };
-
-  const mapRegion = (region: string) => {
-    const regionMap: Record<string, string> = {
-      ALL: '전체',
-      SEOUL: '서울',
-      BUSAN: '부산',
-      DAEGU: '대구',
-      INCHEON: '인천',
-      GWANGJU: '광주',
-      DAEJEON: '대전',
-      ULSAN: '울산',
-      SEJONG: '세종',
-      GYEONGGI: '경기',
-      GANGWON: '강원',
-      CHUNGBUK: '충북',
-      CHUNGNAM: '충남',
-      JEONBUK: '전북',
-      JEONNAM: '전남',
-      GYEONGBUK: '경북',
-      GYEONGNAM: '경남',
-      JEJU: '제주',
-    };
-
-    return regionMap[region.toUpperCase()] ?? region;
-  };
-
-  const formatExpiry = (expiryAt: string) => {
-    const expiryDate = new Date(expiryAt);
-    if (Number.isNaN(expiryDate.getTime())) return '';
-    return `${expiryDate.getMonth() + 1}.${expiryDate.getDate()} 마감`;
-  };
 
   return (
     <div className={styles.container}>
@@ -70,7 +46,7 @@ const AdvertiseRecruitBox = () => {
         <div className={styles.emptyState}>추천 공고가 없습니다.</div>
       ) : (
         <div className={styles.list}>
-          {posts.map(post => (
+          {displayPosts.map(post => (
             <button
               key={post.id}
               type='button'
@@ -91,15 +67,15 @@ const AdvertiseRecruitBox = () => {
               <div className={styles.metaRow}>
                 <span>
                   <MapPin size={14} />
-                  {mapRegion(post.regionType)}
+                  {getRegionLabel(post.regionType, i18n.language)}
                 </span>
                 <span>
                   <BriefcaseBusiness size={14} />
-                  {mapEmploymentType(post.employmentType)}
+                  {getEmploymentTypeLabel(post.employmentType, i18n.language)}
                 </span>
                 <span>
                   <Timer size={14} />
-                  {formatExpiry(post.expiryAt)}
+                  {post.expiryLabel}
                 </span>
               </div>
               <div className={styles.bottomRow}>

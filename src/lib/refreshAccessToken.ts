@@ -10,26 +10,47 @@ interface PostRefreshTokenResponse {
 const postRefreshToken = async (): Promise<
   PostRefreshTokenResponse | undefined
 > => {
-  const refreshToken = window.localStorage.getItem(LOCAL_STORAGE.REFRESH_TOKEN);
-  const payload = refreshToken ? { refreshToken } : {};
+  const expiredAccessToken = window.localStorage.getItem(
+    LOCAL_STORAGE.ACCESS_TOKEN,
+  );
+
+  if (!expiredAccessToken) {
+    return undefined;
+  }
 
   const response = await axios.post(
     `${API_URL}${END_POINTS.REFRESH}`,
-    payload,
+    undefined,
     {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${expiredAccessToken}`,
       },
       withCredentials: true,
     },
   );
 
+  const authorizationHeader = response.headers['authorization'];
+  const headerAccessToken =
+    typeof authorizationHeader === 'string' &&
+    authorizationHeader.startsWith('Bearer ')
+      ? authorizationHeader.replace('Bearer ', '')
+      : undefined;
+
   const data = response.data as unknown;
   if (typeof data === 'object' && data !== null && 'data' in data) {
     const wrapped = (data as { data?: PostRefreshTokenResponse }).data;
-    return wrapped;
+    return {
+      accessToken: headerAccessToken ?? wrapped?.accessToken,
+      refreshToken: wrapped?.refreshToken,
+    };
   }
-  return data as PostRefreshTokenResponse;
+
+  const tokenBody = data as PostRefreshTokenResponse;
+  return {
+    accessToken: headerAccessToken ?? tokenBody?.accessToken,
+    refreshToken: tokenBody?.refreshToken,
+  };
 };
 
 export async function refreshAccessToken(): Promise<string | undefined> {

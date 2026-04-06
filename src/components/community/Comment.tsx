@@ -6,8 +6,11 @@ import { MoreHorizontal } from 'lucide-react';
 import useDeleteBoardPostComment from '@/lib/apis/mutations/useDeleteBoardPostComment';
 import useDeleteBoardPostCommentLike from '@/lib/apis/mutations/useDeleteBoardPostCommentLike';
 import usePostBoardPostCommentLike from '@/lib/apis/mutations/usePostBoardPostCommentLike';
+import useGetTranslatedBoardPostComment from '@/lib/apis/queries/useGetTranslatedBoardPostComment';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './comment.module.scss';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface CommentProps extends CommentDetailProps {
   currentMemberId?: number;
@@ -34,6 +37,7 @@ export const Comment = ({
   onSubmitReply,
   isSubmittingReply = false,
 }: CommentProps) => {
+  const { i18n } = useTranslation();
   const { mutate: deleteBoardPostComment, isPending } =
     useDeleteBoardPostComment();
   const { mutate: postBoardPostCommentLike, isPending: isLikePending } =
@@ -51,12 +55,26 @@ export const Comment = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   const [replyText, setReplyText] = useState('');
+  const [showTranslated, setShowTranslated] = useState(false);
   const menuWrapRef = useRef<HTMLDivElement>(null);
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const {
+    data: translatedCommentData,
+    isFetching: isTranslationFetching,
+    refetch: refetchTranslatedComment,
+  } = useGetTranslatedBoardPostComment(postId, id, translationLanguage, false);
+  const translatedContent = translatedCommentData?.data.content;
+  const displayContent =
+    showTranslated && translatedContent ? translatedContent : content;
 
   useEffect(() => {
     setLikedState(isLikedByMe);
     setLikeCountState(numOfLiked);
   }, [isLikedByMe, numOfLiked]);
+
+  useEffect(() => {
+    setShowTranslated(false);
+  }, [content, id, translationLanguage]);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -157,6 +175,41 @@ export const Comment = ({
     setIsReplyOpen(false);
   };
 
+  const handleToggleTranslation = async () => {
+    if (!translationLanguage || isTranslationFetching) return;
+
+    if (showTranslated) {
+      setShowTranslated(false);
+      return;
+    }
+
+    if (translatedContent) {
+      setShowTranslated(true);
+      return;
+    }
+
+    const result = await refetchTranslatedComment();
+
+    if (result.data?.data.content) {
+      setShowTranslated(true);
+      return;
+    }
+
+    const errorData = (
+      result.error as {
+        response?: {
+          data?: { message?: string; msg?: string };
+        };
+      }
+    )?.response?.data;
+
+    alert(
+      errorData?.message ??
+        errorData?.msg ??
+        '댓글 번역에 실패했습니다. 다시 시도해주세요.',
+    );
+  };
+
   return (
     <div className={`${styles.container} ${isReply ? styles.reply : ''}`}>
       <div className={styles.left}>
@@ -196,8 +249,17 @@ export const Comment = ({
             isVerified={isVerifiedUser}
             userName={userName}
             country={country}
-            content={content}
+            content={displayContent}
             postedAt={postedAt}
+            onClickTranslate={handleToggleTranslation}
+            translationLabel={
+              isTranslationFetching
+                ? '번역 중...'
+                : showTranslated
+                  ? '원문 보기'
+                  : '번역 보기'
+            }
+            showTranslateAction={!!translationLanguage}
             hasMenu={isMine}
           />
         </div>

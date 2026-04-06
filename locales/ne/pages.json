@@ -210,6 +210,9 @@
     "loadingShort": "लोड हुँदै",
     "empty": "जागिर पोस्ट फेला परेन।",
     "error": "त्रुटि भयो",
+    "searchPlaceholder": "जागिर शीर्षक वा कम्पनीद्वारा खोज्नुहोस्",
+    "searchButton": "खोज्नुहोस्",
+    "apply": "आवेदन गर्नुहोस्",
     "publishedStatus": {
       "submitted": "पेश गरियो",
       "published": "प्रकाशित भयो"
@@ -228,6 +231,10 @@
     "subtitle": "आवेदनका लागि बायोडाटा छनोट गर्नुहोस्।",
     "createResume": "नयाँ बायोडाटा बनाउनुहोस्",
     "apply": "आवेदन गर्नुहोस्"
+  },
+  "companiesPage": {
+    "searchPlaceholder": "कम्पनी नाम वा उद्योगद्वारा खोज्नुहोस्",
+    "searchButton": "खोज्नुहोस्"
   },
   "companies": {
     "loading": "लोड हुँदै...",

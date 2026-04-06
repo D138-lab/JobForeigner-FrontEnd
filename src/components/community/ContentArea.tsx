@@ -5,14 +5,17 @@ import { PostBox } from './PostBox';
 import { SelectPostType } from './SelectPostType';
 import { TopMember } from './TopMember';
 import { SquarePen } from 'lucide-react';
+import { getTranslatedBoardPost } from '@/lib/apis/queries/useGetTranslatedBoardPost';
 import useGetMyInfo from '@/lib/apis/mutations/useGetMyInfo';
 import useGetBoardPosts from '@/lib/apis/queries/useGetBoardPosts';
 import { DEFAULT_IMAGE_URL } from '@/lib/utils/defaultImageUrl';
 import { postType } from '@/pages/community/Page';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './contentArea.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueries } from '@tanstack/react-query';
 
 interface Props {
   postType: postType;
@@ -27,7 +30,7 @@ export const ContentArea = ({
   searchValue,
   onWritePost,
 }: Props) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const navigate = useNavigate();
   const { data } = useGetBoardPosts(0, 12);
   const { data: myInfo } = useGetMyInfo();
@@ -62,6 +65,42 @@ export const ContentArea = ({
   }, [postType, posts, normalizedSearch]);
 
   const hasSearchKeyword = normalizedSearch.length > 0;
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const translationQueries = useQueries({
+    queries: filteredPosts.map(post => ({
+      queryKey: [
+        'useGetTranslatedBoardPost',
+        post.postId,
+        translationLanguage ?? '',
+      ] as [string, number, string],
+      queryFn: getTranslatedBoardPost,
+      enabled: !!translationLanguage,
+      staleTime: 1000 * 60 * 60 * 24,
+    })),
+  });
+  const translatedPostsMap = useMemo(
+    () =>
+      new Map(
+        filteredPosts.map((post, index) => [
+          post.postId,
+          translationQueries[index]?.data?.data,
+        ]),
+      ),
+    [filteredPosts, translationQueries],
+  );
+  const translationPendingMap = useMemo(
+    () =>
+      new Map(
+        filteredPosts.map((post, index) => [
+          post.postId,
+          !!translationLanguage &&
+            !!translationQueries[index] &&
+            translationQueries[index].isFetching &&
+            !translationQueries[index].data,
+        ]),
+      ),
+    [filteredPosts, translationLanguage, translationQueries],
+  );
 
   const countryCodeToName: Record<string, string> = {
     KR: 'South Korea',
@@ -104,6 +143,13 @@ export const ContentArea = ({
             </div>
           ) : (
             filteredPosts.map(post => (
+              (() => {
+                const translatedPost = translatedPostsMap.get(post.postId);
+                const translatedTitle = translatedPost?.title ?? post.title;
+                const isTranslating =
+                  translationPendingMap.get(post.postId) ?? false;
+
+                return (
               <PostBox
                 key={post.postId}
                 id={post.postId}
@@ -120,16 +166,19 @@ export const ContentArea = ({
                 }
                 postedAt={new Date(post.createdAt)}
                 tags={post.tags}
-                title={post.title}
+                title={translatedTitle}
                 isLiked={post.likedByMe}
                 numOfComment={post.commentCount}
                 numOfLike={post.likeCount}
+                isTranslating={isTranslating}
                 onClick={() =>
                   navigate(`/community/${post.postId}`, {
                     state: { id: post.postId },
                   })
                 }
               />
+                );
+              })()
             ))
           )}
         </div>
@@ -138,7 +187,7 @@ export const ContentArea = ({
         <PopularPosts
           posts={filteredPosts.map(post => ({
             id: post.postId,
-            title: post.title,
+            title: translatedPostsMap.get(post.postId)?.title ?? post.title,
           }))}
         />
         <TopMember

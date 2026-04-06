@@ -1,5 +1,6 @@
 import { Briefcase, ChevronDown, MapPin, Search } from 'lucide-react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import clsx from 'clsx';
 import styles from './select.module.scss';
@@ -37,6 +38,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
     { icon, options, defaultValue, onChange, name, value, width, ...props },
     ref,
   ) => {
+    const { t } = useTranslation('common');
     const [selectedValue, setSelectedValue] = useState(
       value ?? defaultValue ?? options[0]?.value,
     );
@@ -86,12 +88,16 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
           onClick={() => setIsOpen(prev => !prev)}
           style={{ width }}
           tabIndex={0}
+          role='button'
+          aria-haspopup='listbox'
+          aria-expanded={isOpen}
+          aria-label={t('select.ariaLabel')}
         >
-          {selectedOption ? selectedOption.label : '옵션 선택'}
+          {selectedOption ? selectedOption.label : t('select.placeholder')}
           <ChevronDown className={styles.arrow} />
         </div>
         {isOpen && (
-          <ul className={styles.optionsList}>
+          <ul className={styles.optionsList} role='listbox'>
             {options.map(opt => (
               <li
                 key={opt.value}
@@ -100,6 +106,8 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
                   opt.value === selectedValue && styles.selectedOption,
                 )}
                 onClick={() => handleOptionClick(opt.value)}
+                role='option'
+                aria-selected={opt.value === selectedValue}
               >
                 {opt.label}
               </li>

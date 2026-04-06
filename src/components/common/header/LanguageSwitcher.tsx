@@ -16,12 +16,16 @@ const options = [
     value: 'vi',
   },
   {
-    label: '中文',
+    label: '中文(简体)',
     value: 'zh',
   },
   {
     label: 'ไทย',
     value: 'th',
+  },
+  {
+    label: 'Монгол',
+    value: 'mn',
   },
   {
     label: 'Oʻzbekcha',
@@ -34,6 +38,14 @@ const options = [
   {
     label: 'नेपाली',
     value: 'ne',
+  },
+  {
+    label: 'Русский',
+    value: 'ru',
+  },
+  {
+    label: 'Filipino',
+    value: 'tl',
   },
 ];
 

@@ -3,18 +3,29 @@ import RatingInfo from './subPage/RatingInfo';
 import RecruitInfo from './subPage/RecruitInfo';
 import ReviewInfo from './subPage/ReviewInfo';
 import SalaryInfo from './subPage/SalaryInfo';
+import useGetTranslatedCompany from '@/lib/apis/queries/useGetTranslatedCompany';
+import { resolveTranslationLanguage } from '@/lib/utils/translation';
 import styles from './detailPage.module.scss';
 import { useGetCompanyDetailInfo } from '@/lib/apis/queries/useGetCompanyApis';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { Globe, MapPin, Users } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const DetailPage = () => {
-  const { t } = useTranslation('pages');
+  const { t, i18n } = useTranslation('pages');
+  const params = useParams();
   const location = useLocation();
-  const companyId = location.state;
+  const fallbackCompanyId = location.state;
+  const companyId = Number(params.id ?? fallbackCompanyId ?? 0);
   const { data, isLoading, isError, error } =
     useGetCompanyDetailInfo(companyId);
+  const translationLanguage = resolveTranslationLanguage(i18n.language);
+  const { data: translatedData } = useGetTranslatedCompany(
+    companyId,
+    translationLanguage,
+    !!translationLanguage && Number.isFinite(companyId) && companyId > 0,
+  );
   const optionTabs = [
     { key: 'info', label: t('companies.detail.tabs.info') },
     { key: 'recruit', label: t('companies.detail.tabs.recruit') },
@@ -24,9 +35,6 @@ const DetailPage = () => {
   ];
   const [selectedTab, setSelectedTab] = useState(optionTabs[0].key);
 
-  if (!data) {
-    return <div>{t('companies.detail.notFound')}</div>;
-  }
   if (isLoading) {
     return <div>{t('companies.detail.loading')}</div>;
   }
@@ -34,24 +42,62 @@ const DetailPage = () => {
     console.error('에러 발생:', error);
     return <div>{t('companies.detail.loadError')}</div>;
   }
+  if (!data || !Number.isFinite(companyId) || companyId <= 0) {
+    return <div>{t('companies.detail.notFound')}</div>;
+  }
 
-  console.log('기업 상세 정보:', data);
+  const companyData = translatedData?.data ?? data.data;
+  const companyInfo = companyData.companyInfoDto;
+  const jobPost = companyData.jobPostDto;
+  const salaryInfo = companyData.salaryInfoDto;
+  const companyRating = companyData.companyRatingDto;
+  const review = companyData.reviewDto;
+  const formattedEmployeeCount = new Intl.NumberFormat(i18n.language).format(
+    companyInfo.employeeCount,
+  );
+  const companyDomain = (() => {
+    if (!companyInfo.url) return null;
 
-  const companyInfo = data.data.companyInfoDto;
-  const jobPost = data.data.jobPostDto;
-  const salaryInfo = data.data.salaryInfoDto;
-  const companyRating = data.data.companyRatingDto;
-  const review = data.data.reviewDto;
+    try {
+      return new URL(companyInfo.url).hostname.replace(/^www\./, '');
+    } catch {
+      return companyInfo.url;
+    }
+  })();
 
   return (
     <div className={styles.container}>
       <div className={styles.infoTitle}>
-        <img src={data.data.imageUrl} alt={companyInfo.companyName} />
-        <div className={styles.companyName}>{companyInfo.companyName}</div>
+        <div className={styles.logoWrap}>
+          <img src={companyData.imageUrl} alt={companyInfo.companyName} />
+        </div>
+        <div className={styles.titleContent}>
+          <div className={styles.companyBadgeRow}>
+            <span className={styles.companyBadge}>{companyInfo.category}</span>
+          </div>
+          <div className={styles.companyName}>{companyInfo.companyName}</div>
+          <div className={styles.metaRow}>
+            <span className={styles.metaItem}>
+              <MapPin size={16} />
+              {companyInfo.address}
+            </span>
+            <span className={styles.metaItem}>
+              <Users size={16} />
+              {t('companies.info.employee')} {formattedEmployeeCount}
+            </span>
+            {companyDomain ? (
+              <span className={styles.metaItem}>
+                <Globe size={16} />
+                {companyDomain}
+              </span>
+            ) : null}
+          </div>
+        </div>
       </div>
       <div className={styles.optionTab}>
         {optionTabs.map(ele => (
-          <div
+          <button
+            type='button'
             onClick={() => setSelectedTab(ele.key)}
             key={ele.key}
             className={`${styles.option} ${
@@ -59,7 +105,7 @@ const DetailPage = () => {
             }`}
           >
             {ele.label}
-          </div>
+          </button>
         ))}
       </div>
       <div className={styles.selectInfo}>

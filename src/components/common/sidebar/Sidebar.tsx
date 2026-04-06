@@ -2,6 +2,8 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './sidebar.module.scss';
 import clsx from 'clsx';
 import { LogOut, Settings } from 'lucide-react';
+import useDeleteSignOut from '@/lib/apis/mutations/useDeleteSignOut';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 
 interface SidebarItemProps {
   icon?: React.ReactNode;
@@ -51,6 +53,19 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ navigation }: SidebarProps) {
+  const logout = useAuthStore(state => state.logout);
+  const { mutate: signOut } = useDeleteSignOut();
+
+  const handleLogout = () => {
+    signOut(undefined, {
+      onSettled: () => {
+        logout();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      },
+    });
+  };
+
   return (
     <div className={styles.sidebar}>
       <div>
@@ -84,7 +99,7 @@ export default function Sidebar({ navigation }: SidebarProps) {
             <Settings />
             설정
           </Link>
-          <button className={styles.logoutButton}>
+          <button className={styles.logoutButton} onClick={handleLogout}>
             <LogOut />
             로그아웃
           </button>

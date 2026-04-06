@@ -37,6 +37,11 @@ const resources = {
     mainPage: koMainPage,
     pages: koPages,
   },
+  id: {
+    common: idCommon,
+    mainPage: idMainPage,
+    pages: idPages,
+  },
   vi: {
     common: viCommon,
     mainPage: viMainPage,
@@ -52,20 +57,30 @@ const resources = {
     mainPage: thMainPage,
     pages: thPages,
   },
+  mn: {
+    common: enCommon,
+    mainPage: enMainPage,
+    pages: enPages,
+  },
   uz: {
     common: uzCommon,
     mainPage: uzMainPage,
     pages: uzPages,
   },
-  id: {
-    common: idCommon,
-    mainPage: idMainPage,
-    pages: idPages,
-  },
   ne: {
     common: neCommon,
     mainPage: neMainPage,
     pages: nePages,
+  },
+  ru: {
+    common: enCommon,
+    mainPage: enMainPage,
+    pages: enPages,
+  },
+  tl: {
+    common: enCommon,
+    mainPage: enMainPage,
+    pages: enPages,
   },
 };
 
@@ -73,6 +88,7 @@ i18n.use(initReactI18next).init({
   resources,
   lng: 'ko',
   fallbackLng: 'en',
+  supportedLngs: ['ko', 'en', 'vi', 'zh', 'th', 'id', 'mn', 'uz', 'ne', 'ru', 'tl'],
   ns: ['common', 'mainPage', 'pages'],
   defaultNS: 'common',
   interpolation: {

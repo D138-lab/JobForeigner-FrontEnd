@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../common/button/Button';
 import { formatPublished } from '@/lib/utils/formatPublished';
+import { getEmploymentTypeLabel, getRegionLabel } from '@/lib/utils/jobMeta';
 import styles from './recruitBox.module.scss';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
@@ -13,7 +14,9 @@ export interface RecruitInfoType {
   title: string;
   description: string;
   regionType: string;
+  originalRegionType?: string;
   employmentType: string;
+  originalEmploymentType?: string;
   salary: string;
   career: string;
   published: string;
@@ -22,13 +25,16 @@ export interface RecruitInfoType {
   companyName: string;
   imageList: string[];
   isScrapped: boolean;
+  isTranslating?: boolean;
 }
 
 const RecruitBox = ({
   id,
   title,
   regionType,
+  originalRegionType,
   employmentType,
+  originalEmploymentType,
   salary,
   career,
   published,
@@ -36,6 +42,7 @@ const RecruitBox = ({
   grade,
   companyName,
   isScrapped,
+  isTranslating = false,
 }: RecruitInfoType) => {
   const { t, i18n } = useTranslation('pages');
   const [innerIsScrapped, setInnerIsScrapped] = useState(isScrapped);
@@ -47,6 +54,14 @@ const RecruitBox = ({
   const { mutate, isPending } = usePostToggleScarp();
   void isPending;
   const publishedLabel = formatPublished(published, i18n.language, t);
+  const displayRegion = getRegionLabel(
+    originalRegionType ?? regionType,
+    i18n.language,
+  );
+  const displayEmploymentType = getEmploymentTypeLabel(
+    originalEmploymentType ?? employmentType,
+    i18n.language,
+  );
 
   const handleScrap = () => {
     mutate(id, {
@@ -58,42 +73,14 @@ const RecruitBox = ({
     navigate('/select-resume', { state: { recruitId: id } });
   };
 
-  const mappingEmploymentType = (empType: string) => {
-    if (empType === 'FULL_TIME') return '정규직';
-    if (empType === 'INTERN') return '인턴';
-    if (empType === 'CONTRACT') return '계약직';
-  };
-
-  const mappingRegion = (region: string): string => {
-    const regionMap: Record<string, string> = {
-      ALL: '전체',
-      SEOUL: '서울',
-      BUSAN: '부산',
-      DAEGU: '대구',
-      INCHEON: '인천',
-      GWANGJU: '광주',
-      DAEJEON: '대전',
-      ULSAN: '울산',
-      SEJONG: '세종',
-      GYEONGGI: '경기',
-      GANGWON: '강원',
-      CHUNGBUK: '충북',
-      CHUNGNAM: '충남',
-      JEONBUK: '전북',
-      JEONNAM: '전남',
-      GYEONGBUK: '경북',
-      GYEONGNAM: '경남',
-      JEJU: '제주',
-    };
-
-    return regionMap[region.toUpperCase()] ?? region;
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
         <div className={styles.titleBlock}>
           <div className={styles.companyName}>{companyName}</div>
+          {isTranslating ? (
+            <div className={styles.translationStatus}>번역 중...</div>
+          ) : null}
           <div className={styles.title}>{title}</div>
         </div>
         <Star
@@ -112,14 +99,12 @@ const RecruitBox = ({
       >
         <div className={styles.subRow}>
           <div className={styles.grade}>{grade}</div>
-          <div className={styles.employmentType}>
-            {mappingEmploymentType(employmentType)}
-          </div>
+          <div className={styles.employmentType}>{displayEmploymentType}</div>
         </div>
         <div className={styles.datailInfo}>
           <div className={styles.locationBox}>
             <MapPin size={15} className={styles.icon} />
-            <span>{mappingRegion(regionType)}</span>
+            <span>{displayRegion}</span>
           </div>
           <div className={styles.salaryBox}>
             <DollarSign size={15} className={styles.icon} />
@@ -143,7 +128,7 @@ const RecruitBox = ({
       <div className={styles.btnBox}>
         <div className={styles.published}>{publishedLabel}</div>
         <Button color='#0c4a6e' onClick={handleApply}>
-          지원하기
+          {t('jobs.apply')}
         </Button>
       </div>
     </div>
