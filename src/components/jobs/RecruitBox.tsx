@@ -78,9 +78,6 @@ const RecruitBox = ({
     month: '2-digit',
     day: '2-digit',
   });
-  const closedNotice = isKorean
-    ? '마감된 공고입니다'
-    : 'This job posting is closed';
   const deadlineText = isClosed
     ? `${formattedExpiryDate} · ${isKorean ? '마감' : 'Closed'}`
     : `${formattedExpiryDate} · ${deadlineLabel}`;
@@ -97,89 +94,80 @@ const RecruitBox = ({
 
   return (
     <div className={`${styles.container} ${isClosed ? styles.closedCard : ''}`}>
-      <div className={styles.topBar}>
-        <div className={styles.titleBlock}>
-          <div className={styles.badgeRow}>
-            <div className={styles.companyName}>{companyName}</div>
-            <div
-              className={`${styles.deadlineBadge} ${
-                isClosed ? styles.closedBadge : styles.openBadge
-              }`}
-            >
-              {deadlineLabel}
-            </div>
-          </div>
-          {isTranslating ? (
-            <div className={styles.translationStatus}>번역 중...</div>
-          ) : null}
-          <div className={styles.title}>{title}</div>
-        </div>
-        <Star
-          style={{ width: 20, height: 20, flexShrink: 0 }}
-          className={innerIsScrapped ? styles.scraped : styles.noscraped}
-          onClick={handleScrap}
-        />
-      </div>
-      <Link
-        to={`/jobs/${id}`}
-        className={styles.recruitBar}
-        state={{
-          id,
-          innerIsScrapped,
-        }}
-      >
-        <div className={styles.subRow}>
-          <div className={styles.grade}>{grade}</div>
-          <div className={styles.employmentType}>{displayEmploymentType}</div>
-        </div>
-        <div className={styles.detailGrid}>
-          <div className={styles.detailCard}>
-            <div className={styles.detailLabel}>{isKorean ? '지역' : 'Location'}</div>
-            <div className={styles.detailValue}>
-              <MapPin size={15} className={styles.icon} />
-              <span>{displayRegion}</span>
-            </div>
-          </div>
-          <div className={styles.detailCard}>
-            <div className={styles.detailLabel}>{isKorean ? '연봉' : 'Salary'}</div>
-            <div className={styles.detailValue}>
-              <DollarSign size={15} className={styles.icon} />
-              <span>{salary}</span>
-            </div>
-          </div>
-          <div className={styles.detailCard}>
-            <div className={styles.detailLabel}>{isKorean ? '경력' : 'Career'}</div>
-            <div className={styles.detailValue}>
-              <User size={15} className={styles.icon} />
-              <span>{career}</span>
-            </div>
-          </div>
-          <div className={styles.detailCard}>
-            <div className={styles.detailLabel}>{isKorean ? '마감일' : 'Deadline'}</div>
-            <div
-              className={`${styles.detailValue} ${
-                isClosed ? styles.closedDetailValue : ''
-              }`}
-            >
-              <Timer size={15} className={styles.icon} />
-              <span>{deadlineText}</span>
-            </div>
-          </div>
-        </div>
-        {isClosed ? (
-          <div className={styles.closedNotice}>{closedNotice}</div>
-        ) : null}
-      </Link>
-      <div className={styles.btnBox}>
-        <Button
-          variant='outline'
-          size='medium'
-          className={styles.applyButton}
-          onClick={handleApply}
-          disabled={isClosed}
+      <div className={styles.contentRow}>
+        <Link
+          to={`/jobs/${id}`}
+          className={styles.recruitBar}
+          state={{
+            id,
+            innerIsScrapped,
+          }}
         >
-          {isClosed ? (isKorean ? '지원 마감' : 'Closed') : t('jobs.apply')}
-        </Button>
+          <div className={styles.mainColumn}>
+            <div className={styles.badgeRow}>
+              <div className={styles.companyName}>{companyName}</div>
+              <div className={styles.grade}>{grade}</div>
+              <div className={styles.employmentType}>{displayEmploymentType}</div>
+              {isTranslating ? (
+                <div className={styles.translationStatus}>번역 중...</div>
+              ) : null}
+            </div>
+            <div className={styles.title}>{title}</div>
+            <div className={styles.metaRow}>
+              <div className={styles.metaItem}>
+                <MapPin size={15} className={styles.icon} />
+                <span>{displayRegion}</span>
+              </div>
+              <div className={styles.metaItem}>
+                <DollarSign size={15} className={styles.icon} />
+                <span>{salary}</span>
+              </div>
+              <div className={styles.metaItem}>
+                <User size={15} className={styles.icon} />
+                <span>{career}</span>
+              </div>
+              <div
+                className={`${styles.metaItem} ${
+                  isClosed ? styles.closedMetaItem : ''
+                }`}
+              >
+                <Timer size={15} className={styles.icon} />
+                <span>{deadlineText}</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+        <div className={styles.sideColumn}>
+          <button
+            type='button'
+            aria-label={isKorean ? '스크랩' : 'Scrap'}
+            className={styles.scrapButton}
+            onClick={handleScrap}
+          >
+            <Star
+              style={{ width: 20, height: 20, flexShrink: 0 }}
+              className={innerIsScrapped ? styles.scraped : styles.noscraped}
+            />
+          </button>
+          <div
+            className={`${styles.deadlineBadge} ${
+              isClosed ? styles.closedBadge : styles.openBadge
+            }`}
+          >
+            {deadlineLabel}
+          </div>
+          <div className={styles.btnBox}>
+            <Button
+              variant='outline'
+              size='medium'
+              className={styles.applyButton}
+              onClick={handleApply}
+              disabled={isClosed}
+            >
+              {isClosed ? (isKorean ? '지원 마감' : 'Closed') : t('jobs.apply')}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -248,7 +248,7 @@
       "loadError": "기업 정보를 불러오는 중 오류가 발생했습니다.",
       "tabs": {
         "info": "기업정보",
-        "recruit": "채용",
+        "recruit": "채용공고",
         "salary": "연봉",
         "rating": "기업평점",
         "review": "후기"
