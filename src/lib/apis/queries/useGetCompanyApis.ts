@@ -84,13 +84,20 @@ export interface GetCompanyDetailInfoResponse {
 export const getAllCompanyInfo = async ({
   queryKey,
 }: {
-  queryKey: [string, string?, string?, string?];
+  queryKey: [string, string?, string?, string?, number?, number?];
 }) => {
-  const [, companyName = '', region = 'ALL', industryType = 'ALL'] = queryKey;
+  const [
+    ,
+    companyName = '',
+    region = 'ALL',
+    industryType = 'ALL',
+    page = 0,
+    size = 10,
+  ] = queryKey;
 
   const params = new URLSearchParams();
-  params.append('page', '0');
-  params.append('size', '12');
+  params.append('page', page.toString());
+  params.append('size', size.toString());
 
   if (companyName.trim() !== '') {
     params.append('companyName', companyName);
@@ -142,12 +149,15 @@ export const useGetAllCompanyInfo = (
   companyName: string = '',
   region: string = 'ALL',
   industryType: string = 'ALL',
+  page: number = 0,
+  size: number = 10,
+  enabled: boolean = true,
 ) => {
   return useQuery({
-    queryKey: ['useAllCompanyInfo', companyName, region, industryType],
+    queryKey: ['useAllCompanyInfo', companyName, region, industryType, page, size],
     queryFn: getAllCompanyInfo,
     staleTime: 1000 * 60,
-    enabled: false,
+    enabled,
   });
 };
 

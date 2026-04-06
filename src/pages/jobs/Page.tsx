@@ -1,14 +1,15 @@
-import useGetRecruits, { getRecruits } from '@/lib/apis/queries/useGetRecruits';
+import useGetRecruits from '@/lib/apis/queries/useGetRecruits';
 
 import DetailSearchForm from '@/components/jobs/DetailSearchForm';
+import Pagination from '@/components/common/pagination/Pagination';
 import RecruitBox from '@/components/jobs/RecruitsBox';
 import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 import styles from './page.module.scss';
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+
+const PAGE_SIZE = 10;
 
 const Page = () => {
   const { t } = useTranslation('pages');
@@ -16,28 +17,20 @@ const Page = () => {
   const [region, setRegion] = useState('all');
   const [employmentType, setEmploymentType] = useState('all');
   const [searchValue, setSearchValue] = useState<string>('');
-
-  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(0);
 
   const { data, isLoading, isError, error } = useGetRecruits(
     searchValue,
     region,
     employmentType,
+    currentPage,
+    PAGE_SIZE,
+    isLoggedIn,
   );
   const isUnauthorized =
     !isLoggedIn || error?.message === 'Request failed with status code 401';
 
-  useEffect(() => {
-    queryClient.prefetchQuery({
-      queryKey: ['getRecruits', searchValue, region, employmentType],
-      queryFn: () =>
-        getRecruits({
-          queryKey: ['getRecruits', searchValue, region, employmentType],
-        }),
-    });
-  }, []);
-
-  const refetch = async (
+  const refetch = (
     newSearchValue: string,
     newRegion: string,
     newEmploymentType: string,
@@ -45,19 +38,7 @@ const Page = () => {
     setSearchValue(newSearchValue);
     setRegion(newRegion);
     setEmploymentType(newEmploymentType);
-
-    await queryClient.fetchQuery({
-      queryKey: ['getRecruits', newSearchValue, newRegion, newEmploymentType],
-      queryFn: () =>
-        getRecruits({
-          queryKey: [
-            'getRecruits',
-            newSearchValue,
-            newRegion,
-            newEmploymentType,
-          ],
-        }),
-    });
+    setCurrentPage(0);
   };
 
   return (
@@ -80,7 +61,14 @@ const Page = () => {
       ) : (
         <>
           {data?.data.pageContents?.length ? (
-            <RecruitBox data={data?.data} />
+            <>
+              <RecruitBox data={data?.data} />
+              <Pagination
+                currentPage={data.data.pageNumber}
+                totalPages={data.data.totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
           ) : (
             <div>{t('jobs.empty')}</div>
           )}

@@ -1,16 +1,17 @@
 import {
-  getAllCompanyInfo,
   useGetAllCompanyInfo,
 } from '@/lib/apis/queries/useGetCompanyApis';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import CompanyLists from '@/components/companies/CompanyLists';
+import Pagination from '@/components/common/pagination/Pagination';
 import DetailSearchForm from '@/components/jobs/DetailSearchForm';
 import UnAuthorizedModal from '@/components/common/unauthorized/UnAuthorizedModal';
 import styles from './page.module.scss';
-import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
+
+const PAGE_SIZE = 10;
 
 export default function CompaniesPage() {
   const { t } = useTranslation('pages');
@@ -18,57 +19,28 @@ export default function CompaniesPage() {
   const [region, setRegion] = useState<string>('ALL');
   const [industryType, setIndustryType] = useState<string>('ALL');
   const [searchValue, setSearchValue] = useState<string>('');
-
-  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(0);
 
   const { data, isLoading, isError, error } = useGetAllCompanyInfo(
     searchValue,
     region,
     industryType,
+    currentPage,
+    PAGE_SIZE,
+    isLoggedIn,
   );
   const isUnauthorized =
     !isLoggedIn || error?.message === 'Request failed with status code 401';
 
-  useEffect(() => {
-    if (!isLoggedIn) return;
-
-    queryClient.prefetchQuery({
-      queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
-      queryFn: () =>
-        getAllCompanyInfo({
-          queryKey: ['useAllCompanyInfo', searchValue, region, industryType],
-        }),
-    });
-  }, [industryType, isLoggedIn, queryClient, region, searchValue]);
-
-  const refetch = async (
+  const refetch = (
     newSearchValue: string,
     newRegion: string,
     newIndustryType: string,
   ) => {
-    if (!isLoggedIn) return;
-
     setSearchValue(newSearchValue);
     setRegion(newRegion);
     setIndustryType(newIndustryType);
-
-    await queryClient.fetchQuery({
-      queryKey: [
-        'useAllCompanyInfo',
-        newSearchValue,
-        newRegion,
-        newIndustryType,
-      ],
-      queryFn: () =>
-        getAllCompanyInfo({
-          queryKey: [
-            'useAllCompanyInfo',
-            newSearchValue,
-            newRegion,
-            newIndustryType,
-          ],
-        }),
-    });
+    setCurrentPage(0);
   };
 
   return (
@@ -89,7 +61,14 @@ export default function CompaniesPage() {
       {isError && !isUnauthorized ? (
         <div>{error.message}</div>
       ) : data?.data.pageContents?.length ? (
-        <CompanyLists data={data?.data} />
+        <>
+          <CompanyLists data={data?.data} />
+          <Pagination
+            currentPage={data.data.pageNumber}
+            totalPages={data.data.totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </>
       ) : (
         <div>{t('companies.empty')}</div>
       )}

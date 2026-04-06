@@ -14,11 +14,20 @@ export interface GetRecruitsResponse {
 export const getRecruits = async ({
   queryKey,
 }: {
-  queryKey: [string, string?, string?, string?];
+  queryKey: [string, string?, string?, string?, number?, number?];
 }) => {
-  const [, companyName = '', region = 'ALL', employmentType = 'ALL'] = queryKey;
+  const [
+    ,
+    companyName = '',
+    region = 'ALL',
+    employmentType = 'ALL',
+    page = 0,
+    size = 10,
+  ] = queryKey;
 
   const params = new URLSearchParams();
+  params.append('page', page.toString());
+  params.append('size', size.toString());
 
   if (companyName.trim() !== '') {
     params.append('companyName', companyName);
@@ -47,12 +56,15 @@ const useGetRecruits = (
   companyName: string = '',
   region: string = 'ALL',
   employmentType: string = 'ALL',
+  page: number = 0,
+  size: number = 10,
+  enabled: boolean = true,
 ) => {
   return useQuery({
-    queryKey: ['getRecruits', companyName, region, employmentType],
+    queryKey: ['getRecruits', companyName, region, employmentType, page, size],
     queryFn: getRecruits,
     staleTime: 1000 * 60,
-    enabled: false,
+    enabled,
   });
 };
 
