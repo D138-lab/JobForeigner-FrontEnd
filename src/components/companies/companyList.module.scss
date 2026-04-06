@@ -4,19 +4,26 @@
   margin: v.$spacing-2 0;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: v.$spacing-4;
+
+  > a {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    text-decoration: none;
+  }
 }
 
 @media (max-width: 1280px) {
   .container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 960px) {
   .container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
