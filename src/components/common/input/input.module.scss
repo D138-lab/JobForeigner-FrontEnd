@@ -45,6 +45,10 @@
     padding-left: 40px;
   }
 
+  &.rounded {
+    border-radius: 999px;
+  }
+
   &::placeholder {
     color: var(--color-gray-400);
   }

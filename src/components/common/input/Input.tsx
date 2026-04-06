@@ -20,16 +20,21 @@ const getIcon = (icon?: string) => {
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: string;
+  rounded?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ icon, ...props }, ref) => {
+  ({ icon, rounded = false, ...props }, ref) => {
     return (
       <div className={styles.inputWrapper}>
         {getIcon(icon)}
         <input
           ref={ref}
-          className={clsx(styles.input, icon && styles.isIcon)}
+          className={clsx(
+            styles.input,
+            icon && styles.isIcon,
+            rounded && styles.rounded,
+          )}
           onKeyDown={e => e.key === 'Enter' && e.preventDefault()}
           {...props}
         />

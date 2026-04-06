@@ -1,42 +1,84 @@
 @use 'src/styles/variables' as v;
 
-$transition: 0.2s ease-in-out;
+$transition: 0.18s ease;
 
 .searchBox {
-  width: 70%;
-  background-color: #fff;
-  border: 1px solid var(--color-gray-200);
-  border-radius: v.$radius-medium;
-  box-shadow: v.$shadow-card;
+  width: 100%;
+  margin: 0 auto;
   padding: v.$spacing-2;
-  margin: v.$spacing-4 auto;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: v.$shadow-card;
 }
 
 .searchBoxRow {
-  display: flex;
-  flex-direction: column;
-  gap: v.$spacing-2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(160px, 0.8fr) minmax(160px, 0.8fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
 
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
+.keywordField,
+.selectField {
+  min-width: 0;
+}
+
+.actionGroup {
+  display: flex;
+  align-items: center;
 }
 
 .searchButton {
-  background-color: var(--color-sky-800);
-  color: #fff;
-  padding: v.$spacing-1 v.$spacing-3;
-  border-radius: v.$radius-medium;
-  border: none;
+  min-width: 112px;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 1px solid rgb(14 165 233 / 0.18);
+  border-radius: 999px;
+  background: rgb(240 249 255);
+  color: var(--color-sky-900);
+  font-size: 0.92rem;
+  font-weight: 700;
   cursor: pointer;
   transition:
     background-color $transition,
-    box-shadow $transition,
-    transform $transition;
+    border-color $transition,
+    transform $transition,
+    box-shadow $transition;
 
   &:hover {
-    background-color: var(--color-sky-900);
-    box-shadow: v.$shadow-card;
+    background: rgb(224 242 254);
+    border-color: rgb(14 165 233 / 0.28);
+    box-shadow: v.$shadow-soft;
     transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 980px) {
+  .searchBoxRow {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .keywordField {
+    grid-column: 1 / -1;
+  }
+
+  .actionGroup {
+    grid-column: 1 / -1;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchBox {
+    padding: 0.85rem;
+    border-radius: 1.25rem;
+  }
+
+  .searchBoxRow {
+    grid-template-columns: 1fr;
   }
 }

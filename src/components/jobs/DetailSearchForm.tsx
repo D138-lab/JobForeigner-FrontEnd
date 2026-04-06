@@ -86,6 +86,7 @@ export default function DetailSearchForm({
   const [innerRegion, setInnerRegion] = useState<string>(region);
   const [innerEmploymentType, setInnerEmploymentType] =
     useState<string>(employmentType);
+  const categoryLabel = isForCompany ? '업종' : '고용형태';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,55 +96,66 @@ export default function DetailSearchForm({
   return (
     <form className={styles.searchBox} onSubmit={handleSubmit}>
       <div className={styles.searchBoxRow}>
-        <Input
-          value={innerValue}
-          icon='search'
-          placeholder={
-            isForCompany
-              ? t('companiesPage.searchPlaceholder')
-              : t('jobs.searchPlaceholder')
-          }
-          onChange={e => setInnerValue(e.currentTarget.value)}
-        />
-        <Select
-          name='region'
-          icon='map-pin'
-          options={selectRegionOptions.map(option => ({
-            ...option,
-            label: getRegionLabel(option.value, i18n.language),
-          }))}
-          value={innerRegion}
-          onChange={setInnerRegion}
-        />
-        {!isForCompany ? (
-          <Select
-            name='job'
-            icon='brief-case'
-            options={selectJobOptions.map(option => ({
-              ...option,
-              label: getEmploymentTypeLabel(option.value, i18n.language),
-            }))}
-            value={innerEmploymentType}
-            onChange={setInnerEmploymentType}
+        <div className={styles.keywordField}>
+          <Input
+            value={innerValue}
+            icon='search'
+            rounded
+            placeholder={
+              isForCompany
+                ? t('companiesPage.searchPlaceholder')
+                : t('jobs.searchPlaceholder')
+            }
+            onChange={e => setInnerValue(e.currentTarget.value)}
           />
-        ) : (
+        </div>
+        <div className={styles.selectField}>
           <Select
-            name='job'
-            icon='brief-case'
-            options={selectIndustryOptions.map(option => ({
+            name='region'
+            icon='map-pin'
+            rounded
+            options={selectRegionOptions.map(option => ({
               ...option,
-              label: getIndustryLabel(option.value, i18n.language),
+              label: getRegionLabel(option.value, i18n.language),
             }))}
-            value={innerEmploymentType}
-            onChange={setInnerEmploymentType}
+            value={innerRegion}
+            onChange={setInnerRegion}
           />
-        )}
-
-        <button type='submit' className={styles.searchButton}>
-          {isForCompany
-            ? t('companiesPage.searchButton')
-            : t('jobs.searchButton')}
-        </button>
+        </div>
+        <div className={styles.selectField}>
+          {!isForCompany ? (
+            <Select
+              name='job'
+              icon='brief-case'
+              rounded
+              options={selectJobOptions.map(option => ({
+                ...option,
+                label: getEmploymentTypeLabel(option.value, i18n.language),
+              }))}
+              value={innerEmploymentType}
+              onChange={setInnerEmploymentType}
+            />
+          ) : (
+            <Select
+              name='job'
+              icon='brief-case'
+              rounded
+              options={selectIndustryOptions.map(option => ({
+                ...option,
+                label: getIndustryLabel(option.value, i18n.language),
+              }))}
+              value={innerEmploymentType}
+              onChange={setInnerEmploymentType}
+            />
+          )}
+        </div>
+        <div className={styles.actionGroup}>
+          <button type='submit' className={styles.searchButton}>
+            {isForCompany
+              ? t('companiesPage.searchButton')
+              : t('jobs.searchButton')}
+          </button>
+        </div>
       </div>
     </form>
   );

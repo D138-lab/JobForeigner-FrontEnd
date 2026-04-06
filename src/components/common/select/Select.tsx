@@ -31,11 +31,22 @@ interface SelectProps {
   value?: string;
   name?: string;
   width?: string | number;
+  rounded?: boolean;
 }
 
 const Select = forwardRef<HTMLDivElement, SelectProps>(
   (
-    { icon, options, defaultValue, onChange, name, value, width, ...props },
+    {
+      icon,
+      options,
+      defaultValue,
+      onChange,
+      name,
+      value,
+      width,
+      rounded = false,
+      ...props
+    },
     ref,
   ) => {
     const { t } = useTranslation('common');
@@ -84,6 +95,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
             styles.customSelect,
             icon && styles.isIcon,
             isOpen && styles.isOpen,
+            rounded && styles.rounded,
           )}
           onClick={() => setIsOpen(prev => !prev)}
           style={{ width }}

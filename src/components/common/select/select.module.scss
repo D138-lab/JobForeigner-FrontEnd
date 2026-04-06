@@ -50,6 +50,10 @@
     padding-left: 40px;
   }
 
+  &.rounded {
+    border-radius: 999px;
+  }
+
   .arrow {
     width: 1rem;
     height: 1rem;
