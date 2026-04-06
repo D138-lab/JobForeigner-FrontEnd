@@ -213,6 +213,9 @@
     "searchPlaceholder": "Search by job title or company",
     "searchButton": "Search",
     "apply": "Apply",
+    "scrap": "Save Job",
+    "cancelScrap": "Remove Saved Job",
+    "viewCompanyInfo": "View Company Info",
     "publishedStatus": {
       "submitted": "Submitted",
       "published": "Published"

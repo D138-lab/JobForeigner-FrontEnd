@@ -213,6 +213,9 @@
     "searchPlaceholder": "공고 제목 또는 기업명 검색",
     "searchButton": "검색",
     "apply": "지원하기",
+    "scrap": "스크랩하기",
+    "cancelScrap": "스크랩 취소",
+    "viewCompanyInfo": "기업 정보 보러가기",
     "publishedStatus": {
       "submitted": "제출됨",
       "published": "게시됨"

@@ -213,6 +213,9 @@
     "searchPlaceholder": "Tìm theo tiêu đề công việc hoặc doanh nghiệp",
     "searchButton": "Tìm kiếm",
     "apply": "Ứng tuyển",
+    "scrap": "Lưu công việc",
+    "cancelScrap": "Bỏ lưu công việc",
+    "viewCompanyInfo": "Xem thông tin công ty",
     "publishedStatus": {
       "submitted": "Đã gửi",
       "published": "Đã đăng"

@@ -213,6 +213,9 @@
     "searchPlaceholder": "ค้นหาตามตำแหน่งงานหรือบริษัท",
     "searchButton": "ค้นหา",
     "apply": "สมัคร",
+    "scrap": "บันทึกงาน",
+    "cancelScrap": "ยกเลิกการบันทึกงาน",
+    "viewCompanyInfo": "ดูข้อมูลบริษัท",
     "publishedStatus": {
       "submitted": "ส่งแล้ว",
       "published": "เผยแพร่แล้ว"

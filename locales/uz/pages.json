@@ -213,6 +213,9 @@
     "searchPlaceholder": "Ish nomi yoki kompaniya bo'yicha qidirish",
     "searchButton": "Qidirish",
     "apply": "Ariza berish",
+    "scrap": "Ishni saqlash",
+    "cancelScrap": "Saqlangan ishni olib tashlash",
+    "viewCompanyInfo": "Kompaniya ma'lumotini ko'rish",
     "publishedStatus": {
       "submitted": "Yuborildi",
       "published": "E'lon qilindi"

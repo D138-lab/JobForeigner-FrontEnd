@@ -213,6 +213,9 @@
     "searchPlaceholder": "按职位或公司搜索",
     "searchButton": "搜索",
     "apply": "申请",
+    "scrap": "保存职位",
+    "cancelScrap": "取消保存职位",
+    "viewCompanyInfo": "查看公司信息",
     "publishedStatus": {
       "submitted": "已提交",
       "published": "已发布"

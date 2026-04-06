@@ -130,7 +130,7 @@ const DetailInfoBox = ({
           size='medium'
           onClick={() => navigate(`/companies/${companyId}`)}
         >
-          기업 정보 보러가기
+          {t('jobs.viewCompanyInfo')}
         </Button>
       </div>
     </div>

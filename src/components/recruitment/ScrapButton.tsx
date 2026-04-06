@@ -1,8 +1,10 @@
 import Button from '../common/button/Button';
 import usePostToggleScarp from '@/lib/apis/mutations/usePostToggleScrap';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ScrapButton = ({ id, initial }: { id: number; initial: boolean }) => {
+  const { t } = useTranslation('pages');
   const [scrapped, setScrapped] = useState(initial);
   const { mutate, isPending } = usePostToggleScarp();
 
@@ -22,7 +24,7 @@ const ScrapButton = ({ id, initial }: { id: number; initial: boolean }) => {
         minWidth: 180,
       }}
     >
-      {scrapped ? '스크랩 취소' : '스크랩하기'}
+      {scrapped ? t('jobs.cancelScrap') : t('jobs.scrap')}
     </Button>
   );
 };

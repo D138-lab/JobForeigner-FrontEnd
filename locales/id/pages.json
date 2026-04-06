@@ -213,6 +213,9 @@
     "searchPlaceholder": "Cari berdasarkan judul pekerjaan atau perusahaan",
     "searchButton": "Cari",
     "apply": "Lamar",
+    "scrap": "Simpan lowongan",
+    "cancelScrap": "Hapus lowongan tersimpan",
+    "viewCompanyInfo": "Lihat info perusahaan",
     "publishedStatus": {
       "submitted": "Terkirim",
       "published": "Dipublikasikan"

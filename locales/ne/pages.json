@@ -213,6 +213,9 @@
     "searchPlaceholder": "जागिर शीर्षक वा कम्पनीद्वारा खोज्नुहोस्",
     "searchButton": "खोज्नुहोस्",
     "apply": "आवेदन गर्नुहोस्",
+    "scrap": "जागिर सेभ गर्नुहोस्",
+    "cancelScrap": "सेभ गरिएको जागिर हटाउनुहोस्",
+    "viewCompanyInfo": "कम्पनी जानकारी हेर्नुहोस्",
     "publishedStatus": {
       "submitted": "पेश गरियो",
       "published": "प्रकाशित भयो"
