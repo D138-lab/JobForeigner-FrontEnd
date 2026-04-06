@@ -36,6 +36,7 @@ export interface JobPostDto {
   title: string;
   location: string;
   employmentType: string;
+  salary?: string;
   career: string;
   expiryAt: Date;
 }
