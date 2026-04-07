@@ -1,6 +1,13 @@
 import { AxiosError } from 'axios';
 import { CustomOverlayMap, Map } from 'react-kakao-maps-sdk';
-import { LocateFixed, Minus, Plus, Search } from 'lucide-react';
+import {
+  ArrowUpRight,
+  LocateFixed,
+  MapPin,
+  Minus,
+  Plus,
+  Search,
+} from 'lucide-react';
 import useDeleteFavoritePlace from '@/lib/apis/mutations/useDeleteFavoritePlace';
 import usePostFavoritePlace from '@/lib/apis/mutations/usePostFavoritePlace';
 import useGetPlaces, {
@@ -230,6 +237,7 @@ export default function NearbyPlaces() {
 
   const zoomIn = () => setMapLevel(prev => Math.max(1, prev - 1));
   const zoomOut = () => setMapLevel(prev => Math.min(14, prev + 1));
+  const listCount = filteredPlaces.length;
 
   return (
     <div className={styles.container}>
@@ -345,35 +353,19 @@ export default function NearbyPlaces() {
         </section>
 
         <aside className={styles.listArea}>
-          <h2 className={styles.listTitle}>
-            {t('nearbyPlaces.listTitle')}
-            <span className={styles.favoriteCount}>
-              {t('nearbyPlaces.favoriteCount', { count: favoritePlaceIdSet.size })}
-            </span>
-          </h2>
+          <div className={styles.listHeader}>
+            <h2 className={styles.listTitle}>{t('nearbyPlaces.listTitle')}</h2>
+            <div className={styles.listMeta}>
+              <span className={styles.resultCount}>{listCount}</span>
+              <span className={styles.favoriteCount}>
+                {t('nearbyPlaces.favoriteCount', { count: favoritePlaceIdSet.size })}
+              </span>
+            </div>
+          </div>
           {isLoading ? (
             <div className={styles.emptyItem}>{t('nearbyPlaces.loadingPlaces')}</div>
           ) : isError ? (
             <div className={styles.emptyItem}>{t('nearbyPlaces.errors.searchFail')}</div>
-          ) : selectedPlace ? (
-            <div className={styles.detailCard}>
-              <h3>{selectedPlace.name}</h3>
-              <p>
-                {selectedPlace.subCategory || t('nearbyPlaces.detailNoSubCategory')}
-              </p>
-              <div>{selectedPlace.displayAddress}</div>
-              <button
-                type='button'
-                className={styles.favoriteActionButton}
-                onClick={event => handleFavoritePlace(event, selectedPlace.id)}
-                disabled={isFavoritePending}
-              >
-                {favoritePlaceIdSet.has(selectedPlace.id)
-                  ? t('nearbyPlaces.favoriteUnset')
-                  : t('nearbyPlaces.favoriteSet')}
-              </button>
-              <div>{t('nearbyPlaces.tipCount', { count: selectedPlace.tipCount })}</div>
-            </div>
           ) : null}
           <ul className={styles.placeList}>
             {filteredPlaces.map(place => (
@@ -384,8 +376,8 @@ export default function NearbyPlaces() {
                 }`}
                 onClick={() => handleSelectPlace(place.id)}
               >
-                <strong>
-                  {place.name}
+                <div className={styles.placeItemHeader}>
+                  <strong>{place.name}</strong>
                   <button
                     type='button'
                     className={styles.favoriteMark}
@@ -395,9 +387,27 @@ export default function NearbyPlaces() {
                   >
                     {favoritePlaceIdSet.has(place.id) ? '★' : '☆'}
                   </button>
-                </strong>
-                <div>{t(`nearbyPlaces.categories.${place.category}`)}</div>
-                <div>{place.displayAddress}</div>
+                </div>
+                <div className={styles.placeCategoryRow}>
+                  <span className={styles.placeCategory}>
+                    {t(`nearbyPlaces.categories.${place.category}`)}
+                  </span>
+                  {place.subCategory ? (
+                    <span className={styles.placeSubCategory}>{place.subCategory}</span>
+                  ) : null}
+                </div>
+                <div className={styles.placeAddress}>
+                  <MapPin size={14} />
+                  <span>{place.displayAddress}</span>
+                </div>
+                <div className={styles.placeItemFooter}>
+                  <span className={styles.tipBadge}>
+                    {t('nearbyPlaces.tipCount', { count: place.tipCount })}
+                  </span>
+                  <span className={styles.detailLink} aria-hidden='true'>
+                    <ArrowUpRight size={14} />
+                  </span>
+                </div>
               </li>
             ))}
             {filteredPlaces.length === 0 && (
